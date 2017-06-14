@@ -9,6 +9,7 @@ Outline of the thesis:
 \item LHC \& Experiments
   \begin{itemize}
   \item Discoveries / Measurements
+
   \item Past: Run-I, Present: Run-II, Future: HL-LHC \& Challenges
   \end{itemize}
 
@@ -30,8 +31,10 @@ Outline of the thesis:
 \item The Standard Model
   \begin{itemize}
   \item Features \& Successes
+
   \item Challenges (neutrino masses, dark matter, matter-antimatter asymmetry,
     gravitation, number of parameters, hierarchy problem, \ldots)
+
   \item Beyond the Standard Model (SUSY -- preferred coupling to down-type
     fermions for large $\tan\beta$ \textrightarrow $\tau$-leptons)
   \end{itemize}
@@ -44,52 +47,81 @@ Outline of the thesis:
 \item Strong Interaction
 \begin{itemize}
 \item ?
+\item Confinement \& Hadronization
+\item Quark \& Gluon initiated jets
 \end{itemize}
 
 \item $\tau$-Leptons
 \begin{itemize}
 \item Discovery
+
 \item Properties (mass \textrightarrow lep \& had, mean life time
   \textrightarrow no direct detection)
+
+\item Hadronically Decaying $\tau$-Leptons
+  \begin{itemize}
+  \item Feynman Diagram, Decay Modes (interm. resonances) \& Branching Ratios
+  \item Detector signature ($\pi^0$ ($\gamma \gamma$ / $\mathrm{e}^+
+    \mathrm{e}^- \gamma$), $\pi^\pm$ ($\mathrm{K}^\pm$), $\nu_\tau$)
+  \item Jets faking taus
+  \item
+  \end{itemize}
+
 \item $\tau$ Physics
   \begin{itemize}
   \item $\mathrm{Z} \rightarrow \tau \tau$ (background for H$\tau \tau$ and
     useful for performance measurements using tag-and-probe -- semileptonic
     decays)
+
   \item $\mathrm{H} \rightarrow \tau \tau$ (one of two channels to measure
     the fermionic coupling -- $b \bar{b}$ plagued by multijet background,
-    HiggsCPs)
+    HiggsCP)
+
   \item MSSM Higgs (potentially high branching fraction to $\tau$-leptons)
+
   \item $\mathrm{Z}^\prime$ could preferentially decay into third-generation
     fermions (lepton universality not required).
+
   \item $\mathrm{W}^\prime$ models with preferential coupling to third-gen.
   \end{itemize}
-
 \end{itemize}
-
 
 \end{itemize}
 
 \section{ATLAS Experiment and the LHC}
 
 \begin{itemize}
-\item LHC
+\item LHC (brief)
 
 \item ATLAS
   \begin{itemize}
-  \item Overview
-  \item Inner detector
+  \item Overview (Design goals) \\
+    brief: Beam Line, Inner Detector \& Solenoid, Calorimeter, Muon System \&
+    Toroid, Trigger
+
+  \item Nomenclature (Coordinate system, Pseudorapidity, $\Delta R$)
+
+  \item Inner detector / Tracker
+    \begin{itemize}
+    \item Pixel, IBL
+    \item SCT
+    \item TRT
+    \item  Transverse Momentum Resolution, Vertex \& Secondary Vertex
+      reconstruction, Impact Parameter Resolution, $\eta$-Coverage
+    \end{itemize}
+
   \item Calorimeter
+    \begin{itemize}
+    \item Presampler, LAr (EM1 - EM3), Had (Tile, LAr)
+    \item $\eta$-Coverage, Thickness $X_0$ / $\lambda$, Energy Resolution
+      vs. $E$
+    \item Topoclusters \& Cluster moments
+    \end{itemize}
+
   \end{itemize}
 \end{itemize}
 
-\section{Hadronically Decaying $\tau$-Leptons}
-
-\begin{itemize}
-\item
-\end{itemize}
-
-\section{Machine Learning (?)}
+\section{Machine Learning (worthy of a chapter?)}
 
 \begin{itemize}
 \item Own chapter describing the machine learning methods used or include into
@@ -98,29 +130,82 @@ Outline of the thesis:
   one for the RNN studies [longer]).
 
 \item Boosted Decision Trees
+  \begin{itemize}
+  \item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
+  \item Node splitting: Gini Index
+  \item Hyperparameters: $N_\mathrm{Trees}$, $d_\mathrm{Tree}$,
+  \end{itemize}
 
 \item Neural Networks
   \begin{itemize}
-  \item Basics
-  \item Recurrent Neural Networks
-  \item Long Short-Term Memory \cite{lstm}
+  \item Basics -- focussed on forward pass (Densely connected layers, Activation)
+  \item Training -- Weight initialization, Loss functions, Minibatch Gradient
+    Descent, Cross-Validation (training, validation, test split)
+  \item Recurrent Neural Networks (RNN Equations, Vanishing Gradient Problem,
+    Physics Motivation)
+  \item Long Short-Term Memory \cite{lstm} (LSTM Equations)
+  \item Technical setup (Keras, theano)
   \end{itemize}
+\end{itemize}
 
+\section{Reconstruction of Hadronically Decaying $\tau$-Leptons at ATLAS}
+
+\begin{itemize}
+\item anti-$k_\mathrm{t}$ Jets $R = 0.4$
+\item Track Selection \& TJVA
+\item MVA tracking
+\item Energy \& Calibration
+\item Tau-ID (does not fit in here)
+\item Substructure Reconstruction (Decay Mode Classification)
 \end{itemize}
 
 \section{Identification of Hadronically Decaying $\tau$-Leptons}
 
 \begin{itemize}
-\item
+\item Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon
+  initiated jets
+
+\item Samples
+  \begin{itemize}
+  \item Gammatautau, Dijet JZ1W - JZ6W
+  \item Reweighting
+  \end{itemize}
+
+\item BDT-based Studies
+  \begin{itemize}
+  \item Previous setup (incl. explanation \& plots of input variables)
+  \item Hyperparameter optimization
+    \begin{itemize}
+    \item AdaBoost \textrightarrow GradBoost
+    \item Grid Search
+    \end{itemize}
+  \item Variable correlations, importance \& dependence with $p_\mathrm{T}$
+  \item Working points (Gammatautau -- Ztautau)
+  \item Performance on simulated data
+  \item Impact of Quark / Gluon initiated jets on Tau-ID
+  \end{itemize}
+
+\item Neural Network-based Studies
+  \begin{itemize}
+  \item MLP Tau-ID
+  \item Track-RNN
+  \item Cluster-RNN \& Potential rate-reduction at HLT
+  \item Combined-RNN
+  \end{itemize}
+
 \end{itemize}
 
 \section{Decay Mode Classification for Hadronically Decaying}
 
 \begin{itemize}
+\item Signature of the decay modes
 \item
+\item RNN
+  \begin{itemize}
+  \item Only PFOs
+  \item pPFOs + Extras
+  \end{itemize}
 \end{itemize}
-
-
 
 \section{Conclusion}
 
