@@ -88,6 +88,33 @@ Outline of the thesis:
 
 \end{itemize}
 
+\section{Machine Learning (worthy of own chapter?)}
+
+\begin{itemize}
+\item Own chapter describing the machine learning methods used or include into
+  \textit{Theoretical Background}? Alternatively include theory section where
+  needed (e.g. have one for the BDT-based studies explaining BDTs [short] and
+  one for the RNN studies [longer]).
+
+\item Boosted Decision Trees
+  \begin{itemize}
+  \item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
+  \item Node splitting: Gini Index
+  \item Hyperparameters: $N_\mathrm{Trees}$, $d_\mathrm{Tree}$,
+  \end{itemize}
+
+\item Neural Networks
+  \begin{itemize}
+  \item Basics -- focussed on forward pass (Densely connected layers, Activation)
+  \item Training -- Weight initialization, Loss functions, Minibatch Gradient
+    Descent, Cross-Validation (training, validation, test split)
+  \item Recurrent Neural Networks (RNN Equations, Vanishing Gradient Problem,
+    Physics Motivation)
+  \item Long Short-Term Memory \cite{lstm} (LSTM Equations)
+  \item Technical setup (Keras, theano)
+  \end{itemize}
+\end{itemize}
+
 \section{ATLAS Experiment and the LHC}
 
 \begin{itemize}
@@ -121,33 +148,6 @@ Outline of the thesis:
   \end{itemize}
 \end{itemize}
 
-\section{Machine Learning (worthy of a chapter?)}
-
-\begin{itemize}
-\item Own chapter describing the machine learning methods used or include into
-  \textit{Theoretical Background}? Alternatively include theory section where
-  needed (e.g. have one for the BDT-based studies explaining BDTs [short] and
-  one for the RNN studies [longer]).
-
-\item Boosted Decision Trees
-  \begin{itemize}
-  \item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
-  \item Node splitting: Gini Index
-  \item Hyperparameters: $N_\mathrm{Trees}$, $d_\mathrm{Tree}$,
-  \end{itemize}
-
-\item Neural Networks
-  \begin{itemize}
-  \item Basics -- focussed on forward pass (Densely connected layers, Activation)
-  \item Training -- Weight initialization, Loss functions, Minibatch Gradient
-    Descent, Cross-Validation (training, validation, test split)
-  \item Recurrent Neural Networks (RNN Equations, Vanishing Gradient Problem,
-    Physics Motivation)
-  \item Long Short-Term Memory \cite{lstm} (LSTM Equations)
-  \item Technical setup (Keras, theano)
-  \end{itemize}
-\end{itemize}
-
 \section{Reconstruction of Hadronically Decaying $\tau$-Leptons at ATLAS}
 
 \begin{itemize}
@@ -159,7 +159,7 @@ Outline of the thesis:
 \item Substructure Reconstruction (Decay Mode Classification)
 \end{itemize}
 
-\section{Identification of Hadronically Decaying $\tau$-Leptons (two chapters?)}
+\section{Identification of Hadronically Decaying $\tau$-Leptons (BDT part)}
 
 \begin{itemize}
 \item Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon
@@ -167,7 +167,7 @@ Outline of the thesis:
 
 \item Samples
   \begin{itemize}
-  \item Gammatautau, Dijet JZ1W - JZ6W
+  \item Gammatautau (Polarization), Dijet JZ1W - JZ6W
   \item Reweighting
   \item Baseline selection ($\eta$, $p_\mathrm{T}$, truth-matching)
   \end{itemize}
@@ -179,30 +179,44 @@ Outline of the thesis:
     \begin{itemize}
     \item AdaBoost \textrightarrow GradBoost
     \item Grid Search
+    \item XGBoost (?)
     \end{itemize}
-  \item Variable correlations, importance \& dependence with $p_\mathrm{T}$,
-    Variable Transformations (instead of cutting out outliers), Partial
-    Dependence
+  \item Variable correlations, importance (dropped variables) \& dependence with
+    $p_\mathrm{T}$ (2D Hist), Variable Transformations (instead of cutting out
+    outliers), Partial Dependence
   \item Working points (Gammatautau -- Ztautau)
   \item Performance on simulated data
   \item Impact of Quark / Gluon initiated jets on Tau-ID
   \end{itemize}
 
+\end{itemize}
+
+\section{Identification of Hadronically Decaying $\tau$-Leptons (NN-part)}
+
+\begin{itemize}
 \item Neural Network-based Studies
   \begin{itemize}
   \item MLP Tau-ID
   \item Track-RNN
+    \begin{itemize}
+    \item Architecture
+    \item Input variables \& correlation with true class labels
+    \item Validation loss vs. number of tracks
+    \end{itemize}
   \item Cluster-RNN \& Potential rate-reduction at HLT
+    \begin{itemize}
+    \item Validation loss vs. number of clusters
+    \item Input variables \& correlation with true class labels
+    \end{itemize}
   \item Combined-RNN
   \end{itemize}
-
 \end{itemize}
 
 \section{Decay Mode Classification for Hadronically Decaying}
 
 \begin{itemize}
 \item Signature of the decay modes
-\item
+\item Explain PFO
 \item RNN
   \begin{itemize}
   \item Only PFOs

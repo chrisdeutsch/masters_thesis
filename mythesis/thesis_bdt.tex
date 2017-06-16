@@ -2,14 +2,54 @@
 \label{sec:bdt}
 
 \begin{itemize}
+\item Description \& Plots of the input variables
+  \begin{itemize}
+  \item How does etOverPtLeadTrk differ from EMPOverTrkSysP for 1-prong taus?
+  \end{itemize}
+
+\item Preselection
+  \begin{itemize}
+  \item $p_\mathrm{T} > \SI{20}{\GeV}$ (reconstructed \& truth)
+  \item $| \eta | < 2.5$ (reconstructed \& truth)
+  \item $| \eta | \notin \left[ 1.37, 1.52 \right]$ (reconstructed \& truth)
+  \item truth-matched taus
+  \end{itemize}
+
 \item Train baseline for comparison (with default outlier removal)
+  \begin{itemize}
+  \item NTrees 100 (explain)
+  \item MinNodeSize 0.1 (explain)
+  \item BoostType AdaBoost (explain)
+  \item SeparationType GiniIndex (explain)
+  \item PruneMethod NoPruning
+  \item UseYesNoLeaf False (explain)
+  \item AdaBoostBeta 0.2 (explain)
+  \item DoBoostMonitor True
+  \item nCuts 200 (explain)
+  \item MaxDepth 8 (explain)
+  \end{itemize}
 
 \item Switch from AdaBoost to GradBoost (Explain why we don't do a full
   optimization of the AdaBoost vs GradBoost setup)
 
 \item Variable transformations
+  \begin{align}
+    &\text{SumPtTrkFrac:} &\log(x + 10^{-4}) \\
+    &\text{absipSigLeadTrk:} &\min(x, 30) \\
+    &\text{mEflowApprox:} &\log(x) \\
+    &\text{centFrac:} &\min(x, 1) \\
+    &\text{innerTrkAvgDist:} &- \\
+    &\text{ptRatioEflowApprox:} &\min(x, 4) \\
+    &\text{EMPOverTrkSysP:} &\log(\max(10^{-3}, x)) \\
+    &\text{etOverPtLeadTrk:} &\log(\max(0.1, x)) \\
+    &\text{ChPiEMEOverCaloEME:} &\max(-4, \min(x, 5)) \\
+    &\text{trFlightPathSig:} &\log(\max(0.01, x)) \\
+    &\text{massTrkSys:} &\log(x) \\
+    &\text{dRmax:} &-
+  \end{align}
 
-\item BDT optimization for R21 (Total 480 BDTs)
+\item BDT optimization for R21 (Total 480 BDTs) -- If enough time try 50\%
+  bagging
   \begin{itemize}
   \item[NTrees] 25, 50, 100, 200, 400, 800
   \item[Depth] 4, 6, 8, 12, 18
@@ -18,13 +58,17 @@
   \end{itemize}
 
 
-\item Variable importance
+\item Variable importance (Google: Variable Importance Measures)
   \begin{itemize}
   \item Drop-one test
   \item Partial dependence (can we use a two way partial dependence plot to
     show interaction of pt and another variable?)
     \url{http://scikit-learn.org/stable/modules/ensemble.html#interpretation}
   \end{itemize}
+
+\item $p_\mathrm{T}$-dependency 2D histograms of (centFrac / innerTrkAvgDist --
+  worse \& SumPtTrkFrac -- should get better) (Plot 'variable separation' vs.
+  pt)
 
 \item Performance on gluon / quark initiated jets
 
