@@ -65,7 +65,6 @@ Outline of the thesis:
   \item Detector signature ($\pi^0$ ($\gamma \gamma$ / $\mathrm{e}^+
     \mathrm{e}^- \gamma$), $\pi^\pm$ ($\mathrm{K}^\pm$), $\nu_\tau$)
   \item Jets faking taus
-  \item
   \end{itemize}
 
 \item $\tau$ Physics
@@ -141,8 +140,8 @@ Outline of the thesis:
   \item Calorimeter
     \begin{itemize}
     \item Presampler, LAr (EM1 - EM3), Had (Tile, LAr)
-    \item $\eta$-Coverage, Thickness $X_0$ / $\lambda$, Energy Resolution
-      vs. $E$
+    \item Cell sizes, $\eta$-Coverage, Thickness $X_0$ / $\lambda$,
+      Energy Resolution vs. $E$
     \item Topoclusters \& Cluster moments
     \end{itemize}
 
@@ -154,7 +153,7 @@ Outline of the thesis:
 \begin{itemize}
 \item anti-$k_\mathrm{t}$ Jets $R = 0.4$
 \item Track Selection \& TJVA
-\item MVA tracking
+\item MVA tracking (Dijet rejection due to \texttt{nTrack} requirement)
 \item Energy \& Calibration
 \item Tau-ID (does not fit in here)
 \item Substructure Reconstruction (Decay Mode Classification)
@@ -183,8 +182,8 @@ Outline of the thesis:
     \item XGBoost (?)
     \end{itemize}
   \item Variable correlations, importance (dropped variables) \& dependence with
-    $p_\mathrm{T}$ (2D Hist), Variable Transformations (instead of cutting out
-    outliers), Partial Dependence
+    $p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
+    of cutting out outliers), Partial Dependence
   \item Working points (Gammatautau -- Ztautau)
   \item Performance on simulated data
   \item Impact of Quark / Gluon initiated jets on Tau-ID
@@ -197,17 +196,18 @@ Outline of the thesis:
 \begin{itemize}
 \item Neural Network-based Studies
   \begin{itemize}
-  \item MLP Tau-ID
+  \item MLP Tau-ID (only densely connected layers)
   \item Track-RNN
     \begin{itemize}
     \item Architecture
-    \item Input variables \& correlation with true class labels
+    \item Input variables \& correlation with true (or predicted?) class labels
     \item Validation loss vs. number of tracks
     \end{itemize}
-  \item Cluster-RNN \& Potential rate-reduction at HLT
+  \item Cluster-RNN
     \begin{itemize}
     \item Validation loss vs. number of clusters
     \item Input variables \& correlation with true class labels
+    \item  Potential method for rate-reduction at HLT
     \end{itemize}
   \item Combined-RNN
   \end{itemize}
@@ -235,6 +235,9 @@ Outline of the thesis:
 
 \begin{itemize}
 \item MC Samples (Preprod, MC16A)
+\item BDT ID studies \texttt{bdt\_tauid}
+\item RNN ID studies \texttt{rnn\_tauid}
+\item RNN Decay Mode studies \texttt{rnn\_decay\_mode\_classif}
 \end{itemize}
 
 %%% Local Variables:
