@@ -63,7 +63,8 @@ Outline of the thesis:
   \begin{itemize}
   \item Feynman Diagram, Decay Modes (interm. resonances) \& Branching Ratios
   \item Detector signature ($\pi^0$ ($\gamma \gamma$ / $\mathrm{e}^+
-    \mathrm{e}^- \gamma$), $\pi^\pm$ ($\mathrm{K}^\pm$), $\nu_\tau$)
+    \mathrm{e}^- \gamma$), $\pi^\pm$ ($\mathrm{K}^\pm$), $\nu_\tau$,
+    conversions)
   \item Jets faking taus
   \end{itemize}
 
@@ -88,7 +89,7 @@ Outline of the thesis:
 
 \end{itemize}
 
-\section{Machine Learning (worthy of own chapter?)}
+\section{Machine Learning / MVA (worthy of own chapter?)}
 
 \begin{itemize}
 \item Own chapter describing the machine learning methods used or include into
@@ -151,12 +152,26 @@ Outline of the thesis:
 \section{Reconstruction of Hadronically Decaying $\tau$-Leptons at ATLAS}
 
 \begin{itemize}
-\item anti-$k_\mathrm{t}$ Jets $R = 0.4$
-\item Track Selection \& TJVA
-\item MVA tracking (Dijet rejection due to \texttt{nTrack} requirement)
-\item Energy \& Calibration
-\item Tau-ID (does not fit in here)
-\item Substructure Reconstruction (Decay Mode Classification)
+\item Building jet seed from AntiKt4LCTopoJets ($p_\mathrm{T} > \SI{10}{GeV}$)
+
+\item Vertex finding \& TJVA (Track Selection $\Delta R < 0.2$ \& PixHits /
+  SiHits requirement, Jet Vertex Fraction)
+
+\item Energy \& axis calculation (clusters within $\Delta R < 0.2$ w.r.t.
+  barycentre associated with tau [ptDetectorAxis], correct axis for vertex
+  position [ptIntermediateAxis])
+
+\item Track selection \& track classification (MVA tracking TT/CT/IT/FT, sets
+  charge/prongness, modifiedIsolationTracks, Multijet rejection from
+  \texttt{nTrack} requirement)
+
+\item Energy Calibration: LC \textrightarrow TES (Separately for 1-prong and
+  multi-prong: subtract PU energy using $N_\mathrm{PV}$ / $\mu$, apply
+  calibration factor depending on $|\eta|$ \& $E_\mathrm{LC} - E_\mathrm{PU}$
+
+\item Tau-ID (?)
+
+\item Substructure Reconstruction (?)
 \end{itemize}
 
 \section{Identification of Hadronically Decaying $\tau$-Leptons (BDT part)}
@@ -167,7 +182,7 @@ Outline of the thesis:
 
 \item Samples
   \begin{itemize}
-  \item Gammatautau (Polarization), Dijet JZ1W - JZ6W
+  \item Gammatautau (Polarisation), Dijet JZ1W - JZ6W
   \item Reweighting
   \item Baseline selection ($\eta$, $p_\mathrm{T}$, truth-matching)
   \end{itemize}
@@ -175,7 +190,8 @@ Outline of the thesis:
 \item BDT-based Studies
   \begin{itemize}
   \item Previous setup (incl. explanation \& plots of input variables)
-  \item Hyperparameter optimization
+  \item Working points (Gammatautau -- Ztautau)
+  \item Hyperparameter optimisation
     \begin{itemize}
     \item AdaBoost \textrightarrow GradBoost
     \item Grid Search
@@ -183,12 +199,13 @@ Outline of the thesis:
     \end{itemize}
   \item Variable correlations, importance (dropped variables) \& dependence with
     $p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
-    of cutting out outliers), Partial Dependence
-  \item Working points (Gammatautau -- Ztautau)
-  \item Performance on simulated data
-  \item Impact of Quark / Gluon initiated jets on Tau-ID
+    of cutting out outliers), Partial Dependence, Including $p_\mathrm{T}$
+  \item Performance on simulation
+  \item Impact of Quark / Gluon initiated jets on Tau-ID (i.e. performance of ID
+    on Quark / Gluon jets)
+  \item Impact on (reconstructed) decay modes
+  \item Performance on TAUP4 (?)
   \end{itemize}
-
 \end{itemize}
 
 \section{Identification of Hadronically Decaying $\tau$-Leptons (NN-part)}
@@ -197,38 +214,54 @@ Outline of the thesis:
 \item Neural Network-based Studies
   \begin{itemize}
   \item MLP Tau-ID (only densely connected layers)
+    \begin{itemize}
+    \item Comparison with BDT-based ID
+    \item Scaling with more data
+    \end{itemize}
   \item Track-RNN
     \begin{itemize}
+    \item Motivation (i.e. \texttt{SumPtTrkFrac} \& MVA-tracking)
     \item Architecture
-    \item Input variables \& correlation with true (or predicted?) class labels
+    \item Input variables \& correlation with true (or predicted?) class labels.
+      Partial dependence plots? Variable importance?
     \item Validation loss vs. number of tracks
+    \item Standalone performance vs. BDT-based ID
     \end{itemize}
   \item Cluster-RNN
     \begin{itemize}
+    \item Input variables \& correlation with true class labels. Partial
+      dependence plots?
     \item Validation loss vs. number of clusters
-    \item Input variables \& correlation with true class labels
-    \item  Potential method for rate-reduction at HLT
+    \item Potential method for rate-reduction at HLT
     \end{itemize}
   \item Combined-RNN
+    \begin{itemize}
+    \item Architecture
+    \item Performance w.r.t. BDT-ID
+    \end{itemize}
   \end{itemize}
 \end{itemize}
 
-\section{Decay Mode Classification for Hadronically Decaying}
+\section{Decay Mode Classification of Hadronically Decaying $\tau$-Leptons}
 
 \begin{itemize}
 \item Signature of the decay modes
-\item Explain PFO
+\item Tau Particle Flow
 \item RNN
   \begin{itemize}
   \item Only PFOs
-  \item PFOs + Extras
+  \item PFOs + Cluster-Moments + Conversion Tracks + Shots
+  \item Class probabilities, Migration matrices (row + col. norm),
+    Efficiency/Purity profiles
+  \item Improvements for Higgs CP measurement in
+    $H \rightarrow \tau\tau \rightarrow \rho \rho 2\nu$
   \end{itemize}
 \end{itemize}
 
 \section{Conclusion}
 
 \begin{itemize}
-\item
+\item -
 \end{itemize}
 
 \section{Appendix}
