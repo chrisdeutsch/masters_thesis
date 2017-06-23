@@ -6,6 +6,9 @@ Outline of the thesis:
 
 \section{Introduction}
 
+Focus more on whats the content of this thesis. (Should give a good overview of
+whats going on if only Introduction \& Conclusion is read by the reader)
+
 \begin{itemize}
 \item LHC \& Experiments
   \begin{itemize}
@@ -17,7 +20,7 @@ Outline of the thesis:
 \item $\tau$-Leptons
   \begin{itemize}
   \item Importance (Fermionic coupling of Higgs, Higgs CP, Exotics $Z^\prime$,
-    $W^\prime$, Heavy Higgs, SUSY)
+    $W^\prime$, Heavy Higgs / SUSY)
   \item $\tau$-decay (hadronic branching fraction, decay modes)
   \item Jets faking taus (necessity of identification algorithms)
   \item Classification of $\tau$ decay modes (motivation)
@@ -42,12 +45,12 @@ Outline of the thesis:
 
 \item Weak Interaction
 \begin{itemize}
-\item ?
+\item Can be kept very short. Only whats necessary to understand Tau-ID
 \end{itemize}
 
 \item Strong Interaction
 \begin{itemize}
-\item ?
+\item Can be kept very short. Only whats necessary to understand Tau-ID
 \item Confinement \& Hadronization
 \item Quark \& Gluon initiated jets
 \end{itemize}
@@ -62,6 +65,8 @@ Outline of the thesis:
 \item Hadronically Decaying $\tau$-Leptons
   \begin{itemize}
   \item Feynman Diagram, Decay Modes (interm. resonances) \& Branching Ratios
+    (pie chart like in: \url{https://www.lhc-ilc.physik.uni-bonn.de/ergebnisse/dateien/t00000078.pdf?c=t&id=78}
+    on p.\ 25)
   \item Detector signature ($\pi^0$ ($\gamma \gamma$ / $\mathrm{e}^+
     \mathrm{e}^- \gamma$), $\pi^\pm$ ($\mathrm{K}^\pm$), $\nu_\tau$,
     conversions)
@@ -84,12 +89,15 @@ Outline of the thesis:
     fermions (lepton universality not required).
 
   \item $\mathrm{W}^\prime$ models with preferential coupling to third-gen.
+
+  \item SUSY with $\tau$ \textrightarrow long decay chains
   \end{itemize}
 \end{itemize}
-
 \end{itemize}
 
 \section{Machine Learning / MVA (worthy of own chapter?)}
+
+This chapter would make sense (Jochen / Will).
 
 \begin{itemize}
 \item Own chapter describing the machine learning methods used or include into
@@ -127,9 +135,10 @@ Outline of the thesis:
     brief: Beam Line, Inner Detector \& Solenoid, Calorimeter, Muon System \&
     Toroid, Trigger
 
-  \item Nomenclature (Coordinate system, Pseudorapidity, $\Delta R$)
+  \item Nomenclature (Coordinate system, Pseudorapidity, $\Delta R$,
+    $p_\mathrm{T}$)
 
-  \item Inner detector / Tracker
+  \item Inner detector / Tracker (and why they are important for taus)
     \begin{itemize}
     \item Pixel, IBL
     \item SCT
@@ -138,7 +147,7 @@ Outline of the thesis:
       reconstruction, Impact Parameter Resolution, $\eta$-Coverage
     \end{itemize}
 
-  \item Calorimeter
+  \item Calorimeter (and why they are important for taus)
     \begin{itemize}
     \item Presampler, LAr (EM1 - EM3), Had (Tile, LAr)
     \item Cell sizes, $\eta$-Coverage, Thickness $X_0$ / $\lambda$,
@@ -169,7 +178,7 @@ Outline of the thesis:
   multi-prong: subtract PU energy using $N_\mathrm{PV}$ / $\mu$, apply
   calibration factor depending on $|\eta|$ \& $E_\mathrm{LC} - E_\mathrm{PU}$
 
-\item Tau-ID (?)
+\item Tau-ID (Could be moved to next chapter?)
 
 \item Substructure Reconstruction (?)
 \end{itemize}
@@ -203,7 +212,7 @@ Outline of the thesis:
   \item Performance on simulation
   \item Impact of Quark / Gluon initiated jets on Tau-ID (i.e. performance of ID
     on Quark / Gluon jets)
-  \item Impact on (reconstructed) decay modes
+  \item Impact on (reconstructed) decay modes (?)
   \item Performance on TAUP4 (?)
   \end{itemize}
 \end{itemize}
@@ -232,6 +241,7 @@ Outline of the thesis:
     \item Input variables \& correlation with true class labels. Partial
       dependence plots?
     \item Validation loss vs. number of clusters
+    \item Standalone performance
     \item Potential method for rate-reduction at HLT
     \end{itemize}
   \item Combined-RNN
@@ -245,8 +255,9 @@ Outline of the thesis:
 \section{Decay Mode Classification of Hadronically Decaying $\tau$-Leptons}
 
 \begin{itemize}
-\item Signature of the decay modes
-\item Tau Particle Flow
+\item Signature of the decay modes (Could be moved to \textit{Theoretical
+    Background})
+\item Tau Particle Flow \& Currently used decay mode reconstruction (PanTau)
 \item RNN
   \begin{itemize}
   \item Only PFOs
