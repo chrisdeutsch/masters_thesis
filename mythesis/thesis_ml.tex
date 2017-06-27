@@ -16,6 +16,15 @@
 \subsection{Fully-Connected RNN}
 \label{sec:fully_connected_rnn}
 
+Elman or Jordan network?
+
+\begin{align}
+  h_t = \sigma(W x_t + U h_{t-1} + b)
+\end{align}
+
+Vanishing gradient problem: Applying the sigmoid function multiple times leads
+to vanishing gradients (plot?).
+
 \subsection{Long Short-Term Memory}
 \label{sec:lstm}
 
@@ -33,6 +42,9 @@
   c_t &= f_t \circ c_{t-1} + i_t \circ \sigma_c(W_c x_t + U_c h_{t-1} + b_c) \\
   h_t &= o_t \circ \sigma_h(c_t)
 \end{align}
+
+Stress that the gates depend on $x_t$ and $h_{t-1}$ via learn-able weights.
+Therefore the inputting, outputting and forgetting is a learned process.
 
 $\circ$: entry-wise product
 
