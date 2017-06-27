@@ -13,13 +13,23 @@
 \section{Recurrent Neural Networks}
 \label{sec:rnn}
 
+Recurrent: If a network has one or more cycles, that is, if it is possible to
+follow a path from a unit back to itself.
+
 \subsection{Fully-Connected RNN}
 \label{sec:fully_connected_rnn}
 
+Elman network:
+\begin{align}
+  c_t &= \sigma_c(W_c x_t + U_c c_{t-1} + b_c) \\
+  h_t &= \sigma_h(W_h c_t + b_h)
+\end{align}
+
 Elman or Jordan network?
 
+This should be an \emph{Elman} network
 \begin{align}
-  h_t = \sigma(W x_t + U h_{t-1} + b)
+  h_t = \sigma_h(W x_t + U h_{t-1} + b)
 \end{align}
 
 Vanishing gradient problem: Applying the sigmoid function multiple times leads
@@ -54,7 +64,7 @@ Variables:
 \item $x_t$: input vector
 \item $h_t$: output vector
 \item $c_t$: cell state vector
-\item $W$, $U$ and $b$: weight matrices and bias vector
+\item $W$, $U$ and $b$: (recurrent -- $U$) weight matrices and bias vector
 \item $f_t$, $i_t$ and $o_t$: gate vectors
   \begin{itemize}
   \item $f_t$: forget gate vector
