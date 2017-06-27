@@ -1,6 +1,32 @@
 \chapter{Reconstruction of Hadronically Decaying $\tau$-Leptons at ATLAS}
 \label{sec:reconstruction}
 
+% -------------------------- FIRST DRAFT ------------------------------ %
+\begin{itemize}
+\item Building jet seed from AntiKt4LCTopoJets ($p_\mathrm{T} > \SI{10}{GeV}$)
+
+\item Vertex finding \& TJVA (Track Selection $\Delta R < 0.2$ \& PixHits /
+  SiHits requirement, Jet Vertex Fraction)
+
+\item Energy \& axis calculation (clusters within $\Delta R < 0.2$ w.r.t.
+  barycentre associated with tau [ptDetectorAxis], correct axis for vertex
+  position [ptIntermediateAxis])
+
+\item Track selection \& track classification (MVA tracking TT/CT/IT/FT, sets
+  charge/prongness, modifiedIsolationTracks, Multijet rejection from
+  \texttt{nTrack} requirement)
+
+\item Energy Calibration: LC \textrightarrow TES (Separately for 1-prong and
+  multi-prong: subtract PU energy using $N_\mathrm{PV}$ / $\mu$, apply
+  calibration factor depending on $|\eta|$ \& $E_\mathrm{LC} - E_\mathrm{PU}$
+
+\item Tau-ID (Could be moved to next chapter?)
+
+\item Substructure Reconstruction (?)
+\end{itemize}
+
+% -------------------------- ??? -------------------------------- %
+
 \begin{itemize}
 \item Jet seed
 \item TJVA
@@ -12,3 +38,8 @@
 \cite{atlas:taurec:run1}
 \cite{atlas:taurec:run2}
 \cite{atlas:taurec:decaymodes}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "mythesis"
+%%% End:

@@ -1,5 +1,57 @@
-\chapter{RNN}
+\chapter{Identification of Hadronically Decaying $\tau$-Leptons (NN)}
 \label{sec:rnn}
+
+\begin{itemize}
+\item Neural Network-based Studies
+  \begin{itemize}
+  \item MLP Tau-ID (only densely connected layers)
+    \begin{itemize}
+    \item Comparison with BDT-based ID
+    \item Scaling with more data
+    \end{itemize}
+  \item Track-RNN
+    \begin{itemize}
+    \item Motivation (i.e. \texttt{SumPtTrkFrac} \& MVA-tracking)
+    \item Architecture
+    \item Input variables \& correlation with true (or predicted?) class labels.
+      Partial dependence plots? Variable importance?
+    \item Validation loss vs. number of tracks
+    \item Standalone performance vs. BDT-based ID
+    \end{itemize}
+  \item Cluster-RNN
+    \begin{itemize}
+    \item Input variables \& correlation with true class labels. Partial
+      dependence plots?
+    \item Validation loss vs. number of clusters
+    \item Standalone performance
+    \item Potential method for rate-reduction at HLT
+    \end{itemize}
+  \item Combined-RNN
+    \begin{itemize}
+    \item Architecture
+    \item Performance w.r.t. BDT-ID
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{itemize}
 \item Track-RNN
