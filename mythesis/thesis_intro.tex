@@ -29,15 +29,20 @@ whats going on if only Introduction \& Conclusion is read by the reader)
 \label{sec:TODO}
 
 \begin{itemize}
-\item Select BDT from Grid Search for further studies
-\item Switch to 'per variable'-based preprocessing
+\item Select BDT from Grid Search for further studies (Have a robust \& 'safe'
+  BDT and the best performing one)
 \item Prepare number of Track \& number of Clusters scan
-\item Plot nTracks \& nClusters for tau candidates (split 1P \& 3P)
+\item >>>>> Plot nTracks \& nClusters for tau candidates (split 1P \& 3P) <<<<<
 \item LSTM Cell Size Scan $n_c \in \{8, 16, 24, 32, 48, 64\}$ (3P track RNN
   maybe not optimised?)
 \item From the RNNs: Group variables into groups, e.g. Impact parameters,
   kinematic quantities, inner detector hits, energy fractions, moments etc. and
   drop whole groups to gauge importance of the variables
+\item Track-RNN: Replace pt\_asym and $\Delta R \rightarrow \Delta\varphi,
+  \Delta\eta$ (try extrapolated \& non-extrapolated)
+\item Now that the Track \& Cluster-RNN switched to preprocessing on a per
+  variable basis investigate switching to this as well for the PFO-RNN. Also
+  apply constant_scale(0.4) on dEta/dPhi instead of regular scale.
 \end{itemize}
 
 
