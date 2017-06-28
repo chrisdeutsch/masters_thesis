@@ -1,8 +1,22 @@
 \chapter{Machine Learning}
 \label{sec:ml}
 
+\begin{itemize}
+\item Supervised learning
+\item Classification
+\item Over-fitting
+\end{itemize}
+
 \section{Boosted Decision Trees}
 \label{sec:bdt}
+
+Keep this short!
+
+\begin{itemize}
+\item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
+\item Node splitting: Gini Index
+\item Hyperparameters: $N_\mathrm{Trees}$, $d_\mathrm{Tree}$,
+\end{itemize}
 
 \section{Neural Networks}
 \label{sec:nn}
@@ -10,27 +24,55 @@
 \subsection{Basics}
 \label{sec:nn_basics}
 
+Forward pass:
+\begin{itemize}
+\item Forward pass
+\item Densely connected layers
+\item Activation
+\end{itemize}
+Training:
+\begin{itemize}
+\item Weight initialisation
+\item Loss functions
+\item Mini-batch Gradient Descent
+\item Cross-Validation
+\end{itemize}
+
+\begin{align*}
+  S(x) = \frac{1}{1 + e^{-x}}
+\end{align*}
+
+Loss for entry $i$. $j$ marks the class.
+\begin{align*}
+  L_i^\mathrm{binary} &= -t_i \log(p_i) - (1 - t_i) \log(1 - p_i) \\
+  L_i^\mathrm{categorical} &= - \sum_j t_{ij} \log(p_{ij}) \\
+  L &= \frac{\sum_i w_i L_i}{\sum_j w_j}
+\end{align*}
+Binary cross entropy follows from categorical cross entropy if
+$p_{i1} + p_{i2} = 1$ and $t_{i1} + t_{i2} = 1$ for all $i$. Typical for
+classification (e.g.\ using softmax) $\sum_i p_i = 1$ and $\sum_i t_i = 1$.
+Motivate where in this thesis these loss functions are used.
+
+
 \section{Recurrent Neural Networks}
 \label{sec:rnn}
 
 Recurrent: If a network has one or more cycles, that is, if it is possible to
 follow a path from a unit back to itself.
 
+Physics motivation: Able to do regression and classification on sequences of
+physics objects like tracks, clusters, particle flow objects etc..
+
 \subsection{Fully-Connected RNN}
 \label{sec:fully_connected_rnn}
 
-Elman network \cite{elman}:
-\begin{align}
+\textsc{Elman} network \cite{elman}:
+\begin{align*}
   c_t &= \sigma_c(W_c x_t + U_c c_{t-1} + b_c) \\
   h_t &= \sigma_h(W_h c_t + b_h)
-\end{align}
+\end{align*}
 
 Elman or Jordan network?
-
-This should be an \emph{Elman} network
-\begin{align}
-  h_t = \sigma_h(W x_t + U h_{t-1} + b)
-\end{align}
 
 Vanishing gradient problem: Applying the sigmoid function multiple times leads
 to vanishing gradients (plot?).
@@ -45,13 +87,14 @@ to vanishing gradients (plot?).
   \label{fig:schematic_lstm}
 \end{figure}
 
-\begin{align}
+\cite{lstm}
+\begin{align*}
   f_t &= \sigma_g( W_f x_t + U_f h_{t-1} + b_f) \\
   i_t &= \sigma_g( W_i x_t + U_i h_{t-1} + b_i) \\
   o_t &= \sigma_g( W_t x_t + U_o h_{t-1} + b_o) \\
   c_t &= f_t \circ c_{t-1} + i_t \circ \sigma_c(W_c x_t + U_c h_{t-1} + b_c) \\
   h_t &= o_t \circ \sigma_h(c_t)
-\end{align}
+\end{align*}
 
 Stress that the gates depend on $x_t$ and $h_{t-1}$ via learn-able weights.
 Therefore the inputting, outputting and forgetting is a learned process.
@@ -82,65 +125,16 @@ Activation functions:
 \item $\sigma_h$: element-wise hyperbolic tangent (Output activation)
 \end{itemize}
 
-% ------------------------------ FIRST DRAFT ----------------------------- %
-This chapter would make sense (Jochen / Will).
 
-\begin{itemize}
-\item Own chapter describing the machine learning methods used or include into
-  \textit{Theoretical Background}? Alternatively include theory section where
-  needed (e.g. have one for the BDT-based studies explaining BDTs [short] and
-  one for the RNN studies [longer]).
+\section{Technical Setup}
+\label{sec:tech_setup}
 
-\item Boosted Decision Trees
-  \begin{itemize}
-  \item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
-  \item Node splitting: Gini Index
-  \item Hyperparameters: $N_\mathrm{Trees}$, $d_\mathrm{Tree}$,
-  \end{itemize}
+Frameworks used for this thesis (theano \cite{theano}, keras \cite{keras})
 
-\item Neural Networks
-  \begin{itemize}
-  \item Basics -- focussed on forward pass (Densely connected layers, Activation)
-  \item Training -- Weight initialization, Loss functions, Minibatch Gradient
-    Descent, Cross-Validation (training, validation, test split)
-  \item Recurrent Neural Networks (RNN Equations, Vanishing Gradient Problem,
-    Physics Motivation)
-  \item Long Short-Term Memory \cite{lstm} (LSTM Equations)
-  \item Technical setup (Keras, theano)
-  \end{itemize}
-\end{itemize}
+Optimiser: Adam
 
-% -------------------------------- ??? --------------------------------- %
+Masking layer
 
-\begin{itemize}
-\item Important concepts
-  \begin{itemize}
-  \item Supervised learning (need truth info)
-  \item Overfitting \& train-test split
-  \end{itemize}
-
-\item Boosted decision trees
-  \begin{itemize}
-  \item Boosting (AdaBoost, GradBoost)
-  \item Split determination (GiniIndex)
-  \item Important hyperparameters
-  \end{itemize}
-
-\item (Recurrent) Neural networks
-  \begin{itemize}
-  \item Layers
-    \begin{itemize}
-    \item Dense
-
-    \item LSTM (\& Masking)
-
-    \end{itemize}
-
-  \item Frameworks used for this thesis (theano \cite{theano}, keras \cite{keras})
-
-  \end{itemize}
-
-\end{itemize}
 
 %%% Local Variables:
 %%% mode: latex

@@ -1,42 +1,104 @@
 \chapter{Identification of Hadronically Decaying $\tau$-Leptons (BDT)}
 \label{sec:bdt}
 
-% -------------------------------- FIRST DRAFT ------------------------------- %
+\section{Features of Hadronically Decaying Tau Leptons}
+\label{sec:features_tau_decay}
+
+Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon initiated jets
+
+
+\section{Event Simulation, Reweighting and Preselection}
+\label{sec:bdt_eventsim}
 
 \begin{itemize}
-\item Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon
-  initiated jets
-
-\item Samples
-  \begin{itemize}
-  \item Gammatautau (Polarisation), Dijet JZ1W - JZ6W
-  \item Reweighting
-  \item Baseline selection ($\eta$, $p_\mathrm{T}$, truth-matching)
-  \end{itemize}
-
-\item BDT-based Studies
-  \begin{itemize}
-  \item Previous setup (incl. explanation \& plots of input variables)
-  \item Working points (Gammatautau -- Ztautau)
-  \item Hyperparameter optimisation
-    \begin{itemize}
-    \item AdaBoost \textrightarrow GradBoost
-    \item Grid Search
-    \item XGBoost (?)
-    \end{itemize}
-  \item Variable correlations, importance (dropped variables) \& dependence with
-    $p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
-    of cutting out outliers), Partial Dependence, Including $p_\mathrm{T}$
-  \item Performance on simulation
-  \item Impact of Quark / Gluon initiated jets on Tau-ID (i.e. performance of ID
-    on Quark / Gluon jets)
-  \item Impact on (reconstructed) decay modes (?)
-  \item Performance on TAUP4 (?)
-  \end{itemize}
+\item Gammatautau (Polarisation), Dijet JZ1W - JZ6W
+\item Reweighting
+\item Baseline selection ($\eta$, $p_\mathrm{T}$, truth-matching)
 \end{itemize}
 
-% --------------------------------- ??? ----------------------------------- %
 
+\section{Description of the Tau-Identification Procedure}
+\label{sec:bdt_tauid}
+
+\subsection{Features (Predictors, Dependent Variables, Input Variables)}
+\label{sec:bdt_features}
+
+Previous setup (incl. explanation \& plots of input variables)
+
+Transformations?
+
+\subsection{Working Points}
+\label{sec:bdt_working_points}
+
+Working points (Gammatautau -- Ztautau)
+
+Signal efficiencies 1P (3P):
+\begin{itemize}
+\item Very Loose: 95\% (95\%)
+\item Loose: 85\% (75\%)
+\item Medium: 75\% (60\%)
+\item Tight: 60\% (45\%)
+\end{itemize}
+
+\section{Hyperparameter Optimisation}
+\label{sec:bdt_hyperparam}
+
+TMVA \cite{tmva}.
+
+Quickly describe previous setup.
+
+Before proceeding to feature selection a reliable hyperparameter setup has to be
+found.
+
+\subsection{Boosting Algorithm}
+\label{sec:bdt_boosting}
+
+AdaBoost \textrightarrow GradBoost
+
+\subsection{Exhaustive Grid Search}
+\label{sec:bdt_grid_search}
+
+\begin{align*}
+  &N_\mathrm{Tree} \in \{25, 50, 100, 200, 400, 800\} \qquad
+  &d_\mathrm{Tree} \in \{4, 6, 8, 12, 16\} \\
+  &\eta \in \{0.05, 0.1, 0.2, 0.4\} \qquad
+  &f_\mathrm{min}^\mathrm{node} \in \{0.01, 0.1, 1.0\}
+\end{align*}
+
+TMVA Grid Search
+XGBoost (?)
+Comparison with previous setup
+
+\section{Feature Selection}
+\label{sec:bdt_feature_selection}
+
+\subsection{Variable Importance}
+\label{sec:bdt_var_importance}
+
+Variable correlations, importance (dropped variables) \& dependence with
+$p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
+of cutting out outliers), Partial Dependence, Including $p_\mathrm{T}$
+
+\section{Identification Performance on Simulated Data}
+\label{sec:bdt_perf}
+
+\subsection{Performance in Simulation}
+\label{sec:bdt_perf_sim}
+
+Impact on (reconstructed) decay modes (?)
+
+\subsubsection{Performance on Quark- / Gluon-initiated Jets}
+\label{sec:bdt_perf_quark_gluon}
+
+Impact of Quark / Gluon initiated jets on Tau-ID (i.e. performance of ID
+on Quark / Gluon jets)
+
+\subsection{Performance on Data}
+\label{sec:bdt_perf_data}
+
+Performance on TAUP4 (?)
+
+% -------------------------------------------------------------------------- %
 \begin{itemize}
 \item Description \& Plots of the input variables
   \begin{itemize}
