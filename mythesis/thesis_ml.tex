@@ -26,7 +26,7 @@ Keep this short!
 
 Forward pass:
 \begin{itemize}
-\item Forward pass
+\item Forward pass (Feedforward Neural Networks)
 \item Densely connected layers
 \item Activation
 \end{itemize}
@@ -38,8 +38,13 @@ Training:
 \item Cross-Validation
 \end{itemize}
 
+Logistic function:
 \begin{align*}
   S(x) = \frac{1}{1 + e^{-x}}
+\end{align*}
+
+\begin{align*}
+  \varphi(x) = \max(0, x) \quad \text{(ReLU)} \qquad \varphi(x) = \tanh(x)
 \end{align*}
 
 Loss for entry $i$. $j$ marks the class.
@@ -52,7 +57,6 @@ Binary cross entropy follows from categorical cross entropy if
 $p_{i1} + p_{i2} = 1$ and $t_{i1} + t_{i2} = 1$ for all $i$. Typical for
 classification (e.g.\ using softmax) $\sum_i p_i = 1$ and $\sum_i t_i = 1$.
 Motivate where in this thesis these loss functions are used.
-
 
 \section{Recurrent Neural Networks}
 \label{sec:rnn}

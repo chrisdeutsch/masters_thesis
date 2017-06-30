@@ -1,79 +1,93 @@
 \chapter{Identification of Hadronically Decaying $\tau$-Leptons (NN)}
 \label{sec:rnn}
 
+\section{Identification using Feedforward Neural Networks}
+\label{sec:ffnn_id}
+
 \begin{itemize}
-\item Neural Network-based Studies
+\item MLP Tau-ID (only densely connected layers)
   \begin{itemize}
-  \item MLP Tau-ID (only densely connected layers)
-    \begin{itemize}
-    \item Comparison with BDT-based ID
-    \item Scaling with more data
-    \end{itemize}
-  \item Track-RNN
-    \begin{itemize}
-    \item Motivation (i.e. \texttt{SumPtTrkFrac} \& MVA-tracking)
-    \item Architecture (mention rough optimisation by hand while monitoring
-      validation loss)
-    \item Preprocessing
-    \item Input variables \& correlation with true (or predicted?) class labels.
-      Partial dependence plots? Variable importance?
-    \item Validation loss vs. number of tracks
-    \item Standalone performance vs. BDT-based ID
-    \end{itemize}
-  \item Cluster-RNN
-    \begin{itemize}
-    \item Input variables \& correlation with true class labels. Partial
-      dependence plots?
-    \item Validation loss vs. number of clusters
-    \item Standalone performance
-    \item Potential method for rate-reduction at HLT
-    \end{itemize}
-  \item Combined-RNN
-    \begin{itemize}
-    \item Architecture
-    \item Performance w.r.t. BDT-ID
-    \end{itemize}
+  \item Comparison with BDT-based ID
+  \item Scaling with more data
   \end{itemize}
 \end{itemize}
 
+\section{Identification using Recurrent Neural Networks}
+\label{sec:rnn_id}
 
+\subsection{General Description}
+\label{sec:rnn_descr}
 
+\subsection{Track-RNN}
+\label{sec:rnn_tracks}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{figure}[ht]
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/ntrk_1p.pdf}
+    \subcaption{NTracks for 1-prong taus}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    INSERT FIGURE HERE!!!
+    \subcaption{Val.\ loss vs.\ nTracks}
+  \end{subfigure}
+  \caption{Tracks associated with a tau}
+  \label{fig:rnn_ntracks}
+\end{figure}
 
 \begin{itemize}
-\item Track-RNN
-  \begin{itemize}
-  \item Replace $\Delta R_\mathrm{JS}$ with $\Delta \eta$ and $\Delta \varphi$
-    (try extrapolated \& non-extrapolated)
-  \item Replace pt asymmetry with $pt_\mathrm{JS}$
-  \item Do a validation loss vs.\ number of tracks scan
-  \item Validation loss vs.\ sample size
-  \end{itemize}
+\item Motivation (i.e. \texttt{SumPtTrkFrac} \& MVA-tracking)
+\item Architecture (mention rough optimisation by hand while monitoring
+  validation loss)
+\item Preprocessing
+\item Input variables \& correlation with true (or predicted?) class labels.
+  Partial dependence plots? Variable importance?
+\item Validation loss vs. number of tracks
+\item Standalone performance vs. BDT-based ID
+\end{itemize}
 
-\item Cluster-RNN
-  \begin{itemize}
-  \item
-  \end{itemize}
+\begin{itemize}
+\item Replace $\Delta R_\mathrm{JS}$ with $\Delta \eta$ and $\Delta \varphi$
+  (try extrapolated \& non-extrapolated)
+\item Replace pt asymmetry with $pt_\mathrm{JS}$
+\item Do a validation loss vs.\ number of tracks scan
+\item Validation loss vs.\ sample size
+\end{itemize}
 
-\item Combined-RNN
-  \begin{itemize}
-  \item
-  \end{itemize}
+\subsection{Cluster-RNN}
+\label{sec:rnn_clusters}
+
+\begin{figure}[ht]
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/ncls_1p.pdf}
+    \subcaption{NCluster for 1-prong taus}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \centering
+    INSERT FIGURE HERE!!!
+    \subcaption{Val.\ loss vs.\ nCluster}
+  \end{subfigure}
+  \caption{Clusters associated with a tau}
+  \label{fig:rnn_nclusters}
+\end{figure}
+
+\begin{itemize}
+\item Input variables \& correlation with true class labels. Partial
+  dependence plots?
+\item Validation loss vs. number of clusters
+\item Standalone performance
+\item Potential method for rate-reduction at HLT
+\end{itemize}
+
+
+\subsection{Combined-RNN}
+\label{sec:rnn_combined}
+
+\begin{itemize}
+\item Architecture
+\item Performance w.r.t. BDT-ID
 \end{itemize}
 
 
