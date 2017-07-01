@@ -31,8 +31,8 @@ whats going on if only Introduction \& Conclusion is read by the reader)
 \begin{itemize}
 \item Select BDT from Grid Search for further studies (Have a robust \& 'safe'
   BDT and the best performing one)
-\item Prepare number of Track \& number of Clusters scan
-\item >>>>> Plot nTracks \& nClusters for tau candidates (split 1P \& 3P) <<<<<
+\item Prepare number of Track \& number of Clusters scan (Do it for 1-prong and
+  3-prong)
 \item LSTM Cell Size Scan $n_c \in \{8, 16, 24, 32, 48, 64\}$ (3P track RNN
   maybe not optimised?)
 \item From the RNNs: Group variables into groups, e.g. Impact parameters,
@@ -40,10 +40,15 @@ whats going on if only Introduction \& Conclusion is read by the reader)
   drop whole groups to gauge importance of the variables
 \item Track-RNN: Replace pt\_asym and $\Delta R \rightarrow \Delta\varphi,
   \Delta\eta$ (try extrapolated \& non-extrapolated)
+\item Cluster-RNN: $\Delta\eta$ and $\Delta\varphi$ like for Track-RNN, Include
+  also $p_\text{T}$ like in Track-RNN
 \item Now that the Track \& Cluster-RNN switched to preprocessing on a per
   variable basis investigate switching to this as well for the PFO-RNN. Also
   apply constant\_scale(0.4) on dEta/dPhi instead of regular scale.
 \item In Rejection plots zorder still fucked
+\item Tau-ID BDT -- Use nTracks/nClusters cmp.\ plots for ntrack/ncluster scan
+  in RNN part
+\item Study pile-up dependency of RNN vs.\ regular ID
 \end{itemize}
 
 

@@ -12,6 +12,8 @@
 
 Keep this short!
 
+Elements of statistical learning \cite{esl}
+
 \begin{itemize}
 \item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
 \item Node splitting: Gini Index
@@ -70,7 +72,7 @@ physics objects like tracks, clusters, particle flow objects etc..
 \subsection{Fully-Connected RNN}
 \label{sec:fully_connected_rnn}
 
-\textsc{Elman} network \cite{elman}:
+\textsc{Elman} network [Check Citation]\cite{elman}:
 \begin{align*}
   c_t &= \sigma_c(W_c x_t + U_c c_{t-1} + b_c) \\
   h_t &= \sigma_h(W_h c_t + b_h)
@@ -91,7 +93,7 @@ to vanishing gradients (plot?).
   \label{fig:schematic_lstm}
 \end{figure}
 
-\cite{lstm}
+[Check Citation]\cite{lstm}
 \begin{align*}
   f_t &= \sigma_g( W_f x_t + U_f h_{t-1} + b_f) \\
   i_t &= \sigma_g( W_i x_t + U_i h_{t-1} + b_i) \\
