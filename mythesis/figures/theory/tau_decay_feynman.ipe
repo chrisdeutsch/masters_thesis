@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170701214807" modified="D:20170701224303"/>
+<info created="D:20170701214807" modified="D:20170702164321"/>
 <preamble>\usepackage{txfonts}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -257,7 +257,7 @@ h
 <view layers="alpha" active="alpha"/>
 <text layer="alpha" matrix="1 0 0 1 -171 0" transformations="translations" pos="272 704" stroke="black" type="label" width="10.572" height="7.92" depth="0.13" halign="right" valign="center" size="11">$\tau^-$</text>
 <text matrix="1 0 0 1 -141.358 -22.2885" transformations="translations" pos="320 752" stroke="black" type="label" width="9.175" height="4.844" depth="1.74" valign="center" size="11">$\nu_\tau$</text>
-<text matrix="1 0 0 1 -171.652 13.4289" transformations="translations" pos="384 688" stroke="black" type="label" width="49.483" height="7.911" depth="2.26" valign="center" size="11">$\mathrm{e}^-, \mu^-, \mathrm{d} \, (\mathrm{s})$</text>
+<text matrix="1 0 0 1 -171.652 13.4289" transformations="translations" pos="384 688" stroke="black" type="label" width="39.255" height="7.911" depth="2.26" valign="center" size="11">$\mathrm{e}^-, \mu^-, \mathrm{d}^\prime$</text>
 <text matrix="1 0 0 1 -171.652 42.0058" transformations="translations" pos="384 608" stroke="black" type="label" width="33.2" height="6.645" depth="3.22" valign="center" size="11">$\bar{\nu}_\mathrm{e}, \bar{\nu}_\mu, \bar{\mathrm{u}}$</text>
 <text matrix="1 0 0 1 -8.86088 -8.40124" transformations="translations" pos="168 696" stroke="black" type="label" width="15.722" height="7.918" depth="0.11" halign="right" valign="top" size="11">$\mathrm{W}^-$</text>
 <group>
@@ -291,10 +291,10 @@ h
 </path>
 </group>
 <path stroke="white">
-264 736 m
-264 644 l
-64 644 l
-64 736 l
+256 736 m
+256 644 l
+88 644 l
+88 736 l
 h
 </path>
 <group matrix="-0.766044 0.642788 -0.642788 -0.766044 740.539 1122.45">
