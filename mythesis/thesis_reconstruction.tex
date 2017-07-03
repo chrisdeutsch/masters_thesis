@@ -1,5 +1,61 @@
-\chapter{Reconstruction, Energy Calibration and Identification of Hadronic Tau Leptons}
+% ~ 3-4 pages
+\chapter{Reconstruction, Energy Calibration and
+  Identification of Hadronic Tau Lepton Decays}
 \label{sec:reconstruction}
+
+This chapter summarises the offline reconstruction procedure used at ATLAS to
+reconstruct hadronic decays of tau leptons as given in \cite{atlas:taurec:run1,
+  atlas:taurec:run2}. Additionally more recent changes to the reconstruction
+algorithms are included.
+
+Candidates for hadronic tau decays are seeded by jets formed by the
+anti-$k_\mathrm{t}$ jet algorithm using a distance parameter of $R = 0.4$ on
+three-dimensional clusters of calorimeter cells called \emph{TopoClusters}
+calibrated using the local hadronic calibration (LC-scale). The jet seed has to
+satisfy $p_\mathrm{T} > \SI{10}{GeV}$ and $|\eta| < \num{2.5}$. \todo{At this
+  step tau $p_\mathrm{T}, \eta, \varphi, m$ ($m$: invariant mass) are set to the
+  ones of the jet seed -- what does this mean? Read up on jet algs}
+
+In events with multiple primary vertices the tau production vertex has to be
+identified. Reconstructed tracks associated to the calorimeter jet via
+ghost-matching\footnote{Tracks matched unambiguously to calorimeter jets by
+  adding the tracks with infinitesimal energy to the constituent list and
+  rerunning the jet algorithm.} that lie in a cone of $\Delta R < 0.2$ with
+respect to the jet axis and fulfil $p_\mathrm{T} > \SI{1}{\giga\electronvolt}$
+and basic track quality criteria $N_\mathrm{Pixel} \geq 2$ (PixelHits +
+PixelDeadSensors) and $N_\mathrm{Si} \geq 7$ (PixelHits + SCTHits +
+PixelDeadSensors + SCTDeadSensors) are selected. The primary vertex is then
+associated to be the one maximising the Jet Vertex Fraction
+\begin{align*}
+  \mathrm{JVF} = \frac{\sum_\text{Vtx.\ \& TJVA} p_\mathrm{T}}
+                                           {\sum_\text{TJVA} p_\mathrm{T}}
+\end{align*}
+given by the ratio of the $p_\mathrm{T}$ sum of all selected tracks that are
+also matched to the vertex\footnote{Impact parameter based association with the
+  primary vertex. $|d_0| < \SI{2.5}{mm}$ with respect to beamline and
+  $|(\Delta z_0) \sin\theta| < \SI{3}{mm}$. $\Delta z_0$ is the longitudinal
+  distance of vertex and track} to the sum of $p_\mathrm{T}$ of all selected
+tracks.
+
+The LC calibrated energy of the tau is set to the energy of all
+\emph{TopoClusters} within a cone of $\DeltaR < 0.2$ with respect to the
+barycentre\footnote{$\eta$ and $\phi$ of the four momentum vector given by the
+  sum of all cluster 4-momenta.} of all clusters of the jet at LC scale
+(\texttt{ptDetectorAxis}). \todo{This part could be in the first paragraph}.
+Finally the tau axis ($\eta$, $\phi$\footnote{strictly also $p_\mathrm{T}$ as a
+  result}) is corrected for the position of the primary vertex
+(\texttt{ptIntermediateAxis}). After the axis correction and the identification
+of the primary vertex, the track impact parameters can be recalculated with
+respect to the primary vertex (like for z0sinThetaTJVA).
+
+% Vertex association: Tracks matched unambiguously to jets via ghost-matching by
+% adding all tracks into constituent list for the jet algorithm but setting
+% their energy infinitesimally small (such that the result of the jet algorithm
+% is not affected due to IR-safety) and rerunning the algorithm.
+% \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/JetGhostMatching}
+
+% Tracking CP recommendations
+% \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/TrackingCPPreRecsSummer2017#Track_to_Vertex_Association}
 
 \section{Vertex Association}
 \label{sec:reco_vertex_assoc}

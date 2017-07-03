@@ -1,3 +1,4 @@
+% ~ 6 pages
 \chapter{The ATLAS Experiment at the Large Hadron Collider}
 \label{chap:atlas}
 
@@ -10,8 +11,46 @@
 \subsection{Coordinate System}
 \label{sec:atlas_coord_sys}
 
+\begin{itemize}
+\item $\eta$
+\item $\Delta R$
+\item $p_\mathrm{T}$
+\end{itemize}
+
 \subsection{Tracking System}
 \label{sec:atlas_tracking}
+
+Name this 'Inner Detector'?
+
+\todo{Find primary sources on this stuff!}
+\begin{itemize}
+\item Track \& vertex reconstruction
+\item Charged particles provide hits in ID
+\item High spacial resolution to reconstruct tracks in dense environments
+  (number of tracks per event -- 200? -- check this)
+\item Solenoid field with \SI{2}{\tesla}
+\item Secondary vertex reconstruction (B-layer -- this is important, Pixel, SCT)
+\item TRT -- 'continuous' tracking (what is this?) and distinction between
+  electrons and hadrons using transition-radiation
+\item ID acceptance $|\eta| < \num{2.5}$
+\item Split into barrel and two endcap regions
+\item Pixel: Three barrel layers, three endcap layers each (and 1 layer IBL).
+  Pixel detector in 'Pixel Support Tube' to allow exchange of elements in case
+  of radiation damage. Inner Radius \SI{4.2}{\centi\metre} and outer radius
+  \SI{25}{\centi\metre}.
+\item The layer after the IBL is called B-layer!
+\item IBL \cite{ibl_tdr}: Improve B-tagging when modules in the remaining pixel layers fail;
+  Tracking inefficiencies at high pileup affects B-layer needs redundancy;
+  Better impact parameter reconstruction improves vertexing and b-tagging
+\item Pixel layers segmented in $r\varphi$ and $z$. Single pixel
+  \SI{50}{\micro\metre} in $r\varphi$ and \SI{400}{\micro\metre} in $z$
+\item Silicon strip detectors (four layers) in support structure with radius of
+  about \SI{55}{\centi\metre}
+\item SCT strip detectors \SI{15}{\micro\metre} $r\varphi$ and
+  \SI{70}{\micro\metre} $z$ resolution
+\item TRT: Barrel region $|\eta| < \num{0.5}$, on average a track causes 36
+  hits; Resolution decreases with pile-up
+\end{itemize}
 
 \subsection{Calorimeter System}
 \label{sec:atlas_calo}
