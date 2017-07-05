@@ -98,7 +98,7 @@ to vanishing gradients (plot?).
 \begin{align*}
   f_t &= \sigma_g( W_f x_t + U_f h_{t-1} + b_f) \\
   i_t &= \sigma_g( W_i x_t + U_i h_{t-1} + b_i) \\
-  o_t &= \sigma_g( W_t x_t + U_o h_{t-1} + b_o) \\
+  o_t &= \sigma_g( W_o x_t + U_o h_{t-1} + b_o) \\
   c_t &= f_t \circ c_{t-1} + i_t \circ \sigma_c(W_c x_t + U_c h_{t-1} + b_c) \\
   h_t &= o_t \circ \sigma_h(c_t)
 \end{align*}
