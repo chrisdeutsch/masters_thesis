@@ -11,7 +11,7 @@
 %
 This chapter summarises the offline reconstruction procedure used at ATLAS to
 reconstruct hadronic decays of tau leptons as given in \cite{atlas:taurec:run1,
-  atlas:taurec:run2}. Additionally more recent changes to the reconstruction
+  atlas:taurec:run2}. Additionally recent changes to the reconstruction
 algorithms are included.
 
 % JetSeedBuilder:
@@ -19,11 +19,14 @@ algorithms are included.
 Candidates for hadronic tau decays are seeded by jets formed by the
 anti-$k_\mathrm{t}$ jet algorithm using a distance parameter of $R = 0.4$ on
 three-dimensional clusters of calorimeter cells called \emph{TopoClusters}
-calibrated using the local hadronic calibration (LC-scale). The jet seed has to
-satisfy $p_\mathrm{T} > \SI{10}{GeV}$ and is required to fall into the
-acceptance range of the tracking system $|\eta| < \num{2.5}$. \todo{At this step
-  tau $p_\mathrm{T}, \eta, \varphi, m$ ($m$: invariant mass) are set to the ones
-  of the jet seed -- what does this mean? Read up on jet algs}
+calibrated using the local hadronic calibration (LC-scale) \todo{accounts for
+  non-compensating nature of the calo by classifying clusters as em or hadronic,
+  dead material, out-of-cluster energy of low-pt particles that are bent from
+  the jet}. The jet seed has to satisfy $p_\mathrm{T} > \SI{10}{GeV}$ and is
+required to fall into the acceptance range of the tracking system
+$|\eta| < \num{2.5}$. \todo{At this step tau $p_\mathrm{T}, \eta, \varphi, m$
+  ($m$: invariant mass) are set to the ones of the jet seed -- what does this
+  mean? Read up on jet algs}
 
 % TauVertexFinder:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauVertexFinder.cxx
@@ -156,9 +159,11 @@ calculate the isolation variables SumPtTrkFrac and massTrkSys \todo{Ref to
 % if calibConst <= 0: calibConst = 1.0
 % energyFinal = energyPUCorr / calibConst
 %
-To get the visible tau energy a further energy calibration is applied to the tau
-candidates to account for pileup and the detector response in different $\eta$
-regions. First the pileup contribution $E_\text{PU}$ to the energy at LC-scale
+\todo{Motivation: LC scale not optimised for tau energy measurement; e.g.
+  hadronic composition of the final state, pile-up, cone size of 0.2} To get the
+visible tau energy a further energy calibration is applied to the tau candidates
+to account for pileup and the detector response in different $\eta$ regions.
+First the pileup contribution $E_\text{PU}$ to the energy at LC-scale
 $E_\text{LC}$ is estimated using \todo{Does the LC-scale already account for the
   average pile-up? Otherwise the parametrisation subtracting the average number
   of pile-up vertices would not make sense! The LAr bipolar calorimeter signal
@@ -175,7 +180,27 @@ bins of $|\eta|$ and separately for 1- and multi-prong).
   E_\text{TES} &= \frac{E_\text{LC} - E_\text{PU}}
                  {\mathcal{R}(|\eta|, E_\text{LC} - E_\text{PU})}
 \end{align*}
-The calibration response function $\mathcal{R}$ is a fit?
+The detector response function $\mathcal{R}$ is fitted to the mean of the
+$\frac{E_\text{true}}{E_\text{LC} - E_\text{PU}}$ distributions (from a Gaussian
+fit) in simulation for each bin using a function with an empirical form.
+
+% TauShotFinder
+% https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauShotFinder.cxx
+Local maximum in EM1 strip layer determined by cells within 0.2 (0.4?) to the
+tau axis. Cells required to have above \SI{100}{\mega\electronvolt}. Two seed
+cells can't be neighbours in eta. Seed cell must be local maximum in eta (both
+neighbours are required to have lower cell energy). Shot construction: Seed
+cells neighbouring a seed cell in phi direction are merged (only the highest pt
+neighbour is merged). A cluster is built in a 5 (eta) x 1 (phi) window around
+the seed or 5 x 2 in case a neighbouring seed was merged in. The four-momentum
+is set to the cell energy/eta/phi of the seed cell or in case of merged seeds to
+the sum of the seed cell pt and the barycentre of energy in phi direction. The
+number of photons in the shot is calculated as a function of 5 $|\eta|$ bins
+($0, 0.8, 1.39, 1.51, 1.8, \infty$). If the seed energy (energy in a window of
+width 3x1(2)) is smaller then a threshold no photon is counted. If it exceeds
+the threshold \{430 MeV, 300 MeV, crack, 330 Mev, 350 MeV\} one photon is
+counted. In case the shot energy exceeds 10 GeV the photon is counted twice.
+
 
 \todo{Cite ATHENA?}
 
