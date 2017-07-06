@@ -2,6 +2,62 @@
 \chapter{Decay Mode Classification of Hadronically Decaying $\tau$-Leptons}
 \label{sec:decaymode}
 
+\section{Tau Particle Flow}
+\label{sec:tau_pflow}
+
+
+\section{Architecture}
+\label{sec:pfo_architecture}
+
+
+\section{Baseline}
+\label{sec:pfo_baseline}
+
+'Global' Information attached to every PFO:
+\begin{itemize}
+\item $p_\text{T}^\text{jet}$
+\item $\phi_\text{jet}$
+\item $\eta_\text{jet}$
+\end{itemize}
+
+Charged PFOs:
+\begin{itemize}
+\item $p_\text{T}^\text{PFO}$
+\item $\Delta \phi$: The angle between PFO and jet in the transverse plane.
+\item $\Delta \eta = \eta_\text{PFO} - \eta_\text{jet}$: Angle between PFO and
+  jet in the pseudorapidity plane
+\end{itemize}
+
+Neutral PFOs (Charged PFOs + whats listed here):
+\begin{itemize}
+\item $S_\text{BDT}^{\pi^0}$ / $p_{\pi^0}$: Probability that the particle flow
+  object originates from a neutral pion (ALSO IN BASELINE)
+\item $N_\text{shot}$: \texttt{cellBased\_NHitsInEM1} (Number of shots) Sum of
+  $N_\text{photon}$ over all shots matched to the cluster (ALSO IN BASELINE)
+\item $\langle R^2 \rangle$: Transverse cluster moment
+\item $\langle (\eta - \eta_\text{Cluster})^2 \rangle$: Second moment of $\eta$
+  with respect to the cluster position.
+\item $N_\text{EM1}^\text{pos}$: Number of positive cells in EM1
+\item $f_\text{core}$: \texttt{ENG\_FRAC\_CORE} Fraction of energy in the three
+  hottest cells in each sampling \todo{Check}
+\item $f_\text{EM1} = E_\text{EM1} / E$: Energy fraction in EM2
+\end{itemize}
+
+Preprocessing:
+\begin{itemize}
+\item $p_\text{T}$: log-transform and standard scaling
+\item $\eta$, $\phi$: Divided by maximum value ($2.5$ or $\pi$)
+\item $\Delta \eta$, $\Delta \phi$: standard scaling
+\item Cluster moments: Second\_R, secondEtaWRTClusterPosition, NPosECells\_EM1
+  ... standard scaling
+\item PI0BDT, NHitsinEM1, ENG\_FRAC\_CORE, energyfrac em2 - no scaling
+\end{itemize}
+
+Conversion tracks: same as charged PFOs (but with tracks) \\
+Shots: same as charged PFOs (but with shots) \\
+
+
+
 % ----------------------------- FIRST DRAFT -------------------------- %
 \begin{itemize}
 \item Signature of the decay modes (Could be moved to \textit{Theoretical
