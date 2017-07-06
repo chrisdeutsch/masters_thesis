@@ -24,71 +24,59 @@ Elements of statistical learning \cite{esl}
 \section{Neural Networks}
 \label{sec:nn}
 
-\subsection{Basics}
-\label{sec:nn_basics}
+\subsection{Feedforward Neural Networks}
+\label{sec:nn_feedforward}
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.55\textwidth}
     \centering
     \includegraphics{./figures/theory/mlp.pdf}
-    \subcaption{Schematic depiction of a multi-layer perceptron with input neurons
-      $\mathbf{x}$, hidden layer activation $\mathbf{h}$ and output activation
-      $\mathbf{y}$. The layers are connected via weight matrices $\mathbf{W}$ and
-      optional bias vectors $\mathbf{b}$. Neuron activations are given after
-      applying an element-wise activation function $\varphi$.}
+    \subcaption{Schematic depiction of a multi-layer perceptron with input
+      neurons $\mathbf{x}$, hidden layer activation $\mathbf{h}$ and output
+      activation $\mathbf{y}$. The layers are connected via weight matrices
+      $\mathbf{W}$ and optional bias vectors $\mathbf{b}$. Neuron activations
+      are given after applying an element-wise activation function $\varphi$.}
     \label{fig:multi_layer_perceptron}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.4\textwidth}
-    \centering \includegraphics{./figures/theory/activation_functions.pdf}
+    \centering
+    \includegraphics{./figures/theory/activation_functions.pdf}
     \subcaption{Commonly used activation functions for neural networks: logistic
-      function, hyperbolic tangent, and rectified linear unit (ReLU).}
+      function (red), hyperbolic tangent (blue), and rectified linear unit --
+      ReLU (green).}
     \label{fig:activation_functions}
   \end{subfigure}
+  \caption{Feedforward neural network}
 \end{figure}
-
-Perceptron:
-\begin{align*}
-  y = \varphi(W x + b)
-\end{align*}
 
 Multi-layer perceptron (1 hidden layer):
 \begin{align*}
-  y &= \varphi_y(W_{yh} h + b_y) \\
-  h &= \varphi_h(W_{hx} x + b_h)
+  &\mathbf{h} = \varphi_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
+  &\mathbf{y} = \varphi_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}})
 \end{align*}
+Layers are connected via linear transformations $W$ (and optionally biases $b$)
+followed by a non-linear activation function $\varphi$. Layers connected in this
+fashion are called densely-connected or dense layers. Layer sizes and activation
+functions are hyperparameters of the model (except input and output layer which
+is fixed by the underlying problem).
 
-Layers are connected via linear transformations $W$ (and optionally
-biases $b$) followed by a non-linear activation function $\varphi$.
 Typical activation functions are:
 \begin{align*}
-  &\varphi(x) = \frac{1}{1 + e^{-x}} &\text{Logistic / Sigmoid Function} \\
-  &\varphi(x) = \tanh(x) &\text{Hyperbolic Tangent} \\
-  &\varphi(x) = \max(0, x) &\text{ReLU: Rectified Linear Unit} \\
-  &\varphi(x) = &\text{Softmax}
+  &\varphi_i(\mathbf{x}) = \frac{1}{1 + e^{-x_i}} &\text{Logistic / Sigmoid Function} \\
+  &\varphi_i(\mathbf{x}) = \tanh(x_i) &\text{Hyperbolic Tangent} \\
+  &\varphi_i(\mathbf{x}) = \max(0, x_i) &\text{ReLU: Rectified Linear Unit} \\
+  &\varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}&\text{Softmax}
 \end{align*}
+\cite{theano}
 
-Forward pass:
-\begin{itemize}
-\item Forward pass (Feedforward Neural Networks)
-\item Densely connected layers
-\item Activation
-\end{itemize}
 Training:
 \begin{itemize}
 \item Weight initialisation
 \item Loss functions
+\item Backpropagation \cite{lecun-backprop}
 \item Mini-batch Gradient Descent
 \item Cross-Validation
 \end{itemize}
-
-Logistic function:
-\begin{align*}
-  S(x) = \frac{1}{1 + e^{-x}}
-\end{align*}
-
-\begin{align*}
-  \varphi(x) = \max(0, x) \quad \text{(ReLU)} \qquad \varphi(x) = \tanh(x)
-\end{align*}
 
 Loss for entry $i$. $j$ marks the class.
 \begin{align*}
@@ -113,13 +101,14 @@ physics objects like tracks, clusters, particle flow objects etc..
 \subsection{Fully-Connected RNN}
 \label{sec:fully_connected_rnn}
 
-\textsc{Elman} network [Check Citation]\cite{elman}:
+% \textsc{Elman} network [Check Citation]\cite{elman}:
+\textsc{Jordan} network \todo{look for citation}:
 \begin{align*}
-  c_t &= \sigma_c(W_c x_t + U_c c_{t-1} + b_c) \\
-  h_t &= \sigma_h(W_h c_t + b_h)
+  \mathbf{c}_t &= \varphi_{\text{c}}\left( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}} \right) \\
+  \mathbf{h}_t &= \varphi_{\text{h}}\left( \mathbf{W}_{\text{h}} \mathbf{c}_{t} + \mathbf{b}_{\text{h}} \right)
 \end{align*}
-
-Elman or Jordan network?
+\todo{Should rename output $\mathbf{h}$ to $\mathbf{y}$ to be consistent.}
+with trainable weights $\mathbf{W}$, recurrent weights $\mathbf{U}$ and biases $\mathbf{b}$.
 
 Vanishing gradient problem: Applying the sigmoid function multiple times leads
 to vanishing gradients (plot?).
@@ -130,17 +119,28 @@ to vanishing gradients (plot?).
 \begin{figure}[t]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
-  \caption{Schematic description of a LSTM-cell.}
+  \caption{Schematic description of a LSTM-cell.\todo{Fix notation}}
   \label{fig:schematic_lstm}
 \end{figure}
 
 [Check Citation]\cite{lstm}
+
+Gate activations:
 \begin{align*}
-  f_t &= \sigma_g( W_f x_t + U_f h_{t-1} + b_f) \\
-  i_t &= \sigma_g( W_i x_t + U_i h_{t-1} + b_i) \\
-  o_t &= \sigma_g( W_o x_t + U_o h_{t-1} + b_o) \\
-  c_t &= f_t \circ c_{t-1} + i_t \circ \sigma_c(W_c x_t + U_c h_{t-1} + b_c) \\
-  h_t &= o_t \circ \sigma_h(c_t)
+  \mathbf{f}_{t} &= \varphi_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{f}} \right) &
+  \mathbf{i}_{t} &= \varphi_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{i}} \right) &
+  \mathbf{o}_{t} &= \varphi_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{o}} \right)
+\end{align*}
+Cell state update:
+\begin{align*}
+  \mathbf{c}_{t} &= \mathbf{f}_{t} \circ \mathbf{c}_{t-1}
+                   + \mathbf{i}_{t} \circ \varphi_{\text{c}}(
+                   \mathbf{W}_{\text{c}} \mathbf{x}_{t}+ \mathbf{U}_{\text{c}}
+                   \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}})
+\end{align*}
+Output:
+\begin{align*}
+  \mathbf{h}_{t} &= \mathbf{o}_{t} \circ \varphi_{\text{h}}(\mathbf{c}_{t})
 \end{align*}
 
 Stress that the gates depend on $x_t$ and $h_{t-1}$ via learn-able weights.

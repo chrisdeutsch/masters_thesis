@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170706201521" modified="D:20170706231113"/>
+<info created="D:20170706201521" modified="D:20170707002417"/>
 <preamble>\usepackage{amsmath}
 \usepackage{txfonts}</preamble>
 <ipestyle name="basic">
@@ -334,15 +334,15 @@ h
 144 756 m
 176 768 l
 </path>
-<text matrix="1 0 0 1 25.2513 25.0868" transformations="translations" pos="108.074 710.078" stroke="black" type="label" width="93.945" height="14.61" depth="9.5" valign="center">$\mathbf{h} = \varphi_h\left( \begin{bmatrix}
-\mathbf{W}_{hx} &amp; \mathbf{b}_h
+<text matrix="1 0 0 1 25.2513 25.0868" transformations="translations" pos="108.074 710.078" stroke="black" type="label" width="93.966" height="14.61" depth="9.5" valign="center">$\mathbf{h} = \varphi_{\text{h}}\left( \begin{bmatrix}
+\mathbf{W}_{\text{hx}} &amp; \mathbf{b}_{\text{h}}
 \end{bmatrix} \begin{bmatrix}
 \mathbf{x} \\
 1
 \end{bmatrix} \right)$</text>
-<text matrix="1 0 0 1 -27.3699 49.0055" transformations="translations" pos="208.677 739.814" stroke="black" type="label" width="92.795" height="14.61" depth="9.5" valign="center">$\mathbf{y} = \varphi_y\left(
+<text matrix="1 0 0 1 -27.3699 49.0055" transformations="translations" pos="208.677 739.814" stroke="black" type="label" width="93.966" height="14.61" depth="9.5" valign="center">$\mathbf{y} = \varphi_{\text{y}}\left(
 \begin{bmatrix}
-\mathbf{W}_{yh} &amp; \mathbf{b}_y
+\mathbf{W}_{\text{yh}} &amp; \mathbf{b}_{\text{y}}
 \end{bmatrix}
 \begin{bmatrix}
 \mathbf{h} \\
