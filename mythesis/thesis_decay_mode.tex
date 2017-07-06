@@ -5,6 +5,31 @@
 \section{Tau Particle Flow}
 \label{sec:tau_pflow}
 
+CellBased
+
+Tau Particle Flow as described in \cite{atlas:taurec:decaymodes}.
+
+Tau particle flow tries to reconstruct energy contributions of individual
+neutral and charged pions in the calorimeter using particle flow. First charged
+pions (PFOs) are reconstructed (including momentum and charge) from 'charged
+tracks' (MVA tracking) in the inner detector (in Tau Particle Flow these objects
+are considered to be charged pions). The charged pions initiate extensive
+hadronic showers in the calorimeter.
+
+To reconstruct neutral pions which mostly deposit energy in single (compact)
+showers (highly collimated photons) in (PS,) EM1 and EM2. Neutral pions are
+therefore reconstructed by clustering cells in PS, EM1, EM2. In case of
+overlapping showers of the neutral and charged constituents an energy
+subtraction scheme has to be employed.
+
+Due to the decrease in momentum resolution in the tracker as well as the
+additional boost of the decay products of the tau leading to merging of
+$\pi^0$-clusters, this method is optimized for operation in the low-momentum
+regime $p_\text{T} < \SI{100}{\giga\electronvolt}$.
+
+The individual reconstructed hadrons can be used to improve decay mode
+classification and energy resolution of reconstructed hadronic tau decays.
+
 
 \section{Architecture}
 \label{sec:pfo_architecture}
