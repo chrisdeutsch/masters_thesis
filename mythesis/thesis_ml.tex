@@ -27,6 +27,25 @@ Elements of statistical learning \cite{esl}
 \subsection{Basics}
 \label{sec:nn_basics}
 
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.55\textwidth}
+    \centering
+    \includegraphics{./figures/theory/mlp.pdf}
+    \subcaption{Schematic depiction of a multi-layer perceptron with input neurons
+      $\mathbf{x}$, hidden layer activation $\mathbf{h}$ and output activation
+      $\mathbf{y}$. The layers are connected via weight matrices $\mathbf{W}$ and
+      optional bias vectors $\mathbf{b}$. Neuron activations are given after
+      applying an element-wise activation function $\varphi$.}
+    \label{fig:multi_layer_perceptron}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.4\textwidth}
+    \centering \includegraphics{./figures/theory/activation_functions.pdf}
+    \subcaption{Commonly used activation functions for neural networks: logistic
+      function, hyperbolic tangent, and rectified linear unit (ReLU).}
+    \label{fig:activation_functions}
+  \end{subfigure}
+\end{figure}
+
 Perceptron:
 \begin{align*}
   y = \varphi(W x + b)
