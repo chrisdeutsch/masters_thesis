@@ -11,10 +11,29 @@
 \subsection{Coordinate System}
 \label{sec:atlas_coord_sys}
 
+ATLAS right-handed coordinate system. Origin at IP, z-axis in beam direction.
+x-axis points to the centre of the ring. y-axis points upwards. $x$,$y$ span the
+transverse plane. Cylindrical coordinates can be used $(r, \phi, z)$ with the
+azimuthal angle $\phi$. Or spherical coordinates $(r, \phi, \theta)$ with the
+polar angle $\theta$ with respect to the beam direction $z$ is used.
+
+Momentum conservation only in transverse plane due to unknown momentum in
+longitudinal direction leads to the 'definition' of $p_\text{T}$. Rapidity $y$
+and pseudorapidity $\eta$ differences Lorentz-invariant (only boost along the
+$z$-axis) in the massless limit.
+
+\begin{align*}
+  p_\text{T} &= | \vec{p} | \, \cos\theta \\
+  y &= \frac{1}{2} \ln\frac{E + p_z}{E - p_z} \\
+  \eta &= -\ln\tan\left( \frac{\theta}{2} \right) \\
+  \Delta R &= \sqrt{(\Delta\eta)^2 + (\Delta\phi)^2}
+\end{align*}
+
 \begin{itemize}
-\item $\eta$
-\item $\Delta R$
-\item $p_\mathrm{T}$
+\item $\Delta R$: Lorentz-invariant in the massless particle limit (otherwise
+  the same definition but with rapidity instead of pseudorapidity is required)
+\item Transverse energy $E_\text{T}$
+\item Missing transverse energy $E_\text{T}^\text{miss}$
 \end{itemize}
 
 \subsection{Tracking System}
