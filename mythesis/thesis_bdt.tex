@@ -1,3 +1,4 @@
+% ~ 12 pages
 \chapter{Identification of Hadronically Decaying $\tau$-Leptons (BDT)}
 \label{sec:bdt}
 
@@ -15,6 +16,16 @@ Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon initiated jets
 \item Reweighting
 \item Baseline selection ($\eta$, $p_\mathrm{T}$, truth-matching)
 \item Sample sizes
+\end{itemize}
+
+Basic tau selection
+\begin{itemize}
+\item $p_\text{T} > \SI{20}{\giga\electronvolt}$ (sufficient for most analyses)
+\item Exclude transition region $1.37 < |\eta| < 1.52$
+\item Require tracker acceptance region $|eta| < 2.5$
+\item One or three reconstructed tracks
+\item Truth-matching for signal events ($p_\text{T}$, $\eta$ and
+  $N_\text{track}$ selection also at truth-level)
 \end{itemize}
 
 
@@ -50,6 +61,21 @@ Quickly describe previous setup.
 
 Before proceeding to feature selection a reliable hyperparameter setup has to be
 found.
+
+Pick the best-performing BDT \& a good compromise between 'overtraining' and
+performance.
+
+Optimised for tight efficiency w/o subsampling:
+\begin{itemize}
+\item \textbf{Best performance 1P:} MaxDepth: 16, MinNodeSize: 0.01, NTrees:
+  400, Shrinkage: 0.05, ratio: 0.997 \textrightarrow alg 244
+\item \textbf{Compromise 1P:} MaxDepth: 6, MinNodeSize: 0.1, NTrees: 800,
+  Shrinkage: 0.1, ratio: 0.967 \textrightarrow alg 321
+\item \textbf{Best performance 3P:} MaxDepth: 16, MinNodeSize: 0.01, NTrees:
+  400, Shrinkage: 0.4, ratio: 0.998 \textrightarrow 259
+\item \textbf{Compromise 3P:} MaxDepth: 6, MinNodeSize: 0.1, NTrees: 800,
+  Shrinkage: 0.4, ratio: 0.964 \textrightarrow alg 327
+\end{itemize}
 
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
