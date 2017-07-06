@@ -27,6 +27,27 @@ Elements of statistical learning \cite{esl}
 \subsection{Basics}
 \label{sec:nn_basics}
 
+Perceptron:
+\begin{align*}
+  y = \varphi(W x + b)
+\end{align*}
+
+Multi-layer perceptron (1 hidden layer):
+\begin{align*}
+  y &= \varphi_y(W_{yh} h + b_y) \\
+  h &= \varphi_h(W_{hx} x + b_h)
+\end{align*}
+
+Layers are connected via linear transformations $W$ (and optionally
+biases $b$) followed by a non-linear activation function $\varphi$.
+Typical activation functions are:
+\begin{align*}
+  &\varphi(x) = \frac{1}{1 + e^{-x}} &\text{Logistic / Sigmoid Function} \\
+  &\varphi(x) = \tanh(x) &\text{Hyperbolic Tangent} \\
+  &\varphi(x) = \max(0, x) &\text{ReLU: Rectified Linear Unit} \\
+  &\varphi(x) = &\text{Softmax}
+\end{align*}
+
 Forward pass:
 \begin{itemize}
 \item Forward pass (Feedforward Neural Networks)
