@@ -2,10 +2,12 @@
 \chapter{Decay Mode Classification of Hadronically Decaying $\tau$-Leptons}
 \label{sec:decaymode}
 
+Notation in \cite{atlas:taurec:decaymodes} has been adapted.
+
 \section{Tau Particle Flow}
 \label{sec:tau_pflow}
 
-CellBased
+CellBased \cite{bwinter}
 
 Tau Particle Flow as described in \cite{atlas:taurec:decaymodes}.
 
@@ -38,6 +40,53 @@ classification and energy resolution of reconstructed hadronic tau decays.
 \section{Baseline}
 \label{sec:pfo_baseline}
 
+\todo{Table of neutral $p_{\mathrm{T}}$-cuts}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/mig_mat_pantau.pdf}
+    \subcaption{ATLAS default algorithm: \emph{PanTau}}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/mig_mat_baseline_ptcut_1_5.pdf}
+    \subcaption{PFO-RNN with neutral $p_{\text{T}}$-cut of
+      \SI{1.5}{\giga\electronvolt}}
+  \end{subfigure}
+  \caption{Migration matrices with normalised columns showing the migration of
+    the true decay modes to the reconstructed modes.}
+  \label{fig:migmat}
+\end{figure}
+
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/comp_mat_pantau.pdf}
+    \subcaption{ATLAS default algorithm: \emph{PanTau}}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/comp_mat_baseline_ptcut_1_5.pdf}
+    \subcaption{PFO-RNN with neutral $p_{\text{T}}$-cut of
+      \SI{1.5}{\giga\electronvolt}}
+  \end{subfigure}
+  \caption{Composition matrices with normalised rows showing the migration of
+    the true decay modes to the reconstructed modes.}
+  \label{fig:migmat}
+\end{figure}
+
+
+\begin{table}[ht]
+  \centering
+  \input{./tables/neutral_pfo_ptcut.tex}
+  \caption{Impact of a neutral $p_\text{T}$-cut on the diagonal efficiency.}
+  \label{tab:neut_ptcut}
+\end{table}
+
+
+
 'Global' Information attached to every PFO:
 \begin{itemize}
 \item $p_\text{T}^\text{jet}$
@@ -45,7 +94,7 @@ classification and energy resolution of reconstructed hadronic tau decays.
 \item $\eta_\text{jet}$
 \end{itemize}
 
-Charged PFOs:
+Charged PFOs (up to three -- 1 to 1 correspondence with charged tracks):
 \begin{itemize}
 \item $p_\text{T}^\text{PFO}$
 \item $\Delta \phi$: The angle between PFO and jet in the transverse plane.
