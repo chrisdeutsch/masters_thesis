@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20170627172802" modified="D:20170702174752"/>
-<preamble>\usepackage{txfonts}</preamble>
+<info created="D:20170627172802" modified="D:20170707154630"/>
+<preamble>\usepackage{amsmath}
+\usepackage{txfonts}
+</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -262,7 +264,7 @@ h
 268 668 l
 h
 </path>
-<text matrix="1 0 0 1 56 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="6.986" height="4.41" depth="1.54" halign="center" valign="center" size="10" style="math">c_t</text>
+<text matrix="1 0 0 1 56 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="6.986" height="4.659" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{c}_t</text>
 <path stroke="black">
 100 668 m
 100 644 l
@@ -270,7 +272,7 @@ h
 124 668 l
 h
 </path>
-<text matrix="1 0 0 1 -80 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="14.908" height="4.41" depth="1.54" halign="center" valign="center" size="10" style="math">c_{t-1}</text>
+<text matrix="1 0 0 1 -80 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="14.908" height="4.659" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{c}_{t-1}</text>
 <path matrix="1 0 0 1 36 -80" stroke="black">
 8 0 0 8 128 736 e
 </path>
@@ -291,7 +293,7 @@ h
 <path matrix="1 0 0 1 76 -56" stroke="black">
 12 0 0 12 256 752 e
 </path>
-<text matrix="1 0 0 1 128 -52" transformations="translations" pos="204 748" stroke="black" type="label" width="7.544" height="4.41" depth="1.54" halign="center" valign="center" size="10" style="math">o_t</text>
+<text matrix="1 0 0 1 128 -52" transformations="translations" pos="204 748" stroke="black" type="label" width="7.544" height="4.659" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{o}_t</text>
 <path matrix="1 0 0 1 120 0" stroke="black">
 244 668 m
 244 644 l
@@ -299,12 +301,12 @@ h
 268 668 l
 h
 </path>
-<text matrix="1 0 0 1 184 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="7.544" height="6.731" depth="1.54" halign="center" valign="center" size="10" style="math">h_t</text>
+<text matrix="1 0 0 1 184 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="8.102" height="6.677" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{h}_t</text>
 <text matrix="1 0 0 1 76 -24" transformations="translations" pos="256 736" stroke="black" type="label" width="48.976" height="6.672" depth="2.16" halign="center" valign="baseline" size="10">Output Gate</text>
 <path matrix="1 0 0 1 -92 -56" stroke="black">
 12 0 0 12 256 752 e
 </path>
-<text matrix="1 0 0 1 -40 -52" transformations="translations" pos="204 748" stroke="black" type="label" width="6.826" height="6.727" depth="2.05" halign="center" valign="center" size="10" style="math">f_t</text>
+<text matrix="1 0 0 1 -40 -52" transformations="translations" pos="204 748" stroke="black" type="label" width="5.88" height="6.841" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{f}_t</text>
 <text matrix="1 0 0 1 -92 -24" transformations="translations" pos="256 736" stroke="black" type="label" width="46.984" height="6.672" depth="2.16" halign="center" valign="baseline" size="10">Forget Gate</text>
 <path matrix="1 0 0 1 8 0" stroke="black" arrow="normal/normal">
 156 684 m
@@ -317,7 +319,7 @@ h
 268 668 l
 h
 </path>
-<text matrix="1 0 0 1 -80 40" transformations="translations" pos="192 736" stroke="black" type="label" width="15.466" height="6.731" depth="1.54" halign="center" valign="center" size="10" style="math">h_{t-1}</text>
+<text matrix="1 0 0 1 -80 40" transformations="translations" pos="192 736" stroke="black" type="label" width="16.024" height="6.677" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{h}_{t-1}</text>
 <path stroke="black" arrow="normal/normal">
 204 688 m
 204 664 l
@@ -368,7 +370,7 @@ h
 268 668 l
 h
 </path>
-<text matrix="1 0 0 1 56 40" transformations="translations" pos="192 736" stroke="black" type="label" width="7.484" height="4.41" depth="1.54" halign="center" valign="center" size="10" style="math">x_t</text>
+<text matrix="1 0 0 1 56 40" transformations="translations" pos="192 736" stroke="black" type="label" width="7.544" height="4.659" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{x}_t</text>
 <path matrix="1 0 0 1 -52 -16" stroke="black">
 12 0 0 12 256 752 e
 </path>
@@ -391,7 +393,7 @@ h
 <path matrix="1 0 0 1 -8 -56" stroke="black">
 12 0 0 12 256 752 e
 </path>
-<text matrix="1 0 0 1 44 -52" transformations="translations" pos="204 748" stroke="black" type="label" width="5.332" height="6.517" depth="1.54" halign="center" valign="center" size="10" style="math">i_t</text>
+<text matrix="1 0 0 1 44 -52" transformations="translations" pos="204 748" stroke="black" type="label" width="5.332" height="6.841" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{i}_t</text>
 <text matrix="1 0 0 1 -8 -24" transformations="translations" pos="256 736" stroke="black" type="label" width="42.331" height="6.672" depth="2.16" halign="center" valign="baseline" size="10">Input Gate</text>
 <path matrix="1 0 0 1 28 -40" stroke="black" rarrow="normal/normal">
 184 736 m
@@ -413,8 +415,8 @@ h
 156 684 m
 156 664 l
 </path>
-<text matrix="1 0 0 1 84 -4" transformations="translations" pos="144 784" stroke="black" type="label" width="11.893" height="6.517" depth="1.54" halign="center" valign="baseline" size="10" style="math">W_c</text>
-<text matrix="1 0 0 1 16 -4" transformations="translations" pos="144 784" stroke="black" type="label" width="11.037" height="6.517" depth="1.54" halign="center" valign="baseline" size="10" style="math">U_c</text>
+<text matrix="1 0 0 1 84 -4" transformations="translations" pos="144 784" stroke="black" type="label" width="13.557" height="6.678" depth="1.56" halign="center" valign="baseline" size="10" style="math">\mathbf{W}_{\text{c}}</text>
+<text matrix="1 0 0 1 16 -4" transformations="translations" pos="144 784" stroke="black" type="label" width="10.788" height="6.678" depth="1.56" halign="center" valign="baseline" size="10" style="math">\mathbf{U}_{\text{c}}</text>
 <path matrix="1 0 0 1 76 -80" stroke="black" arrow="normal/normal">
 96 736 m
 120 736 l
@@ -424,7 +426,7 @@ h
 204 800 m
 204 784 l
 </path>
-<text matrix="1 0 0 1 60 20" transformations="translations" pos="144 784" stroke="black" type="label" width="8.576" height="6.731" depth="1.54" halign="center" valign="baseline" size="10" style="math">b_c</text>
+<text matrix="1 0 0 1 60 20" transformations="translations" pos="144 784" stroke="black" type="label" width="9.134" height="6.678" depth="1.56" halign="center" valign="baseline" size="10" style="math">\mathbf{b}_{\text{c}}</text>
 <text matrix="1 0 0 1 -8 24" transformations="translations" pos="256 736" stroke="black" type="label" width="21.031" height="6.672" depth="2.16" halign="center" valign="top" size="10">Input</text>
 <path stroke="0.216 0.494 0.722" pen="0.8">
 92 796 m
