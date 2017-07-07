@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170706230802" modified="D:20170706233333"/>
+<info created="D:20170706230802" modified="D:20170707155019"/>
 <preamble>\usepackage{txfonts}</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
@@ -911,5 +911,6 @@ h
 336 762 m
 336 758 l
 </path>
+<text matrix="1 0 0 1 41.3057 -15.8918" transformations="translations" pos="264 740" stroke="black" type="label" width="5.447" height="4.846" depth="0.08" valign="baseline" size="11">$x$</text>
 </page>
 </ipe>
