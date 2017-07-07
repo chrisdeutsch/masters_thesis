@@ -31,19 +31,22 @@ for that (i.e.\ higher branching ratio)
 \todo{Lower threshold for $p_\mathrm{T}$ is \SI{400}{\mega\electronvolt} already
   in track reconstruction}
 
+\todo{use 10 tracks}
+
 \todo{LSTM cell size scan? 8, 12, 16, 24, 32, 48, 64}
 
 \begin{figure}[ht]
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.49\textwidth}
     \centering
     \includegraphics{./figures/rnn/ntrk_1p.pdf}
     \subcaption{NTracks for 1-prong taus. \todo{Make x-axis label consistent
         with plot on the right. This should be using pt weights.}}
-  \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.49\textwidth}
     \centering
     \includegraphics{./figures/rnn/nscan/track_1p.pdf}
-    \subcaption{Val.\ loss vs.\ nTracks. Also put 3P in this?}
+    \subcaption{Val.\ loss vs.\ nTracks. Also put 3P in this? Errors are of the
+      order of the marker size.}
   \end{subfigure}
   \caption{Tracks associated with a tau}
   \label{fig:rnn_ntracks}
@@ -72,19 +75,21 @@ for that (i.e.\ higher branching ratio)
 \label{sec:rnn_clusters}
 
 \begin{figure}[ht]
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.49\textwidth}
     \centering
     \includegraphics{./figures/rnn/ncls_1p.pdf}
     \subcaption{NCluster for 1-prong taus}
   \end{subfigure}%
-  \begin{subfigure}[t]{0.5\textwidth}
+  \begin{subfigure}[t]{0.49\textwidth}
     \centering
-    \todo{INSERT FIGURE HERE!!!}
+    \includegraphics{./figures/rnn/nscan/cluster_1p.pdf}
     \subcaption{Val.\ loss vs.\ nCluster}
   \end{subfigure}
   \caption{Clusters associated with a tau}
   \label{fig:rnn_nclusters}
 \end{figure}
+
+\todo{Use 6 clusters}
 
 \begin{itemize}
 \item Input variables \& correlation with true class labels. Partial

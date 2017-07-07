@@ -19,14 +19,14 @@ algorithms are included.
 Candidates for hadronic tau decays are seeded by jets formed by the
 anti-$k_\mathrm{t}$ jet algorithm using a distance parameter of $R = 0.4$ on
 three-dimensional clusters of calorimeter cells called \emph{TopoClusters}
-calibrated using the local hadronic calibration (LC-scale) \todo{accounts for
-  non-compensating nature of the calo by classifying clusters as em or hadronic,
-  dead material, out-of-cluster energy of low-pt particles that are bent from
-  the jet}. The jet seed has to satisfy $p_\mathrm{T} > \SI{10}{GeV}$ and is
-required to fall into the acceptance range of the tracking system
-$|\eta| < \num{2.5}$. \todo{At this step tau $p_\mathrm{T}, \eta, \varphi, m$
-  ($m$: invariant mass) are set to the ones of the jet seed -- what does this
-  mean? Read up on jet algs}
+calibrated using the local hadronic calibration (LC-scale)
+\cite{local_hadronic_calib}\todo{accounts for non-compensating nature of the
+  calo by classifying clusters as em or hadronic, dead material, out-of-cluster
+  energy of low-pt particles that are bent from the jet}. The jet seed has to
+satisfy $p_\mathrm{T} > \SI{10}{GeV}$ and is required to fall into the
+acceptance range of the tracking system $|\eta| < \num{2.5}$. \todo{At this step
+  tau $p_\mathrm{T}, \eta, \varphi, m$ ($m$: invariant mass) are set to the ones
+  of the jet seed -- what does this mean? Read up on jet algs}
 
 % TauVertexFinder:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauVertexFinder.cxx
