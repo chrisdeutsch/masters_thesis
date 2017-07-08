@@ -61,12 +61,11 @@ functions are hyperparameters of the model (except input and output layer which
 is fixed by the underlying problem).
 
 Typical activation functions are:
-\begin{align*}
+\begin{align}
   &\varphi_i(\mathbf{x}) = \frac{1}{1 + e^{-x_i}} &\text{Logistic / Sigmoid Function} \\
-  &\varphi_i(\mathbf{x}) = \tanh(x_i) &\text{Hyperbolic Tangent} \\
-  &\varphi_i(\mathbf{x}) = \max(0, x_i) &\text{ReLU: Rectified Linear Unit} \\
   &\varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}&\text{Softmax}
-\end{align*}
+                                                           \label{eq:softmax}
+\end{align}
 \cite{theano}
 
 There are numerous different layers and ways to interconnect them, which allows
@@ -104,10 +103,10 @@ weights $w_i$ the loss $\mathcal{L}$ is defined as
 which in case of the cross-entropy can be interpreted as the negative
 log-likelihood of the model parameters given the observed subset of data. These
 losses expect networks to predict probabilities which can be met if the
-activation function of the final layer is the logistic function or the softmax.
-The training process minimises the loss $\mathcal{L}$ with respect to the model
-parameters (i.e.\ weights and biases of the neural network) and thus maximises
-the likelihood of the model parameters given the observed training data.
+activation function of the final layer is the logistic function or softmax (eq.
+\ref{eq:softmax}). The training process minimises the loss $\mathcal{L}$
+(maximises the likelihood) with respect to the model parameters, i.e.\ the
+weights and biases of the network, given the observed training data.
 
 \todo{Find proper references} \cite{esl}
 
