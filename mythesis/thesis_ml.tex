@@ -81,16 +81,44 @@ Training:
 \item Cross-Validation
 \end{itemize}
 
+Categorical cross-entropy or negative log-likelihood for an observation of class
+$k \in \{1, \dots, K\}$ with discriminants $\mathbf{x}$ and a model
+$p(\mathbf{x})$ returning per-class probabilities $p_k$:
+\begin{align*}
+  L\left(k, p(\mathbf{x})\right) = - \log\left( p_k(\mathbf{x}) \right) \eqdot
+\end{align*}
+For binary classification tasks it is sufficient to give the probability $p$ for
+the positive class (e.g. signal) such that the binary cross-entropy can be
+written as
+\begin{align*}
+  L(p(\mathbf{x})) = -t \, \log(p(\mathbf{x})) - (1 - t) \, \log(1 - p(\mathbf{x}))
+\end{align*}
+Looking at a subset of the observed data with event weights $w_i$
+\begin{align*}
+  L = \frac{\sum_i w_i L_i}{\sum_j w_j}
+\end{align*}
+
+Loss function $L(y, f(\mathbf{x}))$ penalising errors \cite{esl}.
 Loss for entry $i$. $j$ marks the class.
 \begin{align*}
   L_i^\mathrm{binary} &= -t_i \log(p_i) - (1 - t_i) \log(1 - p_i) \\
   L_i^\mathrm{categorical} &= - \sum_j t_{ij} \log(p_{ij}) \\
   L &= \frac{\sum_i w_i L_i}{\sum_j w_j}
 \end{align*}
-Binary cross entropy follows from categorical cross entropy if
-$p_{i1} + p_{i2} = 1$ and $t_{i1} + t_{i2} = 1$ for all $i$. Typical for
-classification (e.g.\ using softmax) $\sum_i p_i = 1$ and $\sum_i t_i = 1$.
-Motivate where in this thesis these loss functions are used.
+$t$ binary indicator whether observation is of class $j$. Binary cross entropy
+follows from categorical cross entropy if $p_{i1} + p_{i2} = 1$ and
+$t_{i1} + t_{i2} = 1$ for all $i$. Typical for classification (e.g.\ using
+softmax) $\sum_i p_i = 1$ and $\sum_i t_i = 1$. Large penalties to predictions
+that are far off. Its better to be sort of off instead of completely off.
+Motivate where in this thesis these loss functions are used. Both losses are
+also called 'Log Loss'. $p$ should be a class probability. Perfect classifiers
+have loss of zero. Last layer in neural network effectively does logistic
+regression on the intermediate representation created from the previous layers.
+
+Mention sigmoid and softmax.
+
+Training: optimise model parameters to maximise likelihood given the observed
+data.
 
 \section{Recurrent Neural Networks}
 \label{sec:rnn}
