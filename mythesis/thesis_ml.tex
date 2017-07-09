@@ -55,6 +55,7 @@ Multi-layer perceptron (1 hidden layer):
   &\mathbf{y} = \varphi_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}})
 \end{align*}
 Layers are connected via linear transformations $W$ (and optionally biases $b$)
+(affine transformations $W \, x + b$)
 followed by a non-linear activation function $\varphi$. Layers connected in this
 fashion are called densely-connected or dense layers. Layer sizes and activation
 functions are hyperparameters of the model (except input and output layer which
