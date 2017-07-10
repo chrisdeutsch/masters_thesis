@@ -11,6 +11,30 @@
 \section{Boosted Decision Trees}
 \label{sec:bdt}
 
+\todo{Focus on classification with two classes}
+
+\begin{itemize}
+\item Tree-based model: recursively partition input space into subregions via
+  binary splits on the coordinate axes (parallel to the coordinate axes) of the
+  input space until some stopping criterion is fulfilled (description by a
+  binary tree)
+\item Dataflow: top of the tree - full population; subsets of the full
+  population at deeper levels
+\item Training: Greedy -- look for best (according to some loss) split in all
+  variables and repeat for subregions
+\item Impurity measure: Gini index (or Gini impurity): $2 p (1 - p)$ where $p$
+  is the signal purity in a region (splits that split off pure background as
+  well as signal are equivalent). Probability to assign the correct label to a
+  randomly picked observation when randomly assigning according to the
+  distribution of labels in the sample.
+\item The split has to be weighted by the weight of events in each subregion:
+  \begin{align*}
+    \frac{w_\mathrm{L} \times 2 p_\mathrm{L} (1 - p_\mathrm{L}) + w_\mathrm{R} \times 2 p_\mathrm{R} (1 - p_\mathrm{R})}{w_\mathrm{L} + w_\mathrm{R}}
+  \end{align*}
+  weighted average of the Gini impurity of both subregions
+\item Each subregion is assigned the majority class or the signal purity in that region
+\end{itemize}
+
 Keep this short!
 
 Elements of statistical learning \cite{esl}
@@ -104,9 +128,9 @@ For the training of neural networks a loss function that penalises errors in the
 model's predictions is needed. In $K$-class classification tasks a commonly used
 loss function is the categorical cross-entropy. For an observation of true class
 $k \in \{ 1, \dots, K \}$ with discriminants $\mathbf{x}$ and a model
-$p(\mathbf{x})$ with per-class probabilities $p_k$ it is defined as
+$\mathbf{p}(\mathbf{x})$ with per-class probabilities $p_k$ it is defined as
 \begin{align*}
-  L\left(k, p(\mathbf{x}) \right) = - \log\left( p_k(\mathbf{x}) \right) \eqdot
+  L\left(k, \mathbf{p}(\mathbf{x}) \right) = - \log\left( p_k(\mathbf{x}) \right) \eqdot
 \end{align*}
 For binary classification it is sufficient to give the predicted probability $p$
 for the positive class (e.g.\ an observation being signal) such that the binary
