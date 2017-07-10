@@ -5,29 +5,55 @@
 \section{Features of Hadronically Decaying Tau Leptons}
 \label{sec:features_tau_decay}
 
-Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon initiated jets
+Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon initiated jets:
+\begin{itemize}
+\item Low multiplicity (QCD jets usually have a lot of tracks)
+\item Isolated tracks and narrow showers
+\item Measurable decay length with proper lifetime of
+  $\tau = \SI{290.3 +- 0.5}{\femto\second}$ \cite{pdg} and following from that
+  $c \tau = \SI{87.0 +- 0.2}{\micro\metre}$ with $\beta \gamma = 10$ which
+  corresponds to a roughly \SI{18}{\giga\electronvolt} tau the mean decay length
+  is of the order of a millimetre and allows secondary vertex reconstruction or
+  employing the impact parameter for 1-prong taus (sub-millimetre resolution).
+\item Invariant mass bounds for decay products
+\end{itemize}
 
 
 \section{Event Simulation, Reweighting and Preselection}
 \label{sec:bdt_eventsim}
 
-\begin{itemize}
-\item Gammatautau (Polarisation), Dijet JZ1W - JZ6W
-\item Reweighting
-\item Baseline selection ($\eta$, $p_\mathrm{T}$, truth-matching)
-\item Sample sizes
-\end{itemize}
+\todo{Signal}
+For training and performance evaluation simulated data is used. For tau
+performance trainings and tunings a sample created by the process
+$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used, where at
+generator-level leptonic decays of the tau is disabled. Moreover interference
+with and on-/ off-shell production of the $\mathrm{Z}^0$ boson is disabled. The
+reason for not using a sample employing the Drell--Yan process including
+interference and on- / off-shell production of the $\mathrm{Z}^0$ boson is that
+the tau polarisation changes for di-tau invariant masses close to the
+$\mathrm{Z}$-mass whereas unpolarised taus are desired. Moreover the di-tau mass
+spectrum is smooth and decreasing without increased statistics close to the
+$\mathrm{Z}$ mass which is not needed for performance studies.
+
+\todo{Background} The background for the identification studies is given by
+dijet samples up to \SI{1800}{\giga\electronvolt} (JZ1W - JZ6W). \todo{Finish
+  this}
 
 Basic tau selection
 \begin{itemize}
 \item $p_\text{T} > \SI{20}{\giga\electronvolt}$ (sufficient for most analyses)
-\item Exclude transition region $1.37 < |\eta| < 1.52$
-\item Require tracker acceptance region $|eta| < 2.5$
+\item Exclude calorimeter transition region $1.37 < |\eta| < 1.52$
+\item Require tracker acceptance region $|\eta| < 2.5$
 \item One or three reconstructed tracks
 \item Truth-matching for signal events ($p_\text{T}$, $\eta$ and
   $N_\text{track}$ selection also at truth-level)
 \end{itemize}
 
+\todo{Sample sizes after basic selection}
+
+\todo{Reweighting}
+
+A full summary of the datasets is given in appendix \todo{Reference}.
 
 \section{Description of the Tau-Identification Procedure}
 \label{sec:bdt_tauid}
@@ -38,19 +64,6 @@ Basic tau selection
 Previous setup (incl. explanation \& plots of input variables)
 
 Transformations?
-
-\subsection{Working Points}
-\label{sec:bdt_working_points}
-
-Working points (Gammatautau -- Ztautau)
-
-Signal efficiencies 1P (3P):
-\begin{itemize}
-\item Very Loose: 95\% (95\%)
-\item Loose: 85\% (75\%)
-\item Medium: 75\% (60\%)
-\item Tight: 60\% (45\%)
-\end{itemize}
 
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
@@ -95,6 +108,19 @@ AdaBoost \textrightarrow GradBoost
 TMVA Grid Search
 XGBoost (?)
 Comparison with previous setup
+
+\subsection{Working Points}
+\label{sec:bdt_working_points}
+
+Working points (Gammatautau -- Ztautau)
+
+Signal efficiencies 1P (3P):
+\begin{itemize}
+\item Very Loose: 95\% (95\%)
+\item Loose: 85\% (75\%)
+\item Medium: 75\% (60\%)
+\item Tight: 60\% (45\%)
+\end{itemize}
 
 \section{Feature Selection}
 \label{sec:bdt_feature_selection}
