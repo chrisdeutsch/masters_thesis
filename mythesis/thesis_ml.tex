@@ -13,11 +13,13 @@
 
 \todo{Focus on classification with two classes}
 
+Decision trees:
 \begin{itemize}
 \item Tree-based model: recursively partition input space into subregions via
   binary splits on the coordinate axes (parallel to the coordinate axes) of the
   input space until some stopping criterion is fulfilled (description by a
   binary tree)
+\item Stopping rules: maximum depth, minimum node size
 \item Dataflow: top of the tree - full population; subsets of the full
   population at deeper levels
 \item Training: Greedy -- look for best (according to some loss) split in all
@@ -33,6 +35,16 @@
   \end{align*}
   weighted average of the Gini impurity of both subregions
 \item Each subregion is assigned the majority class or the signal purity in that region
+\item Won't explain pruning since boosted decision trees are used
+\end{itemize}
+
+Boosting:
+\begin{itemize}
+\item Popular algorithms: AdaBoost (TMVA: Real AdaBoost), Gradient boosting
+\item Ensemble method to combine a number of weak learners (Meta-Algorithm)
+\item AdaBoost: weighted sum of a number of weak classifiers, each classifier is
+  trained on data where the weights of incorrectly classified examples are
+  increased and correctly classified events are decreased
 \end{itemize}
 
 Keep this short!
