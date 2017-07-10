@@ -39,10 +39,6 @@ whats going on if only Introduction \& Conclusion is read by the reader)
 \item From the RNNs: Group variables into groups, e.g. Impact parameters,
   kinematic quantities, inner detector hits, energy fractions, moments etc. and
   drop whole groups to gauge importance of the variables
-\item Track-RNN: Replace pt\_asym and $\Delta R \rightarrow \Delta\varphi,
-  \Delta\eta$ (try extrapolated \& non-extrapolated)
-\item Cluster-RNN: $\Delta\eta$ and $\Delta\varphi$ like for Track-RNN, Include
-  also $p_\text{T}$ like in Track-RNN
 \item Now that the Track \& Cluster-RNN switched to preprocessing on a per
   variable basis investigate switching to this as well for the PFO-RNN. Also
   apply constant\_scale(0.4) on dEta/dPhi instead of regular scale.

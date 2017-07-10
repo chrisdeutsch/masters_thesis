@@ -24,6 +24,8 @@ Elements of statistical learning \cite{esl}
 \section{Neural Networks}
 \label{sec:nn}
 
+\todo{Explain notation -- bold for vectors and matrices}
+
 \subsection{Feedforward Neural Networks}
 \label{sec:nn_feedforward}
 
@@ -35,7 +37,7 @@ Elements of statistical learning \cite{esl}
       neurons $\mathbf{x}$, hidden layer activation $\mathbf{h}$ and output
       activation $\mathbf{y}$. The layers are connected via weight matrices
       $\mathbf{W}$ and optional bias vectors $\mathbf{b}$. Neuron activations
-      are given after applying an element-wise activation function $\varphi$.}
+      are given after applying an element-wise activation function $\bm{\varphi}$.}
     \label{fig:multi_layer_perceptron}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.4\textwidth}
@@ -49,25 +51,42 @@ Elements of statistical learning \cite{esl}
   \caption{Feedforward neural network}
 \end{figure}
 
-Multi-layer perceptron (1 hidden layer):
-\begin{align*}
-  &\mathbf{h} = \varphi_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
-  &\mathbf{y} = \varphi_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}})
-\end{align*}
-Layers are connected via linear transformations $W$ (and optionally biases $b$)
-(affine transformations $W \, x + b$)
-followed by a non-linear activation function $\varphi$. Layers connected in this
-fashion are called densely-connected or dense layers. Layer sizes and activation
-functions are hyperparameters of the model (except input and output layer which
-is fixed by the underlying problem).
+\todo{$\varphi$ should be bold!}
+Feedforward -> information flow from front to back.
 
-Typical activation functions are:
-\begin{align}
-  &\varphi_i(\mathbf{x}) = \frac{1}{1 + e^{-x_i}} &\text{Logistic / Sigmoid Function} \\
-  &\varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}&\text{Softmax}
-                                                           \label{eq:softmax}
-\end{align}
-\cite{theano}
+An example of a simple feedforward neural networks is the multi-layer perceptron
+consisting of a number of input neurons $\mathbf{x}$ that are used to feed the
+discriminants to the network, a output layer with activation $\mathbf{y}$ and
+several intermediate (hidden) layers connecting input and output layer. In
+figure \ref{fig:multi_layer_perceptron} a multi-layer perceptron with a single
+hidden layer is shown. Two layers of the network are connected by an affine
+transformation $\mathbf{W}\mathbf{x} + \mathbf{b}$ and subsequent application of
+an entry-wise activation function $\bm{\varphi}$ (commonly called dense or
+densely-connected layers). The activations of the neurons in the hidden layer
+$\mathbf{h}$ and the output layer $\mathbf{y}$ for the case depicted in figure
+\ref{fig:multi_layer_perceptron} are given by:
+\begin{align*}
+  &\mathbf{h} = \bm{\varphi}_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
+  &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqdot
+\end{align*}
+Generally the sizes of the hidden layers as well as the choice of the activation
+functions are hyperparameters of the model. The exception is the size of the
+input and output layer which is given by the number of discriminants and the
+number of outputs respectively. Moreover the activation function of the final
+layer is determined by the underlying task. For binary classification the
+logistic function $\sigma(x) = (1 + \exp(-x))^{-1}$ is applied to a single
+output neuron giving the probability of an observation being of the positive
+class. For multi-class classification the number of output neurons is equal to
+the number of classes and \emph{softmax}
+\begin{align*}
+  \varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}
+\end{align*}
+is commonly chosen as the activation function, where $\varphi_i(\mathbf{x})$ is
+the activation of the $i$-th neuron and $x_i$ the value of the neuron before
+activation. The \emph{softmax} function ensures that the sum of activations in a
+layer equals one, such that the activations can be interpreted as class
+probabilities. Further activation functions that are commonly used for the
+intermediate layers are depicted in figure \ref{fig:activation_functions}.
 
 There are numerous different layers and ways to interconnect them, which allows
 for high flexibility when building networks.
@@ -133,8 +152,8 @@ physics objects like tracks, clusters, particle flow objects etc..
 % \textsc{Elman} network [Check Citation]\cite{elman}:
 \textsc{Jordan} network \todo{look for citation}:
 \begin{align*}
-  \mathbf{c}_t &= \varphi_{\text{c}}\left( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}} \right) \\
-  \mathbf{h}_t &= \varphi_{\text{h}}\left( \mathbf{W}_{\text{h}} \mathbf{c}_{t} + \mathbf{b}_{\text{h}} \right)
+  \mathbf{c}_t &= \bm{\varphi}_{\text{c}}\left( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}} \right) \\
+  \mathbf{h}_t &= \bm{\varphi}_{\text{h}}\left( \mathbf{W}_{\text{h}} \mathbf{c}_{t} + \mathbf{b}_{\text{h}} \right)
 \end{align*}
 \todo{Should rename output $\mathbf{h}$ to $\mathbf{y}$ to be consistent.}
 with trainable weights $\mathbf{W}$, recurrent weights $\mathbf{U}$ and biases $\mathbf{b}$.
@@ -156,14 +175,14 @@ to vanishing gradients (plot?).
 
 Gate activations:
 \begin{align*}
-  \mathbf{f}_{t} &= \varphi_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{f}} \right) &
-  \mathbf{i}_{t} &= \varphi_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{i}} \right) &
-  \mathbf{o}_{t} &= \varphi_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{o}} \right)
+  \mathbf{f}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{f}} \right) &
+  \mathbf{i}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{i}} \right) &
+  \mathbf{o}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{o}} \right)
 \end{align*}
 Cell state update:
 \begin{align*}
   \mathbf{c}_{t} &= \mathbf{f}_{t} \circ \mathbf{c}_{t-1}
-                   + \mathbf{i}_{t} \circ \varphi_{\text{c}}(
+                   + \mathbf{i}_{t} \circ \bm{\varphi}_{\text{c}}(
                    \mathbf{W}_{\text{c}} \mathbf{x}_{t}+ \mathbf{U}_{\text{c}}
                    \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}})
 \end{align*}

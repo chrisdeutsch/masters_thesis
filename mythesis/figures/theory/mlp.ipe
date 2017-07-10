@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
-<ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170706201521" modified="D:20170707002417"/>
+<ipe version="70206" creator="Ipe 7.2.7">
+<info created="D:20170706201521" modified="D:20170710101424"/>
 <preamble>\usepackage{amsmath}
-\usepackage{txfonts}</preamble>
+\usepackage{txfonts}
+\usepackage{bm}
+</preamble>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -256,7 +258,7 @@ h
 <page>
 <layer name="alpha"/>
 <view layers="alpha" active="alpha"/>
-<text layer="alpha" matrix="1 0 0 1 36 40" transformations="translations" pos="28 728" stroke="black" type="label" width="5.479" height="5.118" depth="0" halign="center" valign="center" size="11">$\mathbf{x}$</text>
+<text layer="alpha" matrix="1 0 0 1 36 40" transformations="translations" pos="28 728" stroke="black" type="label" width="5.479" height="5.118" depth="0" halign="center" valign="center" size="11" style="math">\mathbf{x}</text>
 <path matrix="1 0 0 1 -32 64" stroke="0" pen="0.6">
 8 0 0 8 120 728 e
 </path>
@@ -266,25 +268,25 @@ h
 <path matrix="1 0 0 1 -32 16" stroke="0" pen="0.6">
 8 0 0 8 120 728 e
 </path>
-<text matrix="1 0 0 1 60 64" transformations="translations" pos="28 728" stroke="black" type="label" width="9.747" height="4.851" depth="1.74" halign="center" valign="center" size="11">$x_3$</text>
-<text matrix="1 0 0 1 60 40" transformations="translations" pos="28 728" stroke="black" type="label" width="9.747" height="4.848" depth="1.64" halign="center" valign="center" size="11">$x_2$</text>
-<text matrix="1 0 0 1 60 16" transformations="translations" pos="28 728" stroke="black" type="label" width="9.747" height="4.848" depth="1.64" halign="center" valign="center" size="11">$x_1$</text>
+<text matrix="1 0 0 1 60 64" transformations="translations" pos="28 728" stroke="black" type="label" width="9.747" height="4.851" depth="1.74" halign="center" valign="center" size="11" style="math">x_3</text>
+<text matrix="1 0 0 1 60 40" transformations="translations" pos="28 728" stroke="black" type="label" width="9.747" height="4.848" depth="1.64" halign="center" valign="center" size="11" style="math">x_2</text>
+<text matrix="1 0 0 1 60 16" transformations="translations" pos="28 728" stroke="black" type="label" width="9.747" height="4.848" depth="1.64" halign="center" valign="center" size="11" style="math">x_1</text>
 <path matrix="1 0 0 1 8 0" stroke="black" pen="0.6">
 8 0 0 8 128 756 e
 </path>
 <path matrix="1 0 0 1 8 24" stroke="black" pen="0.6">
 8 0 0 8 128 756 e
 </path>
-<text matrix="1 0 0 1 108 52" transformations="translations" pos="28 728" stroke="black" type="label" width="9.813" height="7.401" depth="1.64" halign="center" valign="center" size="11">$h_2$</text>
-<text matrix="1 0 0 1 108 28" transformations="translations" pos="28 728" stroke="black" type="label" width="9.813" height="7.401" depth="1.64" halign="center" valign="center" size="11">$h_1$</text>
+<text matrix="1 0 0 1 108 52" transformations="translations" pos="28 728" stroke="black" type="label" width="9.813" height="7.401" depth="1.64" halign="center" valign="center" size="11" style="math">h_2</text>
+<text matrix="1 0 0 1 108 28" transformations="translations" pos="28 728" stroke="black" type="label" width="9.813" height="7.401" depth="1.64" halign="center" valign="center" size="11" style="math">h_1</text>
 <path matrix="1 0 0 1 56 12" stroke="black" pen="0.6">
 8 0 0 8 128 756 e
 </path>
-<text matrix="1 0 0 1 16 -12" transformations="translations" pos="168 780" stroke="black" type="label" width="9.199" height="4.841" depth="2.26" halign="center" valign="center" size="11">$y_1$</text>
+<text matrix="1 0 0 1 16 -12" transformations="translations" pos="168 780" stroke="black" type="label" width="9.199" height="4.841" depth="2.26" halign="center" valign="center" size="11" style="math">y_1</text>
 <path matrix="1 0 0 1 -32 88" stroke="0.6" pen="0.6">
 8 0 0 8 120 728 e
 </path>
-<text matrix="1 0 0 1 0 -4" transformations="translations" pos="88 820" stroke="0.6" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11">$1$</text>
+<text matrix="1 0 0 1 0 -4" transformations="translations" pos="88 820" stroke="0.6" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11" style="math">1</text>
 <path stroke="0.6" pen="0.6">
 96 816 m
 128 780 l
@@ -296,12 +298,12 @@ h
 <path matrix="1 0 0 1 16 76" stroke="0.6" pen="0.6">
 8 0 0 8 120 728 e
 </path>
-<text matrix="1 0 0 1 48 -16" transformations="translations" pos="88 820" stroke="0.6" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11">$1$</text>
+<text matrix="1 0 0 1 48 -16" transformations="translations" pos="88 820" stroke="0.6" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11" style="math">1</text>
 <path stroke="0.6" pen="0.6">
 144 804 m
 176 768 l
 </path>
-<text matrix="1.5134 0 0 2.16192 -15.1115 -954.248" pos="56 784" stroke="black" type="label" width="5.599" height="15.2" depth="10.1" valign="bottom">$\Bigg\{ $</text>
+<text matrix="1.5134 0 0 2.16192 -15.1115 -954.248" pos="56 784" stroke="black" type="label" width="5.599" height="15.2" depth="10.1" valign="bottom" style="math">\Bigg\{ </text>
 <path stroke="black" pen="0.6">
 96 792 m
 128 780 l
@@ -334,13 +336,13 @@ h
 144 756 m
 176 768 l
 </path>
-<text matrix="1 0 0 1 25.2513 25.0868" transformations="translations" pos="108.074 710.078" stroke="black" type="label" width="93.966" height="14.61" depth="9.5" valign="center">$\mathbf{h} = \varphi_{\text{h}}\left( \begin{bmatrix}
+<text matrix="1 0 0 1 25.2513 25.0868" transformations="translations" pos="108.074 710.078" stroke="black" type="label" width="94.325" height="14.61" depth="9.5" valign="center" style="math">\mathbf{h} = \bm{\varphi}_{\text{h}}\left( \begin{bmatrix}
 \mathbf{W}_{\text{hx}} &amp; \mathbf{b}_{\text{h}}
 \end{bmatrix} \begin{bmatrix}
 \mathbf{x} \\
 1
-\end{bmatrix} \right)$</text>
-<text matrix="1 0 0 1 -27.3699 49.0055" transformations="translations" pos="208.677 739.814" stroke="black" type="label" width="93.966" height="14.61" depth="9.5" valign="center">$\mathbf{y} = \varphi_{\text{y}}\left(
+\end{bmatrix} \right)</text>
+<text matrix="1 0 0 1 -27.3699 49.0055" transformations="translations" pos="208.677 739.814" stroke="black" type="label" width="94.325" height="14.61" depth="9.5" valign="center" style="math">\mathbf{y} = \bm{\varphi}_{\text{y}}\left(
 \begin{bmatrix}
 \mathbf{W}_{\text{yh}} &amp; \mathbf{b}_{\text{y}}
 \end{bmatrix}
@@ -348,6 +350,6 @@ h
 \mathbf{h} \\
 1
 \end{bmatrix}
-\right)$</text>
+\right)</text>
 </page>
 </ipe>
