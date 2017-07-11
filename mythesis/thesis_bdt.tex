@@ -61,6 +61,32 @@ A full summary of the datasets is given in appendix \todo{Reference}.
 \subsection{Features (Predictors, Dependent Variables, Input Variables)}
 \label{sec:bdt_features}
 
+Input variables
+\begin{itemize}
+\item Central energy fraction $f_\text{cent}$ (1P, 3P)
+\item etOverPtLeadTrk $f_\text{leadtrack}^{-1}$ (1P, 3P)
+\item innerTrkAvgDist $R_\text{track}^{0.2}$ (1P, 3P)
+\item absipSigLeadTrk $\left| S_\text{leadtrack} \right|$ (1P)
+\item SumPtTrkFrac $f_\text{iso}^\text{track}$ (1P)
+\item ChPiEMEOverCaloEME $f_\text{EM}^\text{track-HAD}$ (1P, 3P)
+\item EMPOverTrkSysP $f_\text{track}^\text{EM}$ (1P, 3P)
+\item ptRatioEflowApprox $p_\text{T}^\text{EM+track} / p_\text{T}$ (1P, 3P)
+\item mEflowApprox $m_\text{EM+track}$ (1P, 3P)
+\item dRmax $\Delta R_\text{max}$ (3P)
+\item trFlightPathSig $S_\text{T}^\text{flight}$ (3P)
+\item massTrkSys $m_\text{track}$ (3P)
+\end{itemize}
+
+Setup
+\begin{itemize}
+\item NTrees: 100
+\item MaxDepth: 8
+\item AdaBoostBeta: 0.2
+\item MinNodeSize: 0.1
+\item nCuts: 200
+\item UseYesNoLeaf: False
+\item PruneMethod: NoPruning
+\end{itemize}
 Previous setup (incl. explanation \& plots of input variables)
 
 Transformations?
@@ -82,8 +108,8 @@ Optimised for tight efficiency w/o subsampling:
 \begin{itemize}
 \item \textbf{Best performance 1P:} MaxDepth: 16, MinNodeSize: 0.01, NTrees:
   400, Shrinkage: 0.05, ratio: 0.997 \textrightarrow alg 244
-\item \textbf{Compromise 1P:} MaxDepth: 6, MinNodeSize: 0.1, NTrees: 800,
-  Shrinkage: 0.1, ratio: 0.967 \textrightarrow alg 321
+\item \textbf{Compromise 1P:} MaxDepth: 8, MinNodeSize: 0.1, NTrees: 400,
+  Shrinkage: 0.1, sumsampling: 50\%, ratio: 0.977 \textrightarrow alg 321
 \item \textbf{Best performance 3P:} MaxDepth: 16, MinNodeSize: 0.01, NTrees:
   400, Shrinkage: 0.4, ratio: 0.998 \textrightarrow 259
 \item \textbf{Compromise 3P:} MaxDepth: 6, MinNodeSize: 0.1, NTrees: 800,
@@ -99,15 +125,43 @@ AdaBoost \textrightarrow GradBoost
 \label{sec:bdt_grid_search}
 
 \begin{align*}
-  &N_\mathrm{Tree} \in \{25, 50, 100, 200, 400, 800\} \qquad
-  &d_\mathrm{Tree} \in \{4, 6, 8, 12, 16\} \\
-  &\eta \in \{0.05, 0.1, 0.2, 0.4\} \qquad
-  &f_\mathrm{min}^\mathrm{node} \in \{0.01, 0.1, 1.0\}
+  N_\mathrm{Trees} &\in \{25, 50, 100, 200, 400, 800\} &
+  d_\mathrm{Tree} &\in \{4, 6, 8, 12, 16\} \\
+  \eta &\in \{0.05, 0.1, 0.2, 0.4\} &
+                                      f_\mathrm{Node}^\mathrm{min.} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} \\
+  f_\text{bag} &\in \{\text{None}, \SI{50}{\percent} \}
 \end{align*}
+Total of $6 \times 5 \times 4 \times 3 \times 2 = 720$
 
 TMVA Grid Search
 XGBoost (?)
 Comparison with previous setup
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_1p0304.pdf}
+    \subcaption{Overtrained example:
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 16$},
+      \mbox{$\nu = 0.05$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
+      no bagging
+    }
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_1p_subsampling0269.pdf}
+    \subcaption{Good training:
+      \mbox{$N_\text{Trees} = 400$},
+      \mbox{$d_\text{Tree} = 8$},
+      \mbox{$\nu = 0.1$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
+      \mbox{$f_\text{bag} = \SI{50}{\percent}$}
+    }
+  \end{subfigure}
+  \caption{'Overtraining' visible on the edges of the BDT score distribution}
+  \label{fig:bdt_1p_scores}
+\end{figure}
+
 
 \subsection{Working Points}
 \label{sec:bdt_working_points}
