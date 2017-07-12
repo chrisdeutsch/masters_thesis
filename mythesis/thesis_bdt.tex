@@ -118,17 +118,26 @@ Optimised for tight efficiency w/o subsampling:
 
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
-
 AdaBoost \textrightarrow GradBoost
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{./figures/bdt_perf/boosting.pdf}
+  \caption{Impact of the boosting algorithm. $N_\text{trees} = 100$,
+    $d_\text{tree} = 8$, $f_\text{node}^\text{min} = \SI{0.1}{\percent}$ and
+    varying the learning rate $\beta$~(\emph{AdaBoost}) and $\eta$~(Gradient
+    Boosting) respectively.}
+  \label{fig:bdt_boosting_alg}
+\end{figure}
 
 \subsection{Exhaustive Grid Search}
 \label{sec:bdt_grid_search}
 
 \begin{align*}
-  N_\mathrm{Trees} &\in \{25, 50, 100, 200, 400, 800\} &
-  d_\mathrm{Tree} &\in \{4, 6, 8, 12, 16\} \\
+  N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} &
+  d_\mathrm{tree} &\in \{4, 6, 8, 12, 16\} \\
   \eta &\in \{0.05, 0.1, 0.2, 0.4\} &
-                                      f_\mathrm{Node}^\mathrm{min.} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} \\
+  f_\mathrm{node}^\mathrm{min} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} \\
   f_\text{bag} &\in \{\text{None}, \SI{50}{\percent} \}
 \end{align*}
 Total of $6 \times 5 \times 4 \times 3 \times 2 = 720$
@@ -161,6 +170,15 @@ Comparison with previous setup
   \caption{'Overtraining' visible on the edges of the BDT score distribution}
   \label{fig:bdt_1p_scores}
 \end{figure}
+
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{./figures/bdt_perf/roc/bdt_1p_comparison.pdf}
+  \caption{\emph{ROC}-Curve for 1-prong.}
+  \label{fig:bdt_1p_roc}
+\end{figure}
+
 
 
 \subsection{Working Points}
