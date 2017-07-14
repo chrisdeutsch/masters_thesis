@@ -137,9 +137,10 @@ AdaBoost \textrightarrow GradBoost
     \label{fig:bdt_boosting_alg}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/theory/boosting_loss.pdf}
-    \subcaption{Loss function vs.\ margin \cite{esl}}
+    \centering \includegraphics{./figures/theory/boosting_loss.pdf}
+    \subcaption{Loss function vs.\ margin \cite{esl}. Class label
+      $y \in \{-1, 1\}$ (signal: 1 / background: -1) and $f(x) \in [-1, 1]$ the
+      BDT response.}
     \label{fig:boosting_loss}
   \end{subfigure}
   \caption{Loss function investigation}
@@ -163,6 +164,11 @@ Explain why for 1-prong a subsampling model is better than for 3-prong. The
 1-prong case seems to be limited by background statistics while the 3-prong case
 is limited by signal statistics. Could the reason for the preferred subsampling
 models in the 1-prong case be the low statistics for the background? Why?
+
+Explain that the 16 depth trees are not of depth 16 in most cases because it is
+limited by MinNodeSize. Assuming the data is split in equal parts for each
+binary split then the effective depth is roughly
+$d = \log_2(\SI{100}{\percent} / \SI{0.1}{\percent}) \approx 10$.
 
 Reasons for using the 'less overtrained' example:
 \begin{itemize}
@@ -198,7 +204,8 @@ Comparison with previous setup
       \mbox{$f_\text{bag} = \SI{50}{\percent}$}
     }
   \end{subfigure}
-  \caption{'Overtraining' visible on the edges of the BDT score distribution}
+  \caption{'Overtraining' visible on the edges of the BDT score distribution
+    (1-prong)}
   \label{fig:bdt_1p_scores}
 \end{figure}
 
@@ -224,8 +231,61 @@ Comparison with previous setup
     \subcaption{Blablablabla}
   \end{subfigure}
   \caption{Rejection as a function of the hyperparameters. Uses
-    \SI{50}{\percent} subsampling.}
-  \label{fig:hyperparameter_scan}
+    \SI{50}{\percent} subsampling. (1-prong)}
+  \label{fig:hyperparameter_scan_1p}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0317.pdf}
+    \subcaption{Overtrained example (BDT A):
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 16$},
+      \mbox{$\nu = 0.1$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
+      no bagging
+    }
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_3p_subsampling0273.pdf}
+    \subcaption{Good training (BDT B):
+      \mbox{$N_\text{Trees} = 400$},
+      \mbox{$d_\text{Tree} = 12$},
+      \mbox{$\nu = 0.1$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
+      \mbox{$f_\text{bag} = \SI{50}{\percent}$}
+    }
+  \end{subfigure}
+  \caption{'Overtraining' visible on the edges of the BDT score distribution
+    (3-prong)}
+  \label{fig:bdt_3p_scores}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MaxDepth_NTrees.pdf}
+    \subcaption{Bla}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_NTrees.pdf}
+    \subcaption{Blabla}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_MaxDepth.pdf}
+    \subcaption{Blablabla}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MinNodeSize_MaxDepth.pdf}
+    \subcaption{Blablablabla}
+  \end{subfigure}
+  \caption{Rejection as a function of the hyperparameters. Uses
+    \SI{50}{\percent} subsampling. (3-prong). \todo{Not as prone to overfitting?
+      Why?}}
+  \label{fig:hyperparameter_scan_3p}
 \end{figure}
 
 Description of what is seen in the scan:
@@ -253,7 +313,11 @@ Description of what is seen in the scan:
   \label{fig:bdt_1p_roc}
 \end{figure}
 
-
+The one-prong BDT is optimised for efficiency of the tight working-point (in the
+scan no flattening was applied). However the 3-prong BDT was optimised for the
+loose working-point, because the rejection of the 3-prong ID is roughly one
+order of magnitude larger thus the tight working-point is not a stable metric
+considering the size of the available background sample.
 
 \subsection{Working Points}
 \label{sec:bdt_working_points}
