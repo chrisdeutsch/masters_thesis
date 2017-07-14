@@ -48,6 +48,14 @@ Boosting:
 \item AdaBoost performance degrades drastically in noisy settings due to
   exponential loss function \cite{esl} binomial log-likelihood more robust
   (problems with overlapping class distributions)
+\item AdaBoost exponential loss function - leads to convenient reweighting
+  scheme for training
+\item Gradient Boosting - for arbitraty loss functions there is no easy way of
+  minimizing the loss function as in AdaBoost. One has to use gradient descent
+  for training
+\item 'Additive model' - expansion using a set of basis-functions given by the
+  weak learner
+\item TMVA uses binomial log-likelihood loss for classification\cite{tmva}
 \end{itemize}
 
 Keep this short!

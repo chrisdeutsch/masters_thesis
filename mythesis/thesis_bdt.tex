@@ -39,7 +39,7 @@ $\mathrm{Z}$ mass which is not needed for performance studies.
 dijet samples up to \SI{1800}{\giga\electronvolt} (JZ1W - JZ6W). \todo{Finish
   this}
 
-Basic tau selection
+Baseline tau selection:
 \begin{itemize}
 \item $p_\text{T} > \SI{20}{\giga\electronvolt}$ (sufficient for most analyses)
 \item Exclude calorimeter transition region $1.37 < |\eta| < 1.52$
@@ -49,7 +49,13 @@ Basic tau selection
   $N_\text{track}$ selection also at truth-level)
 \end{itemize}
 
-\todo{Sample sizes after basic selection}
+Size of the pre-production samples after baseline tau selection:
+\begin{itemize}
+\item Signal: 13.3 M (1P: 10.5 M, 3P: 2.8 M)
+\item Background: 22.1 M (1P: 6.6 M, 3P: 15.5 M)
+\end{itemize}
+
+\todo{Interesting plots: pt spectra, mu-distribution}
 
 \todo{Reweighting}
 
@@ -121,14 +127,25 @@ Optimised for tight efficiency w/o subsampling:
 AdaBoost \textrightarrow GradBoost
 
 \begin{figure}[ht]
-  \centering
-  \includegraphics{./figures/bdt_perf/boosting.pdf}
-  \caption{Impact of the boosting algorithm. $N_\text{trees} = 100$,
-    $d_\text{tree} = 8$, $f_\text{node}^\text{min} = \SI{0.1}{\percent}$ and
-    varying the learning rate $\beta$~(\emph{AdaBoost}) and $\eta$~(Gradient
-    Boosting) respectively.}
-  \label{fig:bdt_boosting_alg}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/boosting.pdf}
+    \subcaption{Impact of the boosting algorithm. $N_\text{trees} = 100$,
+      $d_\text{tree} = 8$, $f_\text{node}^\text{min} = \SI{0.1}{\percent}$ and
+      varying the learning rate $\beta$~(\emph{AdaBoost}) and $\eta$~(Gradient
+      Boosting) respectively.}
+    \label{fig:bdt_boosting_alg}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/theory/boosting_loss.pdf}
+    \subcaption{Loss function vs.\ margin \cite{esl}}
+    \label{fig:boosting_loss}
+  \end{subfigure}
+  \caption{Loss function investigation}
 \end{figure}
+
+\todo{Plot of the 'margin' $y f(x)$ for exponential and binomial log-likelihood?}
 
 \subsection{Exhaustive Grid Search}
 \label{sec:bdt_grid_search}
@@ -142,6 +159,20 @@ AdaBoost \textrightarrow GradBoost
 \end{align*}
 Total of $6 \times 5 \times 4 \times 3 \times 2 = 720$
 
+Explain why for 1-prong a subsampling model is better than for 3-prong. The
+1-prong case seems to be limited by background statistics while the 3-prong case
+is limited by signal statistics. Could the reason for the preferred subsampling
+models in the 1-prong case be the low statistics for the background? Why?
+
+Reasons for using the 'less overtrained' example:
+\begin{itemize}
+\item More robust to potential decreases in number of training examples for
+  future tunings
+\item BDT fits statistical fluctuations (why is this bad when we see an overall
+  improvement in performance? how does this fit in with the NN studies where
+  this is often the case?)
+\end{itemize}
+
 TMVA Grid Search
 XGBoost (?)
 Comparison with previous setup
@@ -150,7 +181,7 @@ Comparison with previous setup
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p0304.pdf}
-    \subcaption{Overtrained example:
+    \subcaption{Overtrained example (BDT A):
       \mbox{$N_\text{Trees} = 800$},
       \mbox{$d_\text{Tree} = 16$},
       \mbox{$\nu = 0.05$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
@@ -160,7 +191,7 @@ Comparison with previous setup
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p_subsampling0269.pdf}
-    \subcaption{Good training:
+    \subcaption{Good training (BDT B):
       \mbox{$N_\text{Trees} = 400$},
       \mbox{$d_\text{Tree} = 8$},
       \mbox{$\nu = 0.1$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
@@ -196,6 +227,24 @@ Comparison with previous setup
     \SI{50}{\percent} subsampling.}
   \label{fig:hyperparameter_scan}
 \end{figure}
+
+Description of what is seen in the scan:
+\begin{itemize}
+\item Strong dependence of $N_\text{trees}$ and $d_\text{tree}$: low number
+  shallow trees leads to underfitting; high number of deep trees starts to
+  degrade performance due to overfitting
+\item Strong dependence of shrinkage and number of trees: Very narrow maximum in
+  feature space - shrinkage has to be tuned for the number of trees. Significant
+  overfitting in high shrinkage high ntree region.
+\item Maximum tree depth vs shrinkage: Deep trees need low shrinkage to avoid
+  overfitting and vice versa for underfitting.
+\item Maximum tree depth vs minnodesize: Critical parameter to set correctly. If
+  set too large severe underfitting is observed. For small minimum node sizes
+  one has to be careful to not set the tree depth too high since minimum node
+  size is the depth limiter in most cases. One tuning strategy could be to set
+  the tree depth to very large values and just limit using minimum node size but
+  this would require fine tuning for different sample sizes.
+\end{itemize}
 
 \begin{figure}[ht]
   \centering
@@ -295,16 +344,6 @@ Performance on TAUP4 (?)
     &\text{massTrkSys:} &\log(x) \\
     &\text{dRmax:} &-
   \end{align}
-
-\item BDT optimization for R21 (Total 480 BDTs) -- If enough time try 50\%
-  bagging
-  \begin{itemize}
-  \item[NTrees] 25, 50, 100, 200, 400, 800
-  \item[Depth] 4, 6, 8, 12, 18
-  \item[Shrinkage] 0.05, 0.1, 0.2, 0.4
-  \item[MinNodeSize] (0.001), 0.01, 0.1, 1.0
-  \end{itemize}
-
 
 \item Variable importance (Google: Variable Importance Measures)
   \begin{itemize}
