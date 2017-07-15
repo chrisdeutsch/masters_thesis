@@ -138,7 +138,7 @@ AdaBoost \textrightarrow GradBoost
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering \includegraphics{./figures/theory/boosting_loss.pdf}
-    \subcaption{Loss function vs.\ margin \cite{esl}. Class label
+    \subcaption{Loss function vs.\ margin adapted from \cite{esl}. Class label
       $y \in \{-1, 1\}$ (signal: 1 / background: -1) and $f(x) \in [-1, 1]$ the
       BDT response.}
     \label{fig:boosting_loss}
@@ -231,7 +231,7 @@ Comparison with previous setup
     \subcaption{Blablablabla}
   \end{subfigure}
   \caption{Rejection as a function of the hyperparameters. Uses
-    \SI{50}{\percent} subsampling. (1-prong)}
+    \SI{50}{\percent} subsampling. (1-prong). \todo{KS-Probability as comparison}}
   \label{fig:hyperparameter_scan_1p}
 \end{figure}
 
@@ -248,12 +248,12 @@ Comparison with previous setup
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/bdt_perf/scores/grid_3p_subsampling0273.pdf}
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0327.pdf}
     \subcaption{Good training (BDT B):
-      \mbox{$N_\text{Trees} = 400$},
-      \mbox{$d_\text{Tree} = 12$},
-      \mbox{$\nu = 0.1$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
-      \mbox{$f_\text{bag} = \SI{50}{\percent}$}
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 6$},
+      \mbox{$\nu = 0.4$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
+      \mbox{$f_\text{bag} = \text{None}$}
     }
   \end{subfigure}
   \caption{'Overtraining' visible on the edges of the BDT score distribution
@@ -282,9 +282,11 @@ Comparison with previous setup
     \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MinNodeSize_MaxDepth.pdf}
     \subcaption{Blablablabla}
   \end{subfigure}
-  \caption{Rejection as a function of the hyperparameters. Uses
-    \SI{50}{\percent} subsampling. (3-prong). \todo{Not as prone to overfitting?
-      Why?}}
+  \caption{Rejection as a function of the hyperparameters. Not using
+    subsampling. (3-prong). \todo{Not as prone to overfitting? Why? This shows
+      the performance on the background sample (does it though? its rejection at
+      45\% efficiency) which is less overtrained than the signal sample due to
+      higher 3-prong stats for background.}}
   \label{fig:hyperparameter_scan_3p}
 \end{figure}
 
@@ -307,10 +309,20 @@ Description of what is seen in the scan:
 \end{itemize}
 
 \begin{figure}[ht]
-  \centering
-  \includegraphics{./figures/bdt_perf/roc/bdt_1p_comparison.pdf}
-  \caption{\emph{ROC}-Curve for 1-prong.}
-  \label{fig:bdt_1p_roc}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/roc/bdt_1p_comparison.pdf}
+    \subcaption{1-prong}
+    \label{fig:bdt_1p_roc}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/roc/bdt_3p_comparison.pdf}
+    \subcaption{3-prong}
+    \label{fig:bdt_3p_roc}
+  \end{subfigure}
+  \caption{\emph{ROC}-Curves. \todo{Rule of thumb? For 10 percent signal
+      efficiency which factor of rejection do we get?}}
 \end{figure}
 
 The one-prong BDT is optimised for efficiency of the tight working-point (in the
@@ -318,6 +330,8 @@ scan no flattening was applied). However the 3-prong BDT was optimised for the
 loose working-point, because the rejection of the 3-prong ID is roughly one
 order of magnitude larger thus the tight working-point is not a stable metric
 considering the size of the available background sample.
+
+In partial dependence plots you can see the nonlinear decision boundaries.
 
 \subsection{Working Points}
 \label{sec:bdt_working_points}
@@ -337,6 +351,8 @@ Signal efficiencies 1P (3P):
 
 \subsection{Variable Importance}
 \label{sec:bdt_var_importance}
+
+\todo{Bar chart for dropped variables}
 
 Variable correlations, importance (dropped variables) \& dependence with
 $p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
