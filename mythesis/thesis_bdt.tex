@@ -286,7 +286,8 @@ Comparison with previous setup
     subsampling. (3-prong). \todo{Not as prone to overfitting? Why? This shows
       the performance on the background sample (does it though? its rejection at
       45\% efficiency) which is less overtrained than the signal sample due to
-      higher 3-prong stats for background.}}
+      higher 3-prong stats for background.} \todo{Move bottom two plots to
+      appendix.}}
   \label{fig:hyperparameter_scan_3p}
 \end{figure}
 
@@ -314,7 +315,7 @@ Description of what is seen in the scan:
     \includegraphics{./figures/bdt_perf/roc/bdt_1p_comparison.pdf}
     \subcaption{1-prong}
     \label{fig:bdt_1p_roc}
-  \end{subfigure}
+  \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/roc/bdt_3p_comparison.pdf}
@@ -336,6 +337,20 @@ In partial dependence plots you can see the nonlinear decision boundaries.
 \subsection{Working Points}
 \label{sec:bdt_working_points}
 
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/working_points/grid_1p_subsampling0269_wp.pdf}
+    \subcaption{1-prong}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/working_points/grid_3p0327_wp.pdf}
+    \subcaption{3-prong}
+  \end{subfigure}
+  \caption{Working points}
+\end{figure}
+
 Working points (Gammatautau -- Ztautau)
 
 Signal efficiencies 1P (3P):
@@ -344,6 +359,14 @@ Signal efficiencies 1P (3P):
 \item Loose: 85\% (75\%)
 \item Medium: 75\% (60\%)
 \item Tight: 60\% (45\%)
+\end{itemize}
+
+\begin{itemize}
+\item Working point: constant signal efficiency in different pt-regimes and
+  pile-up environments. Rejection definitely not flat then!
+\item Overall tighter cut for high $p_\text{T}$. Why?
+\item Significant degradation at low $p_\text{T}$ for high pile-up. Why?
+\item Overall slight improvement for lower pile-up scenarios. Why?
 \end{itemize}
 
 \section{Feature Selection}
