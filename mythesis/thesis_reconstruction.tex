@@ -12,7 +12,8 @@
 This chapter summarises the offline reconstruction procedure used at ATLAS to
 reconstruct hadronic decays of tau leptons as given in \cite{atlas:taurec:run1,
   atlas:taurec:run2}. Additionally recent changes to the reconstruction
-algorithms are included.
+algorithms are included (packages \texttt{tauRec}, \texttt{tauRecTools} in the
+software framework \textsc{Athena}).
 
 % JetSeedBuilder:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/JetSeedBuilder.cxx
@@ -218,6 +219,14 @@ counted. In case the shot energy exceeds 10 GeV the photon is counted twice.
 
 \section{Track Selection and Classification}
 \label{sec:reco_track_sel_classif}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics{./figures/bdt_perf/mva_tracking_rejection.pdf}
+  \caption{Rejection due to MVA tracking \todo{Why is the rejection 'wavey'?}
+    Rejection of tau candidates from dijets after baseline tau selection.}
+  \label{fig:mva_tracking_rejection}
+\end{figure}
 
 \section{Energy Calibration}
 \label{sec:reco_energy_calib}

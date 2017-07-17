@@ -35,6 +35,16 @@ for that (i.e.\ higher branching ratio)
 
 \todo{LSTM cell size scan? 8, 12, 16, 24, 32, 48, 64}
 
+\todo{Variable importance (in groups?)}
+
+What has been tested:
+\begin{itemize}
+\item Ordering $p_\text{T}$
+\item Preprocessing
+\item Variables: Track classification
+\item
+\end{itemize}
+
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -116,7 +126,12 @@ calorimeter-based variables.
 \subsection{Combined-RNN}
 \label{sec:rnn_combined}
 
-
+TODO:
+\begin{itemize}
+\item Remove cluster moments that were stripped from data (hottest cell
+  fraction, energy density)
+\item Replace with pt-weighted variables from MVA-tracking
+\end{itemize}
 
 \begin{itemize}
 \item Architecture

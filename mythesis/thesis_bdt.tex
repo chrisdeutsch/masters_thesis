@@ -39,7 +39,7 @@ $\mathrm{Z}$ mass which is not needed for performance studies.
 dijet samples up to \SI{1800}{\giga\electronvolt} (JZ1W - JZ6W). \todo{Finish
   this}
 
-Basic tau selection
+Baseline tau selection:
 \begin{itemize}
 \item $p_\text{T} > \SI{20}{\giga\electronvolt}$ (sufficient for most analyses)
 \item Exclude calorimeter transition region $1.37 < |\eta| < 1.52$
@@ -49,7 +49,13 @@ Basic tau selection
   $N_\text{track}$ selection also at truth-level)
 \end{itemize}
 
-\todo{Sample sizes after basic selection}
+Size of the pre-production samples after baseline tau selection:
+\begin{itemize}
+\item Signal: 13.3 M (1P: 10.5 M, 3P: 2.8 M)
+\item Background: 22.1 M (1P: 6.6 M, 3P: 15.5 M)
+\end{itemize}
+
+\todo{Interesting plots: pt spectra, mu-distribution}
 
 \todo{Reweighting}
 
@@ -91,6 +97,9 @@ Previous setup (incl. explanation \& plots of input variables)
 
 Transformations? highly skewed and long-tailed distributions
 
+\todo{Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
+  motivate the use of MVA methods / BDTs}
+
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
@@ -121,14 +130,26 @@ Optimised for tight efficiency w/o subsampling:
 AdaBoost \textrightarrow GradBoost
 
 \begin{figure}[ht]
-  \centering
-  \includegraphics{./figures/bdt_perf/boosting.pdf}
-  \caption{Impact of the boosting algorithm. $N_\text{trees} = 100$,
-    $d_\text{tree} = 8$, $f_\text{node}^\text{min} = \SI{0.1}{\percent}$ and
-    varying the learning rate $\beta$~(\emph{AdaBoost}) and $\eta$~(Gradient
-    Boosting) respectively.}
-  \label{fig:bdt_boosting_alg}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/boosting.pdf}
+    \subcaption{Impact of the boosting algorithm. $N_\text{trees} = 100$,
+      $d_\text{tree} = 8$, $f_\text{node}^\text{min} = \SI{0.1}{\percent}$ and
+      varying the learning rate $\beta$~(\emph{AdaBoost}) and $\eta$~(Gradient
+      Boosting) respectively.}
+    \label{fig:bdt_boosting_alg}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering \includegraphics{./figures/theory/boosting_loss.pdf}
+    \subcaption{Loss function vs.\ margin adapted from \cite{esl}. Class label
+      $y \in \{-1, 1\}$ (signal: 1 / background: -1) and $f(x) \in [-1, 1]$ the
+      BDT response.}
+    \label{fig:boosting_loss}
+  \end{subfigure}
+  \caption{Loss function investigation}
 \end{figure}
+
+\todo{Plot of the 'margin' $y f(x)$ for exponential and binomial log-likelihood?}
 
 \subsection{Exhaustive Grid Search}
 \label{sec:bdt_grid_search}
@@ -142,6 +163,25 @@ AdaBoost \textrightarrow GradBoost
 \end{align*}
 Total of $6 \times 5 \times 4 \times 3 \times 2 = 720$
 
+Explain why for 1-prong a subsampling model is better than for 3-prong. The
+1-prong case seems to be limited by background statistics while the 3-prong case
+is limited by signal statistics. Could the reason for the preferred subsampling
+models in the 1-prong case be the low statistics for the background? Why?
+
+Explain that the 16 depth trees are not of depth 16 in most cases because it is
+limited by MinNodeSize. Assuming the data is split in equal parts for each
+binary split then the effective depth is roughly
+$d = \log_2(\SI{100}{\percent} / \SI{0.1}{\percent}) \approx 10$.
+
+Reasons for using the 'less overtrained' example:
+\begin{itemize}
+\item More robust to potential decreases in number of training examples for
+  future tunings
+\item BDT fits statistical fluctuations (why is this bad when we see an overall
+  improvement in performance? how does this fit in with the NN studies where
+  this is often the case?)
+\end{itemize}
+
 TMVA Grid Search
 XGBoost (?)
 Comparison with previous setup
@@ -150,7 +190,7 @@ Comparison with previous setup
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p0304.pdf}
-    \subcaption{Overtrained example:
+    \subcaption{Overtrained example (BDT A):
       \mbox{$N_\text{Trees} = 800$},
       \mbox{$d_\text{Tree} = 16$},
       \mbox{$\nu = 0.05$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
@@ -160,14 +200,15 @@ Comparison with previous setup
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p_subsampling0269.pdf}
-    \subcaption{Good training:
+    \subcaption{Good training (BDT B):
       \mbox{$N_\text{Trees} = 400$},
       \mbox{$d_\text{Tree} = 8$},
       \mbox{$\nu = 0.1$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
       \mbox{$f_\text{bag} = \SI{50}{\percent}$}
     }
   \end{subfigure}
-  \caption{'Overtraining' visible on the edges of the BDT score distribution}
+  \caption{'Overtraining' visible on the edges of the BDT score distribution
+    (1-prong)}
   \label{fig:bdt_1p_scores}
 \end{figure}
 
@@ -193,21 +234,125 @@ Comparison with previous setup
     \subcaption{Blablablabla}
   \end{subfigure}
   \caption{Rejection as a function of the hyperparameters. Uses
-    \SI{50}{\percent} subsampling.}
-  \label{fig:hyperparameter_scan}
+    \SI{50}{\percent} subsampling. (1-prong). \todo{KS-Probability as comparison}}
+  \label{fig:hyperparameter_scan_1p}
 \end{figure}
 
 \begin{figure}[ht]
-  \centering
-  \includegraphics{./figures/bdt_perf/roc/bdt_1p_comparison.pdf}
-  \caption{\emph{ROC}-Curve for 1-prong.}
-  \label{fig:bdt_1p_roc}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0317.pdf}
+    \subcaption{Overtrained example (BDT A):
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 16$},
+      \mbox{$\nu = 0.1$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
+      no bagging
+    }
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0327.pdf}
+    \subcaption{Good training (BDT B):
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 6$},
+      \mbox{$\nu = 0.4$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
+      \mbox{$f_\text{bag} = \text{None}$}
+    }
+  \end{subfigure}
+  \caption{'Overtraining' visible on the edges of the BDT score distribution
+    (3-prong)}
+  \label{fig:bdt_3p_scores}
 \end{figure}
 
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MaxDepth_NTrees.pdf}
+    \subcaption{Bla}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_NTrees.pdf}
+    \subcaption{Blabla}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_MaxDepth.pdf}
+    \subcaption{Blablabla}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MinNodeSize_MaxDepth.pdf}
+    \subcaption{Blablablabla}
+  \end{subfigure}
+  \caption{Rejection as a function of the hyperparameters. Not using
+    subsampling. (3-prong). \todo{Not as prone to overfitting? Why? This shows
+      the performance on the background sample (does it though? its rejection at
+      45\% efficiency) which is less overtrained than the signal sample due to
+      higher 3-prong stats for background.} \todo{Move bottom two plots to
+      appendix.}}
+  \label{fig:hyperparameter_scan_3p}
+\end{figure}
 
+Description of what is seen in the scan:
+\begin{itemize}
+\item Strong dependence of $N_\text{trees}$ and $d_\text{tree}$: low number
+  shallow trees leads to underfitting; high number of deep trees starts to
+  degrade performance due to overfitting
+\item Strong dependence of shrinkage and number of trees: Very narrow maximum in
+  feature space - shrinkage has to be tuned for the number of trees. Significant
+  overfitting in high shrinkage high ntree region.
+\item Maximum tree depth vs shrinkage: Deep trees need low shrinkage to avoid
+  overfitting and vice versa for underfitting.
+\item Maximum tree depth vs minnodesize: Critical parameter to set correctly. If
+  set too large severe underfitting is observed. For small minimum node sizes
+  one has to be careful to not set the tree depth too high since minimum node
+  size is the depth limiter in most cases. One tuning strategy could be to set
+  the tree depth to very large values and just limit using minimum node size but
+  this would require fine tuning for different sample sizes.
+\end{itemize}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/roc/bdt_1p_comparison.pdf}
+    \subcaption{1-prong}
+    \label{fig:bdt_1p_roc}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/roc/bdt_3p_comparison.pdf}
+    \subcaption{3-prong}
+    \label{fig:bdt_3p_roc}
+  \end{subfigure}
+  \caption{\emph{ROC}-Curves. \todo{Rule of thumb? For 10 percent signal
+      efficiency which factor of rejection do we get?}}
+\end{figure}
+
+The one-prong BDT is optimised for efficiency of the tight working-point (in the
+scan no flattening was applied). However the 3-prong BDT was optimised for the
+loose working-point, because the rejection of the 3-prong ID is roughly one
+order of magnitude larger thus the tight working-point is not a stable metric
+considering the size of the available background sample.
+
+In partial dependence plots you can see the nonlinear decision boundaries.
 
 \subsection{Working Points}
 \label{sec:bdt_working_points}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/working_points/grid_1p_subsampling0269_wp.pdf}
+    \subcaption{1-prong}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/working_points/grid_3p0327_wp.pdf}
+    \subcaption{3-prong}
+  \end{subfigure}
+  \caption{Working points (BDT A)}
+\end{figure}
 
 Working points (Gammatautau -- Ztautau)
 
@@ -219,11 +364,66 @@ Signal efficiencies 1P (3P):
 \item Tight: 60\% (45\%)
 \end{itemize}
 
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_1p/rejection_tight.pdf}
+    \subcaption{1-prong (tight)}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
+    \subcaption{3-prong (tight)}
+  \end{subfigure}
+  \caption{Working points (BDT A) \todo{Larger pt range in appendix}}
+\end{figure}
+
+
+\begin{itemize}
+\item Working point: constant signal efficiency in different pt-regimes and
+  pile-up environments. Rejection definitely not flat then!
+\item Overall tighter cut for high $p_\text{T}$. Why?
+\item Significant degradation at low $p_\text{T}$ for high pile-up. Why?
+\item Overall slight improvement for lower pile-up scenarios. Why?
+\item Show signal efficiency vs pt and mu
+\end{itemize}
+
 \section{Feature Selection}
 \label{sec:bdt_feature_selection}
 
+\subsection{Transverse Momentum Dependency of Features}
+\label{sec:bdt_incl_pt}
+
+A lot of the input features have (at least a small) dependency with the
+reconstructed $p_\text{T}$ changing the separation of signal and background in
+the discriminants as a function of $p_\text{T}$. This effect has a large impact
+on the overall isolation of the shower in the calorimeter and the tracks.
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_sig.pdf}
+    \subcaption{Signal}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_bkg.pdf}
+    \subcaption{Background}
+  \end{subfigure}
+    \caption{$p_\text{T}$-dependency of the central energy fraction.}
+  \label{fig:bdt_pt_dependency}
+\end{figure}
+
+\todo{SumPtTrkFrac for 3-prong BDT}
+
 \subsection{Variable Importance}
 \label{sec:bdt_var_importance}
+
+\todo{Recursive Feature Elimination}
+
+\todo{Input variable correlations}
+
+\todo{Bar chart for dropped variables}
 
 Variable correlations, importance (dropped variables) \& dependence with
 $p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
