@@ -97,6 +97,9 @@ Previous setup (incl. explanation \& plots of input variables)
 
 Transformations? highly skewed and long-tailed distributions
 
+\todo{Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
+  motivate the use of MVA methods / BDTs}
+
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
@@ -372,7 +375,7 @@ Signal efficiencies 1P (3P):
     \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
     \subcaption{3-prong (tight)}
   \end{subfigure}
-  \caption{Working points (BDT A)}
+  \caption{Working points (BDT A) \todo{Larger pt range in appendix}}
 \end{figure}
 
 
@@ -399,20 +402,26 @@ on the overall isolation of the shower in the calorimeter and the tracks.
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/a}
+    \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_sig.pdf}
     \subcaption{Signal}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/b}
+    \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_bkg.pdf}
     \subcaption{Background}
   \end{subfigure}
     \caption{$p_\text{T}$-dependency of the central energy fraction.}
   \label{fig:bdt_pt_dependency}
 \end{figure}
 
+\todo{SumPtTrkFrac for 3-prong BDT}
+
 \subsection{Variable Importance}
 \label{sec:bdt_var_importance}
+
+\todo{Recursive Feature Elimination}
+
+\todo{Input variable correlations}
 
 \todo{Bar chart for dropped variables}
 
