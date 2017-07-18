@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170718220959" modified="D:20170718232157"/>
+<info created="D:20170718220959" modified="D:20170718232648"/>
 <preamble>\usepackage{amsmath}
 \usepackage{txfonts}</preamble>
 <ipestyle name="basic">
@@ -416,7 +416,7 @@ h
 455.795 732.616 l
 </path>
 <text matrix="1 0 0 1 0 -4" transformations="translations" pos="400 800" stroke="black" type="label" width="23.134" height="7.337" depth="0.11" halign="center" valign="baseline" size="11">RNN</text>
-<text matrix="1 0 0 1 0 32" transformations="translations" pos="452 764" stroke="black" type="label" width="57.833" height="6.672" depth="2.16" halign="center" valign="baseline">Output neuron</text>
+<text matrix="1 0 0 1 0 32" transformations="translations" pos="452 764" stroke="black" type="label" width="63.616" height="7.335" depth="2.38" halign="center" valign="baseline" size="11">Output neuron</text>
 <path matrix="1.49508 0 0 1.29251 -217.798 -232.976" fill="0.216 0.494 0.722" opacity="75%">
 432 768 m
 434.614 786.149
