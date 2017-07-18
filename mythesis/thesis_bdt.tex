@@ -2,6 +2,22 @@
 \chapter{Identification of Hadronically Decaying $\tau$-Leptons (BDT)}
 \label{sec:bdt}
 
+TODOs:
+\begin{itemize}
+\item Working point efficiencies for pt and mu
+\item Leave-one-out feature selection (recursive feature elimination) and
+  TMVA-Ranking (Have a bar chart for each iteration of the RFE)
+\item Rejection for full pt range
+\item Plot 2nd order effects (e.g. ptRatioEflowApprox vs.\ mEflowApprox (1P) or
+  massTrkSys vs.\ EMPOverTrkSysP (3P))
+\item Partial dependence plots
+\item trFlightPathSig: why the negative sign?
+\item Understand the rejection vs.\ pt curve. Why does the rejection drop (is it
+  because rejection is enhanced due to pile-up fakes)? Why does rejection
+  increase again for high pt?
+\item Properly define Rejection = Inverse background efficiency
+\end{itemize}
+
 \section{Features of Hadronically Decaying Tau Leptons}
 \label{sec:features_tau_decay}
 
@@ -82,6 +98,12 @@ Input variables
 \item trFlightPathSig $S_\text{T}^\text{flight}$ (3P)
 \item massTrkSys $m_\text{track}$ (3P)
 \end{itemize}
+
+\begin{align*}
+  N_\text{trees} &= 100 & d_\text{tree} &= 8 & \beta &= 0.2 \\
+  f_\text{node}^\text{min} &= \SI{0.1}{\percent} & N_\text{cuts} &= 200
+\end{align*}
+as well as \texttt{UseYesNoLeaf} and no pruning.
 
 Setup
 \begin{itemize}

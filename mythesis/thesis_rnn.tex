@@ -2,6 +2,26 @@
 \chapter{Identification of Hadronically Decaying $\tau$-Leptons (NN)}
 \label{sec:rnn}
 
+TODOs:
+\begin{itemize}
+\item Remove missing cluster moments and replace with pt-weighted version from
+  MVA-TES if necessary
+\item Trigger: retrain RNN and look at event-level rejection. Produce JZ0W
+  sample?
+\item Visualisation of RNN features:
+  \begin{itemize}
+  \item correlation with output / label
+  \item partial dependence plots
+  \end{itemize}
+\item Redo Cluster-RNN ncluster scan (make sure to not get outliers)
+\item Do Track-/Cluster-RNN n-scans for 3-prong
+\item LSTM cell size scan $n_c \in \{8, 16, 24, 32, 48, 64\}$
+\item Group-wise variable importances for RNN
+\item Study pile-up dependency of RNN vs BDT-ID
+\item d0 and z0sintheta significances should be used instead of raw values
+  \url{https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/InDetTrackingDC14#Impact_parameters_z0_d0_definiti}
+\end{itemize}
+
 \section{Identification using Feedforward Neural Networks}
 \label{sec:ffnn_id}
 
