@@ -83,39 +83,94 @@ A full summary of the datasets is given in appendix \todo{Reference}.
 \subsection{Features (Predictors, Dependent Variables, Input Variables)}
 \label{sec:bdt_features}
 
-Input variables
-\begin{itemize}
-\item Central energy fraction $f_\text{cent}$ (1P, 3P)
-\item etOverPtLeadTrk $f_\text{leadtrack}^{-1}$ (1P, 3P)
-\item innerTrkAvgDist $R_\text{track}^{0.2}$ (1P, 3P)
-\item absipSigLeadTrk $\left| S_\text{leadtrack} \right|$ (1P)
-\item SumPtTrkFrac $f_\text{iso}^\text{track}$ (1P)
-\item ChPiEMEOverCaloEME $f_\text{EM}^\text{track-HAD}$ (1P, 3P)
-\item EMPOverTrkSysP $f_\text{track}^\text{EM}$ (1P, 3P)
-\item ptRatioEflowApprox $p_\text{T}^\text{EM+track} / p_\text{T}$ (1P, 3P)
-\item mEflowApprox $m_\text{EM+track}$ (1P, 3P)
-\item dRmax $\Delta R_\text{max}$ (3P)
-\item trFlightPathSig $S_\text{T}^\text{flight}$ (3P)
-\item massTrkSys $m_\text{track}$ (3P)
-\end{itemize}
+\begin{table}[ht]
+  \centering
+  \input{./tables/baseline_variables.tex}
+  \caption{Variables used for identification}
+  \label{tab:baseline_variables}
+\end{table}
+
+\todo{Define what is electromagnetic energy for taus (Presampler, EM1, EM2)}
+\todo{Backref to reco chapter: track classification, axes}
+
+Input variables:
+\begin{description}
+\item[Central energy fraction ($f_\text{cent}$):] Fraction of transverse energy
+  (EM scale) deposited in calorimeter cells with a barycentre in a cone of
+  radius $\Delta R < 0.1$, and cells in a cone of radius $\Delta R < 0.2$ with
+  respect to the reconstructed tau axis \todo{intermediate axis}. The
+  calorimeter cells must be matched to a \emph{TopoCluster}.
+
+\item[Inverse momentum fraction of the leading track
+  ($f_\text{leadtrack}^{-1}$):] Fraction of transverse energy (EM scale)
+  deposited in calorimeter cells (matched to \emph{TopoClusters}) with a
+  barycentre in a cone of radius~$\Delta R < 0.2$ with respect to the tau axis
+  \todo{intermediate axis} and the transverse momentum of the highest momentum
+  track classified as \emph{charged} according to the track classification
+  \todo{ref}.
+
+\item[Track radius ($R_\text{track}$):] Mean $\Delta R$-distance of the
+  tau axis \todo{intermediate axis} and tracks classified as \emph{charged}
+  weighted by the transverse momentum~$p_\text{T}$ of each track.
+
+\item[Maximum track $\Delta R$ ($\Delta R_\text{max}$):] Maximum
+  $\Delta R$-distance of all tracks classified as \emph{charged} with respect to
+  the tau axis \todo{intermediate axis}. Equivalent to $R_\text{track}$
+  for 1-prong hadronic tau decays.
+
+\item[Transverse impact parameter significance of the leading track
+  ($| S_\text{leadtrack} |$):] Absolute value of the transverse impact
+  parameter~$d_0$ of the leading \emph{charged} track with respect to the
+  reconstructed primary vertex divided by its uncertainty estimate from the
+  track and vertex fit.
+
+\item[Transverse flight path significance ($S_\text{T}^\text{flight}$):]
+  Distance between secondary vertex reconstructed using tracks classified as
+  \emph{charged} and primary vertex in the transverse plane divided by the
+  estimated uncertainty from the secondary vertex fit.
+
+\item[Momentum fraction of isolation tracks ($f_\text{iso}^\text{track}$):]
+  Transverse momentum~$p_\text{T}$ sum of \emph{modified isolation} tracks
+  divided by the transverse momentum sum of \emph{modified isolation} and
+  \emph{charged} tracks.
+
+\item[EM energy fraction of charged pions ($f_\text{EM}^\text{track-HAD}$):]
+  Energy deposited by charged pions in the electromagnetic part of the
+  calorimeter estimated by subtracting the energy contained in the hadronic part
+  of \emph{TopoClusters} from the energy of the track-system given by the sum of
+  track momenta. This energy is divided by the energy contained in the
+  electromagnetic part of calorimeter clusters. All cluster energies are
+  calibrated at LC scale.
+
+\item[Ratio of EM energy and track momentum ($f_\text{track}^\text{EM}$):]
+  Energy deposited as part of \emph{TopoClusters} of the reconstructed jet in
+  the electromagnetic part of the calorimeter (Presampler, EM1 \& EM2)
+  calibrated at LC scale, divided by the momentum sum of tracks classified as
+  \emph{charged}.
+
+\item[Fraction of track-plus-EM-system $p_\text{T}$
+  ($p_\text{T}^\text{EM+track} / p_\text{T}$):] Transverse momentum of the
+  visible tau decay estimated from the four-momentum sum of \emph{charged}
+  tracks (assuming $\pi^\pm$ mass) and up to two of the most-energetic clusters
+  (assuming zero mass) in the electromagnetic part of the calorimeter divided by
+  the transverse momentum of the reconstructed tau at LC scale.
+
+\item[Mass of the track-plus-EM-system ($m_\text{EM+track}$):] Invariant mass of
+  the visible tau decay estimated from the four-momentum sum of \emph{charged}
+  tracks (assuming $\pi^\pm$ mass) and up to two of the most-energetic clusters
+  (assuming zero mass) in the electromagnetic part of the calorimeter.
+
+\item[Mass of the track system ($m_\text{track}$):] Invariant mass of
+  the system consisting of tracks classified as \emph{charged} using a $\pi^\pm$ mass
+  hypothesis.
+\end{description}
+
 
 \begin{align*}
   N_\text{trees} &= 100 & d_\text{tree} &= 8 & \beta &= 0.2 \\
   f_\text{node}^\text{min} &= \SI{0.1}{\percent} & N_\text{cuts} &= 200
 \end{align*}
 as well as \texttt{UseYesNoLeaf} and no pruning.
-
-Setup
-\begin{itemize}
-\item NTrees: 100
-\item MaxDepth: 8
-\item AdaBoostBeta: 0.2
-\item MinNodeSize: 0.1
-\item nCuts: 200
-\item UseYesNoLeaf: False
-\item PruneMethod: NoPruning
-\end{itemize}
-Previous setup (incl. explanation \& plots of input variables)
 
 Transformations? highly skewed and long-tailed distributions
 
@@ -171,7 +226,7 @@ AdaBoost \textrightarrow GradBoost
   \caption{Loss function investigation}
 \end{figure}
 
-\todo{Plot of the 'margin' $y f(x)$ for exponential and binomial log-likelihood?}
+\todo{Why no full optimisation of the hyperparameters?}
 
 \subsection{Exhaustive Grid Search}
 \label{sec:bdt_grid_search}
@@ -397,7 +452,8 @@ Signal efficiencies 1P (3P):
     \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
     \subcaption{3-prong (tight)}
   \end{subfigure}
-  \caption{Working points (BDT A) \todo{Larger pt range in appendix}}
+  \caption{Working points (BDT A) \todo{Larger pt range in appendix}.
+    \todo{Ratio is bootstrapped due to highly correlated errors}}
 \end{figure}
 
 
@@ -477,14 +533,6 @@ Performance on TAUP4 (?)
   \item How does etOverPtLeadTrk differ from EMPOverTrkSysP for 1-prong taus?
   \end{itemize}
 
-\item Preselection
-  \begin{itemize}
-  \item $p_\mathrm{T} > \SI{20}{\GeV}$ (reconstructed \& truth)
-  \item $| \eta | < 2.5$ (reconstructed \& truth)
-  \item $| \eta | \notin \left[ 1.37, 1.52 \right]$ (reconstructed \& truth)
-  \item truth-matched taus
-  \end{itemize}
-
 \item Train baseline for comparison (with default outlier removal)
   \begin{itemize}
   \item NTrees 100 (explain)
@@ -498,9 +546,6 @@ Performance on TAUP4 (?)
   \item nCuts 200 (explain)
   \item MaxDepth 8 (explain)
   \end{itemize}
-
-\item Switch from AdaBoost to GradBoost (Explain why we don't do a full
-  optimization of the AdaBoost vs GradBoost setup)
 
 \item Variable transformations (log, clamp, uniformization)
   \begin{align}
