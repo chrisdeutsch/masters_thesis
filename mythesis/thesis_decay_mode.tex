@@ -56,6 +56,22 @@ Selection:
 \section{Baseline}
 \label{sec:pfo_baseline}
 
+\begin{table}[ht]
+  \centering
+  \input{./tables/neutral_pfo_ptcut.tex}
+  \caption{Impact of a neutral $p_\text{T}$-cut on the diagonal efficiency.}
+  \label{tab:neut_ptcut}
+\end{table}
+
+It is uncertain how well low $p_\text{T}$ neutral PFOs are modelled in Monte
+Carlo. Therefore a lower cut is placed on the PFO $p_\text{T}$ to show that the
+performance of this method does not crucially depend on such PFOs. The diagonal
+efficiency of the classification after retraining the RNN with the cut applied.
+
+Classification according to the highest mode probability returned by the model.
+Alternative thresholds possible (e.g. require the highest probability to exceed
+the second highest by a specific margin).
+
 \todo{Redo: with new changes}
 
 \todo{What has been tested}
@@ -99,14 +115,27 @@ classification.
 \end{figure}
 
 
-\begin{table}[ht]
-  \centering
-  \input{./tables/neutral_pfo_ptcut.tex}
-  \caption{Impact of a neutral $p_\text{T}$-cut on the diagonal efficiency.}
-  \label{tab:neut_ptcut}
-\end{table}
-
-
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/mode_proba_baseline_ptcut_1_5_only_1p/proba_1p0n.pdf}
+    \subcaption{In most cases the probabilities for modes containing neutral
+      pions to be classified as the $h^\pm$ mode are small. However in cases
+      where no neutral PFO is reconstructed the probabilities can be large
+      \SI{90}{\percent}.}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/mode_proba_baseline_ptcut_1_5_only_1p/proba_1p1n.pdf}
+    \subcaption{The discrimination of modes with one neutral and more than one
+      neutral pion is difficult. In cases of no reconstructed neutral pions the
+      probabilities can be small ($\approx \SI{5}{\percent}$)}
+  \end{subfigure}
+  \caption{Mode probabilities for the $h^\pm$ and $h^\pm \pi^0$ modes. While
+    each tau candidate is assigned a probability for all five decay modes the
+    probabilities for the 3-prong modes have been omitted.}
+  \label{fig:mode_proba_ptcut}
+\end{figure}
 
 'Global' Information attached to every PFO:
 \begin{itemize}
