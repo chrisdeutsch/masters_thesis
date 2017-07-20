@@ -73,6 +73,8 @@ Elements of statistical learning \cite{esl}
 
 \todo{Explain notation -- bold for vectors and matrices}
 \todo{Combination of different layers allow for flexible architectures}
+\todo{Hidden layers -- do not interact directly with input or output but via
+  intermediate nodes}
 
 \subsection{Feedforward Neural Networks}
 \label{sec:nn_feedforward}
@@ -206,8 +208,15 @@ physics objects like tracks, clusters, particle flow objects etc..
 \todo{Should rename output $\mathbf{h}$ to $\mathbf{y}$ to be consistent.}
 with trainable weights $\mathbf{W}$, recurrent weights $\mathbf{U}$ and biases $\mathbf{b}$.
 
+Key concepts: Due to recurrent links network has a form of memory and thus can
+be context-dependent; Compared to MLP time affects processing instead
+of time being parallelised into the spacial dimension;
+
 Vanishing gradient problem: Applying the sigmoid function multiple times leads
 to vanishing gradients (plot?).
+
+To be able to generalise to arbitrary length sequences the weights have to be
+shared across all timesteps.
 
 \subsection{Long Short-Term Memory}
 \label{sec:lstm}
@@ -268,6 +277,7 @@ Activation functions:
 \item $\sigma_h$: element-wise hyperbolic tangent (Output activation)
 \end{itemize}
 
+Gated Recurrent Unit (GRU) as an alternative.
 
 \section{Technical Setup}
 \label{sec:tech_setup}
