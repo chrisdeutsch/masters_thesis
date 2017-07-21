@@ -111,10 +111,11 @@ several intermediate (hidden) layers connecting input and output layer. In
 figure \ref{fig:multi_layer_perceptron} a multi-layer perceptron with a single
 hidden layer is shown. Two layers of the network are connected by an affine
 transformation $\mathbf{W}\mathbf{x} + \mathbf{b}$ and subsequent application of
-an entry-wise activation function $\bm{\varphi}$ (commonly called dense or
-densely-connected layers). The activations of the neurons in the hidden layer
-$\mathbf{h}$ and the output layer $\mathbf{y}$ for the case depicted in figure
-\ref{fig:multi_layer_perceptron} are given by:
+an entry-wise \todo{non-linear and differentiable} activation function
+$\bm{\varphi}$ (commonly called dense or densely-connected layers). The
+activations of the neurons in the hidden layer $\mathbf{h}$ and the output layer
+$\mathbf{y}$ for the case depicted in figure \ref{fig:multi_layer_perceptron}
+are given by:
 \begin{align*}
   &\mathbf{h} = \bm{\varphi}_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
   &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqdot
@@ -199,24 +200,38 @@ physics objects like tracks, clusters, particle flow objects etc..
 \subsection{Fully-Connected RNN}
 \label{sec:fully_connected_rnn}
 
-% \textsc{Elman} network [Check Citation]\cite{elman}:
-\textsc{Jordan} network \todo{look for citation}:
+\todo{RNNs shown as an unfolded graph}
+
+\textsc{Elman} network [Check Citation]\cite{elman, graves}:
+% \textsc{Jordan} network \todo{look for citation}:
 \begin{align*}
   \mathbf{c}_t &= \bm{\varphi}_{\text{c}}\left( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}} \right) \\
   \mathbf{h}_t &= \bm{\varphi}_{\text{h}}\left( \mathbf{W}_{\text{h}} \mathbf{c}_{t} + \mathbf{b}_{\text{h}} \right)
 \end{align*}
-\todo{Should rename output $\mathbf{h}$ to $\mathbf{y}$ to be consistent.}
-with trainable weights $\mathbf{W}$, recurrent weights $\mathbf{U}$ and biases $\mathbf{b}$.
+\todo{Should rename output $\mathbf{h}$ to $\mathbf{y}$ to be consistent.} with
+trainable weights $\mathbf{W}$, recurrent weights $\mathbf{U}$ and biases
+$\mathbf{b}$.
 
 Key concepts: Due to recurrent links network has a form of memory and thus can
-be context-dependent; Compared to MLP time affects processing instead
-of time being parallelised into the spacial dimension;
+be context-dependent (recurrent connections allow a memory of the previous
+inputs to persist in the internal state of the network [Graves
+2012]\cite{graves}); Compared to MLP time affects processing instead of time
+being parallelised into the spacial dimension;
+
+Sequence of hidden activations and outputs can be calculated by recursively
+applying the formulas while incrementing the timestep $t$.
+
+At time $t=0$ the cell state is often set to zero (Graves 2012).
 
 Vanishing gradient problem: Applying the sigmoid function multiple times leads
 to vanishing gradients (plot?).
 
 To be able to generalise to arbitrary length sequences the weights have to be
 shared across all timesteps.
+
+Trained using 'Backpropagation Through Time' i.e.\ repeated application of the
+chain rule but now also considering that the weights are shared between
+timesteps.
 
 \subsection{Long Short-Term Memory}
 \label{sec:lstm}
@@ -229,6 +244,8 @@ shared across all timesteps.
 \end{figure}
 
 [Check Citation]\cite{lstm}
+
+\todo{Omit biases for brevity? Omit 'peephole' cite \cite{graves}}
 
 Gate activations:
 \begin{align*}
@@ -278,6 +295,10 @@ Activation functions:
 \end{itemize}
 
 Gated Recurrent Unit (GRU) as an alternative.
+
+Bidirectional Recurrent Neural Networks: consider past and future context when
+classifying. Present the training sequence forwards and backwards to two
+separate recurrent neural networks connected to the same output layer.
 
 \section{Technical Setup}
 \label{sec:tech_setup}
