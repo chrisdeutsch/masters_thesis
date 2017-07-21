@@ -54,11 +54,36 @@ for that (i.e.\ higher branching ratio)
 \subsection{Track-RNN}
 \label{sec:rnn_tracks}
 
-\todo{Choice of $z_0 \sin\theta$ instead of $z_0$ is due to expected larger
-  error in forward direction}
+Using reconstructed tracks with a minimum transverse momentum of
+\SI{400}{\mega\electronvolt} (already applied in track reconstruction).
 
-\todo{Lower threshold for $p_\mathrm{T}$ is \SI{400}{\mega\electronvolt} already
-  in track reconstruction}
+Input Variables: Transverse momentum of the track $p_\text{T}^\text{track}$
+measured in the tracking system; Absolute value of the transverse impact
+parameter $d_0$ with respect to the associated vertex; Distance of closest
+approach to the primary vertex in the $z$-$r$ plane $z_0 \sin\theta$ where
+$\theta$ is the polar angle of the track \todo{Axis is corrected, use
+  $\sin\theta$ instead of $z_0$ due to expected larger error in forward
+  direction}; Signed angular distance of track and tau axis $\Delta \eta$ and
+$\Delta \varphi$; Electron probability from high-threshold hit information in
+the TRT $p_\text{HT}$; Number of hits in IBL $N_\text{hit}^\text{IBL}$, the
+three pixel layers (B-layer, 1 and 2) $N_\text{hit}^\text{pixel}$ and the SCT
+$N_\text{hit}^\text{SCT}$ (dead sensors crossed by the reconstructed track are
+also counted as hits).
+
+Variable importances:
+\begin{enumerate}
+\item $d_0$ and $z_0 \sin\theta$
+\item $p_\text{T}^\text{track}$ and $p_\text{T}^\text{jet}$
+\item $\Delta \eta$ and $\Delta \varphi$
+\item \texttt{nInnermostPixelHits}, \texttt{nPixelHits} and \texttt{nSCTHits}
+\item \texttt{eProbabilityHT}
+\end{enumerate}
+
+\begin{table}[ht]
+  \centering
+  \input{./tables/track_rnn_var_importance.tex}
+  \caption{Variable importance table}
+\end{table}
 
 \todo{use 10 tracks}
 
@@ -80,12 +105,14 @@ What has been tested:
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/ntrk_1p.pdf}
-    \subcaption{NTracks for 1-prong taus.}
+    \subcaption{NTracks for 1-prong taus. The reco.\ three prong distribution is
+      similar with the difference being that at least three tracks are
+      required.}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/rnn/nscan/track_1p.pdf}
-    \subcaption{Val.\ loss vs.\ nTracks. Also put 3P in this? Errors are of the
+    \includegraphics{./figures/rnn/nscan/track_1p_3p.pdf}
+    \subcaption{Val.\ loss vs.\ nTracks. Errors are of the
       order of the marker size.}
   \end{subfigure}
   \caption{Tracks associated with a tau}

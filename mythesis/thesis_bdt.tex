@@ -16,6 +16,8 @@ TODOs:
   because rejection is enhanced due to pile-up fakes)? Why does rejection
   increase again for high pt?
 \item Properly define Rejection = Inverse background efficiency
+\item BDT is optimised for a 'gammatautau'-like spectrum (focused on improving
+  rejection at low pt)
 \end{itemize}
 
 \section{Features of Hadronically Decaying Tau Leptons}
@@ -487,11 +489,6 @@ Signal efficiencies 1P (3P):
 \subsection{Transverse Momentum Dependency of Features}
 \label{sec:bdt_incl_pt}
 
-A lot of the input features have (at least a small) dependency with the
-reconstructed $p_\text{T}$ changing the separation of signal and background in
-the discriminants as a function of $p_\text{T}$. This effect has a large impact
-on the overall isolation of the shower in the calorimeter and the tracks.
-
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -506,6 +503,34 @@ on the overall isolation of the shower in the calorimeter and the tracks.
     \caption{$p_\text{T}$-dependency of the central energy fraction.}
   \label{fig:bdt_pt_dependency}
 \end{figure}
+
+A lot of the input features have (at least a small) dependency with the
+reconstructed $p_\text{T}$ changing the separation of signal and background in
+the features as a function of $p_\text{T}$. This effect has a large impact on
+the overall isolation of the shower in the calorimeter and the tracks. An
+example of this is the central energy fraction $f_\text{cent}$ shown in figure
+\ref{fig:bdt_pt_dependency}. While the energy for signal events is mostly
+contained in the cone of size $\Delta R < 0.1$ there are significant
+contributions to the $0.1 < \Delta R < 0.2$ annulus for dijets reconstructed as
+low $p_\text{T}$ tau candidates. To take advantage of the varying separation of
+the input features in different $p_\text{T}$-regions the transverse momentum can
+be included as an input to the BDT. It is important that the signal and
+background samples used for training are reweighted such that no discrimination
+purely based on the $p_\text{T}$-spectra of the samples is possible. For the use
+of tau-identification in analyses the working point efficiencies in data must be
+determined in a tag-and-probe measurement. For reconstructed taus with
+transverse momenta greater than \SI{100}{\giga\electronvolt} there is limited
+statistics. In practice the measured efficiencies need to be extrapolated to
+higher $p_\text{T}$-regions and therefore it should be avoided to have an
+explicit $p_\text{T}$-dependence in the BDT above this threshold (an implicit
+dependency due to correlations of the regular features like the central energy
+fraction can not be avoided). This is realised by \emph{clamping} the transverse
+momentum
+\begin{align*}
+  p_\text{T}^\text{clamp} = \min(p_\text{T}, \SI{100}{\giga\electronvolt})
+\end{align*}
+and using this as an input to the BDT.
+
 
 \todo{SumPtTrkFrac for 3-prong BDT}
 
