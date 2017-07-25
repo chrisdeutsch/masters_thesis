@@ -223,10 +223,15 @@ counted. In case the shot energy exceeds 10 GeV the photon is counted twice.
 \begin{figure}[ht]
   \centering
   \includegraphics{./figures/bdt_perf/mva_tracking_rejection.pdf}
-  \caption{Rejection due to MVA tracking \todo{Why is the rejection 'wavey'?}
+  \caption{Rejection due to MVA tracking \mytodo{Why is the rejection 'wavey'?}
     Rejection of tau candidates from dijets after baseline tau selection.}
   \label{fig:mva_tracking_rejection}
 \end{figure}
+
+\todo[inline]{Reasons for miss-classification of number of charged hadrons:
+  Conversion tracks, Fake tracks, Merged tracks or tracking inefficiencies
+  (missing hits, vertex matching inefficiencies). Could move this to the MVA
+  tracking section.}
 
 \section{Energy Calibration}
 \label{sec:reco_energy_calib}

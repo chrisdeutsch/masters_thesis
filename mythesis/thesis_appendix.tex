@@ -137,7 +137,7 @@ Dijets (extended layout):
     \centering
     \includegraphics{./figures/baseline_bdt_vars/1p/ChPiEMEOverCaloEME.pdf}
   \end{subfigure}
-  \caption{Variables used in Tau-ID BDT}
+  \caption{Variables used in Tau-ID BDT. \mytodo{Rename innerTrkAvgDist x-label}}
   \label{fig:bdt_vars_1p_overlays}
 \end{figure}
 
@@ -185,7 +185,7 @@ Dijets (extended layout):
     \centering
     \includegraphics{./figures/baseline_bdt_vars/3p/SumPtTrkFrac.pdf}
   \end{subfigure}%
-  \caption{Variables used in Tau-ID BDT}
+  \caption{Variables used in Tau-ID BDT\mytodo{rename innerTrkAvgDist x-label}}
   \label{fig:bdt_vars_3p_overlays}
 \end{figure}
 
@@ -243,6 +243,49 @@ Dijets (extended layout):
   \label{fig:rnn_multiclass_proba_baseline}
 \end{figure}
 
+\clearpage
+\section{BDT: Recursive Feature Elimination}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/1p_iter1.pdf}
+    \subcaption{Iteration 1}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/1p_iter2.pdf}
+    \subcaption{Iteration 2}
+  \end{subfigure}
+  \caption{Variable importance (1-prong). Averaged rejection loss over a
+    gamma-tautau like dijet spectrum. Tight working point.}
+  \label{fig:variable_importance_1p_app}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/3p_iter1.pdf}
+    \subcaption{Iteration 1}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/3p_iter2.pdf}
+    \subcaption{Iteration 2}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    %\includegraphics{./figures/bdt_perf/var_importance/3p_iter3.pdf}
+    \subcaption{Iteration 3}
+  \end{subfigure}
+
+  \caption{Variable importance (3-prong). Averaged rejection loss over a
+    gamma-tautau like dijet spectrum. Tight working point.}
+  \label{fig:variable_importance_3p_app}
+\end{figure}
+
+\section{TODOS}
+\listoftodos
 
 %%% Local Variables:
 %%% mode: latex

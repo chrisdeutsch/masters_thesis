@@ -328,7 +328,8 @@ Comparison with previous setup
     \subcaption{Blablablabla}
   \end{subfigure}
   \caption{Rejection as a function of the hyperparameters. Uses
-    \SI{50}{\percent} subsampling. (1-prong). \todo{KS-Probability as comparison}}
+    \SI{50}{\percent} subsampling. (1-prong). \mytodo{KS-Probability as
+      comparison}}
   \label{fig:hyperparameter_scan_1p}
 \end{figure}
 
@@ -380,10 +381,10 @@ Comparison with previous setup
     \subcaption{Blablablabla}
   \end{subfigure}
   \caption{Rejection as a function of the hyperparameters. Not using
-    subsampling. (3-prong). \todo{Not as prone to overfitting? Why? This shows
+    subsampling. (3-prong). \mytodo{Not as prone to overfitting? Why? This shows
       the performance on the background sample (does it though? its rejection at
       45\% efficiency) which is less overtrained than the signal sample due to
-      higher 3-prong stats for background.} \todo{Move bottom two plots to
+      higher 3-prong stats for background.} \mytodo{Move bottom two plots to
       appendix.}}
   \label{fig:hyperparameter_scan_3p}
 \end{figure}
@@ -419,7 +420,7 @@ Description of what is seen in the scan:
     \subcaption{3-prong}
     \label{fig:bdt_3p_roc}
   \end{subfigure}
-  \caption{\emph{ROC}-Curves. \todo{Rule of thumb? For 10 percent signal
+  \caption{\emph{ROC}-Curves. \mytodo{Rule of thumb? For 10 percent signal
       efficiency which factor of rejection do we get?}}
 \end{figure}
 
@@ -469,8 +470,8 @@ Signal efficiencies 1P (3P):
     \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
     \subcaption{3-prong (tight)}
   \end{subfigure}
-  \caption{Working points (BDT A) \todo{Larger pt range in appendix}.
-    \todo{Ratio is bootstrapped due to highly correlated errors}}
+  \caption{Working points (BDT A) \mytodo{Larger pt range in appendix}.
+    \mytodo{Ratio is bootstrapped due to highly correlated errors}}
 \end{figure}
 
 
@@ -548,7 +549,6 @@ and using this as an input to the BDT.
     \includegraphics{./figures/bdt_perf/var_importance/1p_iter1.pdf}
     \subcaption{Iteration 1 (1-prong)}
   \end{subfigure}
-
   \caption{Variable importance. Averaged rejection loss over a gamma-tautau like
     dijet spectrum}
   \label{fig:variable_importance}
