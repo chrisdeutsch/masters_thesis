@@ -140,17 +140,18 @@ classification.
 
 'Global' Information attached to every PFO:
 \begin{itemize}
-\item $p_\text{T}^\text{jet}$
-\item $\phi_\text{jet}$
-\item $\eta_\text{jet}$
+\item $p_\text{T}^\text{jet}$: Calibrated at detector axis
+\item $\phi_\text{jet}$: Calibrated at detector axis
+\item $\eta_\text{jet}$: Calibrated at detector axis
 \end{itemize}
 
 Charged PFOs (up to three -- 1 to 1 correspondence with charged tracks):
 \begin{itemize}
-\item $p_\text{T}^\text{PFO}$
-\item $\Delta \phi$: The angle between PFO and jet in the transverse plane.
-\item $\Delta \eta = \eta_\text{PFO} - \eta_\text{jet}$: Angle between PFO and
-  jet in the pseudorapidity plane
+\item $p_\text{T}^\text{PFO}$: What does this mean?
+\item $\Delta \phi$: The signed angle between PFO and jet in the transverse
+  plane.
+\item $\Delta \eta = \eta_\text{PFO} - \eta_\text{jet}$: Signed angle between
+  PFO and jet in the pseudorapidity plane
 \end{itemize}
 
 Neutral PFOs (Charged PFOs + whats listed here):
@@ -165,7 +166,9 @@ Neutral PFOs (Charged PFOs + whats listed here):
 \item $N_\text{EM1}^\text{pos}$: Number of positive cells in EM1
 \item $f_\text{core}$: \texttt{ENG\_FRAC\_CORE} Fraction of energy in the three
   hottest cells in each sampling \todo{Check}
-\item $f_\text{EM1} = E_\text{EM1} / E$: Energy fraction in EM2
+\item $f_\text{EM2} = E_\text{EM2} / E$: Energy fraction in EM2 \todo{Why not
+    EM1? -- Energy fraction is highly anti-correlated with EM1 therefore only
+    one is chosen.}
 \end{itemize}
 
 Preprocessing:
@@ -181,7 +184,12 @@ Preprocessing:
 Conversion tracks: same as charged PFOs (but with tracks) \\
 Shots: same as charged PFOs (but with shots) \\
 
-
+\begin{figure}[ht]
+  \centering
+  \includegraphics{./figures/decay_mode_classification/baseline_architecture.pdf}
+  \caption{Architecture}
+  \label{fig:pfo_rnn_baseline_arch}
+\end{figure}
 
 % ----------------------------- FIRST DRAFT -------------------------- %
 \begin{itemize}
