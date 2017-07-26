@@ -40,13 +40,13 @@ $\pi^\pm$-mass hypothesis. \todo{Extensive hadronic showers. Hadronic part of
   the calo EM3 and HAD. Also deposit in EM calo.}
 
 Neutral pions often deposit their energy in a single cluster in the EM
-calorimeter (Presampler, EM1 and EM2) caused by two collimated photons from the
-$\pi^0$ decay. Therefore neutral PFOs are reconstructed by re-clustering the
-cells in the electromagnetic part of the calorimeter \todo{in the core region?}.
-In cases where a cluster is close to a charged PFO the energy contribution from
-the charged hadron in the EM calorimeter has to be separated from the energy of
-the neutral pion. The energy $E_{h^\pm}^{\text{EM}}$ that needs to be subtracted
-to remove the contribution of the charged hadron is estimated by
+calorimeter (Presampler, EM1/EM2) caused by two collimated photons from the
+$\pi^0$ decay. Therefore neutral PFOs are reconstructed by clustering the cells
+in the electromagnetic part of the calorimeter \todo{in the core region?}. In
+cases where a cluster is close to a charged PFO the energy contribution from the
+charged hadron in the EM calorimeter has to be separated from the energy of the
+neutral pion. The energy $E_{h^\pm}^{\text{EM}}$ that needs to be subtracted to
+remove the contribution of the charged hadron is estimated by
 \begin{align*}
   E_{h^\pm}^{\text{EM}} = E_{h^\pm}^{\text{track}} - E_{h^\pm}^{\text{HAD}} \eqcomma
 \end{align*}
@@ -54,23 +54,26 @@ where $E_{h^\pm}^{\text{track}}$ is the energy of the charged PFO measured in
 the tracking system and $E_{h^\pm}^{\text{HAD}}$ the energy of the charged PFO
 deposited in the hadronic part of the calorimeter. $E_{h^\pm}^{\text{HAD}}$ is
 calculated by matching clustered energy deposits in the HCAL to the closest
-track of a charged PFO. This energy is then subtracted from the closest cluster
-if it is within $\Delta R < 0.04$.
+track of a charged PFO. The contribution of the charged hadron in the EM
+calorimeter~$E_{h^\pm}^{\text{EM}}$ is subtracted from the closest neutral PFO
+cluster if the angular distance between cluster and extrapolated track is
+smaller than $\Delta R < 0.04$.
 
-The energy deposition of the charged hadron in the EM calorimeter has to be
-disentangled from the contribution of the neutral pion. The energy deposition of
-the charged hadron in the EM calorimeter, which is estimated by the difference
-of the energy measurement in the inner detector and in the hadronic calorimeter,
-is subtracted. Neutral PFOs can often be caused by incomplete subtraction of the
-charged hadron energy in the EM calorimeter or by pile-up. To identify neutral
-PFOs as originating from neutral pions an additional identification step based
-on multivariate methods is applied, employing shower shape information and other
-cluster moments.
+Neutral PFOs can often be caused by incomplete subtraction of the charged hadron
+energy deposition in the EM calorimeter or by pile-up. For decay mode
+classification it is necessary to identify the neutral pions in all
+reconstructed neutral PFOs of the tau decay. Boosted decision trees employing
+shower shape and cluster moment information are used to identify neutral pions.
 
-Due to the decrease in momentum resolution in the tracker as well as the
-additional boost of the decay products of the tau leading to merging of
-$\pi^0$-clusters, this method is optimized for operation in the low-momentum
-regime $p_\text{T} < \SI{100}{\giga\electronvolt}$.
+The number of identified neutral pions can already be used for a crude
+\todo{Crude? Why is this so?} determination of the decay mode. The following
+sections will be concerned with combining reconstructed PFOs in neural networks
+to achieve better classification power.
+
+\todo{Where to put this?} Due to the decrease in momentum resolution in the
+tracker as well as the additional boost of the decay products of the tau leading
+to merging of $\pi^0$-clusters, this method is optimized for operation in the
+low-momentum regime $p_\text{T} < \SI{100}{\giga\electronvolt}$.
 
 \section{General Idea}
 \todo{Better name for this part}
