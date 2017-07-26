@@ -76,22 +76,45 @@ regime $p_\text{T} < \SI{100}{\giga\electronvolt}$.
 \todo{Better name for this part}
 \label{sec:pfo_general}
 
+Idea is to combine properties of charged and neutral PFOs in recurrent neural
+networks to perform multi-class classification. Mainly kinematic information is
+used to describe the PFOs. Also the $\pi^0$-likeness in form of the neutral pion
+identification BDT score is included in the classification to be able to
+discriminate between neutral PFOs originating from $\pi^0$ and remnants of the
+subtraction.
+
 \todo[inline]{Preselection (same as ID); Low momentum taus:
   $\SI{20}{\giga\electronvolt} < p_\text{T} < \SI{100}{\giga\electronvolt}$;
   Track requirement 1- or 3-prong}
 
-\todo[inline]{Technically would allow multiple outputs: Could do Pi0 Cluster-ID
-  internally}
+\todo[inline]{What are we classifying. 1p0n, 1p1n, 1pXn, 3p0n, 3pXn.}
 
-\section{Baseline}
-\label{sec:pfo_baseline}
+The network architecture used for the decay mode classification is shown in
+figure \ref{fig:pfo_rnn_baseline_arch} and is similar to the networks used for
+tau-identification in the previous chapter. At the input layer the network is
+split into two branches each accepting a number of charged and neutral PFOs
+respectively. The shared dense layer\footnote{Applies the same transformation on
+  every element of the input sequence} applies an affine transformation on the
+input variables of each PFO. Afterwards the input sequences are fed into the
+recurrent LSTM layer which subsequently return a single vector of activations.
+The activations of both branches are then merged and passed through a network
+containing three dense layers. The final dense layer has five units (the number
+of decay modes to classify) which are activated by the Softmax activation
+function, ensuring that the output activations sum to one.
 
 \begin{figure}[ht]
   \centering
   \includegraphics{./figures/decay_mode_classification/baseline_architecture.pdf}
-  \caption{Architecture}
+  \caption{Architecture. Highlighted in blue are layers that operate on a sequence of inputs.}
   \label{fig:pfo_rnn_baseline_arch}
 \end{figure}
+
+\todo[inline]{Technically would allow multiple outputs: Could do Pi0 Cluster-ID
+  internally. During the classification the prongness of the decay mode is not
+  constrained -- add. migrations are possible}
+
+\section{Baseline}
+\label{sec:pfo_baseline}
 
 \begin{table}[ht]
   \centering
