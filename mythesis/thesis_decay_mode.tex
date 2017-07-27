@@ -16,6 +16,8 @@ extended by including additional information from conversion tracks, cluster
 moments and shot information. In the following the notation established in
 \cite{atlas:taurec:decaymodes} will be adopted.
 
+\todo[inline]{Signature of the decay modes (Could be moved to
+  \textit{Theoretical Background})}
 
 \section{Tau Particle Flow}
 \label{sec:tau_pflow}
@@ -258,20 +260,15 @@ Preprocessing:
   f_\text{sub} = \frac{p_{\text{T}}^{\text{cluster}} - p_{\text{T}}^{\text{PFO}}}{p_{\text{T}}^{\text{PFO}}}
 \end{align*}
 
+\todo[inline]{Try out bidirectional LSTMs and stacked ones (still not
+  overfitting).}
 
-% ----------------------------- FIRST DRAFT -------------------------- %
-\begin{itemize}
-\item Signature of the decay modes (Could be moved to \textit{Theoretical
-    Background})
-\item RNN
-  \begin{itemize}
-  \item PFOs + Cluster-Moments + Conversion Tracks + Shots
-  \item Class probabilities, Migration matrices (row + col. norm),
-    Efficiency/Purity profiles
-  \item Improvements for Higgs CP measurement in
-    $H \rightarrow \tau\tau \rightarrow \rho \rho 2\nu$
-  \end{itemize}
-\end{itemize}
+\section{Combining Everything}
+
+\todo[inline]{Class probabilities, Migration matrices (row + col.\ norm),
+  Efficiency/Purity profiles. Improvements for Higgs CP measurement in
+  $H \rightarrow \tau\tau \rightarrow \rho \rho 2\nu$. Performance when applying
+  medium tau identification.}
 
 %%% Local Variables:
 %%% mode: latex
