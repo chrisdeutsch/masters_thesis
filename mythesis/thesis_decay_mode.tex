@@ -131,8 +131,9 @@ $\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used \todo{Reference
 selection given in chapter \ref{sec:bdt_eventsim} is applied. At reconstruction
 and generator-level the visible transverse momentum~$p_\text{T}$ of the tau is
 required to be less than \SI{100}{\giga\electronvolt}. Moreover only tau-leptons
-with the true decay mode being one of $h^\pm$, $h^\pm \pi^0$, $h^\pm \geq 2\pi^0$,
-$3h^\pm$ or $3h^\pm \geq 1\pi^0$ are considered.
+with the true decay mode being one of $h^\pm$, $h^\pm \pi^0$,
+$h^\pm \geq 2\pi^0$, $3h^\pm$ or $3h^\pm \geq 1\pi^0$ and omitting modes
+containing charged kaons are considered.
 
 The discrimination of the decay modes utilises kinematic quantities of the
 reconstructed tau decay as well as the charged and neutral particle flow
@@ -163,7 +164,8 @@ while also extending the variable set of the neutral PFOs with:
   cluster fulfils $E_\text{T} > \SI{500}{\mega\electronvolt}$ and is within
   $\Delta R < 0.4$ to the tau axis. In cases where the cell is shared between
   multiple clusters, it is associated to the cluster to which the seed cell
-  contributes with the largest weight.
+  contributes with the largest weight. \todo{Recover merged $\pi^0$ if more than
+    2 shots.}
 \end{description}
 \todo[inline]{Give reasons for this variable selection.}
 
@@ -176,7 +178,38 @@ while also extending the variable set of the neutral PFOs with:
   can access this information but it is not a strict requirement such that
   migrations 3-track taus to $h^\pm \geq 0 \pi^0$ are possible.}
 
-\begin{table}[ht]
+\todo[inline]{Preprocessing:} The transverse momenta of the reconstructed tau as
+well as the PFOs are log-transformed and subsequently standardised (by
+subtracting the mean and dividing by the standard deviation of the transformed
+variable). The remaining kinematic variables are transformed to fall into the
+the $[-1, 1]$ range. For the neutral PFO specific variables
+$S_\text{BDT}^{\pi^0}$ and $N_\text{shots}$ no preprocessing is needed.
+
+Charged and neutral PFOs are passed in ascending transverse momentum ordering to
+the shared dense layers with 24 units each. The intermediate representation of
+the input sequence is then passed into the LSTM layers each with 24 units and
+hard sigmoid recurrent activation. The recurrent layers return a single element
+containing 24 scalar values which are subsequently merged and passed through
+three dense layers with 48, 32 and 5 units respectively. The outputs of the
+different layers are activated using the $\tanh$ activation function with the
+exception of the last dense layer, which uses \emph{Softmax} activation.
+
+For each reconstructed tau decay the model returns one probability for each of
+the five decay modes. The reconstructed decay mode is then given as the mode
+with the highest probability according to the model. A different scheme for
+determining the decay mode would be to require the largest mode probability to
+exceed the second largest by a predefined margin. This would increase the purity
+of the reconstructed modes at the expense of reducing the reconstruction
+efficiency (should be evaluated on analysis-level).
+
+Reconstructed hadronic tau decays contain neutral PFOs that are not originating
+from neutral pions but from other sources. Moreover it is not known how well
+these PFOs are modelled in the simulation that is used to train and evaluate the
+models. Therefore the neutral PFOs used in the RNN are required to pass a
+$p_\text{T}$-threshold. Table \ref{tab:neut_ptcut} summarises the diagonal
+efficiency of the classification for four different thresholds \todo{Requires
+  retraining of the model!}.
+\begin{table}[htb]
   \centering
   \input{./tables/neutral_pfo_ptcut.tex}
   \caption{Impact of a neutral $p_\text{T}$-cut on the diagonal
@@ -184,20 +217,13 @@ while also extending the variable set of the neutral PFOs with:
   \todo[inline]{Motivate \SI{1.5}{\giga\electronvolt} cut.}
   \label{tab:neut_ptcut}
 \end{table}
-
-It is uncertain how well low $p_\text{T}$ neutral PFOs are modelled in Monte
-Carlo. Therefore a lower cut is placed on the PFO $p_\text{T}$ to show that the
-performance of this method does not crucially depend on such PFOs. The diagonal
-efficiency of the classification after retraining the RNN with the cut applied.
-
-Classification according to the highest mode probability returned by the model.
-Alternative thresholds possible (e.g. require the highest probability to exceed
-the second highest by a specific margin).
-
-\todo{Redo: with new changes}
-
-\todo{What has been tested}
-
+It is observed that the overall classification performance does not degrade when
+no $p_\text{T}$-cut is applied, indicating that the network is able to (since
+$p_\text{T}^\text{PFO}$ is an input). Moreover the accuracy does not decrease
+drastically \todo{better word?} when the threshold is increased such that a
+threshold can be applied if it turns out that low momentum PFOs show significant
+mismodelling. For further studies the \SI{1.5}{\giga\electronvolt} threshold is
+used.
 
 
 \begin{figure}[ht]
@@ -213,7 +239,7 @@ the second highest by a specific margin).
       \SI{1.5}{\giga\electronvolt}}
   \end{subfigure}
   \caption{Migration matrices with normalised columns showing the migration of
-    the true decay modes to the reconstructed modes.}
+    the true decay modes to the reconstructed modes. }
   \todo[inline]{After reconstruction in
     $\gamma^* \rightarrow \tau \tau \, \text{hadr.}$ and omitting decays
     containing neutral kaons.}
@@ -261,20 +287,6 @@ the second highest by a specific margin).
   \label{fig:mode_proba_ptcut}
 \end{figure}
 
-
-Neutral PFOs (Charged PFOs + whats listed here):
-\begin{itemize}
-\item $\langle R^2 \rangle$: Transverse cluster moment
-\item $\langle (\eta - \eta_\text{Cluster})^2 \rangle$: Second moment of $\eta$
-  with respect to the cluster position.
-\item $N_\text{EM1}^\text{pos}$: Number of positive cells in EM1
-\item $f_\text{core}$: \texttt{ENG\_FRAC\_CORE} Fraction of energy in the three
-  hottest cells in each sampling \todo{Check}
-\item $f_\text{EM2} = E_\text{EM2} / E$: Energy fraction in EM2 \todo{Why not
-    EM1? -- Energy fraction is highly anti-correlated with EM1 therefore only
-    one is chosen.}
-\end{itemize}
-
 Preprocessing:
 \begin{itemize}
 \item $p_\text{T}$: log-transform and standard scaling
@@ -286,6 +298,26 @@ Preprocessing:
 \end{itemize}
 
 \section{Additional Information}
+
+\begin{description}
+\item[Width $\langle R^2 \rangle$]
+\item[$\eta$ width in EM1 $\langle (\eta - \eta_\text{cluster})^2\rangle$]
+\item[Number of positive cells in EM1 $N_\text{EM1}^\text{pos}$]
+\item[Core energy fraction $f_\text{core}$] Fraction of the total cluster energy
+  contained in the highest energy cells in Presampler, EM1 and EM2.
+\item[Energy fraction in EM2 $f_\text{EM2}$]
+\end{description}
+Longitudinal moments were not found to lead to an increase performance.
+
+
+Neutral PFOs (Charged PFOs + whats listed here):
+\begin{itemize}
+\item $f_\text{core}$: \texttt{ENG\_FRAC\_CORE} Fraction of energy in the three
+  hottest cells in each sampling \todo{Check}
+\item $f_\text{EM2} = E_\text{EM2} / E$: Energy fraction in EM2 \todo{Why not
+    EM1? -- Energy fraction is highly anti-correlated with EM1 therefore only
+    one is chosen.}
+\end{itemize}
 
 \begin{table}[htb]
   \centering
@@ -300,6 +332,8 @@ Preprocessing:
 
 \todo[inline]{Try out bidirectional LSTMs and stacked ones (still not
   overfitting).}
+
+\todo[inline]{What else has been tested?}
 
 \section{Combining Everything}
 
