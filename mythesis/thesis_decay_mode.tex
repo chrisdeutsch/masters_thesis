@@ -165,7 +165,7 @@ while also extending the variable set of the neutral PFOs with:
   $\Delta R < 0.4$ to the tau axis. In cases where the cell is shared between
   multiple clusters, it is associated to the cluster to which the seed cell
   contributes with the largest weight. \todo{Recover merged $\pi^0$ if more than
-    2 shots.}
+    2 shots. Very important \SI{1.5}{\percent} diag.\ eff.}
 \end{description}
 \todo[inline]{Give reasons for this variable selection.}
 
@@ -225,8 +225,12 @@ threshold can be applied if it turns out that low momentum PFOs show significant
 mismodelling. For further studies the \SI{1.5}{\giga\electronvolt} threshold is
 used.
 
+\todo[inline]{Explain migration and composition matrices. Explain that the
+  trainings are not 'stable' in the sense that classification power can be
+  redistributed across different modes i.e.\ a decrease in one mode can be
+  compensated by improvements in another.}
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/mig_mat_pantau.pdf}
@@ -247,7 +251,7 @@ used.
 \end{figure}
 
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/comp_mat_pantau.pdf}
@@ -262,6 +266,8 @@ used.
   \caption{Composition matrices with normalised rows showing the migration of
     the true decay modes to the reconstructed modes.}
   \label{fig:migmat}
+  \todo[inline]{Check whether the 'diagonal efficiency' is correct for
+    composition matrices.}
 \end{figure}
 
 
@@ -287,17 +293,27 @@ used.
   \label{fig:mode_proba_ptcut}
 \end{figure}
 
-Preprocessing:
-\begin{itemize}
-\item $p_\text{T}$: log-transform and standard scaling
-\item $\eta$, $\phi$: Divided by maximum value ($2.5$ or $\pi$)
-\item $\Delta \eta$, $\Delta \phi$: standard scaling
-\item Cluster moments: Second\_R, secondEtaWRTClusterPosition, NPosECells\_EM1
-  ... standard scaling
-\item PI0BDT, NHitsinEM1, ENG\_FRAC\_CORE, energyfrac em2 - no scaling
-\end{itemize}
-
 \section{Additional Information}
+
+\begin{description}
+\item[Conversion tracks] Often photons from the $\pi^0$ decay convert into
+  electron-positron pairs in the material of the inner detector. Conversions can
+  therefore \todo{Why? Electrons bent out of cone? Neutral PFOs fail $\pi^0$-ID?
+    Will the electrons be reconstructed in neutral PFOs?} lead to an
+  underestimation of the number of neutral pions. The inclusion of conversion
+  tracks in the classification aims to reduce migrations to decay modes with
+  fewer neutrals.
+
+\item[Shots] Due to the boosted topology of tau decays in ATLAS (especially at
+  high-$p_\text{T}$) neutral pion clusters can merge with the charged or another
+  neutral pion leading to a reduction in the reconstructed number of neutrals.
+  Information on nearby shots \todo{NHitsInEM1 is already in the neut.\ PFOs}
+  can further improve classification.
+
+\item[Add. cluster moments] Further improvements in classifying merged clusters
+  can be achieved by using shower shape information similar to what is used for
+  the $\pi^0$ identification.
+\end{description}
 
 \begin{description}
 \item[Width $\langle R^2 \rangle$]
@@ -324,6 +340,7 @@ Neutral PFOs (Charged PFOs + whats listed here):
   \input{./tables/pfo_add_info.tex}
   \caption{Additional experiments}
   \label{tab:pfo_add_experiments}
+  \todo[inline]{Mistake in BDT sorting - redo}
 \end{table}
 
 \begin{align*}
@@ -341,6 +358,8 @@ Neutral PFOs (Charged PFOs + whats listed here):
   Efficiency/Purity profiles. Improvements for Higgs CP measurement in
   $H \rightarrow \tau\tau \rightarrow \rho \rho 2\nu$. Performance when applying
   medium tau identification.}
+
+\todo[inline]{Unleash on data without upper $p_\text{T}$ limit.}
 
 %%% Local Variables:
 %%% mode: latex
