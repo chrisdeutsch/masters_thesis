@@ -2,14 +2,36 @@
 \chapter{Machine Learning}
 \label{sec:ml}
 
-\begin{itemize}
-\item Supervised learning
-\item Classification
-\item Over-fitting
-\end{itemize}
+Machine learning is the study of algorithms that are able to learn structure
+from data (called training data) and can subsequently be used to make
+predictions on unseen data. Examples for such algorithms are \emph{Boosted
+  Decision Trees} and \emph{Neural Networks} that are able to model nonlinear
+problems without the need to supply an explicitly derived rule-set or functional
+form. They often offer superior performance compared to linear models or
+cut-based approaches at the cost of interpretability. Machine learning
+techniques are commonly used for the reconstruction of hadronic tau decays in
+the ATLAS experiment. Aside from tau identification they are also used for track
+classification, decay mode classification and energy calibration.
+
+The focus lies on the problem of supervised learning which is concerned with
+learning models from labelled data, meaning the desired output for each example
+is available during training. These problems range from regression (modelling a
+dependent variable given a set of explanatory variables) to classification which
+assigns a class (e.g.\ signal or background) to an observation with a set of
+observed variables.
+
+This chapter gives an overview over the techniques used in this thesis starting
+with a brief description of \emph{Boosted Decision Trees} that are used in
+chapter~\ref{sec:bdt} for rejection of tau candidates originating from dijet
+events. A comprehensive summary on \emph{Recurrent Neural Networks} is given
+that are used for tau identification in chapter~\ref{sec:rnn} and additionally
+for decay mode classification in chapter~\ref{sec:decaymode}. \todo{Software
+  frameworks}
 
 \section{Boosted Decision Trees}
 \label{sec:bdt}
+\todo[inline]{Overfitting?}
+
 
 \todo{Focus on classification with two classes}
 
@@ -302,6 +324,8 @@ separate recurrent neural networks connected to the same output layer.
 
 \section{Technical Setup}
 \label{sec:tech_setup}
+
+TMVA
 
 Frameworks used for this thesis (theano \cite{theano}, keras \cite{keras})
 
