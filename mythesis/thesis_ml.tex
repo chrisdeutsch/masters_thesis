@@ -30,35 +30,46 @@ for decay mode classification in chapter~\ref{sec:decaymode}. \todo{Software
 
 \section{Boosted Decision Trees}
 \label{sec:bdt}
-\todo[inline]{Overfitting?}
 
+\todo[inline]{Focus on classification with two classes. Whats with the
+  lingo: Signal background? Class 1 class 2?}
 
-\todo{Focus on classification with two classes}
+\subsection{Decision Trees}
+\label{sec:bdt_decision_trees}
 
-Decision trees:
-\begin{itemize}
-\item Tree-based model: recursively partition input space into subregions via
-  binary splits on the coordinate axes (parallel to the coordinate axes) of the
-  input space until some stopping criterion is fulfilled (description by a
-  binary tree)
-\item Stopping rules: maximum depth, minimum node size
-\item Dataflow: top of the tree - full population; subsets of the full
-  population at deeper levels
-\item Training: Greedy -- look for best (according to some loss) split in all
-  variables and repeat for subregions
-\item Impurity measure: Gini index (or Gini impurity): $2 p (1 - p)$ where $p$
-  is the signal purity in a region (splits that split off pure background as
-  well as signal are equivalent). Probability to assign the correct label to a
-  randomly picked observation when randomly assigning according to the
-  distribution of labels in the sample.
-\item The split has to be weighted by the weight of events in each subregion:
-  \begin{align*}
-    \frac{w_\mathrm{L} \times 2 p_\mathrm{L} (1 - p_\mathrm{L}) + w_\mathrm{R} \times 2 p_\mathrm{R} (1 - p_\mathrm{R})}{w_\mathrm{L} + w_\mathrm{R}}
-  \end{align*}
-  weighted average of the Gini impurity of both subregions
-\item Each subregion is assigned the majority class or the signal purity in that region
-\item Won't explain pruning since boosted decision trees are used
-\end{itemize}
+\todo[inline]{Dataflow not clear; Gini index: Probability to assign
+  the correct label to a randomly picked observation when randomly
+  assigning according to the distribution of labels in the sample
+  (splits that split off pure background as well as signal are
+  equivalent); Pruning?; Overfitting?}
+
+A decision tree is a tree-based model that recursively partitions the space
+spanned by the input variables into subregions by applying binary splits on the
+coordinate axes until a stopping criterion is met. Frequently used criteria
+include limiting the maximum depth of the tree or requiring a minimum number of
+training examples in a node considered for further splitting. Figure \ref{}
+illustrates the tree structure: \todo{Explain: root node - full dataset; node -
+  subset; terminal node (leaf) - predicts}.
+
+A decision tree is grown using a greedy optimisation method, where each node is
+split on the variable that gives the largest improvement according to a chosen
+impurity measure. Commonly used for binary classification trees is the
+\emph{Gini impurity} given by
+\begin{align*}
+  I_\text{G}(p) = 2 p_1 p_2 = 2 p (1 - p) \qquad \text{with} \qquad p \coloneqq p_1 = 1 - p_2 \eqcomma
+\end{align*}
+where $p_i$ is the purity of class~$i$ \cite{esl}. The best split is
+chosen such that the mean of the Gini impurities of the resulting
+nodes, weighted by the sum of event weights in each node, is
+minimised. Each terminal node is assigned the majority class of the
+subset of training data contained within it. An alternative is to to
+assign the signal purity to allow for a measure of confidence in the
+decision.
+
+\todo[inline]{For standalone DT -- pruning}
+
+\subsection{Boosting}
+\label{sec:bdt_boosting}
 
 Boosting:
 \begin{itemize}
@@ -86,8 +97,7 @@ Elements of statistical learning \cite{esl}
 
 \begin{itemize}
 \item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
-\item Node splitting: Gini Index
-\item Hyperparameters: $N_\mathrm{Trees}$, $d_\mathrm{Tree}$,
+\item Hyperparameters: $N_\mathrm{Trees}$
 \end{itemize}
 
 \section{Neural Networks}
