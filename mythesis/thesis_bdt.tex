@@ -5,8 +5,6 @@
 TODOs:
 \begin{itemize}
 \item Working point efficiencies for pt and mu
-\item Leave-one-out feature selection (recursive feature elimination) and
-  TMVA-Ranking (Have a bar chart for each iteration of the RFE)
 \item Rejection for full pt range
 \item Plot 2nd order effects (e.g. ptRatioEflowApprox vs.\ mEflowApprox (1P) or
   massTrkSys vs.\ EMPOverTrkSysP (3P))
@@ -538,27 +536,29 @@ and using this as an input to the BDT.
 \subsection{Variable Importance}
 \label{sec:bdt_var_importance}
 
+\todo[inline]{Recursive Feature Elimination (also TMVA ranking?); Input variable
+  correlations;}
+
 \begin{figure}[ht]
-  \begin{subfigure}[t]{0.33\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/var_importance/3p_iter1.pdf}
-    \subcaption{Iteration 1 (3-prong)}
-  \end{subfigure}
   \begin{subfigure}[t]{0.33\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/var_importance/1p_iter1.pdf}
     \subcaption{Iteration 1 (1-prong)}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/3p_iter1.pdf}
+    \subcaption{Iteration 1 (3-prong)}
   \end{subfigure}
   \caption{Variable importance. Averaged rejection loss over a gamma-tautau like
     dijet spectrum}
   \label{fig:variable_importance}
 \end{figure}
 
-\todo{Recursive Feature Elimination}
+One prong: Drop only ChPiEMEOverCaloEME \SI{0.7 +- 0.3}{\percent}
 
-\todo{Input variable correlations}
-
-\todo{Bar chart for dropped variables}
+Three prong: Drop innerTrkAvgDist \SI{0.3 +- 0.6}{\percent}, then
+ChPiEMEOverCaloEME \SI{1.2 +- 0.6}{\percent}, then etOverPtLeadTrk (do not drop)
 
 Variable correlations, importance (dropped variables) \& dependence with
 $p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
