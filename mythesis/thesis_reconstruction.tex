@@ -29,6 +29,8 @@ acceptance range of the tracking system $|\eta| < \num{2.5}$. \todo{At this step
   tau $p_\mathrm{T}, \eta, \varphi, m$ ($m$: invariant mass) are set to the ones
   of the jet seed -- what does this mean? Read up on jet algs}
 
+\section{Vertex Association}
+\label{sec:reco_vertex_assoc}
 % TauVertexFinder:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauVertexFinder.cxx
 %
@@ -75,6 +77,8 @@ correction and the identification of the primary vertex, the track impact
 parameters can be recalculated with respect to the primary vertex (like for
 z0sinThetaTJVA).
 
+\section{Track Selection and Classification}
+\label{sec:reco_track_sel_classif}
 % TauTrackFinder:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauTrackFinder.cxx
 %
@@ -151,6 +155,21 @@ calculate the isolation variables SumPtTrkFrac and massTrkSys \todo{Ref to
 % eProbabilityHT: Conversion tracks
 % qOverP, dR: IT, FT
 
+\begin{figure}[ht]
+  \centering
+  \includegraphics{./figures/bdt_perf/mva_tracking_rejection.pdf}
+  \caption{Rejection due to MVA tracking \mytodo{Why is the rejection 'wavey'?}
+    Rejection of tau candidates from dijets after baseline tau selection.}
+  \label{fig:mva_tracking_rejection}
+\end{figure}
+
+\todo[inline]{Reasons for miss-classification of number of charged hadrons:
+  Conversion tracks, Fake tracks, Merged tracks or tracking inefficiencies
+  (missing hits, vertex matching inefficiencies). Could move this to the MVA
+  tracking section.}
+
+\section{Energy Calibration}
+\label{sec:reco_energy_calib}
 % TauCalibrateLC:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/Root/TauCalibrateLC.cxx
 %
@@ -194,6 +213,7 @@ The detector response function $\mathcal{R}$ is fitted to the mean of the
 $\frac{E_\text{true}}{E_\text{LC} - E_\text{PU}}$ distributions (from a Gaussian
 fit) in simulation for each bin using a function with an empirical form.
 
+\todo[inline]{Move this somewhere else}
 % TauShotFinder
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauShotFinder.cxx
 Local maximum in EM1 strip layer determined by cells within 0.2 (0.4?) to the
@@ -213,64 +233,6 @@ counted. In case the shot energy exceeds 10 GeV the photon is counted twice.
 
 
 \todo{Cite ATHENA?}
-
-\section{Vertex Association}
-\label{sec:reco_vertex_assoc}
-
-\section{Track Selection and Classification}
-\label{sec:reco_track_sel_classif}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics{./figures/bdt_perf/mva_tracking_rejection.pdf}
-  \caption{Rejection due to MVA tracking \mytodo{Why is the rejection 'wavey'?}
-    Rejection of tau candidates from dijets after baseline tau selection.}
-  \label{fig:mva_tracking_rejection}
-\end{figure}
-
-\todo[inline]{Reasons for miss-classification of number of charged hadrons:
-  Conversion tracks, Fake tracks, Merged tracks or tracking inefficiencies
-  (missing hits, vertex matching inefficiencies). Could move this to the MVA
-  tracking section.}
-
-\section{Energy Calibration}
-\label{sec:reco_energy_calib}
-
-
-% -------------------------- FIRST DRAFT ------------------------------ %
-\begin{itemize}
-\item Building jet seed from AntiKt4LCTopoJets ($p_\mathrm{T} > \SI{10}{GeV}$)
-
-\item Vertex finding \& TJVA (Track Selection $\Delta R < 0.2$ \& PixHits /
-  SiHits requirement, Jet Vertex Fraction)
-
-\item Energy \& axis calculation (clusters within $\Delta R < 0.2$ w.r.t.
-  barycentre associated with tau [ptDetectorAxis], correct axis for vertex
-  position [ptIntermediateAxis])
-
-\item Track selection \& track classification (MVA tracking TT/CT/IT/FT, sets
-  charge/prongness, modifiedIsolationTracks, Multijet rejection from
-  \texttt{nTrack} requirement)
-
-\item Energy Calibration: LC \textrightarrow TES (Separately for 1-prong and
-  multi-prong: subtract PU energy using $N_\mathrm{PV}$ / $\mu$, apply
-  calibration factor depending on $|\eta|$ \& $E_\mathrm{LC} - E_\mathrm{PU}$
-
-\item Tau-ID (Could be moved to next chapter?)
-
-\item Substructure Reconstruction (?)
-\end{itemize}
-
-% -------------------------- ??? -------------------------------- %
-
-\begin{itemize}
-\item Jet seed
-\item TJVA
-\item MVA tracking (Rejection due to track requirement)
-\item Identification (jet veto, electron veto, muon veto)
-\item Tau Particle Flow \& Decay Mode Classification
-\end{itemize}
-
 \cite{atlas:taurec:run1}
 \cite{atlas:taurec:run2}
 \cite{atlas:taurec:decaymodes}
