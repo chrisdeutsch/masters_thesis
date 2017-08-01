@@ -5,10 +5,10 @@
 Machine learning is the study of algorithms that are able to learn structure
 from data (called training data) and can subsequently be used to make
 predictions on unseen data. Examples for such algorithms are \emph{Boosted
-  Decision Trees} and \emph{Neural Networks} that are able to model nonlinear
-problems without the need to supply an explicitly derived rule-set or functional
-form. They often offer superior performance compared to linear models or
-cut-based approaches at the cost of interpretability. Machine learning
+  Decision Trees} (BDT) and \emph{Neural Networks} (NN) that are able to model
+nonlinear problems without the need to supply an explicitly derived rule-set or
+functional form. They often offer superior performance compared to linear models
+or cut-based approaches at the cost of interpretability. Machine learning
 techniques are commonly used for the reconstruction of hadronic tau decays in
 the ATLAS experiment. Aside from tau identification they are also used for track
 classification, decay mode classification and energy calibration.
@@ -25,17 +25,30 @@ with a brief description of \emph{Boosted Decision Trees} that are used in
 chapter~\ref{sec:bdt} for rejection of tau candidates originating from dijet
 events. A comprehensive summary on \emph{Recurrent Neural Networks} is given
 that are used for tau identification in chapter~\ref{sec:rnn} and additionally
-for decay mode classification in chapter~\ref{sec:decaymode}. \todo{Software
-  frameworks}
+for decay mode classification in chapter~\ref{sec:decaymode}. An overview of the
+software frameworks used for this thesis concludes this chapter.
 
 \section{Boosted Decision Trees}
 \label{sec:bdt}
 
-\todo[inline]{Focus on classification with two classes. Whats with the
-  lingo: Signal background? Class 1 class 2?}
+The following section describes a classification algorithm called \emph{Boosted
+  Decision Trees}. It consists of an ensemble of decision trees that is created
+by a meta-algorithm called \emph{boosting}. In
+section~\ref{sec:ml_decision_trees} the decision tree algorithm is presented. A
+brief overview of \emph{boosting} algorithms is given in
+section~\ref{sec:ml_boosting}. The description focuses on binary classification
+tasks aiming to discriminate between two distinct classes (hereafter called
+signal and background).
 
 \subsection{Decision Trees}
-\label{sec:bdt_decision_trees}
+\label{sec:ml_decision_trees}
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics{./figures/theory/decision_tree.pdf}
+  \caption{Binary tree structure of a decision tree. \cite{esl}}
+  \label{fig:decision_tree}
+\end{figure}
 
 \todo[inline]{Dataflow not clear; Gini index: Probability to assign
   the correct label to a randomly picked observation when randomly
@@ -71,44 +84,47 @@ decision.
 \todo[inline]{For standalone DT -- pruning}
 
 \subsection{Boosting}
-\label{sec:bdt_boosting}
+\label{sec:ml_boosting}
 
 Boosting describes a family of machine learning meta-algorithms that are used to
-build ensembles of a base learners which aim to improve the overall predictive
+build ensembles of base classifiers which aim to improve the overall predictive
 power compared to a single model. The ensembles can be viewed as an additive
-expansion of the in a set of basis functions given by the underlying algorithm
-\cite{esl}. Boosting is commonly used in conjunction with Decision Trees giving
-rise to so called \emph{Boosted Decision Trees}.
+expansion of the underlying functional dependence in a set of basis functions
+given by the base learner \cite{esl}. Boosting is commonly used in conjunction
+with Decision Trees giving rise to so called \emph{Boosted Decision Trees}.
 
-\emph{AdaBoost} (Adaptive Boosting)
+\todo{Hyperparameter number of trees}
 
-Boosting:
+\emph{AdaBoost} (Adaptive Boosting) is a boosting algorithm that forms a
+weighted sum of the base classifier, where each classifier is trained on data
+that is reweighted such that training examples that were previously incorrectly
+classified contribute with higher weight than examples that were correctly
+classified. \todo{\emph{AdaBoost} $\beta$ -- learning rate -- modifies boost
+  weight}
+
+A generalisation of this method is called \emph{gradient boosting} which allows
+the minimisation of an arbitrary differential loss function during boosting. A
+loss function -- ya. Gradient boosting reproduces the \emph{AdaBoost} algorithm
+if the exponential loss function $\exp(-f(x) y)$ is used. In general for
+different loss functions no convenient methods of minimising the loss exist and
+a gradient descent algorithm is used. A full mathematical description of the
+algorithm is omitted for brevity and can be found in \cite{friedman_gbm, esl}.
+Instead we focus on the major difference between \emph{AdaBoost} and gradient
+boosting with binomial log-likelihood $\log\left( 1 + \exp(-2 f(x) y) \right)$
+(TMVA) loss. Regularisation using shrinkage $\eta$.
+
+
 \begin{itemize}
 \item Popular algorithms: AdaBoost (TMVA: Real AdaBoost), Gradient boosting
-\item Ensemble method to combine a number of weak learners (Meta-Algorithm)
+
 \item AdaBoost: weighted sum of a number of weak classifiers, each classifier is
   trained on data where the weights of incorrectly classified examples are
   increased and correctly classified events are decreased
+
 \item AdaBoost performance degrades drastically in noisy settings due to
   exponential loss function \cite{esl} binomial log-likelihood more robust
   (problems with overlapping class distributions)
-\item AdaBoost exponential loss function - leads to convenient reweighting
-  scheme for training
-\item Gradient Boosting - for arbitraty loss functions there is no easy way of
-  minimizing the loss function as in AdaBoost. One has to use gradient descent
-  for training
-\item 'Additive model' - expansion using a set of basis-functions given by the
-  weak learner
-\item TMVA uses binomial log-likelihood loss for classification\cite{tmva}
-\end{itemize}
 
-Keep this short!
-
-Elements of statistical learning \cite{esl}
-
-\begin{itemize}
-\item Boosting: Adaptive Boosting $\alpha$, Gradient Boosting $\eta$
-\item Hyperparameters: $N_\mathrm{Trees}$
 \end{itemize}
 
 \section{Neural Networks}
