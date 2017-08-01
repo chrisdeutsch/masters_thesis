@@ -8,17 +8,17 @@ predictions on unseen data. Examples for such algorithms are \emph{Boosted
   Decision Trees} (BDT) and \emph{Neural Networks} (NN) that are able to model
 nonlinear problems without the need to supply an explicitly derived rule-set or
 functional form. They often offer superior performance compared to linear models
-or cut-based approaches at the cost of interpretability. Machine learning
+or simple cut-based approaches at the cost of interpretability. Machine learning
 techniques are commonly used for the reconstruction of hadronic tau decays in
 the ATLAS experiment. Aside from tau identification they are also used for track
 classification, decay mode classification and energy calibration.
 
 The focus lies on the problem of supervised learning which is concerned with
-learning models from labelled data, meaning the desired output for each example
-is available during training. These problems range from regression (modelling a
-dependent variable given a set of explanatory variables) to classification which
-assigns a class (e.g.\ signal or background) to an observation with a set of
-observed variables.
+learning models from labelled data, meaning the desired output \todo{Find better
+  expression} for each example is available during training. These problems
+range from regression (modelling a dependent variable given a set of explanatory
+variables) to classification which assigns a class (e.g.\ signal or background)
+to an observation with a set of observed variables (input variables).
 
 This chapter gives an overview over the techniques used in this thesis starting
 with a brief description of \emph{Boosted Decision Trees} that are used in
@@ -46,11 +46,12 @@ signal and background).
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/decision_tree.pdf}
-  \caption{Binary tree structure of a decision tree. \cite{esl}}
+  \caption{Binary tree structure of a decision tree with a depth~$d = 2$ and two
+    input variables $x_1$, $x_2$. Adapted from \cite{esl}}
   \label{fig:decision_tree}
 \end{figure}
 
-\todo[inline]{Dataflow not clear; Gini index: Probability to assign
+\todo[inline]{Gini index: Probability to assign
   the correct label to a randomly picked observation when randomly
   assigning according to the distribution of labels in the sample
   (splits that split off pure background as well as signal are
@@ -60,9 +61,18 @@ A decision tree is a tree-based model that recursively partitions the space
 spanned by the input variables into disjoint subregions by applying binary
 splits on the coordinate axes until a stopping criterion is met. Frequently used
 criteria include limiting the maximum depth of the tree or requiring a minimum
-number of training examples in a node considered for further splitting. Figure
-\ref{} illustrates the tree structure: \todo{Explain: root node - full dataset;
-  node - subset; terminal node (leaf) - predicts}.
+number of training examples in a node considered for further splitting.
+Figure~\ref{fig:decision_tree} shows the binary tree structure of a decision
+tree. The root node of the tree contains the full dataset which is subsequently
+split into two nodes by a condition on a single input variable. The terminal
+nodes (leaves) contain disjoint sub-samples of the full dataset with input
+variables falling \todo{Regions of the input variable space}. Each terminal node
+is assigned the majority class of the subset of training data contained within
+it. An alternative method to gauge the confidence of the decision is to assign
+the signal purity.
+% The subregions of the variable space defined by the terminal nodes Formally:
+% majority class minimises classification error, signal purity minimises
+% log-loss
 
 A decision tree is grown using a greedy optimisation method, where each node is
 split on the variable that gives the largest improvement according to a chosen
@@ -74,13 +84,8 @@ impurity measure. Commonly used for binary classification trees is the
 where $p_i$ is the purity of class~$i$ \cite{esl}. The best split is
 chosen such that the mean of the Gini impurities of the resulting
 nodes, weighted by the sum of event weights in each node, is
-minimised. Each terminal node is assigned the majority class of the
-subset of training data contained within it. An alternative is to to
-assign the signal purity to allow for a measure of confidence in the
-decision.
-% The subregions of the variable space defined by the terminal nodes Formally:
-% majority class minimises classification error, signal purity minimises
-% log-loss
+minimised.
+
 \todo[inline]{For standalone DT -- pruning}
 
 \subsection{Boosting}
