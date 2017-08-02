@@ -9,9 +9,10 @@ charged hadron $h^\pm$ with one $h^\pm \pi^0$ or more than one neutral pion
 $h^\pm \geq 2\pi^0$ as well as three charged hadrons without neutrals $3h^\pm$
 or at least one neutral $3h^\pm \geq 1\pi^0$ shall be discriminated. These five
 decay modes make up the majority of hadronic tau-lepton decays \todo{Continue
-  (numbers). Kaons are rare}. Neural networks naturally extend from binary to
-multi-class classification problems making them well-suited for the
-discrimination of the hadronic decay modes.
+  (numbers). Kaons are rare. Including charged pions but neglecting neutral
+  pions}. Neural networks naturally extend from binary to multi-class
+classification problems making them well-suited for the discrimination of the
+hadronic decay modes.
 
 At first a quick overview of the \emph{Tau Particle Flow}-Algorithm is given,
 which is used to reconstruct neutral and charged decay products. Subsequently a
@@ -384,14 +385,25 @@ Neutral PFOs (Charged PFOs + whats listed here):
   \label{fig:mode_efficiency_purity}
 \end{figure}
 
-
-\todo[inline]{Class probabilities (showing the non-existant peak). Improvements
+\todo[inline]{Class probabilities (showing the non-existent peak). Improvements
   for Higgs CP measurement in
   $H \rightarrow \tau\tau \rightarrow \rho \rho 2\nu$. Performance when applying
   medium tau identification. Fluid classification -- a single PFO is not
   'causing' a particular classification result -- could use heuristic methods to
   reconstruct neutral pions after classification. Unleash on data without upper
   $p_\text{T}$ limit.}
+
+\begin{table}[htb]
+  \centering
+  \input{./tables/decay_mode_reco.tex}
+  \caption{Mode reconstruction efficiencies. $h^\pm$ can be pion or kaon.
+    Intermediate decays via neutral kaons are excluded. Branching fraction
+    $\mathcal{B}$; Mode fractions of reconstructed taus passing preselection
+    $f_\text{reco}$; Mode fraction of taus also passing medium tau id.}
+  \todo[inline]{Do the fractions make sense? Make comparable to branching
+    ratio?}
+  \label{tab:mode_reco_eff}
+\end{table}
 
 %%% Local Variables:
 %%% mode: latex
