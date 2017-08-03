@@ -7,12 +7,12 @@ tau-identification are applied to the problem of decay mode classification of
 hadronic tau-lepton decays. In the following the decay modes containing one
 charged hadron $h^\pm$ with one $h^\pm \pi^0$ or more than one neutral pion
 $h^\pm \geq 2\pi^0$ as well as three charged hadrons without neutrals $3h^\pm$
-or at least one neutral $3h^\pm \geq 1\pi^0$ shall be discriminated. These five
-decay modes make up the majority of hadronic tau-lepton decays \todo{Continue
-  (numbers). Kaons are rare. Including charged pions but neglecting neutral
-  pions}. Neural networks naturally extend from binary to multi-class
-classification problems making them well-suited for the discrimination of the
-hadronic decay modes.
+or at least one neutral pion $3h^\pm \geq 1\pi^0$ shall be discriminated. These
+five decay modes make up the majority of hadronic tau-lepton decays (approx.
+\SI{92}{\percent}). $h^\pm$ includes charged pions as well as kaons.
+\todo{Intermediate neutral kaons are omitted} Neural networks naturally extend
+from binary to multi-class classification problems making them well-suited for
+the discrimination of the hadronic decay modes.
 
 At first a quick overview of the \emph{Tau Particle Flow}-Algorithm is given,
 which is used to reconstruct neutral and charged decay products. Subsequently a
@@ -33,29 +33,32 @@ for reconstruction of charged and neutral constituents in hadronic tau-lepton
 decays with visible transverse momenta of up to \SI{100}{\giga\electronvolt}. It
 aims to improve reconstruction of individual particles by optimally combining
 the information in several subdetector-systems. The reconstructed objects,
-called charged or neutral \emph{particle flow objects} (PFO), can be used to
-classify the decay mode of hadronic tau-lepton decays and can be used to improve
-the energy resolution of the reconstructed hadronic tau decay by employing a
-decay mode specific calibration. The following description of the algorithm is
-based on \cite{atlas:taurec:decaymodes}.
+called charged or neutral \emph{particle flow objects}~(PFOs), can be used to
+classify the decay mode of hadronic tau-lepton decays and for improving the
+energy resolution of the reconstructed hadronic tau decay by employing a decay
+mode specific calibration. The following description of the algorithm is based
+on \cite{atlas:taurec:decaymodes} including recent changes to the reconstruction
+algorithms.
 
-Charged PFOs \todo{bring in charged pion} are reconstructed from tracks
-classified as \emph{charged} according to the track classification by assigning
-the charge and transverse momentum measured in the tracking system, which has
-superior energy resolution for $p_\text{T} < \SI{100}{\giga\electronvolt}$ than
-a calorimeter-based measurement. The energy of the PFO is calculated using a
-$\pi^\pm$-mass hypothesis. \todo{Extensive hadronic showers. Hadronic part of
-  the calo EM3 and HAD. Also deposit in EM calo.}
+Charged PFOs are reconstructed from tracks classified as \emph{charged}
+according to the track classification. The charge and transverse momentum of the
+reconstructed PFO is determined from the measurement in the tracking system,
+which has superior energy resolution for charged pions with
+$p_\text{T} < \SI{100}{\giga\electronvolt}$ compared to a calorimeter-based
+measurement \todo{Citation}. The $\pi^\pm$-mass hypothesis is used to calculate
+the energy of the PFO. Charged hadrons initiate extensive hadronic showers
+depositing most of their energy in the hadronic calorimeters (incl.\ EM3)
+\todo{Motivation for this sentence?}.
 
 Neutral pions often deposit their energy in a single cluster in the EM
 calorimeter (Presampler, EM1/EM2) caused by two collimated photons from the
-$\pi^0$ decay. Therefore neutral PFOs are reconstructed by clustering the cells
-in the electromagnetic part of the calorimeter \todo{in the core region? At
-  EM-Scale?}. In cases where a cluster is close to a charged PFO the energy
-contribution from the charged hadron in the EM calorimeter has to be separated
-from the energy of the neutral pion. The energy $E_{h^\pm}^{\text{EM}}$ that
-needs to be subtracted to remove the contribution of the charged hadron is
-estimated by
+$\pi^0$ decay. Therefore neutral PFOs are reconstructed by clustering all cells
+in the electromagnetic part of the calorimeter within the $\Delta R < 0.4$ cone
+about the tau axis \todo{Check instead of core-region?}. If a cluster is in the
+proximity of a charged PFO then the energy deposition of the charged hadron in
+the EM calorimeter has to be separated from the neutral pion energy. The energy
+$E_{h^\pm}^{\text{EM}}$ that needs to be subtracted to remove the contribution
+of the charged hadron is estimated by
 \begin{align*}
   E_{h^\pm}^{\text{EM}} = E_{h^\pm}^{\text{track}} - E_{h^\pm}^{\text{HAD}} \eqcomma
 \end{align*}
@@ -74,10 +77,10 @@ classification it is necessary to identify the neutral pions in all
 reconstructed neutral PFOs of the tau decay. Boosted decision trees employing
 shower shape and cluster moment information are used to identify neutral pions.
 
-The number of identified neutral pions can already be used for a crude
-\todo{Crude? Why is this so?} determination of the decay mode. The following
-sections will be concerned with combining reconstructed PFOs in neural networks
-to achieve better classification power.
+The number of identified neutral pions can be used for a preliminary
+classification of the decay mode. The following sections will be concerned with
+combining reconstructed PFOs in neural networks to achieve better classification
+power.
 
 \todo{Where to put this?} Due to the decrease in momentum resolution in the
 tracker as well as the additional boost of the decay products of the tau leading
