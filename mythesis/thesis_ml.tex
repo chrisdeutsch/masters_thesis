@@ -66,10 +66,10 @@ Figure~\ref{fig:decision_tree} shows the binary tree structure of a decision
 tree. The root node of the tree contains the full dataset which is subsequently
 split into two nodes by a condition on a single input variable. The terminal
 nodes (leaves) contain disjoint sub-samples of the full dataset with input
-variables falling \todo{Regions of the input variable space}. Each terminal node
-is assigned the majority class of the subset of training data contained within
-it. An alternative method to gauge the confidence of the decision is to assign
-the signal purity.
+variables falling into distinct regions of the variable space. Each terminal
+node is assigned the majority class of the subset of training data contained
+within it. An alternative method to gauge the confidence of the decision is to
+assign the signal purity.
 % The subregions of the variable space defined by the terminal nodes Formally:
 % majority class minimises classification error, signal purity minimises
 % log-loss
