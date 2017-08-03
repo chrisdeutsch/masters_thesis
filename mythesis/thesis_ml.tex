@@ -105,18 +105,17 @@ weighted sum of the base classifier, where each classifier is trained on data
 that is reweighted such that training examples that were previously incorrectly
 classified contribute with higher weight than examples that were correctly
 classified. \todo{\emph{AdaBoost} $\beta$ -- learning rate -- modifies boost
-  weight}
-
-A generalisation of this method is called \emph{gradient boosting} which allows
-the minimisation of an arbitrary differential loss function during boosting. A
-loss function -- ya. Gradient boosting reproduces the \emph{AdaBoost} algorithm
-if the exponential loss function $\exp(-f(x) y)$ is used. In general for
-different loss functions no convenient methods of minimising the loss exist and
-a gradient descent algorithm is used. A full mathematical description of the
-algorithm is omitted for brevity and can be found in \cite{friedman_gbm, esl}.
-Instead we focus on the major difference between \emph{AdaBoost} and gradient
-boosting with binomial log-likelihood $\log\left( 1 + \exp(-2 f(x) y) \right)$
-(TMVA) loss. Regularisation using shrinkage $\eta$.
+  weight} A generalisation of this method is called \emph{gradient boosting}
+which allows the minimisation of an arbitrary differential loss function during
+boosting. A loss function -- ya. Gradient boosting reproduces the
+\emph{AdaBoost} algorithm if the exponential loss function $\exp(-f(x) y)$ is
+used. In general for different loss functions no convenient methods of
+minimising the loss exist and a gradient descent algorithm is used. A full
+mathematical description of the algorithm is omitted for brevity and can be
+found in \cite{friedman_gbm, esl}. Instead we focus on the major difference
+between \emph{AdaBoost} and gradient boosting with binomial log-likelihood
+$\log\left( 1 + \exp(-2 f(x) y) \right)$ (TMVA) loss. Regularisation using
+shrinkage $\eta$.
 
 
 \begin{itemize}
