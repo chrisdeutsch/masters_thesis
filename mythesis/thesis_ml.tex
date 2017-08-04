@@ -131,7 +131,7 @@ shrinkage $\eta$.
 
 \end{itemize}
 
-\section{Neural Networks}
+\section{Artificial Neural Networks}
 \label{sec:nn}
 
 \todo{Explain notation -- bold for vectors and matrices}
@@ -251,7 +251,7 @@ also called 'Log Loss'. $p$ should be a class probability. Perfect classifiers
 have loss of zero. Last layer in neural network effectively does logistic
 regression on the intermediate representation created from the previous layers.
 
-\section{Recurrent Neural Networks}
+\subsection{Recurrent Neural Networks}
 \label{sec:rnn}
 
 Recurrent: If a network has one or more cycles, that is, if it is possible to
@@ -260,7 +260,7 @@ follow a path from a unit back to itself.
 Physics motivation: Able to do regression and classification on sequences of
 physics objects like tracks, clusters, particle flow objects etc..
 
-\subsection{Fully-Connected RNN}
+\subsubsection{Fully-Connected RNN}
 \label{sec:fully_connected_rnn}
 
 \todo{RNNs shown as an unfolded graph}
@@ -296,7 +296,7 @@ Trained using 'Backpropagation Through Time' i.e.\ repeated application of the
 chain rule but now also considering that the weights are shared between
 timesteps.
 
-\subsection{Long Short-Term Memory}
+\subsubsection{Long Short-Term Memory}
 \label{sec:lstm}
 
 \begin{figure}[t]

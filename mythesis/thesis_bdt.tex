@@ -38,7 +38,7 @@ Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon initiated jets:
 \section{Event Simulation, Reweighting and Preselection}
 \label{sec:bdt_eventsim}
 
-\todo{Signal}
+\todo[inline]{Signal}
 For training and performance evaluation simulated data is used. For tau
 performance trainings and tunings a sample created by the process
 $\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used, where at
@@ -51,9 +51,10 @@ $\mathrm{Z}$-mass whereas unpolarised taus are desired. Moreover the di-tau mass
 spectrum is smooth and decreasing without increased statistics close to the
 $\mathrm{Z}$ mass which is not needed for performance studies.
 
-\todo{Background} The background for the identification studies is given by
-dijet samples up to \SI{1800}{\giga\electronvolt} (JZ1W - JZ6W). \todo{Finish
-  this}
+The background for the identification studies is given by dijet samples up to
+\SI{1800}{\giga\electronvolt} (JZ1W - JZ6W). \todo[inline]{Finish this; Fraction
+  of the mass slices -- high pt enhanced; why not JZ0W -- very low pt / not
+  passing 20 GeV cut?}
 
 Baseline tau selection:
 \begin{itemize}
@@ -71,9 +72,9 @@ Size of the pre-production samples after baseline tau selection:
 \item Background: 22.1 M (1P: 6.6 M, 3P: 15.5 M)
 \end{itemize}
 
-\todo{Interesting plots: pt spectra, mu-distribution}
+\todo[inline]{Interesting plots: pt spectra, mu-distribution}
 
-\todo{Reweighting}
+\todo[inline]{Reweighting}
 
 A full summary of the datasets is given in appendix \todo{Reference}.
 
@@ -575,6 +576,25 @@ of cutting out outliers), Partial Dependence, Including $p_\mathrm{T}$
 
 \subsection{Performance in Simulation}
 \label{sec:bdt_perf_sim}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/post_optimisation/rejection_1p.pdf}
+    \subcaption{1-prong. (Dropped ChPiEMEOverCaloEME)}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \todo[inline]{3-prong Rejection}
+    \subcaption{3-prong}
+  \end{subfigure}
+  \caption{Working points}
+\end{figure}
+
+
+
+\todo[inline]{Moneyplot: Rejection vs pt for tight working points after all
+  improvements vs.\ old setup }
 
 Impact on (reconstructed) decay modes (?)
 
