@@ -269,10 +269,10 @@ to
   \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \, \nabla \mathcal{L}(\mathbf{w}_t) \eqcomma
 \end{align*}
 where $\eta > 0$ is called the learning rate and \todo{Gradient on the
-  mini-batch}. One pass over all mini-batches is called an epoch and typically
-multiple epochs are required to train a model. In practice the loss on an
-independent validation set is observed and the procedure is stopped when the
-validation loss stops decreasing.
+  mini-batch (stochastic approximation)}. One pass over all mini-batches is
+called an epoch and typically multiple epochs are required to train a model. In
+practice the loss on an independent validation set is observed and the procedure
+is stopped when the validation loss stops decreasing.
 
 \todo[inline]{Find more references} \cite{esl}
 
