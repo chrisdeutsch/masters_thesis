@@ -134,38 +134,50 @@ shrinkage $\eta$.
 \section{Artificial Neural Networks}
 \label{sec:nn}
 
-\todo{Explain notation -- bold for vectors and matrices}
-\todo{Combination of different layers allow for flexible architectures}
-\todo{Hidden layers -- do not interact directly with input or output but via
-  intermediate nodes}
+Artificial neural networks encompasses a large set of models that can be used as
+approximations to a wide variety of non-linear functions \cite{hornik}. They can
+be thought of as rules to compute a
+mapping~$\mathbb{R}^n \rightarrow \mathbb{R}^m$ between a set of $n$~input
+variables and $m$~desired responses. The central idea is to repeatedly compute
+intermediate representations of the inputs by applying transformations and
+combining the final representation in a linear or logistic regression model.
+Neural networks are typically organised into different \emph{layers} defining
+the transformation that is applied on the layer inputs. Multiple layers
+connected according to a computational graph form a network. This scheme allows
+for great flexibility in building different models making neural networks highly
+performing models in many areas of machine learning research \todo{Citation}.
+
+The following sections introduce concepts needed to understand the models used
+for various (sequence) classification tasks given in this thesis. Matrices and
+vectors are denoted using bold symbols e.g.\ input variables~$\mathbf{x}$ and
+responses~$\mathbf{y}$ of a layer or network.
 
 \subsection{Feedforward Neural Networks}
 \label{sec:nn_feedforward}
 
-\begin{figure}[ht]
-  \begin{subfigure}[t]{0.55\textwidth}
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}[t]{0.55\textwidth}
     \centering
     \includegraphics{./figures/theory/mlp.pdf}
-    \subcaption{Schematic depiction of a multi-layer perceptron with input
-      neurons $\mathbf{x}$, hidden layer activation $\mathbf{h}$ and output
-      activation $\mathbf{y}$. The layers are connected via weight matrices
-      $\mathbf{W}$ and optional bias vectors $\mathbf{b}$. Neuron activations
-      are given after applying an element-wise activation function $\bm{\varphi}$.}
+    \captionof{figure}{Multi-layer perceptron with input neurons $\mathbf{x}$,
+      hidden layer activation $\mathbf{h}$ and output activation $\mathbf{y}$.
+      The layers are connected via weights $\mathbf{W}$ and optional biases
+      $\mathbf{b}$. Activations are given after applying an element-wise
+      activation function $\bm{\varphi}$.}
     \label{fig:multi_layer_perceptron}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.4\textwidth}
+  \end{minipage}\hfill
+  \begin{minipage}[t]{0.4\textwidth}
     \centering
     \includegraphics{./figures/theory/activation_functions.pdf}
-    \subcaption{Commonly used activation functions for neural networks: logistic
-      function (red), hyperbolic tangent (blue), and rectified linear unit --
-      ReLU (green).}
+    \captionof{figure}{Commonly used activation functions: logistic function (red),
+      hyperbolic tangent (blue), and rectified linear units (green).}
     \label{fig:activation_functions}
-  \end{subfigure}
-  \caption{Feedforward neural network}
+  \end{minipage}
 \end{figure}
 
-\todo{$\varphi$ should be bold!}
-Feedforward -> information flow from front to back.
+
+
 
 An example of a simple feedforward neural networks is the multi-layer perceptron
 consisting of a number of input neurons $\mathbf{x}$ that are used to feed the
