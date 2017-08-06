@@ -154,7 +154,14 @@ responses~$\mathbf{y}$ of a layer or network.
 
 \subsection{Feedforward Neural Networks}
 \label{sec:nn_feedforward}
-
+Feedforward neural networks are networks in which information flows strictly in
+the forward direction, disallowing feedback loops (e.g.\ recurrent connections
+introduced in section~\ref{sec:rnn_theory}) between input and output of a single
+layer. An example of a simple feedforward neural networks is the multi-layer
+perceptron consisting of a number of input neurons $\mathbf{x}$ used to pass the
+discriminating variables to the network, an output layer with activation
+$\mathbf{y}$ and several intermediate (hidden) layers connecting input and
+output layer.
 \begin{figure}[htb]
   \centering
   \begin{minipage}[t]{0.55\textwidth}
@@ -175,86 +182,99 @@ responses~$\mathbf{y}$ of a layer or network.
     \label{fig:activation_functions}
   \end{minipage}
 \end{figure}
-
-
-
-
-An example of a simple feedforward neural networks is the multi-layer perceptron
-consisting of a number of input neurons $\mathbf{x}$ that are used to feed the
-discriminants to the network, a output layer with activation $\mathbf{y}$ and
-several intermediate (hidden) layers connecting input and output layer. In
-figure \ref{fig:multi_layer_perceptron} a multi-layer perceptron with a single
-hidden layer is shown. Two layers of the network are connected by an affine
-transformation $\mathbf{W}\mathbf{x} + \mathbf{b}$ and subsequent application of
-an entry-wise \todo{non-linear and differentiable} activation function
-$\bm{\varphi}$ (commonly called dense or densely-connected layers). The
-activations of the neurons in the hidden layer $\mathbf{h}$ and the output layer
-$\mathbf{y}$ for the case depicted in figure \ref{fig:multi_layer_perceptron}
-are given by:
+In figure~\ref{fig:multi_layer_perceptron} a multi-layer perceptron with a
+single hidden layer is shown. Two layers are connected by an affine
+transformation and subsequent application of an element-wise, non-linear and
+differentiable activation function~$\bm{\varphi}$. These layers are called dense
+or densely-connected layers, as each neuron is connected to every other neuron
+in the neighboring layer. For the case depicted in
+figure~\ref{fig:multi_layer_perceptron} the activations in the hidden
+layer~$\mathbf{h}$ and the output layer~$\mathbf{y}$ are given by:
 \begin{align*}
   &\mathbf{h} = \bm{\varphi}_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
-  &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqdot
+  &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqcomma
 \end{align*}
+where $\mathbf{W}$ are weight matrices determining the weight for each
+connection between two neurons and $\mathbf{b}$ are optional bias vectors.
 Generally the sizes of the hidden layers as well as the choice of the activation
-functions are hyperparameters of the model. The exception is the size of the
-input and output layer which is given by the number of discriminants and the
-number of outputs respectively. Moreover the activation function of the final
-layer is determined by the underlying task. For binary classification the
-logistic function $\sigma(x) = (1 + \exp(-x))^{-1}$ is applied to a single
-output neuron giving the probability of an observation being of the positive
-class. For multi-class classification the number of output neurons is equal to
-the number of classes and \emph{softmax}
+functions are hyperparameters of the model. The size of the input and output
+layer is given by the number of input variables and the number of desired
+outputs respectively. Moreover the activation function of the output layer is
+constrained by the underlying task. For binary classification the logistic
+function~\smash{$\sigma(x) = (1 + \exp(-x))^{-1}$} is applied to a single output
+neuron giving the probability of an observation being of the positive class
+(e.g.\ signal). For multi-class classification the number of outputs neurons is
+chosen to be equal to the number of classes that need to be distinguished and
+the \emph{softmax} function \cite{bishop}
 \begin{align*}
   \varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}
 \end{align*}
-is commonly chosen as the activation function, where $\varphi_i(\mathbf{x})$ is
-the activation of the $i$-th neuron and $x_i$ the value of the neuron before
-activation. The \emph{softmax} function ensures that the sum of activations in a
-layer equals one, such that the activations can be interpreted as class
-probabilities. Further activation functions that are commonly used for the
-intermediate layers are depicted in figure \ref{fig:activation_functions}.
+is chosen as the activation function, where~$\varphi_i(\mathbf{x})$ is the
+activation of the $i$-th neuron and $x_i$ the value of the neuron before
+activation. The \emph{softmax} function ensures that the sum of all activations
+in a layer equals to one, such that they can be interpreted as class
+probabilities. Activation functions that are commonly used for the intermediate
+layers are depicted in figure~\ref{fig:activation_functions}.
 
-There are numerous different layers and ways to interconnect them, which allows
-for high flexibility when building networks.
-
-Training:
-\begin{itemize}
-\item Weight initialisation
-\item Loss functions
-\item Backpropagation \cite{lecun-backprop}
-\item Mini-batch Gradient Descent
-\item Cross-Validation
-\end{itemize}
-
-For the training of neural networks a loss function that penalises errors in the
-model's predictions is needed. In $K$-class classification tasks a commonly used
-loss function is the categorical cross-entropy. For an observation of true class
-$k \in \{ 1, \dots, K \}$ with discriminants $\mathbf{x}$ and a model
-$\mathbf{p}(\mathbf{x})$ with per-class probabilities $p_k$ it is defined as
+So far the networks were viewed as non-linear parametric functions mapping input
+variables~$\mathbf{x}$ to a response~$\mathbf{y}$ without regarding the choice
+of parameters (i.e.\ weights and biases of each layer). The model parameters are
+determined using gradient descent by minimising an objective function (training
+of the model). The objective function penalises errors in the model's
+predictions and is commonly called the loss function. Categorical cross-entropy
+is generally used for $K$-class classification tasks. For an observation
+belonging to a class~$k \in \{1, \dots, K\}$ it is defined as \cite{bishop}
 \begin{align*}
-  L\left(k, \mathbf{p}(\mathbf{x}) \right) = - \log\left( p_k(\mathbf{x}) \right) \eqdot
+  L\left(k, \mathbf{p}(\mathbf{x}) \right) = - \log\left( p_k(\mathbf{x}) \right) \eqcomma
 \end{align*}
-For binary classification it is sufficient to give the predicted probability $p$
-for the positive class (e.g.\ an observation being signal) such that the binary
+where~$\mathbf{p}(\mathbf{x}) = \mathbf{y}$ is the probabilistic interpretation
+of the model with class probabilities~$p_k$ (after \emph{softmax} activation)
+and discriminating variables~$\mathbf{x}$. For binary
+classification it is sufficient to give the predicted probability~$p$ (after
+logistic sigmoid activation) for the positive class such that the binary
 cross-entropy can be written as
 \begin{align*}
-  L(p(\mathbf{x})) = -t \, \log(p(\mathbf{x})) - (1 - t) \, \log(1 - p(\mathbf{x})) \eqcomma
+  L(t, p(\mathbf{x})) = -t \, \log(p(\mathbf{x})) - (1 - t) \, \log(1 - p(\mathbf{x})) \eqcomma
 \end{align*}
-where $t$ is the binary indicator of the true class (0 for the negative and 1
+with the binary indicator~$t$ encoding the true class (0 for the negative and 1
 for the positive class). When looking at a subset of observations with event
-weights $w_i$ the loss $\mathcal{L}$ is defined as
+weights~$w_i$ the loss~$\mathcal{L}$ is defined as
 \begin{align*}
-  \mathcal{L} = \frac{\sum_i w_i L_i}{\sum_j w_j} \eqcomma
+  &\mathcal{L} = \frac{\sum_i w_i L_i}{\sum_j w_j}
+    \qquad \text{with} \qquad
+    L_i = L\left(k_i, \mathbf{p}(\mathbf{x}_i)\right) \eqcomma
 \end{align*}
 which in case of the cross-entropy can be interpreted as the negative
-log-likelihood of the model parameters given the observed subset of data. These
-losses expect networks to predict probabilities which can be met if the
-activation function of the final layer is the logistic function or softmax (eq.
-\ref{eq:softmax}). The training process minimises the loss $\mathcal{L}$
+log-likelihood of the model parameters given the observed subset of data
+\todo{Citation}. The training process minimises the loss~$\mathcal{L}$
 (maximises the likelihood) with respect to the model parameters, i.e.\ the
-weights and biases of the network, given the observed training data.
+weights and biases of the network, for a sub the observed training data.
 
-\todo{Find proper references} \cite{esl}
+The task of finding the parameters of the model minimising the expected loss on
+a set of training data is solved using stochastic gradient descent. This
+requires information on the gradient of the loss~$\mathcal{L}(\mathbf{w})$ with
+respect to the model weights~$\mathbf{w}$ (biases can be absorbed into the
+weight matrices as shown in figure~\ref{fig:multi_layer_perceptron}). Each layer
+in the computational graph making up the network has a well-defined derivative
+such that by repeatedly applying the chain-rule for partial derivatives the
+gradient $\nabla_\mathbf{w} \mathcal{L}(\mathbf{w})$ can be calculated
+symbolically. This procedure is generally known as error backpropagation or
+\emph{BackProp} \cite{bishop, lecun-backprop}. Knowing the gradient of the loss
+an iterative optimisation method called mini-batch (stochastic) gradient descent
+is employed. Initially the weights are randomised to small values and biases set
+to zero. The set of training examples is divided into subsets of fixed size
+called mini-batches. In an iterative procedure the weights are updated according
+to
+\begin{align*}
+  \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \, \nabla \mathcal{L}(\mathbf{w}_t) \eqcomma
+\end{align*}
+where $\eta > 0$ is called the learning rate and \todo{Gradient on the
+  mini-batch}. One pass over all mini-batches is called an epoch and typically
+multiple epochs are required to train a model. In practice the loss on an
+independent validation set is observed and the procedure is stopped when the
+validation loss stops decreasing.
+
+\todo[inline]{Find more references} \cite{esl}
 
 Large penalties to predictions
 that are far off. Its better to be sort of off instead of completely off.
@@ -263,8 +283,12 @@ also called 'Log Loss'. $p$ should be a class probability. Perfect classifiers
 have loss of zero. Last layer in neural network effectively does logistic
 regression on the intermediate representation created from the previous layers.
 
+\begin{itemize}
+\item Cross-Validation
+\end{itemize}
+
 \subsection{Recurrent Neural Networks}
-\label{sec:rnn}
+\label{sec:rnn_theory}
 
 Recurrent: If a network has one or more cycles, that is, if it is possible to
 follow a path from a unit back to itself.
