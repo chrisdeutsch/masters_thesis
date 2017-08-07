@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20170627172802" modified="D:20170807172029"/>
+<info created="D:20170627172802" modified="D:20170807221343"/>
 <preamble>\usepackage{amsmath}
 \usepackage{txfonts}
 </preamble>
@@ -301,7 +301,7 @@ h
 268 668 l
 h
 </path>
-<text matrix="1 0 0 1 184 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="8.102" height="6.677" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{h}_t</text>
+<text matrix="1 0 0 1 184 -80" transformations="translations" pos="192 736" stroke="black" type="label" width="7.544" height="4.655" depth="2.04" halign="center" valign="center" size="10" style="math">\mathbf{y}_t</text>
 <text matrix="1 0 0 1 76 -24" transformations="translations" pos="256 736" stroke="black" type="label" width="48.976" height="6.672" depth="2.16" halign="center" valign="baseline" size="10">Output Gate</text>
 <path matrix="1 0 0 1 -92 -56" stroke="black">
 12 0 0 12 256 752 e
@@ -319,7 +319,7 @@ h
 268 668 l
 h
 </path>
-<text matrix="1 0 0 1 -80 40" transformations="translations" pos="192 736" stroke="black" type="label" width="16.024" height="6.677" depth="1.54" halign="center" valign="center" size="10" style="math">\mathbf{h}_{t-1}</text>
+<text matrix="1 0 0 1 -80 40" transformations="translations" pos="192 736" stroke="black" type="label" width="15.466" height="4.655" depth="2.04" halign="center" valign="center" size="10" style="math">\mathbf{y}_{t-1}</text>
 <path stroke="black" arrow="normal/normal">
 204 688 m
 204 664 l

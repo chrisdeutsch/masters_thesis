@@ -86,8 +86,6 @@ chosen such that the mean of the Gini impurities of the resulting
 nodes, weighted by the sum of event weights in each node, is
 minimised.
 
-\todo[inline]{For standalone DT -- pruning}
-
 \subsection{Boosting}
 \label{sec:ml_boosting}
 
@@ -316,36 +314,36 @@ absorbed into the weight matrices.
 Recurrent neural networks map sequences to sequences.
 
 Given a sequence with $n$~elements~$\left( \mathbf{x}_i \right)_{i=1}^n$ with
-associated discriminating variables~$\textbf{x}_i$. Timesteps. A time unfolded
-\text{Elman} network is depicted in figure~\ref{fig:schematic_elman_rnn}. The
-rules to compute the cell state vector~$\mathbf{c}$ and the output
+associated discriminating variables~$\textbf{x}_i$. Timesteps (from time series
+prediction). A time unfolded \text{Elman} network is depicted in
+figure~\ref{fig:schematic_elman_rnn}.
+
+The rules to compute the cell state vector~$\mathbf{c}$ and the output
 vector~$\mathbf{y}$ at the timestep~$t$ are given by \cite{elman, graves}
 \begin{align*}
   \mathbf{c}_t &= \bm{\varphi}_{\text{c}}\Big( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{y}_{t-1} \Big)
   &\mathbf{y}_t &= \bm{\varphi}_{\text{y}}\Big( \mathbf{W}_{\text{y}} \mathbf{c}_{t} \Big)
 \end{align*}
-with weights $\mathbf{W}$ and recurrent weights $\mathbf{U}$
-
-\todo{Should rename output $\mathbf{h}$ to $\mathbf{y}$ to be consistent.} with
-trainable weights $\mathbf{W}$, recurrent weights $\mathbf{U}$ and biases
-$\mathbf{b}$.
-
-Key concepts: Due to recurrent links network has a form of memory and thus can
-be context-dependent (recurrent connections allow a memory of the previous
-inputs to persist in the internal state of the network [Graves
-2012]\cite{graves}); Compared to MLP time affects processing instead of time
-being parallelised into the spacial dimension;
-
-Sequence of hidden activations and outputs can be calculated by recursively
-applying the formulas while incrementing the timestep $t$.
-
-At time $t=0$ the cell state is often set to zero (Graves 2012).
-
-Vanishing gradient problem: Applying the sigmoid function multiple times leads
-to vanishing gradients (plot?).
+with weights $\mathbf{W}$ and recurrent weights $\mathbf{U}$. Sequence of hidden
+activations and outputs can be calculated iteratively by applying the formulas
+while incrementing the timestep $t$.
 
 To be able to generalise to arbitrary length sequences the weights have to be
 shared across all timesteps.
+
+Order of processing.
+
+The cell state for each timestep is updated using the external
+input~$\mathbf{x}_t$ and the cell state of the previous timestep (at time $t=0$
+the cell state is often $\mathbf{c}_0 = 0$) forming the recurrent connection.
+This allows a memory of the previous inputs to persist in the internal state
+($\mathbf{c}$) of the network. Context-dependent decision since network
+remembers what came before.
+
+For sequence classification only the last output vector is used.
+
+Vanishing gradient problem: Applying the sigmoid function multiple times leads
+to vanishing gradients (plot?).
 
 Trained using 'Backpropagation Through Time' i.e.\ repeated application of the
 chain rule but now also considering that the weights are shared between
@@ -357,7 +355,7 @@ timesteps.
 \todo[inline]{Shown to perform in synthetic tasks as well as real-world
   application (speech, bioinformatics); Bidirectional LSTMs.}
 
-\begin{figure}[t]
+\begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
   \caption{Schematic description of a LSTM-cell.}
@@ -366,24 +364,35 @@ timesteps.
 
 [Check Citation]\cite{lstm}
 
-\todo{Omit biases for brevity? Omit 'peephole' cite \cite{graves}}
+Introduces gating to solve the vanishing gradient problem and control the flow
+of information in the cell. The forget gate with activation $\mathbf{f}_t$
+steers how much of the previous cell state is taken in to the current one (this
+solves the vanishing gradient problem?). The input gate with activation
+$\mathbf{i}_t$ determines the amount of information that is taken into the cell
+state from the current input and the previous output. The output gate
+$\mathbf{o}$ determines how much information of the cell state is present at the
+output.
 
 Gate activations:
 \begin{align*}
-  \mathbf{f}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{f}} \right) &
-  \mathbf{i}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{i}} \right) &
-  \mathbf{o}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{o}} \right)
+  \mathbf{f}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right) &
+  \mathbf{i}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{y}_{t-1} \right) &
+  \mathbf{o}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right)
 \end{align*}
+
+The gate activations always depend on the input to the timestep and the output
+of the previous timestep.
+
 Cell state update:
 \begin{align*}
   \mathbf{c}_{t} &= \mathbf{f}_{t} \circ \mathbf{c}_{t-1}
                    + \mathbf{i}_{t} \circ \bm{\varphi}_{\text{c}}(
                    \mathbf{W}_{\text{c}} \mathbf{x}_{t}+ \mathbf{U}_{\text{c}}
-                   \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}})
+                   \mathbf{y}_{t-1} )
 \end{align*}
 Output:
 \begin{align*}
-  \mathbf{h}_{t} &= \mathbf{o}_{t} \circ \varphi_{\text{h}}(\mathbf{c}_{t})
+  \mathbf{y}_{t} &= \mathbf{o}_{t} \circ \varphi_{\text{h}}(\mathbf{c}_{t})
 \end{align*}
 
 Stress that the gates depend on $x_t$ and $h_{t-1}$ via learn-able weights.
@@ -427,6 +436,9 @@ separate recurrent neural networks connected to the same output layer.
 TMVA
 
 Frameworks used for this thesis (theano \cite{theano}, keras \cite{keras})
+SciPy \cite{scipy}
+Numpy \cite{numpy}
+h5py
 
 Optimiser: Adam
 
