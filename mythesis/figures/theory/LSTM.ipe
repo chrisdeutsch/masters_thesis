@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20170627172802" modified="D:20170707154630"/>
+<info created="D:20170627172802" modified="D:20170807172029"/>
 <preamble>\usepackage{amsmath}
 \usepackage{txfonts}
 </preamble>
@@ -422,11 +422,6 @@ h
 120 736 l
 </path>
 <text matrix="1 0 0 1 120 -96" transformations="translations" pos="256 736" stroke="black" type="label" width="27.676" height="6.672" depth="2.16" halign="center" valign="top" size="10">Output</text>
-<path stroke="black" arrow="normal/normal">
-204 800 m
-204 784 l
-</path>
-<text matrix="1 0 0 1 60 20" transformations="translations" pos="144 784" stroke="black" type="label" width="9.134" height="6.678" depth="1.56" halign="center" valign="baseline" size="10" style="math">\mathbf{b}_{\text{c}}</text>
 <text matrix="1 0 0 1 -8 24" transformations="translations" pos="256 736" stroke="black" type="label" width="21.031" height="6.672" depth="2.16" halign="center" valign="top" size="10">Input</text>
 <path stroke="0.216 0.494 0.722" pen="0.8">
 92 796 m

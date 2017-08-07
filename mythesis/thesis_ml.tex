@@ -137,10 +137,10 @@ shrinkage $\eta$.
 Artificial neural networks encompasses a large set of models that can be used as
 approximations to a wide variety of non-linear functions \cite{hornik}. They can
 be thought of as rules to compute a
-mapping~$\mathbb{R}^n \rightarrow \mathbb{R}^m$ between a set of $n$~input
-variables and $m$~desired responses. The central idea is to repeatedly compute
-intermediate representations of the inputs by applying transformations and
-combining the final representation in a linear or logistic regression model.
+mapping~\mbox{$\mathbb{R}^n \rightarrow \mathbb{R}^m$} between a set of
+$n$~input variables and $m$~desired responses. The central idea is to repeatedly
+compute intermediate representations of the inputs by applying transformations
+and combining the final representation in a linear or logistic regression model.
 Neural networks are typically organised into different \emph{layers} defining
 the transformation that is applied on the layer inputs. Multiple layers
 connected according to a computational graph form a network. This scheme allows
@@ -194,18 +194,18 @@ layer~$\mathbf{h}$ and the output layer~$\mathbf{y}$ are given by:
   &\mathbf{h} = \bm{\varphi}_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
   &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqcomma
 \end{align*}
-where $\mathbf{W}$ are weight matrices determining the weight for each
-connection between two neurons and $\mathbf{b}$ are optional bias vectors.
-Generally the sizes of the hidden layers as well as the choice of the activation
-functions are hyperparameters of the model. The size of the input and output
-layer is given by the number of input variables and the number of desired
-outputs respectively. Moreover the activation function of the output layer is
-constrained by the underlying task. For binary classification the logistic
+where $\mathbf{W}$ are weight matrices determining the weight of each connection
+between two neurons and $\mathbf{b}$ are optional bias vectors. Generally the
+sizes of the hidden layers as well as the choice of the activation functions are
+hyperparameters of the model. The size of the input and output layer is given by
+the number of input variables and the number of desired outputs respectively.
+Moreover the activation function of the output layer is constrained by the
+underlying task. For binary classification the logistic
 function~\smash{$\sigma(x) = (1 + \exp(-x))^{-1}$} is applied to a single output
 neuron giving the probability of an observation being of the positive class
 (e.g.\ signal). For multi-class classification the number of outputs neurons is
 chosen to be equal to the number of classes that need to be distinguished and
-the \emph{softmax} function \cite{bishop}
+the \emph{softmax} function \cite{esl, bishop}
 \begin{align*}
   \varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}
 \end{align*}
@@ -223,11 +223,11 @@ determined using gradient descent by minimising an objective function (training
 of the model). The objective function penalises errors in the model's
 predictions and is commonly called the loss function. Categorical cross-entropy
 is generally used for $K$-class classification tasks. For an observation
-belonging to a class~$k \in \{1, \dots, K\}$ it is defined as \cite{bishop}
+belonging to a class~$k \in \{1, \dots, K\}$ it is defined as \cite{esl, bishop}
 \begin{align*}
   L\left(k, \mathbf{p}(\mathbf{x}) \right) = - \log\left( p_k(\mathbf{x}) \right) \eqcomma
 \end{align*}
-where~$\mathbf{p}(\mathbf{x}) = \mathbf{y}$ is the probabilistic interpretation
+where~$\mathbf{p}(\mathbf{x}) = \mathbf{y}(\mathbf{x})$ is the probabilistic interpretation
 of the model with class probabilities~$p_k$ (after \emph{softmax} activation)
 and discriminating variables~$\mathbf{x}$. For binary
 classification it is sufficient to give the predicted probability~$p$ (after
@@ -238,75 +238,94 @@ cross-entropy can be written as
 \end{align*}
 with the binary indicator~$t$ encoding the true class (0 for the negative and 1
 for the positive class). When looking at a subset of observations with event
-weights~$w_i$ the loss~$\mathcal{L}$ is defined as \todo{Somehow denote subset of data}
+weights~$w_i$ the loss~$\mathcal{L}$ is defined as \todo{Somehow denote subset
+  of data}
 \begin{align*}
   &\mathcal{L} = \frac{\sum_i w_i L_i}{\sum_j w_j}
     \qquad \text{with} \qquad
     L_i = L\left(k_i, \mathbf{p}(\mathbf{x}_i)\right) \eqcomma
 \end{align*}
 which in case of the cross-entropy can be interpreted as the negative
-log-likelihood of the model parameters given the observed subset of data
-\todo{Citation}. The training process minimises the loss~$\mathcal{L}$
-(maximises the likelihood) with respect to the model parameters, i.e.\ the
-weights and biases of the network, for a sub the observed training data.
+log-likelihood of the (generalised) \textsc{Bernoulli} distribution with respect
+to the model parameters given the observed subset of data \cite{bishop}.
 
-The task of finding the parameters of the model minimising the expected loss on
-a set of training data is solved using stochastic gradient descent. This
-requires information on the gradient of the loss~$\mathcal{L}(\mathbf{w})$ with
-respect to the model weights~$\mathbf{w}$ (biases can be absorbed into the
-weight matrices as shown in figure~\ref{fig:multi_layer_perceptron}). Each layer
-in the computational graph making up the network has a well-defined derivative
-such that by repeatedly applying the chain-rule for partial derivatives the
-gradient $\nabla_\mathbf{w} \mathcal{L}(\mathbf{w})$ can be calculated
-symbolically. This procedure is generally known as error backpropagation or
-\emph{BackProp} \cite{bishop, lecun-backprop}. Knowing the gradient of the loss
-an iterative optimisation method called mini-batch (stochastic) gradient descent
-is employed. Initially the weights are randomised to small values and biases set
-to zero. The set of training examples is divided into subsets of fixed size
-called mini-batches. In an iterative procedure the weights are updated according
-to
+The task of finding the parameters of the model minimising the expected loss
+(maximising the likelihood) on a set of training data is solved using stochastic
+gradient descent. This requires information on the gradient of the
+loss~$\mathcal{L}(\mathbf{w})$ with respect to the model weights~$\mathbf{w}$
+(biases can be absorbed into the weight matrices as shown in
+figure~\ref{fig:multi_layer_perceptron}). Each layer in the computational graph
+making up the network has a well-defined derivative such that by repeatedly
+applying the chain-rule for partial derivatives the gradient
+$\nabla_\mathbf{w} \mathcal{L}(\mathbf{w})$ can be calculated symbolically. This
+procedure is generally known as error backpropagation or \emph{BackProp}
+\cite{bishop, lecun-backprop}. Knowing the gradient of the loss an iterative
+optimisation method called mini-batch (stochastic\footnote{The gradient of the
+  loss on the full training sample is approximated by the gradient on a
+  mini-batch.}) gradient descent is employed. Initially the weights are
+randomised to small values and biases set to zero. The set of training examples
+is divided into subsets of fixed size called mini-batches. In an iterative
+procedure the weights are updated according to
 \begin{align*}
-  \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \, \nabla \mathcal{L}(\mathbf{w}_t) \eqcomma
+  \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \, \nabla_\mathbf{w} \mathcal{L}(\mathbf{w}_t) \eqcomma
 \end{align*}
-where $\eta > 0$ is called the learning rate and \todo{Gradient on the
-  mini-batch (stochastic approximation)}. One pass over all mini-batches is
-called an epoch and typically multiple epochs are required to train a model. In
-practice the loss on an independent validation set is observed and the procedure
-is stopped when the validation loss stops decreasing.
+where $\eta > 0$ is called the learning rate and
+$\nabla_\mathbf{w} \mathcal{L}(\mathbf{w}_t)$ is the gradient evaluated on the
+mini-batch. One pass over all mini-batches is called an epoch and typically
+multiple epochs are required to train a model. In practice the loss on an
+independent validation set is observed and the procedure is stopped when the
+validation loss stops decreasing.
 
-\todo[inline]{Find more references} \cite{esl}
-
-Large penalties to predictions
-that are far off. Its better to be sort of off instead of completely off.
-Motivate where in this thesis these loss functions are used. Both losses are
-also called 'Log Loss'. $p$ should be a class probability. Perfect classifiers
-have loss of zero. Last layer in neural network effectively does logistic
-regression on the intermediate representation created from the previous layers.
-
-\begin{itemize}
-\item Cross-Validation
-\end{itemize}
+\todo[inline]{Find more references; Large penalties to predictions that are far
+  off; Perfect classifiers have loss of zero (can always be reached with complex
+  models); Cross validation?}
 
 \subsection{Recurrent Neural Networks}
 \label{sec:rnn_theory}
+Events reconstructed in particle detectors often contain multiple reconstructed
+objects of the same type e.g.\ particle tracks or clusters in the calorimeter.
+The rigid structure of feedforward neural networks does not offer a general
+method to classify events with variable numbers of objects. Recurrent neural
+networks (RNN) provide an approach to sequence classification by introducing
+cyclical connections within layers, i.e.\ units being connected to themselves.
+These recurrent connections allow decisions to be made in the context of the
+sequence (e.g.\ obeying constraints due to momentum conservation) by making the
+network able to store information on previous objects \cite{graves}.
 
-Recurrent: If a network has one or more cycles, that is, if it is possible to
-follow a path from a unit back to itself.
+The fully-connected RNN is introduced and will be extended to the long
+short-term memory (LSTM) architecture used in this thesis. Biases are omitted in
+the following mathematical notation for reasons of brevity as they can be
+absorbed into the weight matrices.
 
-Physics motivation: Able to do regression and classification on sequences of
-physics objects like tracks, clusters, particle flow objects etc..
-
-\subsubsection{Fully-Connected RNN}
+\subsubsection{Fully-Connected RNN}\todo{Simple Recurrent Neural Networks?}
 \label{sec:fully_connected_rnn}
 
-\todo{RNNs shown as an unfolded graph}
+\begin{figure}[htb]
+  \centering
+  \includegraphics{./figures/theory/elman_rnn.pdf}
+  \caption{Unfolded \textsc{Elman} network.}
+  \label{fig:schematic_elman_rnn}
+\end{figure}
 
-\textsc{Elman} network [Check Citation]\cite{elman, graves}:
-% \textsc{Jordan} network \todo{look for citation}:
+\todo[inline]{Individual data points are not independent (correlations and
+  constraints); Alignment between inputs and labels (able to learn location);
+  Recognise sequential patterns in the presence of sequential distortions;
+  Standard-RNN difficult to store long term information (also only one
+  direction);}
+
+Recurrent neural networks map sequences to sequences.
+
+Given a sequence with $n$~elements~$\left( \mathbf{x}_i \right)_{i=1}^n$ with
+associated discriminating variables~$\textbf{x}_i$. Timesteps. A time unfolded
+\text{Elman} network is depicted in figure~\ref{fig:schematic_elman_rnn}. The
+rules to compute the cell state vector~$\mathbf{c}$ and the output
+vector~$\mathbf{y}$ at the timestep~$t$ are given by \cite{elman, graves}
 \begin{align*}
-  \mathbf{c}_t &= \bm{\varphi}_{\text{c}}\left( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{h}_{t-1} + \mathbf{b}_{\text{c}} \right) \\
-  \mathbf{h}_t &= \bm{\varphi}_{\text{h}}\left( \mathbf{W}_{\text{h}} \mathbf{c}_{t} + \mathbf{b}_{\text{h}} \right)
+  \mathbf{c}_t &= \bm{\varphi}_{\text{c}}\Big( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{y}_{t-1} \Big)
+  &\mathbf{y}_t &= \bm{\varphi}_{\text{y}}\Big( \mathbf{W}_{\text{y}} \mathbf{c}_{t} \Big)
 \end{align*}
+with weights $\mathbf{W}$ and recurrent weights $\mathbf{U}$
+
 \todo{Should rename output $\mathbf{h}$ to $\mathbf{y}$ to be consistent.} with
 trainable weights $\mathbf{W}$, recurrent weights $\mathbf{U}$ and biases
 $\mathbf{b}$.
@@ -334,6 +353,9 @@ timesteps.
 
 \subsubsection{Long Short-Term Memory}
 \label{sec:lstm}
+
+\todo[inline]{Shown to perform in synthetic tasks as well as real-world
+  application (speech, bioinformatics); Bidirectional LSTMs.}
 
 \begin{figure}[t]
   \centering
