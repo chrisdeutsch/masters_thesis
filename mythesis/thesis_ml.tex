@@ -333,20 +333,21 @@ chain-rule has to be applied for each time step and one has to consider that the
 weights between time steps are shared (\emph{backpropagation through time}
 \cite{williams_zipser}).
 
-For sequence classification only the last output vector is used.
-
-Vanishing or exploding gradient problem: Applying the sigmoid function multiple
-times leads to vanishing gradients (plot?). \cite{lecun_bengio_hinton_DL}
-
-Empirical evidence shows that it is difficult to store information long-term
-\cite{lecun_bengio_hinton_DL}.
-
-Trained using 'Backpropagation Through Time' i.e.\ repeated application of the
-chain rule but now also considering that the weights are shared between
-timesteps.
+In this thesis RNNs are used for the classification of a sequence of
+reconstructed objects in its entirety (as opposed to classifying each element in
+the sequence). For this task the full output sequence of the recurrent network
+is not needed, such that only the output of the last time step is used. Simple
+Recurrent Networks like the \textsc{Elman} network show that the gradient signal
+decays with each time step such that it is not possible to learn long-term
+dependencies in the input sequence \cite{hochreiter, lecun_bengio_hinton_DL}.
+The following section will present an extension to this architecture enabling
+the network to learn long-term dependencies.
 
 \subsubsection{Long Short-Term Memory}
 \label{sec:lstm}
+The long short-term memory (LSTM) network developed in \cite{lstm} solves the
+\emph{vanishing gradient problem} that affects simple recurrent networks by
+introducing gates that control the flow of information in a recurrent cell.
 
 \todo[inline]{Shown to perform in synthetic tasks as well as real-world
   application (speech, bioinformatics); Bidirectional LSTMs.}
