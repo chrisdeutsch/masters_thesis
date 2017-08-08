@@ -115,19 +115,10 @@ between \emph{AdaBoost} and gradient boosting with binomial log-likelihood
 $\log\left( 1 + \exp(-2 f(x) y) \right)$ (TMVA) loss. Regularisation using
 shrinkage $\eta$.
 
-
-\begin{itemize}
-\item Popular algorithms: AdaBoost (TMVA: Real AdaBoost), Gradient boosting
-
-\item AdaBoost: weighted sum of a number of weak classifiers, each classifier is
-  trained on data where the weights of incorrectly classified examples are
-  increased and correctly classified events are decreased
-
-\item AdaBoost performance degrades drastically in noisy settings due to
-  exponential loss function \cite{esl} binomial log-likelihood more robust
-  (problems with overlapping class distributions)
-
-\end{itemize}
+\todo[inline]{TMVA: Real AdaBoost?; AdaBoost performance degrades in noisy
+  settings due to exponential loss function \cite{esl} binomial log-likelihood
+  more robust; AdaBoost performance degrades in noisy settings due to exp.\ loss
+  function \cite{esl} -- binomial log-likelihood more robust}
 
 \section{Artificial Neural Networks}
 \label{sec:nn}
@@ -280,70 +271,75 @@ validation loss stops decreasing.
 
 \subsection{Recurrent Neural Networks}
 \label{sec:rnn_theory}
-Events reconstructed in particle detectors often contain multiple reconstructed
+Events reconstructed in particle detectors contain multiple reconstructed
 objects of the same type e.g.\ particle tracks or clusters in the calorimeter.
 The rigid structure of feedforward neural networks does not offer a general
 method to classify events with variable numbers of objects. Recurrent neural
-networks (RNN) provide an approach to sequence classification by introducing
+networks~(RNN) provide an approach to sequence classification by introducing
 cyclical connections within layers, i.e.\ units being connected to themselves.
 These recurrent connections allow decisions to be made in the context of the
 sequence (e.g.\ obeying constraints due to momentum conservation) by making the
 network able to store information on previous objects \cite{graves}.
 
-The fully-connected RNN is introduced and will be extended to the long
-short-term memory (LSTM) architecture used in this thesis. Biases are omitted in
-the following mathematical notation for reasons of brevity as they can be
-absorbed into the weight matrices.
+The \textsc{Elman} network is introduced and will be extended to the long
+short-term memory~(LSTM) architecture used in this thesis. Biases are omitted in
+the following description as they can be absorbed into the weight matrices.
 
-\subsubsection{Fully-Connected RNN}\todo{Simple Recurrent Neural Networks?}
-\label{sec:fully_connected_rnn}
-
+\subsubsection{Simple Recurrent Networks}
+\label{sec:simple_recurrent_networks}
+Recurrent neural networks are able to map a sequence of input variables to a
+sequence of outputs. Both sequences can have arbitrary lengths between different
+observations. An example of a \emph{Simple Recurrent Network} is the
+\textsc{Elman} network depicted in figure~\ref{fig:schematic_elman_rnn}. It is
+shown in a compact notation as well as unfolded in time\footnote{Nomenclature
+  originates from RNNs being used to predict time series.} representing it as a
+feedforward network with weights shared between time steps.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/elman_rnn.pdf}
-  \caption{Unfolded \textsc{Elman} network.}
+  \caption{Schematic depiction of an \textsc{Elman} network in compact form with
+    a recurrent connection and after unfolding the network in time. The black
+    square at the recurrent connection represents a delay of one time step.
+    Application of nonlinear activation functions are omitted. The figure is
+    adapted from \cite{lecun_bengio_hinton_DL}.}
   \label{fig:schematic_elman_rnn}
 \end{figure}
-
-\todo[inline]{Individual data points are not independent (correlations and
-  constraints); Alignment between inputs and labels (able to learn location);
-  Recognise sequential patterns in the presence of sequential distortions;
-  Standard-RNN difficult to store long term information (also only one
-  direction);}
-
-Recurrent neural networks map sequences to sequences.
-
-Given a sequence with $n$~elements~$\left( \mathbf{x}_i \right)_{i=1}^n$ with
-associated discriminating variables~$\textbf{x}_i$. Timesteps (from time series
-prediction). A time unfolded \text{Elman} network is depicted in
-figure~\ref{fig:schematic_elman_rnn}.
-
-The rules to compute the cell state vector~$\mathbf{c}$ and the output
-vector~$\mathbf{y}$ at the timestep~$t$ are given by \cite{elman, graves}
+The input sequence~$\left( \mathbf{x}_i \right)_{i=1}^n$ is processed one
+element at a time. The sequence of cell states~$\mathbf{c}_t$ and
+outputs~$\mathbf{y}_t$ can be computed by iteratively applying the rule
 \begin{align*}
   \mathbf{c}_t &= \bm{\varphi}_{\text{c}}\Big( \mathbf{W}_{\text{c}} \mathbf{x}_{t} + \mathbf{U}_{\text{c}} \mathbf{y}_{t-1} \Big)
   &\mathbf{y}_t &= \bm{\varphi}_{\text{y}}\Big( \mathbf{W}_{\text{y}} \mathbf{c}_{t} \Big)
 \end{align*}
-with weights $\mathbf{W}$ and recurrent weights $\mathbf{U}$. Sequence of hidden
-activations and outputs can be calculated iteratively by applying the formulas
-while incrementing the timestep $t$.
-
-To be able to generalise to arbitrary length sequences the weights have to be
-shared across all timesteps.
-
-Order of processing.
-
-The cell state for each timestep is updated using the external
-input~$\mathbf{x}_t$ and the cell state of the previous timestep (at time $t=0$
-the cell state is often $\mathbf{c}_0 = 0$) forming the recurrent connection.
-This allows a memory of the previous inputs to persist in the internal state
-($\mathbf{c}$) of the network. Context-dependent decision since network
-remembers what came before.
+with weights~$\mathbf{W}$, recurrent weights~$\mathbf{U}$ and activation
+functions~$\bm{\varphi}$, while incrementing the time step $t$ \cite{elman,
+  graves}. The initial cell state is often set to $\mathbf{c}_0 = \mathbf{0}$
+but the particular choice can differ between implementations. All weights are
+shared between time steps which allows sequences of arbitrary length to be
+processed by the network. The cell state~$\mathbf{c}_t$ at each time step~$t$ is
+updated using the external input~$\mathbf{x}_t$ as well as the cell
+state~$\mathbf{c}_{t-1}$ of the previous time step ($\mathbf{c}_0 = \mathbf{0}$)
+forming the recurrent connection. This allows the a memory of previous inputs to
+persist in the internal state of the network thus enabling the
+output~$\mathbf{y}_t$, which is calculated from the cell state, to depend on the
+history of the sequence. As simple recurrent neural networks process the input
+sequence in a predefined direction, only the past information can influence the
+output at a specific time step making the order of the input sequence important.
+An architecture allowing the context (past and future) to influence the output
+at a given time~$t$ are bidirectional RNNs but will not further discussed. The
+evaluation of the gradient for the training process follows the same principles
+used for feedforward neural networks but now also considering that the
+chain-rule has to be applied for each time step and one has to consider that the
+weights between time steps are shared (\emph{backpropagation through time}
+\cite{williams_zipser}).
 
 For sequence classification only the last output vector is used.
 
-Vanishing gradient problem: Applying the sigmoid function multiple times leads
-to vanishing gradients (plot?).
+Vanishing or exploding gradient problem: Applying the sigmoid function multiple
+times leads to vanishing gradients (plot?). \cite{lecun_bengio_hinton_DL}
+
+Empirical evidence shows that it is difficult to store information long-term
+\cite{lecun_bengio_hinton_DL}.
 
 Trained using 'Backpropagation Through Time' i.e.\ repeated application of the
 chain rule but now also considering that the weights are shared between
@@ -444,6 +440,7 @@ Optimiser: Adam
 
 Masking layer
 
+Biases are always used.
 
 %%% Local Variables:
 %%% mode: latex

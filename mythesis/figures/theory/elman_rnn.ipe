@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20170807172942" modified="D:20170807174339"/>
+<info created="D:20170807172942" modified="D:20170808101045"/>
 <preamble>\usepackage{amsmath}
 \usepackage{txfonts}
 </preamble>
@@ -375,5 +375,60 @@ h
 <text matrix="1 0 0 1 145 44" transformations="translations" pos="140 740" stroke="black" type="label" width="12.453" height="6.008" depth="2.64" halign="right" valign="center" size="9" style="math">\mathbf{W}_\text{y}</text>
 <text matrix="1 0 0 1 128 29" transformations="translations" pos="140 740" stroke="black" type="label" width="9.626" height="6.011" depth="1.4" halign="center" valign="baseline" size="9" style="math">\mathbf{U}_\text{c}</text>
 <text matrix="1 0 0 1 88 29" transformations="translations" pos="140 740" stroke="black" type="label" width="9.626" height="6.011" depth="1.4" halign="center" valign="baseline" size="9" style="math">\mathbf{U}_\text{c}</text>
+<path matrix="1 0 0 1 -156 -28" stroke="black">
+204 764 m
+204 740 l
+228 740 l
+228 764 l
+h
+</path>
+<path matrix="1 0 0 1 -156 12" stroke="black">
+204 764 m
+204 740 l
+228 740 l
+228 764 l
+h
+</path>
+<path matrix="1 0 0 1 -100 0" stroke="black" arrow="normal/small">
+160 776 m
+160 792 l
+</path>
+<path matrix="1 0 0 1 -156 52" stroke="black">
+204 764 m
+204 740 l
+228 740 l
+228 764 l
+h
+</path>
+<path matrix="1 0 0 1 -100 0" stroke="black" arrow="normal/small">
+160 736 m
+160 752 l
+</path>
+<path matrix="1 0 0 1 -4 0" stroke="black" arrow="normal/small">
+72 776 m
+72 784 l
+88 784 l
+88 744 l
+72 744 l
+72 752 l
+</path>
+<text matrix="1 0 0 1 -100 44" transformations="translations" pos="160 720" stroke="black" type="label" width="7.635" height="5.119" depth="1.7" halign="center" valign="center" size="11" style="math">\mathbf{c}_t</text>
+<text matrix="1 0 0 1 -100 4" transformations="translations" pos="160 720" stroke="black" type="label" width="8.248" height="5.119" depth="1.7" halign="center" valign="center" size="11" style="math">\mathbf{x}_t</text>
+<text matrix="1 0 0 1 -100 84" transformations="translations" pos="160 720" stroke="black" type="label" width="8.248" height="5.124" depth="2.24" halign="center" valign="center" size="11" style="math">\mathbf{y}_t</text>
+<path stroke="0.216 0.494 0.722" pen="0.8" arrow="normal/normal">
+96 764 m
+136 764 l
+</path>
+<text matrix="1 0 0 1 0 -41" transformations="translations" pos="96 800" stroke="0.216 0.494 0.722" type="minipage" width="40" height="6.377" depth="1.25" valign="top" size="11" style="center">Unfold</text>
+<text matrix="1 0 0 1 -83 4" transformations="translations" pos="140 740" stroke="black" type="label" width="12.119" height="6.011" depth="1.4" halign="right" valign="center" size="9" style="math">\mathbf{W}_\text{c}</text>
+<text matrix="1 0 0 1 -83 44" transformations="translations" pos="140 740" stroke="black" type="label" width="12.453" height="6.008" depth="2.64" halign="right" valign="center" size="9" style="math">\mathbf{W}_\text{y}</text>
+<text matrix="1 0 0 1 -48 37" transformations="translations" pos="140 740" stroke="black" type="label" width="9.626" height="6.011" depth="1.4" halign="center" valign="baseline" size="9" style="math">\mathbf{U}_\text{c}</text>
+<path matrix="1 0 0 1 -2 2" stroke="0" fill="0" join="0">
+84 764 m
+84 760 l
+88 760 l
+88 764 l
+h
+</path>
 </page>
 </ipe>
