@@ -2,7 +2,7 @@
 \chapter{Machine Learning}
 \label{sec:ml}
 
-Machine learning is the study of algorithms that are able to learn structure
+Machine learning is the study of algorithms which are able to learn structure
 from data (called training data) and can subsequently be used to make
 predictions on unseen data. Examples for such algorithms are \emph{Boosted
   Decision Trees} (BDT) and \emph{Neural Networks} (NN) which are able to model
@@ -15,10 +15,10 @@ classification, decay mode classification and energy calibration.
 
 The focus lies on \todo{Worth a paragraph? Focus of what?} supervised learning,
 which is concerned with learning models from labelled data (each example
-consisting of explanatory variables and the dependent variable / label). This
-domain includes regression for modelling a continous response and classification
-for assigning class labels (e.g.\ signal or background) to an observation with
-associated input variables.
+consisting of explanatory variables and the dependent variable/label). This
+domain includes regression for modelling a continuous response and
+classification for assigning class labels (e.g.\ signal or background) to an
+observation with associated input variables.
 
 This chapter gives an overview over the techniques used in this thesis starting
 with a brief description of \emph{Boosted Decision Trees} that are used in
@@ -117,13 +117,12 @@ shrinkage $\eta$.
 
 \todo[inline]{TMVA: Real AdaBoost?; AdaBoost performance degrades in noisy
   settings due to exponential loss function \cite{esl} binomial log-likelihood
-  more robust; AdaBoost performance degrades in noisy settings due to exp.\ loss
-  function \cite{esl} -- binomial log-likelihood more robust}
+  more robust;}
 
 \section{Artificial Neural Networks}
 \label{sec:nn}
 
-Artificial neural networks encompasses a large set of models that can be used as
+Artificial neural networks encompass a large set of models that can be used as
 approximations to a wide variety of non-linear functions \cite{hornik}. They can
 be thought of as rules to compute a
 mapping~\mbox{$\mathbb{R}^n \rightarrow \mathbb{R}^m$} between a set of
@@ -137,9 +136,9 @@ for great flexibility in building different models making neural networks highly
 performing models in many areas of machine learning research \todo{Citation}.
 
 The following sections introduce concepts needed to understand the models used
-for various (sequence) classification tasks given in this thesis. Matrices and
-vectors are denoted using bold symbols e.g.\ input variables~$\mathbf{x}$ and
-responses~$\mathbf{y}$ of a layer or network.
+for various (sequence) classification tasks given in this thesis. Matrices are
+denoted using uppercase and vectors using lowercase bold symbols e.g.\ input
+variables~$\mathbf{x}$ and weight matrices~$\mathbf{W}$.
 
 \subsection{Feedforward Neural Networks}
 \label{sec:nn_feedforward}
@@ -160,7 +159,8 @@ output layer.
       hidden layer activation $\mathbf{h}$ and output activation $\mathbf{y}$.
       The layers are connected via weights $\mathbf{W}$ and optional biases
       $\mathbf{b}$. Activations are given after applying an element-wise
-      activation function $\bm{\varphi}$.}
+      activation function $\bm{\varphi}$. Blockmatrix notation is used to show
+      how biases can be absorbed into a single matrix multiplication.}
     \label{fig:multi_layer_perceptron}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.4\textwidth}
@@ -179,17 +179,19 @@ or densely-connected layers, as each neuron is connected to every other neuron
 in the neighboring layer. For the case depicted in
 figure~\ref{fig:multi_layer_perceptron} the activations in the hidden
 layer~$\mathbf{h}$ and the output layer~$\mathbf{y}$ are given by:
-\begin{align*}
+\begin{align}
   &\mathbf{h} = \bm{\varphi}_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
   &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqcomma
-\end{align*}
+  \label{eq:mlp}
+\end{align}
 where $\mathbf{W}$ are weight matrices determining the weight of each connection
 between two neurons and $\mathbf{b}$ are optional bias vectors. Generally the
 sizes of the hidden layers as well as the choice of the activation functions are
-hyperparameters of the model. The size of the input and output layer is given by
-the number of input variables and the number of desired outputs respectively.
-Moreover the activation function of the output layer is constrained by the
-underlying task. For binary classification the logistic
+hyperparameters (i.e.\ parameters that are not learned during training) of the
+model. The size of the input and output layer is given by the number of input
+variables and the number of desired outputs respectively. Moreover the
+activation function of the output layer is constrained by the underlying task.
+For binary classification the logistic
 function~\smash{$\sigma(x) = (1 + \exp(-x))^{-1}$} is applied to a single output
 neuron giving the probability of an observation being of the positive class
 (e.g.\ signal). For multi-class classification the number of outputs neurons is
@@ -228,7 +230,7 @@ cross-entropy can be written as
 with the binary indicator~$t$ encoding the true class (0 for the negative and 1
 for the positive class). When looking at a subset of observations with event
 weights~$w_i$ the loss~$\mathcal{L}$ is defined as \todo{Somehow denote subset
-  of data}
+  of data; $\mathcal{L}(\{x_i\}, \{ k_i \}, \{ w_i \})$}
 \begin{align*}
   &\mathcal{L} = \frac{\sum_i w_i L_i}{\sum_j w_j}
     \qquad \text{with} \qquad
@@ -290,10 +292,11 @@ the following description as they can be absorbed into the weight matrices.
 Recurrent neural networks are able to map a sequence of input variables to a
 sequence of outputs. Both sequences can have arbitrary lengths between different
 observations. An example of a \emph{Simple Recurrent Network} is the
-\textsc{Elman} network depicted in figure~\ref{fig:schematic_elman_rnn}. It is
-shown in a compact notation as well as unfolded in time\footnote{Nomenclature
-  originates from RNNs being used to predict time series.} representing it as a
-feedforward network with weights shared between time steps.
+\textsc{Elman} network \cite{elman} depicted in
+figure~\ref{fig:schematic_elman_rnn}. It is shown in a compact notation as well
+as unfolded in time\footnote{Nomenclature originates from RNNs being used to
+  predict time series.} representing it as a feedforward network with weights
+shared between time steps.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/elman_rnn.pdf}
@@ -322,7 +325,7 @@ state~$\mathbf{c}_{t-1}$ of the previous time step ($\mathbf{c}_0 = \mathbf{0}$)
 forming the recurrent connection. This allows the a memory of previous inputs to
 persist in the internal state of the network thus enabling the
 output~$\mathbf{y}_t$, which is calculated from the cell state, to depend on the
-history of the sequence. As simple recurrent neural networks process the input
+history of the sequence. As Simple Recurrent Networks process the input
 sequence in a predefined direction, only the past information can influence the
 output at a specific time step making the order of the input sequence important.
 An architecture allowing the context (past and future) to influence the output
@@ -340,36 +343,41 @@ the sequence). For this task the full output sequence of the recurrent network
 is not needed, such that only the output of the last time step is used. Simple
 Recurrent Networks like the \textsc{Elman} network show that the gradient signal
 decays with each time step such that it is difficult to learn long-term
-dependencies in the input sequence \cite{hochreiter, lecun_bengio_hinton_DL}
-\todo{This is due to the repeated application of the activation function e.g.\
-  $\tanh$ in the recurrent connection leading to a exponential decay of the
-  gradient -- also affects feedforward networks}. The following section will
-present an extension to this architecture enabling the network to learn
-long-term dependencies.
+dependencies in the input sequence also known as the \emph{vanishing gradient
+  problem} \cite{hochreiter, lecun_bengio_hinton_DL} \todo{This is due to the
+  repeated application of the activation function e.g.\ $\tanh$ in the recurrent
+  connection leading to a exponential decay of the gradient -- also affects
+  feedforward networks}. The following section will present an extension to this
+architecture enabling the network to learn long-term dependencies.
 
 \subsubsection{Long Short-Term Memory}
 \label{sec:lstm}
 The long short-term memory (LSTM) network developed in~\cite{lstm} solves the
-\emph{vanishing gradient problem} that affects simple recurrent networks by
+\emph{vanishing gradient problem} that affects Simple Recurrent Networks by
 introducing multiplicative gates that control the flow of information in the
 network. In figure~\ref{fig:schematic_lstm} a schematic depiction of an unfolded
 LSTM at time~$t$ is shown.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
-  \caption{Schematic description of a LSTM-cell.}
+  \caption{Schematic description of the information flow in a LSTM-cell unfolded
+    in time at a fixed time step~$t$. Nodes with~$\times$/$+$ multiply or add
+    their inputs element-wise while ones containing a sigmoid shape apply a
+    nonlinear activation function. The dependency of the gate vectors
+    $\mathbf{i}_t$, $\mathbf{o}_t$ and $\mathbf{f}_t$ on input~$\mathbf{x}_t$
+    and output~$\mathbf{y}_{t-1}$ is omitted.}
   \label{fig:schematic_lstm}
 \end{figure}
 The LSTM represents a (differentiable) memory cell with three gates called the
-input, output and forget gate. The gate vectors are given by
+input, output and forget gate. The gate vectors, controlling the information
+flow, are given by
 \begin{align*}
   \mathbf{f}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right) &
   \mathbf{i}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{y}_{t-1} \right) &
   \mathbf{o}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right)
 \end{align*}
-with separate weights~$W$ and recurrent weights~$U$ for each gate
-($\mathbf{y_0} = \mathbf{0}$). The gate activation
-function~$\bm{\varphi}_\text{g}$ is typically the logistic function as it maps
+with separate weights~$W$ and recurrent weights~$U$ for each gate. The gate
+activation function~$\bm{\varphi}_\text{g}$ is the logistic function as it maps
 real values into the interval $[0, 1]$. Notably the gate activations depend on
 the input~$\mathbf{x}_t$ at time~$t$ as well as the output~$\mathbf{y}_{t-1}$ of
 the LSTM at the previous time step\todo{such that memory access patterns depend
@@ -382,53 +390,32 @@ with each time step:
                    \mathbf{W}_{\text{c}} \mathbf{x}_{t}+ \mathbf{U}_{\text{c}}
                    \mathbf{y}_{t-1} ) \eqcomma
 \end{align*}
-where $\circ$ denotes the element-wise multiplication of two column vectors
-\todo{whats $\bm{\varphi}$} and $\mathbf{c}_0 = \mathbf{0}$. The input gate
+where $\circ$ denotes the element-wise multiplication of two column vectors and
+the activation function~$\bm{\varphi}$ commonly chosen to be the hyperbolic
+tangent. Similar to the Simple Recurrent Networks the initial cell state
+$\mathbf{c}_0$ and output $\mathbf{y}_0$ are set to $\mathbf{0}$. The input gate
 controls how much information from the input~$\mathbf{x}_t$ and
 output~$\mathbf{y}_{t-1}$ is taken into the cell state therefore avoiding the
-inclusion of irrelevant information into the cell state. A main feature of the
-LSTM architecture is the direct connection of cell states between two successive
-time steps via the forget gate solving the \emph{vanishing gradient problem}.
+inclusion of irrelevant information. A main feature of the LSTM architecture is
+the direct connection of cell states between two successive time steps via the
+forget gate solving the \emph{vanishing gradient problem} \cite{lstm, graves}.
 The forget gate enables the network to gradually reset its internal state once
 stored information has become irrelevant. Finally the output~$\mathbf{y}_t$ is
-calculated using using
+calculated using
 \begin{align*}
   \mathbf{y}_{t} &= \mathbf{o}_{t} \circ \bm{\varphi}_{\text{y}}(\mathbf{c}_{t}) \eqcomma
 \end{align*}
-where~$\bm{\varphi}_y$ is usually the hyperbolic tangent. The activation of the
+where~$\bm{\varphi}_\text{y}$ is usually the hyperbolic tangent. The activation of the
 output gate determines how much of the cell state is presented at the output of
 the network. Overall the multiplicative gating of the LSTM allows information to
 persist in its internal state over a long period of time with gates resembling
 the write, read and reset gates of conventional memory cells.
 
-Variables:
-\begin{itemize}
-\item $x_t$: input vector
-\item $h_t$: output vector
-\item $c_t$: cell state vector
-\item $W$, $U$ and $b$: (recurrent -- $U$) weight matrices and bias vector
-\item $f_t$, $i_t$ and $o_t$: gate vectors
-  \begin{itemize}
-  \item $f_t$: forget gate vector
-  \item $i_t$: input gate vector
-  \item $o_t$: output gate vector
-  \end{itemize}
-\end{itemize}
 
-Activation functions:
-\begin{itemize}
-\item $\sigma_g$: element-wise sigmoid function (Gate activation -- recurrent
-  activation)
-\item $\sigma_c$: element-wise hyperbolic tangent (Cell activation -- recurrent
-  activation)
-\item $\sigma_h$: element-wise hyperbolic tangent (Output activation)
-\end{itemize}
-
-Gated Recurrent Unit (GRU) as an alternative.
-
-Bidirectional Recurrent Neural Networks: consider past and future context when
-classifying. Present the training sequence forwards and backwards to two
-separate recurrent neural networks connected to the same output layer.
+\todo[inline]{Gated Recurrent Unit (GRU) as an alternative. Bidirectional
+  Recurrent Neural Networks: consider past and future context when classifying.
+  Present the training sequence forwards and backwards to two separate recurrent
+  neural networks connected to the same output layer.}
 
 \section{Technical Setup}
 \label{sec:tech_setup}
