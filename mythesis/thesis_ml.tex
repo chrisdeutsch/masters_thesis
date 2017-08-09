@@ -405,17 +405,13 @@ calculated using
 \begin{align*}
   \mathbf{y}_{t} &= \mathbf{o}_{t} \circ \bm{\varphi}_{\text{y}}(\mathbf{c}_{t}) \eqcomma
 \end{align*}
-where~$\bm{\varphi}_\text{y}$ is usually the hyperbolic tangent. The activation of the
-output gate determines how much of the cell state is presented at the output of
-the network. Overall the multiplicative gating of the LSTM allows information to
-persist in its internal state over a long period of time with gates resembling
-the write, read and reset gates of conventional memory cells.
-
-
-\todo[inline]{Gated Recurrent Unit (GRU) as an alternative. Bidirectional
-  Recurrent Neural Networks: consider past and future context when classifying.
-  Present the training sequence forwards and backwards to two separate recurrent
-  neural networks connected to the same output layer.}
+where~$\bm{\varphi}_\text{y}$ is usually the hyperbolic tangent. The activation
+of the output gate determines how much of the cell state is presented at the
+output of the network. Overall the multiplicative gating of the LSTM allows
+information to persist in its internal state over a long period of time with
+gates resembling the write, read and reset gates of conventional memory cells.
+Alternative architectures to LSTMs exist like \emph{Gated Recurrent Units} but
+were not explored in this thesis.
 
 \section{Technical Setup}
 \label{sec:tech_setup}
