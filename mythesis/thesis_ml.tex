@@ -245,7 +245,7 @@ loss~$\mathcal{L}(\mathbf{w})$ with respect to the model weights~$\mathbf{w}$
 (biases can be absorbed into the weight matrices as shown in
 figure~\ref{fig:multi_layer_perceptron}). Each layer in the computational graph
 making up the network has a well-defined derivative such that by repeatedly
-applying the chain-rule for partial derivatives the gradient
+applying the chain rule for partial derivatives the gradient
 $\nabla_\mathbf{w} \mathcal{L}(\mathbf{w})$ can be calculated symbolically. This
 procedure is generally known as error backpropagation or \emph{BackProp}
 \cite{bishop, lecun-backprop}. Knowing the gradient of the loss an iterative
@@ -328,75 +328,78 @@ output at a specific time step making the order of the input sequence important.
 An architecture allowing the context (past and future) to influence the output
 at a given time~$t$ are bidirectional RNNs but will not further discussed. The
 evaluation of the gradient for the training process follows the same principles
-used for feedforward neural networks but now also considering that the
-chain-rule has to be applied for each time step and one has to consider that the
+used for feedforward neural networks but now also considering that the chain
+rule has to be applied for each time step and one has to consider that the
 weights between time steps are shared (\emph{backpropagation through time}
-\cite{williams_zipser}).
+\cite{williams_zipser}). After unfolding the network in time the training is
+analogous to that of deep feedforward neural networks.
 
 In this thesis RNNs are used for the classification of a sequence of
 reconstructed objects in its entirety (as opposed to classifying each element in
 the sequence). For this task the full output sequence of the recurrent network
 is not needed, such that only the output of the last time step is used. Simple
 Recurrent Networks like the \textsc{Elman} network show that the gradient signal
-decays with each time step such that it is not possible to learn long-term
-dependencies in the input sequence \cite{hochreiter, lecun_bengio_hinton_DL}.
-The following section will present an extension to this architecture enabling
-the network to learn long-term dependencies.
+decays with each time step such that it is difficult to learn long-term
+dependencies in the input sequence \cite{hochreiter, lecun_bengio_hinton_DL}
+\todo{This is due to the repeated application of the activation function e.g.\
+  $\tanh$ in the recurrent connection leading to a exponential decay of the
+  gradient -- also affects feedforward networks}. The following section will
+present an extension to this architecture enabling the network to learn
+long-term dependencies.
 
 \subsubsection{Long Short-Term Memory}
 \label{sec:lstm}
-The long short-term memory (LSTM) network developed in \cite{lstm} solves the
+The long short-term memory (LSTM) network developed in~\cite{lstm} solves the
 \emph{vanishing gradient problem} that affects simple recurrent networks by
-introducing gates that control the flow of information in a recurrent cell.
-
-\todo[inline]{Shown to perform in synthetic tasks as well as real-world
-  application (speech, bioinformatics); Bidirectional LSTMs.}
-
+introducing multiplicative gates that control the flow of information in the
+network. In figure~\ref{fig:schematic_lstm} a schematic depiction of an unfolded
+LSTM at time~$t$ is shown.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
   \caption{Schematic description of a LSTM-cell.}
   \label{fig:schematic_lstm}
 \end{figure}
-
-[Check Citation]\cite{lstm}
-
-Introduces gating to solve the vanishing gradient problem and control the flow
-of information in the cell. The forget gate with activation $\mathbf{f}_t$
-steers how much of the previous cell state is taken in to the current one (this
-solves the vanishing gradient problem?). The input gate with activation
-$\mathbf{i}_t$ determines the amount of information that is taken into the cell
-state from the current input and the previous output. The output gate
-$\mathbf{o}$ determines how much information of the cell state is present at the
-output.
-
-Gate activations:
+The LSTM represents a (differentiable) memory cell with three gates called the
+input, output and forget gate. The gate vectors are given by
 \begin{align*}
   \mathbf{f}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right) &
   \mathbf{i}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{y}_{t-1} \right) &
   \mathbf{o}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right)
 \end{align*}
-
-The gate activations always depend on the input to the timestep and the output
-of the previous timestep.
-
-Cell state update:
+with separate weights~$W$ and recurrent weights~$U$ for each gate
+($\mathbf{y_0} = \mathbf{0}$). The gate activation
+function~$\bm{\varphi}_\text{g}$ is typically the logistic function as it maps
+real values into the interval $[0, 1]$. Notably the gate activations depend on
+the input~$\mathbf{x}_t$ at time~$t$ as well as the output~$\mathbf{y}_{t-1}$ of
+the LSTM at the previous time step\todo{such that memory access patterns depend
+  on the inputs and history}. To understand how the gating controls the flow of
+information in a LSTM one looks at the update of the cell state $\mathbf{c}$
+with each time step:
 \begin{align*}
   \mathbf{c}_{t} &= \mathbf{f}_{t} \circ \mathbf{c}_{t-1}
                    + \mathbf{i}_{t} \circ \bm{\varphi}_{\text{c}}(
                    \mathbf{W}_{\text{c}} \mathbf{x}_{t}+ \mathbf{U}_{\text{c}}
-                   \mathbf{y}_{t-1} )
+                   \mathbf{y}_{t-1} ) \eqcomma
 \end{align*}
-Output:
+where $\circ$ denotes the element-wise multiplication of two column vectors
+\todo{whats $\bm{\varphi}$} and $\mathbf{c}_0 = \mathbf{0}$. The input gate
+controls how much information from the input~$\mathbf{x}_t$ and
+output~$\mathbf{y}_{t-1}$ is taken into the cell state therefore avoiding the
+inclusion of irrelevant information into the cell state. A main feature of the
+LSTM architecture is the direct connection of cell states between two successive
+time steps via the forget gate solving the \emph{vanishing gradient problem}.
+The forget gate enables the network to gradually reset its internal state once
+stored information has become irrelevant. Finally the output~$\mathbf{y}_t$ is
+calculated using using
 \begin{align*}
-  \mathbf{y}_{t} &= \mathbf{o}_{t} \circ \varphi_{\text{h}}(\mathbf{c}_{t})
+  \mathbf{y}_{t} &= \mathbf{o}_{t} \circ \bm{\varphi}_{\text{y}}(\mathbf{c}_{t}) \eqcomma
 \end{align*}
-
-Stress that the gates depend on $x_t$ and $h_{t-1}$ via learn-able weights.
-Therefore the inputting, outputting and forgetting is a learned process.
-
-$\circ$: entry-wise product
-
+where~$\bm{\varphi}_y$ is usually the hyperbolic tangent. The activation of the
+output gate determines how much of the cell state is presented at the output of
+the network. Overall the multiplicative gating of the LSTM allows information to
+persist in its internal state over a long period of time with gates resembling
+the write, read and reset gates of conventional memory cells.
 
 Variables:
 \begin{itemize}
