@@ -51,12 +51,6 @@ signal and background).
   \label{fig:decision_tree}
 \end{figure}
 
-\todo[inline]{Gini index: Probability to assign
-  the correct label to a randomly picked observation when randomly
-  assigning according to the distribution of labels in the sample
-  (splits that split off pure background as well as signal are
-  equivalent); Pruning?; Overfitting?}
-
 A decision tree is a tree-based model that recursively partitions the space
 spanned by the input variables into disjoint subregions by applying binary
 splits on the coordinate axes until a stopping criterion is met. Frequently used
@@ -85,6 +79,9 @@ where $p_i$ is the purity of class~$i$ \cite{esl}. The best split is
 chosen such that the mean of the Gini impurities of the resulting
 nodes, weighted by the sum of event weights in each node, is
 minimised.
+% Gini index: Probability to assign the correct label to a randommly picked
+% observation when randomly assigning according to the distribution of labels in
+% the sample
 
 \subsection{Boosting}
 \label{sec:ml_boosting}
