@@ -416,18 +416,30 @@ were not explored in this thesis.
 \section{Technical Setup}
 \label{sec:tech_setup}
 
-TMVA
+In this thesis the \emph{Toolkit for Multivariate Analyses} (TMVA) \cite{tmva}
+is used for the BDT-based studies on tau identification in
+chapter~\ref{sec:bdt}. The multivariate methods used in the reconstruction of
+hadronic tau decays currently in use in the ATLAS experiment exclusively used
+this toolset.
 
-Frameworks used for this thesis (theano \cite{theano}, keras \cite{keras})
-SciPy \cite{scipy}
-Numpy \cite{numpy}
-h5py
-
-Optimiser: Adam
-
-Masking layer
-
-Biases are always used.
+The neural network based studies in chapters~\ref{sec:rnn}
+and~\ref{sec:decaymode} use the \texttt{keras} framework~\cite{keras} which
+offers implementations of commonly used layers (i.e.\ the rules to compute the
+forward pass as well as the symbolic derivatives for backpropagation), loss
+functions and optimisers. Moreover it takes care of the necessary bookkeeping
+when building neural networks. The \texttt{theano} backend~\cite{theano} is used
+in \texttt{keras} performing fast computation of mathematical expressions for
+training and evaluation of the networks. For the initial preprocessing of the
+data the \texttt{numpy} \cite{numpy} and \texttt{scipy} \cite{scipy} packages
+are used. The training of the neural networks is done using the \emph{Adam}
+optimiser~\cite{adam} which is an stochastic gradient descent algorithm with
+adaptive learning rates offering quick convergence in training with little
+tuning of the optimser's parameters. The layers implemented in \texttt{keras}
+used in this thesis are: \emph{Dense} (densely-connected layer), \emph{LSTM},
+\emph{Merge} (concatenates outputs from multiple layers), \emph{Masking} (skips
+inputs in recurrent networks filled with a default value -- implementation
+detail of no further importance). Moreover all layers use biases which have
+previously been omitted.
 
 %%% Local Variables:
 %%% mode: latex
