@@ -72,11 +72,32 @@ Size of the pre-production samples after baseline tau selection:
 \item Background: 22.1 M (1P: 6.6 M, 3P: 15.5 M)
 \end{itemize}
 
-\todo[inline]{Interesting plots: pt spectra, mu-distribution}
-
-\todo[inline]{Reweighting}
+\todo[inline]{Reweighting, Quark-Gluon Fraction (3P: \SI{55}{\percent} excluding
+  bottom, \SI{58}{\percent} including bottom) (1P: \SI{55}{\percent} excluding
+  bottom, \SI{59}{\percent} including bottom); approx.\ \SI{60}{\percent}
+  quark-gluon fraction}
 
 A full summary of the datasets is given in appendix \todo{Reference}.
+
+\begin{figure}[htb]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/pt_mu_samples/pt.pdf}
+    \subcaption{Transverse momentum spectrum of reconstructed tau candidates
+      after baseline selection in $\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$
+      and dijet samples with mass slices JZ1W to JZ6W.}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/pt_mu_samples/mu.pdf}
+    \subcaption{Average number of interactions per bunch crossing $mu$
+      ($\langle \mu \rangle = 30$)}
+  \end{subfigure}
+  \caption{Transverse momentum $p_\text{T}$ of tau candidates and pile-up
+    spectrum of the samples.}
+  \label{fig:pt_mu}
+\end{figure}
 
 \section{Description of the Tau-Identification Procedure}
 \label{sec:bdt_tauid}
