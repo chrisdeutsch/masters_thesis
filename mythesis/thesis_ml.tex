@@ -2,31 +2,30 @@
 \chapter{Machine Learning}
 \label{sec:ml}
 
-Machine learning is the study of algorithms which are able to learn structure
-from data (called training data) and can subsequently be used to make
-predictions on unseen data. Examples for such algorithms are \emph{Boosted
-  Decision Trees} (BDT) and \emph{Neural Networks} (NN) which are able to model
-nonlinear problems without the need to supply an explicitly derived rule-set or
-functional form. They often offer superior performance compared to linear models
-or simple cut-based approaches at the cost of interpretability. Machine learning
+Machine learning is the study of algorithms that learn structure from data
+(called training data) and can subsequently be used to make predictions on
+unseen data. Examples for such algorithms are \emph{Boosted Decision Trees}
+(BDT) and \emph{Neural Networks} (NN) which are able to model nonlinear problems
+without the need to supply an explicitly derived rule-set or functional form.
+They often offer superior performance compared to linear models or simple
+cut-based approaches at the cost of interpretability. Machine learning
 techniques are widely used for the reconstruction of hadronic tau decays in the
 ATLAS experiment. Aside from tau identification, they are used for track
 classification, decay mode classification and energy calibration.
 
-The focus lies on \todo{Worth a paragraph? Focus of what?} supervised learning,
-which is concerned with learning models from labelled data (each example
-consisting of explanatory variables and the dependent variable/label). This
-domain includes regression for modelling a continuous response and
-classification for assigning class labels (e.g.\ signal or background) to an
-observation with associated input variables.
-
-This chapter gives an overview over the techniques used in this thesis starting
-with a brief description of \emph{Boosted Decision Trees} that are used in
-chapter~\ref{sec:bdt} for rejection of tau candidates originating from dijet
-events. A comprehensive summary on \emph{Recurrent Neural Networks} is given
-that are used for tau identification in chapter~\ref{sec:rnn} and additionally
-for decay mode classification in chapter~\ref{sec:decaymode}. An overview of the
-software frameworks used for this thesis concludes this chapter.
+The focus of this chapter lies on supervised learning, which is concerned with
+learning models from labelled data (each example consisting of explanatory
+variables and a dependent variable/label). This domain includes regression for
+modelling a continuous response and classification for assigning class labels
+(e.g.\ signal or background) to an observation with associated input variables.
+This chapter gives an overview of the classification techniques used in this
+thesis starting with a brief description of \emph{Boosted Decision Trees} that
+are used in chapter~\ref{sec:bdt} for rejection of tau candidates originating
+from dijet events. A comprehensive summary on \emph{Recurrent Neural Networks}
+is given that are used for tau identification in chapter~\ref{sec:rnn} and
+additionally for decay mode classification in chapter~\ref{sec:decaymode}. The
+chapter is concluded with an overview of the software frameworks used in this
+thesis.
 
 \section{Boosted Decision Trees}
 \label{sec:bdt}
@@ -45,9 +44,21 @@ signal and background).
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{./figures/theory/decision_tree.pdf}
-  \caption{Binary tree structure of a decision tree with a depth~$d = 2$ and two
-    input variables $x_1$, $x_2$. Adapted from \cite{esl}}
+  \begin{subfigure}[t]{0.4\textwidth}
+    \centering
+    \includegraphics{./figures/theory/decision_tree.pdf}
+    \subcaption{Binary tree structure of decision trees.}
+    \label{fig:decision_tree_binary_tree}
+  \end{subfigure}\hspace*{2em}
+  \begin{subfigure}[t]{0.4\textwidth}
+    \centering
+    \includegraphics{./figures/theory/decision_tree_partition.pdf}
+    \subcaption{Partitioning of the space spanned by the input variables $x_1$
+      and $x_2$ into subregions~$R_i$.}
+    \label{fig:decision_tree_partition}
+  \end{subfigure}
+  \caption{Structure of a decision tree with depth~$d = 2$ and two input
+    variables $x_1$, $x_2$. Figure adapted from \cite{esl}.}
   \label{fig:decision_tree}
 \end{figure}
 
@@ -56,14 +67,18 @@ spanned by the input variables into disjoint subregions by applying binary
 splits on the coordinate axes until a stopping criterion is met. Frequently used
 criteria include limiting the maximum depth of the tree or requiring a minimum
 number of training examples in a node considered for further splitting.
-Figure~\ref{fig:decision_tree} shows the binary tree structure of a decision
-tree. The root node of the tree contains the full dataset which is subsequently
-split into two nodes by a condition on a single input variable. The terminal
-nodes (leaves) contain disjoint sub-samples of the full dataset with input
-variables falling into distinct regions of the variable space. Each terminal
-node is assigned the majority class of the subset of training data contained
-within it. An alternative method to gauge the confidence of the decision is to
-assign the signal purity.
+Figure~\ref{fig:decision_tree_binary_tree} shows the binary tree structure of a
+decision tree. The root node of the tree contains the dataset which is
+subsequently split into two nodes by a condition on a single input variable. The
+terminal nodes (leaves) contain disjoint subsamples of the full dataset with
+input variables falling into distinct regions of the variable space depicted in
+figure~\ref{fig:decision_tree_partition}. Observations falling into a subregion
+are assigned the probability of being signal given by the signal purity of the
+training data in this region.
+% Each terminal node is assigned the
+% majority class of the subset of training data contained within it. An
+% alternative method to gauge the confidence of the decision is to assign the
+% signal purity.
 % The subregions of the variable space defined by the terminal nodes Formally:
 % majority class minimises classification error, signal purity minimises
 % log-loss
@@ -87,34 +102,39 @@ minimised.
 \label{sec:ml_boosting}
 
 Boosting describes a family of machine learning meta-algorithms that are used to
-build ensembles of base classifiers which aim to improve the overall predictive
-power compared to a single model. The ensembles can be viewed as an additive
-expansion of the underlying functional dependence in a set of basis functions
+build ensembles of base learner aiming to improve the overall predictive power
+compared to a single model. The ensembles can be viewed as an additive expansion
+of the underlying joint probability distribution in a set of basis functions
 given by the base learner \cite{esl}. Boosting is commonly used in conjunction
 with Decision Trees giving rise to so called \emph{Boosted Decision Trees}.
 
-\todo{Hyperparameter number of trees}
-
 \emph{AdaBoost} (Adaptive Boosting) is a boosting algorithm that forms a
-weighted sum of the base classifier, where each classifier is trained on data
-that is reweighted such that training examples that were previously incorrectly
+weighted sum of a base classifier, where each classifier is trained on data that
+is reweighted such that training examples that were previously incorrectly
 classified contribute with higher weight than examples that were correctly
-classified. \todo{\emph{AdaBoost} $\beta$ -- learning rate -- modifies boost
-  weight} A generalisation of this method is called \emph{gradient boosting}
-which allows the minimisation of an arbitrary differential loss function during
-boosting. A loss function -- ya. Gradient boosting reproduces the
-\emph{AdaBoost} algorithm if the exponential loss function $\exp(-f(x) y)$ is
-used. In general for different loss functions no convenient methods of
-minimising the loss exist and a gradient descent algorithm is used. A full
-mathematical description of the algorithm is omitted for brevity and can be
-found in \cite{friedman_gbm, esl}. Instead we focus on the major difference
-between \emph{AdaBoost} and gradient boosting with binomial log-likelihood
-$\log\left( 1 + \exp(-2 f(x) y) \right)$ (TMVA) loss. Regularisation using
-shrinkage $\eta$.
-
-\todo[inline]{TMVA: Real AdaBoost?; AdaBoost performance degrades in noisy
-  settings due to exponential loss function \cite{esl} binomial log-likelihood
-  more robust;}
+classified. A generalisation of this method is called \emph{gradient boosting}
+which minimises the expected value of an arbitrary differential loss function
+(i.e.\ a function penalising errors of the model) during boosting. Gradient
+boosting reproduces the \emph{AdaBoost} algorithm if the exponential loss
+function
+\begin{align*}
+  L\left(y, f(x)\right) = \exp\left(- y f(x)\right)
+\end{align*}
+with the true class~$y \in \{ -1, 1 \}$ and the model response~$f(x)$ (mapped
+into the interval $[-1, 1]$) given a set of input variables~$x$ is used
+\cite{esl}. For general loss functions no convenient methods for minimising the
+loss exist and a gradient descent algorithm is used. A full mathematical
+description of the algorithm is omitted for brevity and can be found in
+\cite{friedman_gbm, esl}. In this thesis gradient boosting with the loss
+function
+\begin{align*}
+  L\left(y, f(x)\right) = \log\left( 1 + \exp(- 2 y f(x)) \right)
+\end{align*}
+is used, which is empirically shown to be less susceptible to noise and outliers
+than \emph{AdaBoost} \cite{esl, schapire_boosting}.
+% The reason is that the
+% exponential loss applies a larger penalty to training examples with large
+% negative margins~$y f(x)$, e.g.\ outliers.
 
 \section{Artificial Neural Networks}
 \label{sec:nn}
