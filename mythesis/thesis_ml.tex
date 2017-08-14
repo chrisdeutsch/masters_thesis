@@ -149,12 +149,12 @@ and combining the final representation in a linear or logistic regression model.
 Neural networks are typically organised into different \emph{layers} defining
 the transformation that is applied on the layer inputs. Multiple layers
 connected according to a computational graph form a network. This scheme allows
-for great flexibility in building different models making neural networks highly
-performing models in many areas of machine learning research \todo{Citation}.
+for great flexibility in building different models making neural networks
+prevalent in many areas of machine learning research.
 
 The following sections introduce concepts needed to understand the models used
-for various (sequence) classification tasks given in this thesis. Matrices are
-denoted using uppercase and vectors using lowercase bold symbols e.g.\ input
+for the (sequence) classification tasks in this thesis. Matrices are denoted
+using uppercase and vectors using lowercase bold symbols e.g.\ input
 variables~$\mathbf{x}$ and weight matrices~$\mathbf{W}$.
 
 \subsection{Feedforward Neural Networks}
@@ -176,15 +176,14 @@ output layer.
       hidden layer activation $\mathbf{h}$ and output activation $\mathbf{y}$.
       The layers are connected via weights $\mathbf{W}$ and optional biases
       $\mathbf{b}$. Activations are given after applying an element-wise
-      activation function $\bm{\varphi}$. Blockmatrix notation is used to show
-      how biases can be absorbed into a single matrix multiplication.}
+      activation function $\bm{\varphi}$. Block matrix notation is used.}
     \label{fig:multi_layer_perceptron}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.4\textwidth}
     \centering
     \includegraphics{./figures/theory/activation_functions.pdf}
     \captionof{figure}{Commonly used activation functions: logistic function (red),
-      hyperbolic tangent (blue), and rectified linear units (green).}
+      hyperbolic tangent (blue) and rectified linear units -- ReLU (green).}
     \label{fig:activation_functions}
   \end{minipage}
 \end{figure}
@@ -196,11 +195,10 @@ or densely-connected layers, as each neuron is connected to every other neuron
 in the neighboring layer. For the case depicted in
 figure~\ref{fig:multi_layer_perceptron} the activations in the hidden
 layer~$\mathbf{h}$ and the output layer~$\mathbf{y}$ are given by:
-\begin{align}
+\begin{align*}
   &\mathbf{h} = \bm{\varphi}_{\text{h}}(\mathbf{W}_{\text{hx}} \mathbf{x} + \mathbf{b}_{\text{h}})
   &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqcomma
-  \label{eq:mlp}
-\end{align}
+\end{align*}
 where $\mathbf{W}$ are weight matrices determining the weight of each connection
 between two neurons and $\mathbf{b}$ are optional bias vectors. Generally the
 sizes of the hidden layers as well as the choice of the activation functions are
@@ -218,11 +216,11 @@ the \emph{softmax} function \cite{esl, bishop}
   \varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}
 \end{align*}
 is chosen as the activation function, where~$\varphi_i(\mathbf{x})$ is the
-activation of the $i$-th neuron and $x_i$ the value of the neuron before
-activation. The \emph{softmax} function ensures that the sum of all activations
-in a layer equals to one, such that they can be interpreted as class
-probabilities. Activation functions that are commonly used for the intermediate
-layers are depicted in figure~\ref{fig:activation_functions}.
+activation of the $i$-th neuron and $x_i$ its value before activation. The
+\emph{softmax} function ensures that the sum of all activations in a layer
+equals to one, such that they can be interpreted as class probabilities.
+Activation functions that are commonly used for the intermediate layers are
+depicted in figure~\ref{fig:activation_functions}.
 
 So far the networks were viewed as non-linear parametric functions mapping input
 variables~$\mathbf{x}$ to a response~$\mathbf{y}$ without regarding the choice
@@ -245,35 +243,34 @@ cross-entropy can be written as
   L(t, p(\mathbf{x})) = -t \, \log(p(\mathbf{x})) - (1 - t) \, \log(1 - p(\mathbf{x})) \eqcomma
 \end{align*}
 with the binary indicator~$t$ encoding the true class (0 for the negative and 1
-for the positive class). When looking at a subset of observations with event
-weights~$w_i$ the loss~$\mathcal{L}$ is defined as \todo{Somehow denote subset
-  of data; $\mathcal{L}(\{x_i\}, \{ k_i \}, \{ w_i \})$}
+for the positive class). For a subset of observations with event weights~$w_i$
+the loss~$\mathcal{L}$ is defined as
 \begin{align*}
   &\mathcal{L} = \frac{\sum_i w_i L_i}{\sum_j w_j}
     \qquad \text{with} \qquad
     L_i = L\left(k_i, \mathbf{p}(\mathbf{x}_i)\right) \eqcomma
 \end{align*}
 which in case of the cross-entropy can be interpreted as the negative
-log-likelihood of the (generalised) \textsc{Bernoulli} distribution with respect
-to the model parameters given the observed subset of data \cite{bishop}.
+log-likelihood of the network parameters given the data assuming the
+distribution of classes for a single example follows a (generalised)
+\textsc{Bernoulli} distribution \cite{bishop}.
 
 The task of finding the parameters of the model minimising the expected loss
-(maximising the likelihood) on a set of training data is solved using stochastic
-gradient descent. This requires information on the gradient of the
+(i.e.\ maximising the likelihood) on a set of training data is solved using
+stochastic gradient descent. This requires information on the gradient of the
 loss~$\mathcal{L}(\mathbf{w})$ with respect to the model weights~$\mathbf{w}$
-(biases can be absorbed into the weight matrices as shown in
-figure~\ref{fig:multi_layer_perceptron}). Each layer in the computational graph
-making up the network has a well-defined derivative such that by repeatedly
-applying the chain rule for partial derivatives the gradient
-$\nabla_\mathbf{w} \mathcal{L}(\mathbf{w})$ can be calculated symbolically. This
-procedure is generally known as error backpropagation or \emph{BackProp}
-\cite{bishop, lecun-backprop}. Knowing the gradient of the loss an iterative
-optimisation method called mini-batch (stochastic\footnote{The gradient of the
-  loss on the full training sample is approximated by the gradient on a
-  mini-batch.}) gradient descent is employed. Initially the weights are
-randomised to small values and biases set to zero. The set of training examples
-is divided into subsets of fixed size called mini-batches. In an iterative
-procedure the weights are updated according to
+(biases can be absorbed into the weight matrices) while keeping the training
+examples fixed. Each layer in the computational graph making up the network has
+a well-defined derivative such that by repeatedly applying the chain rule for
+partial derivatives the gradient $\nabla_\mathbf{w} \mathcal{L}(\mathbf{w})$ can
+be calculated symbolically. This procedure is generally known as error
+backpropagation or \emph{BackProp} \cite{bishop, lecun-backprop}. Knowing the
+gradient of the loss an iterative optimisation method called mini-batch
+stochastic\footnote{The gradient of the loss on the full training sample is
+  approximated by the gradient on a mini-batch.} gradient descent is employed.
+Initially the weights are randomised to small values and biases set to zero. The
+set of training examples is divided into subsets of fixed size called
+mini-batches. In an iterative procedure the weights are updated according to
 \begin{align*}
   \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \, \nabla_\mathbf{w} \mathcal{L}(\mathbf{w}_t) \eqcomma
 \end{align*}
@@ -283,10 +280,9 @@ mini-batch. One pass over all mini-batches is called an epoch and typically
 multiple epochs are required to train a model. In practice the loss on an
 independent validation set is observed and the procedure is stopped when the
 validation loss stops decreasing.
-
-\todo[inline]{Find more references; Large penalties to predictions that are far
-  off; Perfect classifiers have loss of zero (can always be reached with complex
-  models); Cross validation?}
+% \todo[inline]{Find more references; Large penalties to predictions that are far
+%   off; Perfect classifiers have loss of zero (can always be reached with complex
+%   models); Cross validation?}
 
 \subsection{Recurrent Neural Networks}
 \label{sec:rnn_theory}
