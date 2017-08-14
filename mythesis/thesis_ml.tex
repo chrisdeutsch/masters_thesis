@@ -302,24 +302,23 @@ the following description as they can be absorbed into the weight matrices.
 
 \subsubsection{Simple Recurrent Networks}
 \label{sec:simple_recurrent_networks}
-Recurrent neural networks are able to map a sequence of input variables to a
-sequence of outputs. Both sequences can have arbitrary lengths between different
-observations. An example of a \emph{Simple Recurrent Network} is the
-\textsc{Elman} network \cite{elman} depicted in
-figure~\ref{fig:schematic_elman_rnn}. It is shown in a compact notation as well
-as unfolded in time\footnote{Nomenclature originates from RNNs being used to
-  predict time series.} representing it as a feedforward network with weights
-shared between time steps.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/elman_rnn.pdf}
-  \caption{Schematic depiction of an \textsc{Elman} network in compact form with
-    a recurrent connection and after unfolding the network in time. The black
-    square at the recurrent connection represents a delay of one time step.
-    Application of nonlinear activation functions are omitted. The figure is
-    adapted from \cite{lecun_bengio_hinton_DL}.}
+  \caption{\textsc{Elman} network in compact form with a recurrent connection
+    and after unfolding the network in time. The black square indicates a delay
+    of one time step. Applications of nonlinear activation functions are
+    omitted. Figure adapted from \cite{lecun_bengio_hinton_DL}.}
   \label{fig:schematic_elman_rnn}
 \end{figure}
+
+Recurrent neural networks are able to map a sequence of input variables to a
+sequence of outputs. Both sequences can have arbitrary length. An example of a
+\emph{Simple Recurrent Network} is the \textsc{Elman} network \cite{elman}
+depicted in figure~\ref{fig:schematic_elman_rnn}. It is shown in a compact
+notation as well as unfolded in time\footnote{Nomenclature originates from RNNs
+  being used to predict quantities as a function of time.} representing it as a
+feedforward network with weights shared between time steps.
 The input sequence~$\left( \mathbf{x}_i \right)_{i=1}^n$ is processed one
 element at a time. The sequence of cell states~$\mathbf{c}_t$ and
 outputs~$\mathbf{y}_t$ can be computed by iteratively applying the rule
@@ -328,40 +327,42 @@ outputs~$\mathbf{y}_t$ can be computed by iteratively applying the rule
   &\mathbf{y}_t &= \bm{\varphi}_{\text{y}}\Big( \mathbf{W}_{\text{y}} \mathbf{c}_{t} \Big)
 \end{align*}
 with weights~$\mathbf{W}$, recurrent weights~$\mathbf{U}$ and activation
-functions~$\bm{\varphi}$, while incrementing the time step $t$ \cite{elman,
+functions~$\bm{\varphi}$, while incrementing the time step~$t$~\cite{elman,
   graves}. The initial cell state is often set to $\mathbf{c}_0 = \mathbf{0}$
 but the particular choice can differ between implementations. All weights are
 shared between time steps which allows sequences of arbitrary length to be
 processed by the network. The cell state~$\mathbf{c}_t$ at each time step~$t$ is
 updated using the external input~$\mathbf{x}_t$ as well as the cell
-state~$\mathbf{c}_{t-1}$ of the previous time step ($\mathbf{c}_0 = \mathbf{0}$)
-forming the recurrent connection. This allows the a memory of previous inputs to
-persist in the internal state of the network thus enabling the
-output~$\mathbf{y}_t$, which is calculated from the cell state, to depend on the
-history of the sequence. As Simple Recurrent Networks process the input
-sequence in a predefined direction, only the past information can influence the
-output at a specific time step making the order of the input sequence important.
-An architecture allowing the context (past and future) to influence the output
-at a given time~$t$ are bidirectional RNNs but will not further discussed. The
-evaluation of the gradient for the training process follows the same principles
-used for feedforward neural networks but now also considering that the chain
-rule has to be applied for each time step and one has to consider that the
-weights between time steps are shared (\emph{backpropagation through time}
-\cite{williams_zipser}). After unfolding the network in time the training is
-analogous to that of deep feedforward neural networks.
+state~$\mathbf{c}_{t-1}$ of the previous time step forming the recurrent
+connection. This allows a memory of previous inputs to persist in the internal
+state of the network thus enabling the output~$\mathbf{y}_t$, which is
+calculated from the cell state, to depend on the history of the sequence. As
+Simple Recurrent Networks process the input sequence in a predefined direction,
+only the past information can influence the output at a specific time step
+making the order of the input sequence important. An architecture allowing the
+context (past and future) to influence the output at a given time~$t$ are
+bidirectional RNNs. The evaluation of the gradient for the training process
+follows the same principles used for feedforward neural networks but now also
+considering that the chain rule has to be applied for each time step and one has
+to consider that the weights between time steps are shared
+(\emph{backpropagation through time} \cite{williams_zipser}). After unfolding
+the network in time the training is analogous to that of feedforward neural
+networks.
 
 In this thesis RNNs are used for the classification of a sequence of
-reconstructed objects in its entirety (as opposed to classifying each element in
-the sequence). For this task the full output sequence of the recurrent network
-is not needed, such that only the output of the last time step is used. Simple
+reconstructed objects in its entirety as opposed to classifying each element in
+the sequence. For this task the full output sequence of the recurrent network is
+not needed, such that only the output of the last time step is used. Simple
 Recurrent Networks like the \textsc{Elman} network show that the gradient signal
-decays with each time step such that it is difficult to learn long-term
-dependencies in the input sequence also known as the \emph{vanishing gradient
-  problem} \cite{hochreiter, lecun_bengio_hinton_DL} \todo{This is due to the
-  repeated application of the activation function e.g.\ $\tanh$ in the recurrent
-  connection leading to a exponential decay of the gradient -- also affects
-  feedforward networks}. The following section will present an extension to this
-architecture enabling the network to learn long-term dependencies.
+decays with each time step making it difficult to learn long-term dependencies
+in the input sequence. This is known as the \emph{vanishing gradient
+  problem}~\cite{hochreiter, lecun_bengio_hinton_DL}. The following section will
+present an extension to this architecture enabling the network to learn
+long-term dependencies.
+% \todo{This is due to the repeated
+%   application of the activation function e.g.\ $\tanh$ in the recurrent
+%   connection leading to a exponential decay of the gradient -- also affects
+%   feedforward networks}.
 
 \subsubsection{Long Short-Term Memory}
 \label{sec:lstm}
@@ -373,67 +374,67 @@ LSTM at time~$t$ is shown.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
-  \caption{Schematic description of the information flow in a LSTM-cell unfolded
-    in time at a fixed time step~$t$. Nodes with~$\times$/$+$ multiply or add
-    their inputs element-wise while ones containing a sigmoid shape apply a
-    nonlinear activation function. The dependency of the gate vectors
-    $\mathbf{i}_t$, $\mathbf{o}_t$ and $\mathbf{f}_t$ on input~$\mathbf{x}_t$
-    and output~$\mathbf{y}_{t-1}$ is omitted.}
+  \caption{LSTM-cell unfolded in time at a fixed time step~$t$. Nodes
+    with~$\times$/$+$ multiply or add their inputs element-wise while ones
+    containing a sigmoid shape apply a nonlinear activation function. The
+    dependency of the gate vectors $\mathbf{i}_t$, $\mathbf{o}_t$ and
+    $\mathbf{f}_t$ on input~$\mathbf{x}_t$ and output~$\mathbf{y}_{t-1}$ is
+    omitted.}
   \label{fig:schematic_lstm}
 \end{figure}
 The LSTM represents a (differentiable) memory cell with three gates called the
 input, output and forget gate. The gate vectors, controlling the information
-flow, are given by
+flow, are given by \cite{goodfellow_dl, graves}
 \begin{align*}
-  \mathbf{f}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right) &
-  \mathbf{i}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{y}_{t-1} \right) &
-  \mathbf{o}_{t} &= \bm{\varphi}_{\text{g}}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right)
+  \mathbf{f}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right) &
+  \mathbf{i}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{y}_{t-1} \right) &
+  \mathbf{o}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right)
 \end{align*}
-with separate weights~$W$ and recurrent weights~$U$ for each gate. The gate
-activation function~$\bm{\varphi}_\text{g}$ is the logistic function as it maps
-real values into the interval $[0, 1]$. Notably the gate activations depend on
-the input~$\mathbf{x}_t$ at time~$t$ as well as the output~$\mathbf{y}_{t-1}$ of
-the LSTM at the previous time step\todo{such that memory access patterns depend
-  on the inputs and history}. To understand how the gating controls the flow of
-information in a LSTM one looks at the update of the cell state $\mathbf{c}$
-with each time step:
+with separate weights~$W$ and recurrent weights~$U$ for each gate. The
+element-wise logistic function~$\bm{\sigma}$ is used to map the gate activations
+into the interval $[0, 1]$. Notably the gate activations depend on the
+input~$\mathbf{x}_t$ at time~$t$ as well as the output~$\mathbf{y}_{t-1}$ of the
+LSTM at the previous time step. To understand how the gating controls the flow
+of information in a LSTM one looks at the update of the cell state~$\mathbf{c}$
+with each time step \cite{graves, goodfellow_dl}
 \begin{align*}
   \mathbf{c}_{t} &= \mathbf{f}_{t} \circ \mathbf{c}_{t-1}
                    + \mathbf{i}_{t} \circ \bm{\varphi}_{\text{c}}(
                    \mathbf{W}_{\text{c}} \mathbf{x}_{t}+ \mathbf{U}_{\text{c}}
                    \mathbf{y}_{t-1} ) \eqcomma
 \end{align*}
-where $\circ$ denotes the element-wise multiplication of two column vectors and
-the activation function~$\bm{\varphi}$ commonly chosen to be the hyperbolic
-tangent. Similar to the Simple Recurrent Networks the initial cell state
-$\mathbf{c}_0$ and output $\mathbf{y}_0$ are set to $\mathbf{0}$. The input gate
-controls how much information from the input~$\mathbf{x}_t$ and
-output~$\mathbf{y}_{t-1}$ is taken into the cell state therefore avoiding the
-inclusion of irrelevant information. A main feature of the LSTM architecture is
-the direct connection of cell states between two successive time steps via the
-forget gate solving the \emph{vanishing gradient problem} \cite{lstm, graves}.
-The forget gate enables the network to gradually reset its internal state once
-stored information has become irrelevant. Finally the output~$\mathbf{y}_t$ is
-calculated using
+where $\circ$ denotes the element-wise product of two column vectors and the
+activation function~$\bm{\varphi}_c$ is the hyperbolic tangent in the
+implementation \cite{keras} used in this thesis. Similar to the Simple Recurrent
+Networks the initial cell state $\mathbf{c}_0$ and output $\mathbf{y}_0$ are set
+to $\mathbf{0}$. The input gate controls how much information from the
+input~$\mathbf{x}_t$ and previous output~$\mathbf{y}_{t-1}$ is taken into the
+cell state therefore avoiding the inclusion of irrelevant information. A main
+feature of the LSTM architecture is the direct connection of cell states between
+two successive time steps via the forget gate solving the \emph{vanishing
+  gradient problem} \cite{lstm, graves}. The forget gate enables the network to
+gradually reset its internal state once stored information has become
+irrelevant. Finally the output~$\mathbf{y}_t$ is calculated using \cite{graves,
+  goodfellow_dl}
 \begin{align*}
   \mathbf{y}_{t} &= \mathbf{o}_{t} \circ \bm{\varphi}_{\text{y}}(\mathbf{c}_{t}) \eqcomma
 \end{align*}
-where~$\bm{\varphi}_\text{y}$ is usually the hyperbolic tangent. The activation
-of the output gate determines how much of the cell state is presented at the
-output of the network. Overall the multiplicative gating of the LSTM allows
-information to persist in its internal state over a long period of time with
-gates resembling the write, read and reset gates of conventional memory cells.
-Alternative architectures to LSTMs exist like \emph{Gated Recurrent Units} but
-were not explored in this thesis.
+where~$\bm{\varphi}_\text{y}$ is the hyperbolic tangent. The activation of the
+output gate determines how much of the cell state is presented at the output of
+the network. Overall the multiplicative gating of the LSTM allows information to
+persist in its internal state over a long period of time with gates resembling
+the write, read and reset gates of conventional memory cells. Alternative
+architectures to LSTMs exist (e.g.\ \emph{Gated Recurrent Units}) but were not
+investigated.
 
 \section{Technical Setup}
 \label{sec:tech_setup}
 
-In this thesis the \emph{Toolkit for Multivariate Analyses} (TMVA) \cite{tmva}
-is used for the BDT-based studies on tau identification in
-chapter~\ref{sec:bdt}. The multivariate methods used in the reconstruction of
-hadronic tau decays currently in use in the ATLAS experiment exclusively used
-this toolset.
+In this thesis the \emph{Toolkit for Multivariate Data Analysis with
+  ROOT}~(TMVA)~\cite{tmva} is used for the BDT-based studies on tau
+identification in chapter~\ref{sec:bdt}. This framework is extensively used for
+evaluating multivariate algorithms for the reconstruction of hadronic tau lepton
+decays in the ATLAS experiment.
 
 The neural network based studies in chapters~\ref{sec:rnn}
 and~\ref{sec:decaymode} use the \texttt{keras} framework~\cite{keras} which
@@ -444,15 +445,14 @@ when building neural networks. The \texttt{theano} backend~\cite{theano} is used
 in \texttt{keras} performing fast computation of mathematical expressions for
 training and evaluation of the networks. For the initial preprocessing of the
 data the \texttt{numpy} \cite{numpy} and \texttt{scipy} \cite{scipy} packages
-are used. The training of the neural networks is done using the \emph{Adam}
-optimiser~\cite{adam} which is an stochastic gradient descent algorithm with
-adaptive learning rates offering quick convergence in training with little
-tuning of the optimser's parameters. The layers implemented in \texttt{keras}
-used in this thesis are: \emph{Dense} (densely-connected layer), \emph{LSTM},
-\emph{Merge} (concatenates outputs from multiple layers), \emph{Masking} (skips
-inputs in recurrent networks filled with a default value -- implementation
-detail of no further importance). Moreover all layers use biases which have
-previously been omitted.
+are used. The training of the neural networks uses the \emph{Adam}
+optimiser~\cite{adam} which is a stochastic gradient descent algorithm with
+adaptive learning rates offering quick convergence with little parameter tuning.
+The layers used in this thesis are (using the \texttt{keras} naming convention):
+\emph{Dense}~(densely-connected layer), \emph{LSTM}, \emph{Merge}~(concatenates
+outputs from multiple layers), \emph{Masking}~(skips inputs in recurrent
+networks filled with a predefined default value). Moreover the \emph{Dense} and
+\emph{LSTM} layers use biases which have previously been omitted.
 
 %%% Local Variables:
 %%% mode: latex
