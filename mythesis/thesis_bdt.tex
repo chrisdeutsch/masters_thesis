@@ -178,21 +178,29 @@ different BDTs for 1- and 3-prong candidates.
   \label{tab:baseline_variables}
 \end{table}
 
-\subsection{BDT-Setup}
-
-\begin{align*}
-  N_\text{trees} &= 100 & d_\text{tree} &= 8 & \beta &= 0.2 \\
-  f_\text{node}^\text{min} &= \SI{0.1}{\percent} & N_\text{cuts} &= 200
-\end{align*}n
-as well as \texttt{UseYesNoLeaf} and no pruning.
-
-This is used as a starting point for further optimisations implemented in this
-thesis.
-
-Transformations? highly skewed and long-tailed distributions
-
-\todo{Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
+\todo[inline]{Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
   motivate the use of MVA methods / BDTs}
+
+\subsection{BDT-Setup}
+The current implementation of the tau identification algorithm in the ATLAS
+reconstruction framework uses BDTs trained with TMVA~\cite{tmva}. \todo{The
+  config before the implementing the work in this thesis was:} The maximum depth
+of individual decision trees are limited to $d_\text{tree} = 8$ and the minimum
+fraction of events contained in a node considered for further splitting
+is~$f_\text{node}^\text{min} = \SI{0.1}{\percent}$. An ensemble
+of~$N_\text{trees} = 100$ decision trees is trained using the \emph{AdaBoost}
+algorithm with a learning rate $\beta = 0.2$, which determines the factor
+multiplying the weight of incorrectly classified training examples (i.e.\ larger
+learning rates increase this factor). The decision trees return estimated class
+probabilities and no \emph{pruning} of statistically insignificant splits is
+applied. This configuration is used as a starting point for further
+optimisations.
+
+% \begin{align*}
+%   N_\text{trees} &= 100 & d_\text{tree} &= 8 & \beta &= 0.2 \\
+%   f_\text{node}^\text{min} &= \SI{0.1}{\percent} & N_\text{cuts} &= 200
+% \end{align*}n
+% as well as \texttt{UseYesNoLeaf} and no pruning.
 
 \section{Event Simulation, Reweighting and Preselection}
 \label{sec:bdt_eventsim}
@@ -261,7 +269,10 @@ A full summary of the datasets is given in appendix \todo{Reference}.
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
-\todo[inline]{Brief explanation of the hyperparameters!}
+\todo[inline]{
+  Transformations? highly skewed and long-tailed distributions
+  Brief explanation of the hyperparameters!
+}
 
 TMVA \cite{tmva}.
 
