@@ -131,7 +131,8 @@ function
   L\left(y, f(x)\right) = \log\left( 1 + \exp(- 2 y f(x)) \right)
 \end{align*}
 is used, which is empirically shown to be less susceptible to noise and outliers
-than \emph{AdaBoost} \cite{esl, schapire_boosting}.
+(i.e.\ examples with large negative margins~$y f(x)$) than \emph{AdaBoost}
+\cite{esl, schapire_boosting}.
 % The reason is that the
 % exponential loss applies a larger penalty to training examples with large
 % negative margins~$y f(x)$, e.g.\ outliers.
