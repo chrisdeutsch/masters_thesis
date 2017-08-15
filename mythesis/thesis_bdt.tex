@@ -70,7 +70,6 @@ purpose of the reconstruction of hadronic tau decays EM3 is already considered
 to be part of the hadronic calorimeter, as only the charged pions deposit energy
 in this layer.
 
-
 The variables defined in \cite{atlas:taurec:run2} are updated to contain the
 latest changes in the reconstruction, the largest being the introduction of the
 multivariate track classification algorithm. They target the features of
@@ -88,18 +87,17 @@ hadronic tau decays discussed in section~\ref{sec:features_tau_decay} \todo{Also
   ($f_\text{leadtrack}^{-1}$):] Fraction of transverse energy (EM scale)
   deposited in calorimeter cells (matched to \emph{TopoClusters}) with a
   barycentre in a cone of radius~$\Delta R < 0.2$ with respect to the tau axis
-  \todo{intermediate axis} and the transverse momentum of the highest transverse
-  momentum track classified as \emph{charged} according to the track
-  classification \todo{ref}.
+  and the transverse momentum of the highest transverse momentum track
+  classified as \emph{charged} according to the track classification (cf.\
+  section~\ref{sec:reco_track_sel_classif}).
 
-\item[Track radius ($R_\text{track}$):] Mean $\Delta R$-distance of the
-  tau axis \todo{intermediate axis} and tracks classified as \emph{charged}
-  weighted by the transverse momentum~$p_\text{T}$ of each track.
+\item[Track radius ($R_\text{track}$):] Mean $\Delta R$-distance of the tau axis
+  and tracks classified as \emph{charged} weighted by the transverse
+  momentum~$p_\text{T}$ of each track.
 
 \item[Maximum track $\Delta R$ ($\Delta R_\text{max}$):] Maximum
   $\Delta R$-distance of all tracks classified as \emph{charged} with respect to
-  the tau axis \todo{intermediate axis}. Equivalent to $R_\text{track}$
-  for 1-prong hadronic tau decays.
+  the tau axis. Equivalent to $R_\text{track}$ for 1-prong hadronic tau decays.
 
 \item[Transverse impact parameter significance of the leading track
   ($| S_\text{leadtrack} |$):] Absolute value of the transverse impact
@@ -143,8 +141,8 @@ hadronic tau decays discussed in section~\ref{sec:features_tau_decay} \todo{Also
   tracks (assuming $\pi^\pm$ mass) and up to two of the most-energetic clusters
   (assuming zero mass) in the electromagnetic part of the calorimeter.
 
-\item[Mass of the track system ($m_\text{track}$):] Invariant mass of
-  the system consisting of tracks classified as \emph{charged} using a $\pi^\pm$ mass
+\item[Mass of the track system ($m_\text{track}$):] Invariant mass of the system
+  consisting of tracks classified as \emph{charged} using a $\pi^\pm$ mass
   hypothesis.
 \end{description}
 \begin{figure}[t]
