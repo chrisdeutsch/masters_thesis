@@ -104,28 +104,28 @@ on the tau axis (corrected for the PV).
 %
 % Dirk's talk in TauCP:
 % https://indico.cern.ch/event/615208/contributions/2481630/attachments/1415563/2167141/TauCP_TrackClassificationTaskforce_20170220.pdf
+\todo[inline]{This is new}
 For each track a multi-class classification is performed categorising them in to
 four track-categories: charged (TT), conversion (CT), isolation (IT) and fake
 (FT). Charged or tau-tracks are charged pion tracks from the decay of the
 tau-lepton, conversion tracks are long-lived secondary particles from converted
 photons (e.g.\ from $\pi^0$-decays) or hadronic interactions, isolation tracks
 are primary particles that are not originating from the tau-decay and includes
-tracks from the underlying event, fake tracks are reconstructed tracks with a low
-truth-matching probability in simulation (i.e.\ tracks reconstructed from
-pile-up hits?). \todo{Does this make sense?}. This is
-done using three boosted decision trees performing binary classifications of the
-charged \& conversion vs.\ isolation \& fake categories and subsequently
-classifying (in preliminary categories) charged vs.\ conversion and isolation
-vs.\ fake. \todo{Figure with schematic of BDT setup, Input variables} The charge
-of the reconstructed tau-lepton is calculated by summing the track charge of all
-tracks classified as 'charged' which also defines the \todo{prongness} of the
-decay. This algorithm is optimised to classify the tracks such that the tau is
-reconstructed with the correct number of charged tracks (i.e.\ 1 or 3) to
-improve reconstruction efficiency \todo{This is a problem for algorithms relying
-  on isolation/fake tracks}. For identification purposes an additional
-classification as 'modified isolation tracks' was introduced given by tracks
-that are not classified as 'charged' and fulfil track selection
-criteria\footnote{Transverse momentum:
+tracks from the underlying event, fake tracks are reconstructed tracks with a
+low truth-matching probability in simulation (i.e.\ tracks reconstructed from
+pile-up hits?). \todo{Does this make sense?}. This is done using three boosted
+decision trees performing binary classifications of the charged \& conversion
+vs.\ isolation \& fake categories and subsequently classifying (in preliminary
+categories) charged vs.\ conversion and isolation vs.\ fake. \todo{Figure with
+  schematic of BDT setup, Input variables} The charge of the reconstructed
+tau-lepton is calculated by summing the track charge of all tracks classified as
+'charged' which also defines the \todo{prongness} of the decay. This algorithm
+is optimised to classify the tracks such that the tau is reconstructed with the
+correct number of charged tracks (i.e.\ 1 or 3) to improve reconstruction
+efficiency \todo{This is a problem for algorithms relying on isolation/fake
+  tracks}. For identification purposes an additional classification as 'modified
+isolation tracks' was introduced given by tracks that are not classified as
+'charged' and fulfil track selection criteria\footnote{Transverse momentum:
   $p_\mathrm{T} > \SI{1}{\giga\electronvolt}$, Impact parameters w.r.t.\ the
   interaction point (TJVA): $d_0^\text{IP} < \SI{1}{mm}$,
   $|z_0^\text{IP}| \sin\theta < \SI{1.5}{mm}$; Track quality criteria:
