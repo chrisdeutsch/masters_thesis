@@ -202,49 +202,57 @@ optimisations.
 % \end{align*}n
 % as well as \texttt{UseYesNoLeaf} and no pruning.
 
-\section{Event Simulation, Reweighting and Preselection}
+\section{Event Simulation, Preselection and Reweighting}
 \label{sec:bdt_eventsim}
 
-\todo[inline]{Signal}
-For training and performance evaluation simulated data is used. For tau
-performance trainings and tunings a sample created by the process
-$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used, where at
-generator-level leptonic decays of the tau is disabled. Moreover interference
-with and on-/ off-shell production of the $\mathrm{Z}^0$ boson is disabled. The
-reason for not using a sample employing the Drell--Yan process including
-interference and on- / off-shell production of the $\mathrm{Z}^0$ boson is that
-the tau polarisation changes for di-tau invariant masses close to the
-$\mathrm{Z}$-mass whereas unpolarised taus are desired. Moreover the di-tau mass
-spectrum is smooth and decreasing without increased statistics close to the
-$\mathrm{Z}$ mass which is not needed for performance studies.
+\todo[inline]{$\sqrt{s} = \SI{13}{\tera\electronvolt}$, $\mu = \num{30}$}
 
-The background for the identification studies is given by dijet samples up to
-\SI{1800}{\giga\electronvolt} (JZ1W - JZ6W). \todo[inline]{Finish this; Fraction
-  of the mass slices -- high pt enhanced; why not JZ0W -- very low pt / not
-  passing 20 GeV cut?}
+For training and performance evaluation of the models simulated data is used.
+The signal samples (i.e.\ hadronic tau lepton decays) are created by the process
+$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$, where at generator-level
+leptonic decays are disabled. Moreover interference with and on-/ off-shell
+production of the $\mathrm{Z}^0$ boson is disabled. The reason for not using a
+sample employing the Drell--Yan process including interference and on- /
+off-shell production of the $\mathrm{Z}^0$ boson is that the tau polarisation
+changes for di-tau invariant masses close to the $\mathrm{Z}$-mass whereas
+unpolarised taus are desired. Moreover the di-tau mass spectrum is smooth and
+decreasing without increased statistics close to the $\mathrm{Z}$ mass which is
+not needed for performance studies. The background for the identification
+studies uses simulated dijet events with anti-$k_\text{T}$ truth jets (distance
+parameter $R = 0.6$) with transverse momenta up
+to~\SI{1800}{\giga\electronvolt}. A complete summary of the event samples can be
+found in appendix~\ref{app:preprod_taus} and~\ref{app:preprod_dijets}. Both the
+signal and the background samples are generated using \textsc{Pythia}~8 with the
+A14 tune and leading order PDFs NNPDF23LO. \textsc{EvtGen} is used for b
+fragmentation. The quark-gluon fraction is approximately \SI{60}{\percent}.
 
-Baseline tau selection:
-\begin{itemize}
-\item $p_\text{T} > \SI{20}{\giga\electronvolt}$ (sufficient for most analyses)
-\item Exclude calorimeter transition region $1.37 < |\eta| < 1.52$
-\item Require tracker acceptance region $|\eta| < 2.5$
-\item One or three reconstructed tracks
-\item Truth-matching for signal events ($p_\text{T}$, $\eta$ and
-  $N_\text{track}$ selection also at truth-level)
-\end{itemize}
+\begin{table}[htb]
+  \centering
+  \input{./tables/sample_size.tex}
+  \caption{Number of candidates after baseline tau selection.}
+  \label{tab:sample_size}
+\end{table}
 
-Size of the pre-production samples after baseline tau selection:
-\begin{itemize}
-\item Signal: 13.3 M (1P: 10.5 M, 3P: 2.8 M)
-\item Background: 22.1 M (1P: 6.6 M, 3P: 15.5 M)
-\end{itemize}
+A preselection is applied to the event samples to match typical selections
+applied at analysis level. Therefore the identification studies focus on
+candidates with visible transverse
+momenta~$p_\text{T} > \SI{20}{\giga\electronvolt}$. Reconstructed taus are
+required to fall into the acceptance region of the tracking
+system~$|\eta| < 2.5$ while rejecting candidates in the transition region
+between barrel and end-cap of the calorimeter~$1.37 < |\eta| < 1.52$. The number
+of reconstructed tracks (i.e.\ tracks classified as \emph{charged}) must be one
+or three. Candidates in the signal samples are truth-matched to taus at
+generator-level and the same selections (i.e.\ transverse momentum,
+pseudorapidity, number of charged hadrons in the decay) are applied at
+truth-level. The number of tau candidates after this baseline selection is
+summarised in table~\ref{tab:sample_size}. Due to the small branching ratio of
+3-prong tau decays
 
-\todo[inline]{Reweighting, Quark-Gluon Fraction (3P: \SI{55}{\percent} excluding
-  bottom, \SI{58}{\percent} including bottom) (1P: \SI{55}{\percent} excluding
-  bottom, \SI{59}{\percent} including bottom); approx.\ \SI{60}{\percent}
-  quark-gluon fraction}
 
-A full summary of the datasets is given in appendix \todo{Reference}.
+% \todo[inline]{Reweighting, Quark-Gluon Fraction (3P: \SI{55}{\percent} excluding
+%   bottom, \SI{58}{\percent} including bottom) (1P: \SI{55}{\percent} excluding
+%   bottom, \SI{59}{\percent} including bottom); approx.\ \SI{60}{\percent}
+%   quark-gluon fraction}
 
 \begin{figure}[htb]
   \centering
