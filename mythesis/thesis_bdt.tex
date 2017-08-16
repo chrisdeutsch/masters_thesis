@@ -284,16 +284,19 @@ the reconstructed transverse momentum.
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
+Will optimise the hyperparameters of the identification algorithm (i.e.\
+parameters that are not learned during training). Look at boosting algorithm
+then optimise parameters using a grid search.
 
-\todo[inline]{
-  Transformations? highly skewed and long-tailed distributions
-  Brief explanation of the hyperparameters!
-}
+The input variables are transformed -- log, clamping where needed (this is a
+technical detail). Highly skewed and long-tailed distributions.
 
-TMVA \cite{tmva}.
+Brief explanation of hyperparameters and their interconnection.
 
 Before proceeding to feature selection a reliable hyperparameter setup has to be
 found.
+
+TMVA \cite{tmva}.
 
 Pick the best-performing BDT \& a good compromise between 'overtraining' and
 performance.
