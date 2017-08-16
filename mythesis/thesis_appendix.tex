@@ -66,6 +66,9 @@ Truth $p_\mathrm{T}$ of jet given by anti-$k_\mathrm{T}$ jet algorithm with dist
 
 \subsection{Preproduction Dijets}
 \label{app:preprod_dijets}
+For the tau identification studies the momentum slices (JZ1W to JZ6W) are
+combined without cross section weighting as the sizes of the generated slices
+are chosen such that high momentum candidates are enhanced.
 
 \begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
   mc16_13TeV.361021.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1W.merge.AOD.e3569_s2997_r9064_r8996
@@ -217,6 +220,15 @@ Dijets (extended layout):
   \end{subfigure}
   \caption[]{Variables used in Tau-ID BDT}
 \end{figure}
+
+\clearpage
+\section{Transformed Variables}
+
+\begin{table}[htb]
+  \centering
+  \input{./tables/var_transformations.tex}
+  \caption{Transformation applied to the input variables}
+\end{table}
 
 \clearpage
 \section{Decay Mode Classification using Recurrent Neural Networks}

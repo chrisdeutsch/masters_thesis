@@ -245,37 +245,45 @@ or three. Candidates in the signal samples are truth-matched to taus at
 generator-level and the same selections (i.e.\ transverse momentum,
 pseudorapidity, number of charged hadrons in the decay) are applied at
 truth-level. The number of tau candidates after this baseline selection is
-summarised in table~\ref{tab:sample_size}. Due to the small branching ratio of
-3-prong tau decays
-
-
-% \todo[inline]{Reweighting, Quark-Gluon Fraction (3P: \SI{55}{\percent} excluding
-%   bottom, \SI{58}{\percent} including bottom) (1P: \SI{55}{\percent} excluding
-%   bottom, \SI{59}{\percent} including bottom); approx.\ \SI{60}{\percent}
-%   quark-gluon fraction}
+summarised in table~\ref{tab:sample_size}.
 
 \begin{figure}[htb]
   \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/pt_mu_samples/mu.pdf}
+    \subcaption{Average number of interactions per bunch crossing~$\mu$
+      ($\langle \mu \rangle = 30$)}
+  \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/pt_mu_samples/pt.pdf}
     \subcaption{Transverse momentum spectrum of reconstructed tau candidates
       after baseline selection in $\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$
       and dijet samples with mass slices JZ1W to JZ6W.}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/pt_mu_samples/mu.pdf}
-    \subcaption{Average number of interactions per bunch crossing $mu$
-      ($\langle \mu \rangle = 30$)}
   \end{subfigure}
   \caption{Transverse momentum $p_\text{T}$ of tau candidates and pile-up
     spectrum of the samples.}
   \label{fig:pt_mu}
 \end{figure}
 
+In figure~\ref{fig:pt_mu} the distribution of reconstructed transverse
+momenta~$p_\text{T}$ of tau candidates in the signal and background samples is
+shown. Since the samples are created using different processes the
+$p_\text{T}$-spectrum differ for both samples. When training the identification
+algorithms distinguish signal and background by the momentum spectrum alone.
+Therefore weights are applied to each tau candidates in the background sample
+such that the weighted signal and background samples are indistinguishable in
+the reconstructed transverse momentum.
+
+% \todo[inline]{Reweighting, Quark-Gluon Fraction (3P: \SI{55}{\percent} excluding
+%   bottom, \SI{58}{\percent} including bottom) (1P: \SI{55}{\percent} excluding
+%   bottom, \SI{59}{\percent} including bottom); approx.\ \SI{60}{\percent}
+%   quark-gluon fraction}
+
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
+
 
 \todo[inline]{
   Transformations? highly skewed and long-tailed distributions
@@ -283,8 +291,6 @@ summarised in table~\ref{tab:sample_size}. Due to the small branching ratio of
 }
 
 TMVA \cite{tmva}.
-
-Quickly describe previous setup.
 
 Before proceeding to feature selection a reliable hyperparameter setup has to be
 found.
@@ -715,22 +721,6 @@ Performance on TAUP4 (?)
   \item nCuts 200 (explain)
   \item MaxDepth 8 (explain)
   \end{itemize}
-
-\item Variable transformations (log, clamp, uniformization)
-  \begin{align}
-    &\text{SumPtTrkFrac:} &\log(x + 10^{-4}) \\
-    &\text{absipSigLeadTrk:} &\min(x, 30) \\
-    &\text{mEflowApprox:} &\log(x) \\
-    &\text{centFrac:} &\min(x, 1) \\
-    &\text{innerTrkAvgDist:} &- \\
-    &\text{ptRatioEflowApprox:} &\min(x, 4) \\
-    &\text{EMPOverTrkSysP:} &\log(\max(10^{-3}, x)) \\
-    &\text{etOverPtLeadTrk:} &\log(\max(0.1, x)) \\
-    &\text{ChPiEMEOverCaloEME:} &\max(-4, \min(x, 5)) \\
-    &\text{trFlightPathSig:} &\log(\max(0.01, x)) \\
-    &\text{massTrkSys:} &\log(x) \\
-    &\text{dRmax:} &-
-  \end{align}
 
 \item Variable importance (Google: Variable Importance Measures)
   \begin{itemize}
