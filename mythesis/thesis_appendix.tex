@@ -57,6 +57,8 @@ Truth $p_\mathrm{T}$ of jet given by anti-$k_\mathrm{T}$ jet algorithm with dist
   mc16_13TeV.425200.Pythia8EvtGen_A14NNPDF23LO_Gammatautau_MassWeight.merge.AOD.e5468_s2997_r9064_r8996
 \end{lstlisting}
 
+19974000 events
+
 \subsection{MC16A Taus}
 \label{sec:app_mc16a_taus}
 
@@ -64,11 +66,16 @@ Truth $p_\mathrm{T}$ of jet given by anti-$k_\mathrm{T}$ jet algorithm with dist
   mc16_13TeV.425200.Pythia8EvtGen_A14NNPDF23LO_Gammatautau_MassWeight.merge.AOD.e5468_s3126_r9364_r9315
 \end{lstlisting}
 
+29998000 events
+
 \subsection{Preproduction Dijets}
 \label{app:preprod_dijets}
 For the tau identification studies the momentum slices (JZ1W to JZ6W) are
 combined without cross section weighting as the sizes of the generated slices
-are chosen such that high momentum candidates are enhanced.
+are chosen such that high momentum candidates are enhanced. A cross section
+reweighting would significantly reduce the weights of high momentum slices with
+a large number of simulated events compared to the low momentum slices (JZ1W -
+JZ2W) where only a small number of events are simulated.
 
 \begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
   mc16_13TeV.361021.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1W.merge.AOD.e3569_s2997_r9064_r8996
@@ -78,6 +85,13 @@ are chosen such that high momentum candidates are enhanced.
   mc16_13TeV.361025.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ5W.merge.AOD.e3668_s2997_r9064_r8996
   mc16_13TeV.361026.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ6W.merge.AOD.e3569_s2997_r9064_r9078
 \end{lstlisting}
+
+JZ1W: 2020000 events \\
+JZ2W: 1994000 events \\
+JZ3W: 7801500 events \\
+JZ4W: 7973500 events \\
+JZ5W: 7948500 events \\
+JZ6W: 1981000 events \\
 
 \subsection{Upgrade Samples}
 Gammatautau (extended layout \cite{itk_layout_slides}):
@@ -103,6 +117,28 @@ Gammatautau (extended layout \cite{itk_layout_slides}):
   mc15_14TeV.301057.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4500M5000.recon.AOD.e5323_s2987_s2999_r8820
   mc15_14TeV.301058.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_5000M.recon.AOD.e5323_s2987_s2999_r8820
 \end{lstlisting}
+
+Ztautau: 300000
+120M180: 150000\\
+180M250: 150000\\
+250M400: 150000\\
+400M600: 147300\\
+600M800: 50000\\
+800M1000: 50000\\
+1000M1250: 50000\\
+1250M1500: 50000\\
+1500M1750: 49900\\
+1750M2000: 50000\\
+2000M2250: 49900\\
+2250M2500: 50000\\
+2500M2750: 50000\\
+2750M3000: 50000\\
+3000M3500: 50000\\
+3500M4000: 50000\\
+4000M4500: 50000\\
+4500M5000: 50000\\
+5000M: 49900
+
 Dijets (extended layout):
 \begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
   mc15_14TeV.147910.Pythia8_AU2CT10_jetjet_JZ0W.recon.AOD.e2403_s2987_s2999_r8820
@@ -114,6 +150,15 @@ Dijets (extended layout):
   mc15_14TeV.147916.Pythia8_AU2CT10_jetjet_JZ6W.recon.AOD.e2403_s2987_s2999_r8820
   mc15_14TeV.147917.Pythia8_AU2CT10_jetjet_JZ7W.recon.AOD.e2403_s2987_s2999_r8820
 \end{lstlisting}
+
+JZ0W:999500\\
+JZ1W:962300\\
+JZ2W:999500\\
+JZ3W:985400\\
+JZ4W:50000\\
+JZ5W:49650\\
+JZ6W:50000\\
+JZ7W:50000
 
 
 \clearpage
