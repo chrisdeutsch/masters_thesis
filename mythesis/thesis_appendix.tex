@@ -223,12 +223,83 @@ Dijets (extended layout):
 
 \clearpage
 \section{Transformed Variables}
+\label{app:variable_transforms}
 
 \begin{table}[htb]
   \centering
   \input{./tables/var_transformations.tex}
   \caption{Transformation applied to the input variables}
 \end{table}
+
+\clearpage
+\section{TMVA-BDT Configurations}
+\label{app:tmva_config}
+
+\noindent\textbf{Common for all configurations:}\\[0.3em]
+\begin{tabular}{ll}
+  \texttt{NegWeightTreatment} & \texttt{IgnoreNegWeightsInTraining} \\
+  \texttt{PruneMethod} & \texttt{NoPruning} \\
+  \texttt{SeparationType} & \texttt{GiniIndex} \\
+  \texttt{UseYesNoLeaf} & \texttt{False} \\
+  \texttt{nCuts} & 200
+\end{tabular}
+
+\vfill
+
+\noindent\textbf{Old configuration:}\\[0.3em]
+\begin{tabular}{ll}
+  \texttt{BoostType} & \texttt{AdaBoost} \\
+  \texttt{AdaBoostBeta} & 0.2 \\
+  \texttt{NTrees} & 100 \\
+  \texttt{MaxDepth} & 8 \\
+  \texttt{MinNodeSize} & 0.1 \\
+\end{tabular}
+
+\vfill
+
+\noindent\textbf{1-prong (Overtrained):}\\[0.3em]
+\begin{tabular}{ll}
+  \texttt{BoostType} & \texttt{Grad} \\
+  \texttt{Shrinkage} & 0.05 \\
+  \texttt{NTrees} & 800 \\
+  \texttt{MaxDepth} & 16 \\
+  \texttt{MinNodeSize} & 0.01 \\
+\end{tabular}
+
+\vfill
+
+\noindent\textbf{1-prong (cool):}\\[0.3em]
+\begin{tabular}{ll}
+  \texttt{BoostType} & \texttt{Grad} \\
+  \texttt{Shrinkage} & 0.1 \\
+  \texttt{NTrees} & 400 \\
+  \texttt{UseBaggedBoost} & \texttt{True} \\
+  \texttt{BaggedSampleFraction} & 0.5 \\
+  \texttt{MaxDepth} & 8 \\
+  \texttt{MinNodeSize} & 0.1 \\
+\end{tabular}
+
+\vfill
+
+\noindent\textbf{3-prong (Overtrained):}\\[0.3em]
+\begin{tabular}{ll}
+  \texttt{BoostType} & \texttt{Grad} \\
+  \texttt{Shrinkage} & 0.1 \\
+  \texttt{NTrees} & 800 \\
+  \texttt{MaxDepth} & 16 \\
+  \texttt{MinNodeSize} & 0.01 \\
+\end{tabular}
+
+\vfill
+
+\noindent\textbf{3-prong (cool):}\\[0.3em]
+\begin{tabular}{ll}
+  \texttt{BoostType} & \texttt{Grad} \\
+  \texttt{Shrinkage} & 0.4 \\
+  \texttt{NTrees} & 800 \\
+  \texttt{MaxDepth} & 6 \\
+  \texttt{MinNodeSize} & 0.1 \\
+\end{tabular}
 
 \clearpage
 \section{Decay Mode Classification using Recurrent Neural Networks}

@@ -194,7 +194,8 @@ multiplying the weight of incorrectly classified training examples (i.e.\ larger
 learning rates increase this factor). The decision trees return estimated class
 probabilities and no \emph{pruning} of statistically insignificant splits is
 applied. This configuration is used as a starting point for further
-optimisations.
+optimisations. The full configuration of the TMVA-BDTs can be found in
+appendix~\ref{app:tmva_config}.
 
 % \begin{align*}
 %   N_\text{trees} &= 100 & d_\text{tree} &= 8 & \beta &= 0.2 \\
@@ -284,37 +285,35 @@ the reconstructed transverse momentum.
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
-Will optimise the hyperparameters of the identification algorithm (i.e.\
-parameters that are not learned during training). Look at boosting algorithm
-then optimise parameters using a grid search.
+Machine learning algorithms have hyperparameters defining the complexity of the
+model that cannot be determined as part of the training process. Often these
+parameters need problem specific tuning to obtain the highest discriminative
+power for a given algorithm. The BDTs of the 1- and 3-prong tau identification
+are optimised separately with respect to the boosting algorithm used and the
+most important hyperparameters.
 
-The input variables are transformed -- log, clamping where needed (this is a
-technical detail). Highly skewed and long-tailed distributions.
-
-Brief explanation of hyperparameters and their interconnection.
-
-Before proceeding to feature selection a reliable hyperparameter setup has to be
-found.
-
-TMVA \cite{tmva}.
-
-Pick the best-performing BDT \& a good compromise between 'overtraining' and
-performance.
-
-Optimised for tight efficiency w/o subsampling:
-\begin{itemize}
-\item \textbf{Best performance 1P:} MaxDepth: 16, MinNodeSize: 0.01, NTrees:
-  400, Shrinkage: 0.05, ratio: 0.997 \textrightarrow alg 244
-\item \textbf{Compromise 1P:} MaxDepth: 8, MinNodeSize: 0.1, NTrees: 400,
-  Shrinkage: 0.1, sumsampling: 50\%, ratio: 0.977 \textrightarrow alg 321
-\item \textbf{Best performance 3P:} MaxDepth: 16, MinNodeSize: 0.01, NTrees:
-  400, Shrinkage: 0.4, ratio: 0.998 \textrightarrow 259
-\item \textbf{Compromise 3P:} MaxDepth: 6, MinNodeSize: 0.1, NTrees: 800,
-  Shrinkage: 0.4, ratio: 0.964 \textrightarrow alg 327
-\end{itemize}
+Some input variables have highly skewed and long-tailed distributions leading to
+suboptimal decision trees as TMVA uses equidistant sampling points for finding
+the best possible split on a given variable. Therefore transformations are
+applied to the input variables to improve . For this highly skewed distributions
+are log-transformed while long-tailed distributions and outliers due to detector
+resolution effects are clamped to fall into a specified range of values. The
+exact transformations can be found in appendix~\ref{app:variable_transforms}.
 
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
+
+
+
+
+
+
+
+Boosting algorithms AdaBoost
+
+Quantities inherently noisy
+
+
 AdaBoost \textrightarrow GradBoost
 
 \begin{figure}[ht]
@@ -341,6 +340,9 @@ AdaBoost \textrightarrow GradBoost
 
 \subsection{Exhaustive Grid Search}
 \label{sec:bdt_grid_search}
+
+\todo[inline]{Brief explanation of hyperparameters and their interconnection.}
+Optimised for tight efficiency w/o subsampling:
 
 \begin{align*}
   N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} &
@@ -582,7 +584,8 @@ Signal efficiencies 1P (3P):
 
 \section{Feature Selection}
 \label{sec:bdt_feature_selection}
-
+Before proceeding to feature selection a reliable hyperparameter setup has to be
+found.
 \subsection{Transverse Momentum Dependency of Features}
 \label{sec:bdt_incl_pt}
 
