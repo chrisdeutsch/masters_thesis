@@ -350,14 +350,23 @@ weight on misclassified events ($y f(x) < 0$) such that it is more robust for
 problems where signal and background are inseparable in certain regions of phase
 space. For the tau identification algorithm this is often the case for jets
 initiated by light quarks which more closely resemble hadronic decays of tau
-leptons in the variables used for identification.
+leptons in the variables used for identification. Gradient Boosting is used for
+further optimisation steps.
 
-\subsection{Exhaustive Grid Search}
+\subsection{Grid Search}
 \label{sec:bdt_grid_search}
+
+Number of trees $N_\text{trees}$ \\
+Learning rate or shrinkage $\eta$ \\
+Maximum tree depth $d_\text{tree}$ \\
+Fraction of events required for further node-splitting $f_\text{node}^\text{min}$ \\
+Bag fraction $f_\text{bag}$ \\
+
+
+
 
 \todo[inline]{Brief explanation of hyperparameters and their interconnection.}
 Optimised for tight efficiency w/o subsampling:
-
 \begin{align*}
   N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} &
   d_\mathrm{tree} &\in \{4, 6, 8, 12, 16\} \\
