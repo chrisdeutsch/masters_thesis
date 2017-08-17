@@ -303,40 +303,54 @@ exact transformations can be found in appendix~\ref{app:variable_transforms}.
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
 
+In chapter~\ref{sec:ml_boosting} two boosting algorithms \emph{AdaBoost} and
+\emph{Gradient Boosting} were introduced. They are compared by training BDTs for
+both algorithms and varying a boosting-specific parameter called the learning
+rate. The learning rate for \emph{AdaBoost} is typically denoted by~$\beta$
+while for the case of gradient boosting it is called \emph{shrinkage}~$\eta$.
+Reducing the learning rate artificially slows down the boosting process by
+causing additional trees to have a smaller impact on the ensemble.
 
+The 1-prong tau identification BDTs with the input variables and configuration
+summarised in section~\ref{sec:bdt_tauid} are trained on tau candidates from the
+signal and background samples (cf.\ section~\ref{sec:bdt_eventsim}). The
+learning rates for \emph{AdaBoost} and \emph{Gradient Boosting} are varied from
+0.05 to 1.0 and the background rejection is calculated for a fixed signal
+efficiency of \SI{60}{\percent}. For this a cut value on the output score of the
+BDT is determined such that \SI{60}{\percent} of the tau candidates in the
+signal sample pass this selection.
 
-
-
-
-
-Boosting algorithms AdaBoost
-
-Quantities inherently noisy
-
-
-AdaBoost \textrightarrow GradBoost
-
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/boosting.pdf}
-    \subcaption{Impact of the boosting algorithm. $N_\text{trees} = 100$,
-      $d_\text{tree} = 8$, $f_\text{node}^\text{min} = \SI{0.1}{\percent}$ and
-      varying the learning rate $\beta$~(\emph{AdaBoost}) and $\eta$~(Gradient
-      Boosting) respectively.}
+    \subcaption{Rejection of 1-prong tau candidates from dijet events using BDTs
+      trained with different boosting algorithms.}
     \label{fig:bdt_boosting_alg}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering \includegraphics{./figures/theory/boosting_loss.pdf}
-    \subcaption{Loss function vs.\ margin adapted from \cite{esl}. Class label
-      $y \in \{-1, 1\}$ (signal: 1 / background: -1) and $f(x) \in [-1, 1]$ the
-      BDT response.}
+    \subcaption{Loss function of \emph{AdaBoost} (exp.\ loss), \emph{Gradient
+        Boosting} (binom.\ log-likelihood loss) as a function of the
+      margin~$y f(x)$ (true class $y \in \{-1, 1\}$, BDT score
+      $f(x) \in [-1, 1]$).}
     \label{fig:boosting_loss}
+    \todo[inline]{Margin from -1 to 1}
   \end{subfigure}
   \caption{Loss function investigation}
 \end{figure}
 
-\todo{Why no full optimisation of the hyperparameters?}
+In figure~\ref{fig:bdt_boosting_alg} the rejection is shown as a function of the
+learning rate for both the \emph{AdaBoost} and \emph{Gradient Boosting}
+algorithm. An improvement in rejection of approximately \SI{10}{\percent} is
+observed when using \emph{Gradient Boosting}. The reason for this improvement is
+the robust loss function used in the \emph{Gradient Boosting} implementation of
+TMVA. The loss function (shown in figure~\ref{fig:boosting_loss}) puts less
+weight on misclassified events ($y f(x) < 0$) such that it is more robust for
+problems where signal and background are inseparable in certain regions of phase
+space. For the tau identification algorithm this is often the case for jets
+initiated by light quarks which more closely resemble hadronic decays of tau
+leptons in the variables used for identification.
 
 \subsection{Exhaustive Grid Search}
 \label{sec:bdt_grid_search}
