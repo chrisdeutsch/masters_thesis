@@ -355,18 +355,24 @@ further optimisation steps.
 
 \subsection{Grid Search}
 \label{sec:bdt_grid_search}
+Aside from the boosting algorithm BDTs have important hyperparameters that need
+to be optimised to obtain the best possible performance. These are the number of
+trees~$N_\text{trees}$ in the ensemble and the learning rate~$\eta$, which are
+boosting-specific parameters and are related as small learning rates require a
+larger number of trees to converge. In addition the maximum tree
+depth~$d_\text{tree}$ and the fraction of events required for node
+splitting~$f_\text{node}^\text{min}$. Both parameters limit the depth of a tree
+and therefore the allowed order of variable interactions in a single tree (e.g.\
+$d_\text{tree} = 2$ allows interactions of up to two variables). Finally bagged
+boosting is investigated where each tree is grown using a random sample of
+training events drawn with replacement from the full training sample. This
+method aims to reduce overfitting (i.e.\ trees learning statistical fluctuations
+in the training sample) and the corresponding hyperparameter is the fraction of
+events~$f_\text{bag}$ in the random sample.
 
-Number of trees $N_\text{trees}$ \\
-Learning rate or shrinkage $\eta$ \\
-Maximum tree depth $d_\text{tree}$ \\
-Fraction of events required for further node-splitting $f_\text{node}^\text{min}$ \\
-Bag fraction $f_\text{bag}$ \\
-
-
-
-
-\todo[inline]{Brief explanation of hyperparameters and their interconnection.}
-Optimised for tight efficiency w/o subsampling:
+These hyperparameters are optimised by forming a grid in the parameter space and
+training and evaluating a BDT trained for each point on this grid. The grid is
+parametrised by the following parameter planes
 \begin{align*}
   N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} &
   d_\mathrm{tree} &\in \{4, 6, 8, 12, 16\} \\
@@ -374,7 +380,11 @@ Optimised for tight efficiency w/o subsampling:
   f_\mathrm{node}^\mathrm{min} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} \\
   f_\text{bag} &\in \{\text{None}, \SI{50}{\percent} \}
 \end{align*}
-Total of $6 \times 5 \times 4 \times 3 \times 2 = 720$
+resulting in a total of 720 grid points.
+
+
+Optimised for tight efficiency w/o subsampling:
+
 
 Explain why for 1-prong a subsampling model is better than for 3-prong. The
 1-prong case seems to be limited by background statistics while the 3-prong case
