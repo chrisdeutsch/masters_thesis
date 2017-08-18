@@ -2,6 +2,8 @@
 \chapter{Machine Learning}
 \label{sec:ml}
 
+\todo[inline]{Make consistent usage of: Observation, example, event, item, etc.}
+
 Machine learning is the study of algorithms that learn structure from data
 (called training data) and can subsequently be used to make predictions on
 unseen data. Examples for such algorithms are \emph{Boosted Decision Trees}
@@ -9,35 +11,36 @@ unseen data. Examples for such algorithms are \emph{Boosted Decision Trees}
 without the need to supply an explicitly derived rule-set or functional form.
 They often offer superior performance compared to linear models or simple
 cut-based approaches at the cost of interpretability. Machine learning
-techniques are widely used for the reconstruction of hadronic tau decays in the
-ATLAS experiment. Aside from tau identification, they are used for track
-classification, decay mode classification and energy calibration.
+techniques are widely used in particle physics e.g.\ for the reconstruction of
+hadronic tau decays in the ATLAS experiment. There they are used for tau
+identification, track classification, decay mode classification, and energy
+calibration.
 
 The focus of this chapter lies on supervised learning, which is concerned with
 learning models from labelled data (each example consisting of explanatory
-variables and a dependent variable/label). This domain includes regression for
-modelling a continuous response and classification for assigning class labels
-(e.g.\ signal or background) to an observation with associated input variables.
-This chapter gives an overview of the classification techniques used in this
-thesis starting with a brief description of \emph{Boosted Decision Trees} that
-are used in chapter~\ref{sec:bdt} for rejection of tau candidates originating
-from dijet events. A comprehensive summary on \emph{Recurrent Neural Networks}
-is given that are used for tau identification in chapter~\ref{sec:rnn} and
-additionally for decay mode classification in chapter~\ref{sec:decaymode}. The
-chapter is concluded with an overview of the software frameworks used in this
-thesis.
+variables and a dependent variable/label \todo{define and get rid of parens}).
+This domain includes regression for modelling a continuous response and
+classification for assigning class labels (e.g.\ signal or background) to an
+observation with associated input variables. This chapter gives an overview of
+the classification techniques used in this thesis starting with a brief
+description of \emph{Boosted Decision Trees} that are used in
+Chapter~\ref{sec:bdt} for rejection of tau candidates originating from dijet
+events \todo{defined?}. A comprehensive summary on \emph{Recurrent Neural
+  Networks} that are used for tau identification \todo{defined?} is given in
+Chapter~\ref{sec:rnn} and additionally for decay mode classification in
+Chapter~\ref{sec:decaymode}. The chapter is concluded with an overview of the
+software frameworks used in this thesis.
 
 \section{Boosted Decision Trees}
 \label{sec:bdt}
 
-The following section describes a classification algorithm called \emph{Boosted
-  Decision Trees}. It consists of an ensemble of decision trees that is created
-by a meta-algorithm called \emph{boosting}. In
-section~\ref{sec:ml_decision_trees} the decision tree algorithm is presented. A
+\emph{Boosted Decision Trees} consist of an ensemble of decision trees that is
+created by a meta-algorithm called \emph{boosting}. In
+Section~\ref{sec:ml_decision_trees} the decision tree algorithm is presented. A
 brief overview of \emph{boosting} algorithms is given in
-section~\ref{sec:ml_boosting}. The description focuses on binary classification
-tasks aiming to discriminate between two distinct classes (hereafter called
-signal and background).
+Section~\ref{sec:ml_boosting}. The description focuses on binary classification
+tasks aiming to discriminate between two distinct classes, hereafter called
+signal and background.
 
 \subsection{Decision Trees}
 \label{sec:ml_decision_trees}
@@ -57,8 +60,8 @@ signal and background).
       and $x_2$ into subregions~$R_i$.}
     \label{fig:decision_tree_partition}
   \end{subfigure}
-  \caption{Structure of a decision tree with depth~$d = 2$ and two input
-    variables $x_1$, $x_2$. Figure adapted from \cite{esl}.}
+  \caption{Structure of a decision tree with depth~$d_\text{tree} = 2$ and two
+    input variables $x_1$, $x_2$. Adapted from Ref.~\cite{esl}.}
   \label{fig:decision_tree}
 \end{figure}
 
@@ -66,15 +69,16 @@ A decision tree is a tree-based model that recursively partitions the space
 spanned by the input variables into disjoint subregions by applying binary
 splits on the coordinate axes until a stopping criterion is met. Frequently used
 criteria include limiting the maximum depth of the tree or requiring a minimum
-number of training examples in a node considered for further splitting.
+number of training examples in a subregion considered for further splitting.
 Figure~\ref{fig:decision_tree_binary_tree} shows the binary tree structure of a
-decision tree. The root node of the tree contains the dataset which is
+decision tree. The root node of the tree contains the entire dataset which is
 subsequently split into two nodes by a condition on a single input variable. The
-terminal nodes (leaves) contain disjoint subsamples of the full dataset with
-input variables falling into distinct regions of the variable space depicted in
-figure~\ref{fig:decision_tree_partition}. Observations falling into a subregion
-are assigned the probability of being signal given by the signal purity of the
-training data in this region.
+terminal nodes contain disjoint subsamples of the dataset with input variables
+falling into the distinct regions of the variable space depicted in
+Figure~\ref{fig:decision_tree_partition}. Observations \todo{Better word --
+  item?} falling into a subregion are assigned the probability of being signal
+given by the fraction of signal events (i.e.\ the signal purity) of the training
+data in this region.
 % Each terminal node is assigned the
 % majority class of the subset of training data contained within it. An
 % alternative method to gauge the confidence of the decision is to assign the
@@ -84,16 +88,16 @@ training data in this region.
 % log-loss
 
 A decision tree is grown using a greedy optimisation method, where each node is
-split on the variable that gives the largest improvement according to a chosen
-impurity measure. Commonly used for binary classification trees is the
+split on the variable and value that gives the largest improvement according to
+a chosen impurity measure. Commonly used for binary classification trees is the
 \emph{Gini impurity} given by
 \begin{align*}
-  I_\text{G}(p) = 2 p_1 p_2 = 2 p (1 - p) \qquad \text{with} \qquad p \coloneqq p_1 = 1 - p_2 \eqcomma
+  I_\text{G}(p) = 2 p (1 - p)
 \end{align*}
-where $p_i$ is the purity of class~$i$ \cite{esl}. The best split is
-chosen such that the mean of the Gini impurities of the resulting
-nodes, weighted by the sum of event weights in each node, is
-minimised.
+where $p$ is the signal or background purity~\cite{esl} \todo{Define what
+  impurity measure does?}. The best split is chosen such that the mean of the
+Gini impurities of the resulting nodes, weighted by the sum of event weights in
+each node, is minimised.
 % Gini index: Probability to assign the correct label to a randommly picked
 % observation when randomly assigning according to the distribution of labels in
 % the sample
@@ -108,34 +112,37 @@ in a set of basis functions given by the base learner \cite{esl}. Boosting is
 commonly used in conjunction with Decision Trees giving rise to so called
 \emph{Boosted Decision Trees}.
 
-\emph{AdaBoost} (Adaptive Boosting) is a boosting algorithm that forms a
+Adaptive Boosting (\emph{AdaBoost}) is a boosting algorithm that forms a
 weighted sum of a base classifier, where each classifier is trained on data that
-is reweighted such that training examples that were previously incorrectly
-classified contribute with higher weight than examples that were correctly
-classified. A generalisation of this method is called \emph{gradient boosting}
-which minimises the expected value of an arbitrary differential loss function
-(i.e.\ a function penalising errors of the model) during boosting. Gradient
-boosting reproduces the \emph{AdaBoost} algorithm if the exponential loss
-function
+is reweighted such that training examples \todo{consistent wording} that were
+previously incorrectly classified contribute with higher weight than examples
+\todo{consistent wording} that were correctly classified. A generalisation of
+this method is called \emph{gradient boosting} which minimises the expected
+value of an arbitrary differential loss function (i.e.\ a function penalising
+errors of the model) during boosting. Gradient boosting reproduces the
+\emph{AdaBoost} algorithm if the exponential loss function
 \begin{align*}
-  L\left(y, f(x)\right) = \exp\left(- y f(x)\right)
+  L\left(y, f(\mathbf{x})\right) = \exp\left(- y f(\mathbf{x})\right)
 \end{align*}
-with the true class~$y \in \{ -1, 1 \}$ and the model response~$f(x)$ (mapped
-into the interval $[-1, 1]$) given a set of input variables~$x$ is used
-\cite{esl}. For general loss functions no convenient methods for minimising the
-loss exist and a gradient descent algorithm is used. A full mathematical
-description of the algorithm is omitted for brevity and can be found in
-\cite{friedman_gbm, esl}. In this thesis gradient boosting with the loss
-function
+with input variables~$\mathbf{x}$, true class~$y \in \{ -1, 1 \}$ and model
+response~$f(\mathbf{x}) \in [-1, 1]$ \todo{mapped into this interval} for a
+given event is used~\cite{esl}. For general loss functions no convenient methods
+for minimising the loss exist and a gradient descent algorithm is used. A full
+mathematical description of the algorithm is omitted for brevity and can be
+found in Ref.~\cite{friedman_gbm, esl}. In this thesis gradient boosting with
+the loss function
 \begin{align*}
-  L\left(y, f(x)\right) = \log\left( 1 + \exp(- 2 y f(x)) \right)
+  L\left(y, f(\mathbf{x})\right) = \log\left( 1 + \exp(- 2 y f(\mathbf{x})) \right)
 \end{align*}
-is used (called \emph{LogitBoost}~\cite{logitboost}), which is empirically shown
-to be less susceptible to noise and outliers (i.e.\ examples with large negative
-margins~$y f(x)$) than \emph{AdaBoost} \cite{esl, schapire_boosting}.
+is used, which is empirically shown to be less susceptible to noise
+\todo{features originating from statistical fluctuations} and outliers (i.e.\
+examples with large negative margins~$y f(\mathbf{x})$) than \emph{AdaBoost}
+\cite{esl, schapire_boosting}.
 % The reason is that the
 % exponential loss applies a larger penalty to training examples with large
 % negative margins~$y f(x)$, e.g.\ outliers.
+%
+% (called \emph{LogitBoost}~\cite{logitboost})
 
 \section{Artificial Neural Networks}
 \label{sec:nn}
@@ -151,23 +158,22 @@ Neural networks are typically organised into different \emph{layers} defining
 the transformation that is applied on the layer inputs. Multiple layers
 connected according to a computational graph form a network. This scheme allows
 for great flexibility in building different models making neural networks
-prevalent in many areas of machine learning research.
+prevalent in many areas of machine learning research~\cite{goodfellow_dl}.
 
 The following sections introduce concepts needed to understand the models used
-for the (sequence) classification tasks in this thesis. Matrices are denoted
-using uppercase and vectors using lowercase bold symbols e.g.\ input
+for the classification tasks in this thesis. Matrices are denoted using
+uppercase and vectors using lowercase bold symbols e.g.\ input
 variables~$\mathbf{x}$ and weight matrices~$\mathbf{W}$.
 
 \subsection{Feedforward Neural Networks}
 \label{sec:nn_feedforward}
 Feedforward neural networks are networks in which information flows strictly in
-the forward direction, disallowing feedback loops (e.g.\ recurrent connections
-introduced in section~\ref{sec:rnn_theory}) between input and output of a single
-layer. An example of a simple feedforward neural networks is the multi-layer
-perceptron consisting of a number of input neurons $\mathbf{x}$ used to pass the
-discriminating variables to the network, an output layer with activation
-$\mathbf{y}$ and several intermediate (hidden) layers connecting input and
-output layer.
+the forward direction, disallowing feedback loops between input and output of a
+single layer. An example of simple feedforward neural networks are the so called
+\emph{multi-layer perceptrons}. They consist of a number of input neurons
+$\mathbf{x}$, which are used to pass the discriminating variables to the
+network, an output layer with activation~$\mathbf{y}$ \todo{define} and
+intermediate hidden layers connecting the input and output layers.
 \begin{figure}[htb]
   \centering
   \begin{minipage}[t]{0.55\textwidth}
@@ -179,16 +185,17 @@ output layer.
       $\mathbf{b}$. Activations are given after applying an element-wise
       activation function $\bm{\varphi}$. Block matrix notation is used.}
     \label{fig:multi_layer_perceptron}
+    \todo[inline]{Slim down caption}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.4\textwidth}
     \centering
     \includegraphics{./figures/theory/activation_functions.pdf}
     \captionof{figure}{Commonly used activation functions: logistic function (red),
-      hyperbolic tangent (blue) and rectified linear units -- ReLU (green).}
+      hyperbolic tangent (blue) and rectified linear units (green).}
     \label{fig:activation_functions}
   \end{minipage}
 \end{figure}
-In figure~\ref{fig:multi_layer_perceptron} a multi-layer perceptron with a
+In Figure~\ref{fig:multi_layer_perceptron} a multi-layer perceptron with a
 single hidden layer is shown. Two layers are connected by an affine
 transformation and subsequent application of an element-wise, non-linear and
 differentiable activation function~$\bm{\varphi}$. These layers are called dense
@@ -201,27 +208,26 @@ layer~$\mathbf{h}$ and the output layer~$\mathbf{y}$ are given by:
   &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqcomma
 \end{align*}
 where $\mathbf{W}$ are weight matrices determining the weight of each connection
-between two neurons and $\mathbf{b}$ are optional bias vectors. Generally the
-sizes of the hidden layers as well as the choice of the activation functions are
-hyperparameters (i.e.\ parameters that are not learned during training) of the
-model. The size of the input and output layer is given by the number of input
-variables and the number of desired outputs respectively. Moreover the
-activation function of the output layer is constrained by the underlying task.
-For binary classification the logistic
-function~\smash{$\sigma(x) = (1 + \exp(-x))^{-1}$} is applied to a single output
-neuron giving the probability of an observation being of the positive class
-(e.g.\ signal). For multi-class classification the number of outputs neurons is
-chosen to be equal to the number of classes that need to be distinguished and
-the \emph{softmax} function \cite{esl, bishop}
+between two neurons and $\mathbf{b}$ are optional bias vectors. The sizes of the
+hidden layers as well as activation functions are hyperparameters (i.e.\
+parameters that are set prior to the training) of the model. The sizes of the
+input and output layers are given by the number of input variables and the
+number of desired outputs, respectively. Moreover the activation function of the
+output layer is constrained by the underlying task. For binary classification
+the logistic function~\smash{$\sigma(x) = (1 + \exp(-x))^{-1}$} \todo{What is x;
+  equation env} is applied to a single output neuron giving the probability of
+an observation being of the positive class (e.g.\ signal). For multi-class
+classification the number of output neurons is chosen to equal the number of
+classes to be distinguished and the \emph{softmax} function \cite{esl, bishop}
 \begin{align*}
   \varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}
 \end{align*}
-is chosen as the activation function, where~$\varphi_i(\mathbf{x})$ is the
-activation of the $i$-th neuron and $x_i$ its value before activation. The
-\emph{softmax} function ensures that the sum of all activations in a layer
-equals to one, such that they can be interpreted as class probabilities.
-Activation functions that are commonly used for the intermediate layers are
-depicted in figure~\ref{fig:activation_functions}.
+is chosen as the activation function, \todo{split sentence}
+where~$\varphi_i(\mathbf{x})$ is the activation of the $i$-th neuron and $x_i$
+its value before activation. The \emph{softmax} function ensures that the sum of
+all activations in a layer equals to one, such that they can be interpreted as
+class probabilities. Activation functions that are commonly used for the
+intermediate layers are depicted in Figure~\ref{fig:activation_functions}.
 
 So far the networks were viewed as non-linear parametric functions mapping input
 variables~$\mathbf{x}$ to a response~$\mathbf{y}$ without regarding the choice
@@ -316,7 +322,7 @@ the following description as they can be absorbed into the weight matrices.
 Recurrent neural networks are able to map a sequence of input variables to a
 sequence of outputs. Both sequences can have arbitrary length. An example of a
 \emph{Simple Recurrent Network} is the \textsc{Elman} network \cite{elman}
-depicted in figure~\ref{fig:schematic_elman_rnn}. It is shown in a compact
+depicted in Figure~\ref{fig:schematic_elman_rnn}. It is shown in a compact
 notation as well as unfolded in time\footnote{Nomenclature originates from RNNs
   being used to predict quantities as a function of time.} representing it as a
 feedforward network with weights shared between time steps.
@@ -370,7 +376,7 @@ long-term dependencies.
 The long short-term memory (LSTM) network developed in~\cite{lstm} solves the
 \emph{vanishing gradient problem} that affects Simple Recurrent Networks by
 introducing multiplicative gates that control the flow of information in the
-network. In figure~\ref{fig:schematic_lstm} a schematic depiction of an unfolded
+network. In Figure~\ref{fig:schematic_lstm} a schematic depiction of an unfolded
 LSTM at time~$t$ is shown.
 \begin{figure}[htb]
   \centering
@@ -387,9 +393,9 @@ The LSTM represents a (differentiable) memory cell with three gates called the
 input, output and forget gate. The gate vectors, controlling the information
 flow, are given by \cite{goodfellow_dl, graves}
 \begin{align*}
-  \mathbf{f}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right) &
   \mathbf{i}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{i}} \mathbf{x}_{t} + \mathbf{U}_{\text{i}} \mathbf{y}_{t-1} \right) &
-  \mathbf{o}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right)
+  \mathbf{o}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right) &
+  \mathbf{f}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right)
 \end{align*}
 with separate weights~$W$ and recurrent weights~$U$ for each gate. The
 element-wise logistic function~$\bm{\sigma}$ is used to map the gate activations
@@ -433,7 +439,7 @@ investigated.
 
 In this thesis the \emph{Toolkit for Multivariate Data
   Analysis}~(TMVA)~\cite{tmva} is used for the BDT-based studies on tau
-identification in chapter~\ref{sec:bdt}. This framework is extensively used for
+identification in Chapter~\ref{sec:bdt}. This framework is extensively used for
 evaluating multivariate algorithms for the reconstruction of hadronic tau lepton
 decays in the ATLAS experiment.
 
