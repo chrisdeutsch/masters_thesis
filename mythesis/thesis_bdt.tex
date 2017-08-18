@@ -300,6 +300,9 @@ are log-transformed while long-tailed distributions and outliers due to detector
 resolution effects are clamped to fall into a specified range of values. The
 exact transformations can be found in appendix~\ref{app:variable_transforms}.
 
+\todo[inline]{Evaluation will always be on an from training independent sample.
+  Hold-out cross validation: \SI{50}{\percent} of the sample is held-out}
+
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
 
@@ -374,16 +377,67 @@ These hyperparameters are optimised by forming a grid in the parameter space and
 training and evaluating a BDT trained for each point on this grid. The grid is
 parametrised by the following parameter planes
 \begin{align*}
-  N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} &
-  d_\mathrm{tree} &\in \{4, 6, 8, 12, 16\} \\
-  \eta &\in \{0.05, 0.1, 0.2, 0.4\} &
-  f_\mathrm{node}^\mathrm{min} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} \\
-  f_\text{bag} &\in \{\text{None}, \SI{50}{\percent} \}
+  N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} & \eta &\in \{0.05, 0.1, 0.2, 0.4\} & d_\mathrm{tree} &\in \{4, 6, 8, 12, 16\}\\
+  f_\mathrm{node}^\mathrm{min} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} & f_\text{bag} &\in \{\text{None}, \SI{50}{\percent} \}
 \end{align*}
-resulting in a total of 720 grid points.
+resulting in a total of 720 grid points. The rejection is, analogously to the
+previous section, calculated using a single cut on the output score to obtain a
+signal efficiency comparable to the tight working points (i.e.\
+\SI{60}{\percent} for 1-prong and \SI{45}{\percent} for 3-prong decays) used in
+ATLAS.
+
+\begin{figure}[htb]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_MaxDepth_NTrees.pdf}
+    \vspace*{-1.6em}
+    \subcaption{}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_Shrinkage_NTrees.pdf}
+    \vspace*{-1.6em}
+    \subcaption{}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_Shrinkage_MaxDepth.pdf}
+    \vspace*{-1.6em}
+    \subcaption{}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_MinNodeSize_MaxDepth.pdf}
+    \vspace*{-1.6em}
+    \subcaption{}
+  \end{subfigure}
+  \caption{Background rejection at \SI{60}{\percent} signal efficiency as a
+    function of the BDT hyperparameters. Bagged boosting with a subsample
+    fraction~$f_\text{bag} = \SI{50}{\percent}$ is used and the remaining
+    parameters are fixed such that the 'best' BDT is contained within the
+    plots.}
+  \todo[inline]{Better word for 'best' as it is not the best BDT}
+  \label{fig:hyperparameter_scan_1p}
+\end{figure}
+
+\begin{table}[htb]
+  \centering
+  \input{./tables/bdt_config.tex}
+  \caption{BDT configuration}
+\end{table}
+
+In figure~\ref{fig:hyperparameter_scan_1p} the background rejection of the
+1-prong tau identification BDT is shown as a function of the hyperparameters of
+the model.
 
 
-Optimised for tight efficiency w/o subsampling:
+Relatively wide performance maximum.
+
+
+Optimising the 3-prong tau identification BDT shows similar results which are
+summarised in appendix~\ref{app:grid_search_3p} and are omitted for brevity.
+
+
 
 
 Explain why for 1-prong a subsampling model is better than for 3-prong. The
@@ -437,32 +491,6 @@ Comparison with previous setup
   \label{fig:bdt_1p_scores}
 \end{figure}
 
-\begin{figure}[ht]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_MaxDepth_NTrees.pdf}
-    \subcaption{Bla}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_Shrinkage_NTrees.pdf}
-    \subcaption{Blabla}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_Shrinkage_MaxDepth.pdf}
-    \subcaption{Blablabla}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_MinNodeSize_MaxDepth.pdf}
-    \subcaption{Blablablabla}
-  \end{subfigure}
-  \caption{Rejection as a function of the hyperparameters. Uses
-    \SI{50}{\percent} subsampling. (1-prong). \mytodo{KS-Probability as
-      comparison}}
-  \label{fig:hyperparameter_scan_1p}
-\end{figure}
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -490,35 +518,6 @@ Comparison with previous setup
   \label{fig:bdt_3p_scores}
 \end{figure}
 
-\begin{figure}[ht]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MaxDepth_NTrees.pdf}
-    \subcaption{Bla}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_NTrees.pdf}
-    \subcaption{Blabla}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_MaxDepth.pdf}
-    \subcaption{Blablabla}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MinNodeSize_MaxDepth.pdf}
-    \subcaption{Blablablabla}
-  \end{subfigure}
-  \caption{Rejection as a function of the hyperparameters. Not using
-    subsampling. (3-prong). \mytodo{Not as prone to overfitting? Why? This shows
-      the performance on the background sample (does it though? its rejection at
-      45\% efficiency) which is less overtrained than the signal sample due to
-      higher 3-prong stats for background.} \mytodo{Move bottom two plots to
-      appendix.}}
-  \label{fig:hyperparameter_scan_3p}
-\end{figure}
 
 Description of what is seen in the scan:
 \begin{itemize}

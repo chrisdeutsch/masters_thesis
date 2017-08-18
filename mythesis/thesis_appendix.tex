@@ -406,6 +406,40 @@ JZ7W:50000
 \end{figure}
 
 \clearpage
+\section{Grid Search: 3-Prong}
+\label{app:grid_search_3p}
+
+\begin{figure}[htbp]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MaxDepth_NTrees.pdf}
+    \subcaption{}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_NTrees.pdf}
+    \subcaption{}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_Shrinkage_MaxDepth.pdf}
+    \subcaption{}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/gridsearch_3p/scan_MinNodeSize_MaxDepth.pdf}
+    \subcaption{}
+  \end{subfigure}
+  \caption{Background rejection at \SI{60}{\percent} signal efficiency as a
+    function of the BDT hyperparameters. Bagged boosting with a subsample
+    fraction~$f_\text{bag} = \SI{50}{\percent}$ is used and the remaining
+    parameters are fixed such that the 'best' BDT is contained within the
+    plots.}
+  \todo[inline]{Better word for 'best' as it is not the best BDT}
+  \label{fig:hyperparameter_scan_3p}
+\end{figure}
+
+\clearpage
 \section{BDT: Recursive Feature Elimination}
 
 \begin{figure}[htb]
