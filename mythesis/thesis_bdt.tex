@@ -420,11 +420,7 @@ ATLAS.
   \label{fig:hyperparameter_scan_1p}
 \end{figure}
 
-\begin{table}[htb]
-  \centering
-  \input{./tables/bdt_config.tex}
-  \caption{BDT configuration}
-\end{table}
+\todo[inline]{Continue}
 
 In figure~\ref{fig:hyperparameter_scan_1p} the background rejection of the
 1-prong tau identification BDT is shown as a function of the hyperparameters of
@@ -436,20 +432,18 @@ the model.
 
 - Deep trees with a large learning rate overfit
 
-
-
-
-
-
-
-
 Relatively wide performance maximum.
 
 
 Optimising the 3-prong tau identification BDT shows similar results which are
 summarised in appendix~\ref{app:grid_search_3p} and are omitted for brevity.
 
-
+\begin{table}[htb]
+  \centering
+  \input{./tables/bdt_config.tex}
+  \caption{BDT configuration. Rejection is given at \SI{60}{\percent} for
+    1-prong and \SI{45}{\percent} for 3-prong.}
+\end{table}
 
 
 Explain why for 1-prong a subsampling model is better than for 3-prong. The
