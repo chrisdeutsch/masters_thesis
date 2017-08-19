@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20170706201521" modified="D:20170710101424"/>
+<info created="D:20170706201521" modified="D:20170819100701"/>
 <preamble>\usepackage{amsmath}
 \usepackage{txfonts}
 \usepackage{bm}
@@ -283,23 +283,23 @@ h
 8 0 0 8 128 756 e
 </path>
 <text matrix="1 0 0 1 16 -12" transformations="translations" pos="168 780" stroke="black" type="label" width="9.199" height="4.841" depth="2.26" halign="center" valign="center" size="11" style="math">y_1</text>
-<path matrix="1 0 0 1 -32 88" stroke="0.6" pen="0.6">
+<path matrix="1 0 0 1 -32 88" stroke="0.533" pen="0.6">
 8 0 0 8 120 728 e
 </path>
-<text matrix="1 0 0 1 0 -4" transformations="translations" pos="88 820" stroke="0.6" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11" style="math">1</text>
-<path stroke="0.6" pen="0.6">
+<text matrix="1 0 0 1 0 -4" transformations="translations" pos="88 820" stroke="0.533" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11" style="math">1</text>
+<path stroke="0.533" pen="0.6">
 96 816 m
 128 780 l
 </path>
-<path stroke="0.6" pen="0.6">
+<path stroke="0.533" pen="0.6">
 96 816 m
 128 756 l
 </path>
-<path matrix="1 0 0 1 16 76" stroke="0.6" pen="0.6">
+<path matrix="1 0 0 1 16 76" stroke="0.533" pen="0.6">
 8 0 0 8 120 728 e
 </path>
-<text matrix="1 0 0 1 48 -16" transformations="translations" pos="88 820" stroke="0.6" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11" style="math">1</text>
-<path stroke="0.6" pen="0.6">
+<text matrix="1 0 0 1 48 -16" transformations="translations" pos="88 820" stroke="0.533" type="label" width="5.479" height="7.332" depth="0" halign="center" valign="center" size="11" style="math">1</text>
+<path stroke="0.533" pen="0.6">
 144 804 m
 176 768 l
 </path>
