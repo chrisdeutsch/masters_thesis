@@ -1,5 +1,5 @@
 % ~ 8-10 pages
-\chapter{Decay Mode Classification of Hadronically Decaying $\tau$-Leptons}
+\chapter{Decay Mode Classification of Hadronic Tau Lepton Decays}
 \label{sec:decaymode}
 
 In this chapter the sequence learning techniques developed for
@@ -134,8 +134,8 @@ function, ensuring that the output activations sum to one.
 
 For training and evaluation of the model a sample containing the process
 $\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used (full sample
-identifier in appendix~\ref{sec:app_mc16a_taus}). The baseline tau selection
-given in section~\ref{sec:bdt_eventsim} is applied and the visible transverse
+identifier in Appendix~\ref{sec:app_mc16a_taus}). The baseline tau selection
+given in Section~\ref{sec:bdt_eventsim} is applied and the visible transverse
 momentum~$p_\text{T}$ of the hadronic decay is required to be less than
 \SI{100}{\giga\electronvolt} at reconstruction and generator-level. Moreover
 only tau-leptons with the true decay mode being one of $h^\pm$, $h^\pm \pi^0$,
@@ -166,8 +166,8 @@ Furthermore the variable set used for the neutral PFOs is extended using:
   discriminant combining cluster information in the electromagnetic part of the
   calorimeter to identify neutral PFOs originating from the $\pi^0$ decay.
 
-\item[Number of shots $N_\text{shots}$:] Number of shots (cmp.\
-  section~\ref{sec:shot_reco}) associated with a neutral PFO cluster. Shots are
+\item[Number of shots $N_\text{shots}$:] Number of shots (cf.\
+  Section~\ref{sec:shot_reco}) associated with a neutral PFO cluster. Shots are
   associated with a cluster if it contains the seed cell of the shot and the
   cluster fulfils $E_\text{T} > \SI{500}{\mega\electronvolt}$ and is within
   $\Delta R < 0.4$ to the tau axis. In cases where the cell is shared between
@@ -276,7 +276,7 @@ used.
     \subcaption{PFO-RNN with neutral $p_{\text{T}}$-cut of
       \SI{1.5}{\giga\electronvolt}}
   \end{subfigure}
-  \caption{Composition matrices with normalised rows showing the migration of
+  \caption{Purity matrices with normalised rows showing the migration of
     the true decay modes to the reconstructed modes.}
   \label{fig:migmat}
   \todo[inline]{Check whether the 'diagonal efficiency' is correct for
@@ -328,13 +328,35 @@ used.
   the $\pi^0$ identification.
 \end{description}
 
+\todo[inline]{These are cluster moments of the reclustered cells in PS, EM1 and
+  EM2.}
+
 \begin{description}
-\item[Width $\langle R^2 \rangle$]
+\item[Lateral shower width $\langle R^2 \rangle$] Second moment of the radial
+  distance $R$ between cluster cells and shower
+  axis~\cite{atlas_topoclustering}.
+
 \item[$\eta$ width in EM1 $\langle (\eta - \eta_\text{cluster})^2\rangle$]
-\item[Number of positive cells in EM1 $N_\text{EM1}^\text{pos}$]
+  Second moment of the pseudorapidity distance between cluster cells in EM1 and
+  the energy barycentre of the
+  cluster~$\eta_\text{cluster}$~\cite{atlas:taurec:decaymodes}.
+
+\item[Number of positive cells in EM1 $N_\text{EM1}^\text{pos}$] Number of cells
+  with positive energy in EM1~\cite{atlas:taurec:decaymodes}.
+
 \item[Core energy fraction $f_\text{core}$] Fraction of the total cluster energy
-  contained in the highest energy cells in Presampler, EM1 and EM2.
+  contained in the highest energetic cell in Presampler, EM1 and
+  EM2~\cite{atlas_topoclustering}.
+
 \item[Energy fraction in EM2 $f_\text{EM2}$]
+
+\item[Fraction of subtracted transverse momentum $f_\text{sub}$] Fraction of
+  total cluster energy subtracted during reconstruction of the particle flow
+  object
+  \begin{align*}
+    f_\text{sub} = \frac{p_\text{T}^\text{cluster} - p_\text{T}^\text{PFO}}{p_\text{T}^\text{cluster}} \eqdot
+  \end{align*}
+
 \end{description}
 Longitudinal moments were not found to lead to an increase performance.
 
@@ -374,7 +396,7 @@ Neutral PFOs (Charged PFOs + whats listed here):
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat.pdf}
-    \subcaption{Composition matrix}
+    \subcaption{Purity matrix}
   \end{subfigure}
   \caption{Combined}
   \label{fig:decay_mode_combined}
@@ -424,7 +446,7 @@ Neutral PFOs (Charged PFOs + whats listed here):
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat_med_id.pdf}
-    \subcaption{Composition matrix}
+    \subcaption{ Purity matrix}
   \end{subfigure}
   \caption{Combined with medium tau id}
   \label{fig:decay_mode_combined_med_id}
@@ -456,7 +478,7 @@ Neutral PFOs (Charged PFOs + whats listed here):
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/comp_mat_geq_100.pdf}
-    \subcaption{Composition matrix. $p_\text{T} > \SI{100}{\giga\electronvolt}$}
+    \subcaption{Purity matrix. $p_\text{T} > \SI{100}{\giga\electronvolt}$}
   \end{subfigure}
   \caption{highpt}
   \label{fig:highpt_matrices}
