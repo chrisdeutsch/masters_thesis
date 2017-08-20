@@ -333,15 +333,20 @@ used.
 \item[$\eta$ width in EM1 $\langle (\eta - \eta_\text{cluster})^2\rangle$]
 \item[Number of positive cells in EM1 $N_\text{EM1}^\text{pos}$]
 \item[Core energy fraction $f_\text{core}$] Fraction of the total cluster energy
-  contained in the highest energy cells in Presampler, EM1 and EM2.
-\item[Energy fraction in EM2 $f_\text{EM2}$]
+  contained in the highest energy cells of Presampler, EM1 and EM2.
+\item[Energy fraction in EM2 $f_\text{EM2}$] Fraction of total cluster energy in
+  EM2.
 \end{description}
 Longitudinal moments were not found to lead to an increase performance.
 
 
 Neutral PFOs (Charged PFOs + whats listed here):
 \begin{itemize}
-\item $f_\text{core}$: \texttt{ENG\_FRAC\_CORE} Fraction of energy in the three
+\item $f_\text{core}$: Fraction of energy contained in the  calorimeter cells
+
+
+
+  \texttt{ENG\_FRAC\_CORE} Fraction of energy in the three
   hottest cells in each sampling \todo{Check}
 \item $f_\text{EM2} = E_\text{EM2} / E$: Energy fraction in EM2 \todo{Why not
     EM1? -- Energy fraction is highly anti-correlated with EM1 therefore only
