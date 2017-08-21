@@ -90,7 +90,7 @@ hadronic tau lepton decays with visible transverse
 momenta~$p_\text{T} < \SI{100}{\giga\electronvolt}$ \todo{High momentum
   performance is also shown!}.
 
-\section{General Idea}
+\section{Classification with Tau Particle Flow and Recurrent Neural Networks}
 \todo{Better name for this part}
 \label{sec:pfo_general}
 
@@ -123,7 +123,7 @@ containing three dense layers. The final dense layer has five units equal to the
 number of decay modes to classify. The Softmax activation function is applied to
 the final layer, ensuring that the output activations sum to one.
 
-\section{Baseline}
+\subsection{Baseline Model}
 \label{sec:pfo_baseline}
 
 For training and evaluation of the model a sample containing the process
@@ -190,7 +190,8 @@ kinematic quantities the following variables are used:
   the correct number of neutrals in cases where the energy depositions of two
   neutral pions are reconstructed as a single cluster in the calorimeter.
 \end{description}
-\todo[inline]{Give reasons for this variable selection. \SI{1.5}{\percent}}
+\todo[inline]{Give reasons for this variable selection. \SI{1.5}{\percent}
+  improvement for shots}
 
 \todo[inline]{Preprocessing:} The transverse momenta of the reconstructed tau as
 well as the PFOs are log-transformed and subsequently standardised (by
@@ -271,7 +272,7 @@ observed in Figure~\ref{fig:1p1n_proba}, where the $h^\pm \pi^0$ mode
 probability is small. Additionally, the probabilities for generated 1-prong
 decays with more than one neutral pion have large tails exceeding
 \SI{50}{\percent} leading to significant migrations from $h^\pm \geq 2 \pi^0$ to
-the $h^\pm \pi^0$ decay mode.
+the $h^\pm \pi^0$ decay mode. \todo{Ref to next section}
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -306,16 +307,8 @@ by the reconstructed mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The
 individual efficiencies and migration probabilities in the matrix can vary
 between different trainings of the network as a decrease in efficiency in one
 mode can be compensated by an improvement in another. Nevertheless the diagonal
-efficiency tends to be a stable metric between different trainings and is used
-as a figure of merit for subsequent investigations.
-
-\todo[inline]{Discuss the migration matrix: ATLAS vs RNN}
-
-These problems, their origin and potential solutions are discussed
-in the following section.
-These problems are the subject of the following section.
-Challenges: No reconstructed PFOs, migrations between decay modes with one or
-more than one neutrals.
+efficiency is a stable metric between different trainings and is used as a
+figure of merit for subsequent investigations.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -326,17 +319,29 @@ more than one neutrals.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/mig_mat_baseline_ptcut_1_5.pdf}
-    \subcaption{PFO-RNN with neutral $p_{\text{T}}$-cut of
-      \SI{1.5}{\giga\electronvolt}}
+    \subcaption{RNN with neutral PFO $p_{\text{T}}$-cut of
+      \SI{1.5}{\GeV}}
   \end{subfigure}
-  \caption{Migration matrices with normalised columns showing the migration of
-    the true decay modes to the reconstructed modes. Statistical fluctuations
-    due to limited sample size can be neglected.}
+  \caption{Migration matrices showing the migration probabilities in
+    \si{\percent} of the true decay modes to the reconstructed modes. Evaluation
+    on an independent testing sample. Statistical fluctuations due to limited
+    sample size can be neglected.}
   \todo[inline]{After reconstruction in
     $\gamma^* \rightarrow \tau \tau \, \text{hadr.}$ and omitting decays
     containing neutral kaons.}
   \label{fig:migmat_comparison_baseline_15cut}
 \end{figure}
+
+In comparison with the ATLAS default algorithm the RNN significantly improves
+the reconstruction efficiencies of all five decay modes leading to an overall
+increase in diagonal efficiency by \SI{4.8}{\percent}. Large improvements are
+observed in the efficiencies for the $h^\pm$, $h^\pm \geq 2\pi^0$ and
+$3h^\pm \geq 1\pi^0$ modes. Furthermore the RNN shows a significant reduction in
+migrations due to under- or overestimation of the number of neutral pions.
+Migrations between 1- and 3-prong modes are of similar magnitude for both the
+ATLAS algorithm and the RNN classification \todo{Not true as there is a
+  significant improvement in 1-prong to reco 3-prong migration, indicating that
+  decay mode classification according to classified tracks is suboptimal}.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -347,39 +352,68 @@ more than one neutrals.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/comp_mat_baseline_ptcut_1_5.pdf}
-    \subcaption{PFO-RNN with neutral $p_{\text{T}}$-cut of
+    \subcaption{RNN with neutral PFO $p_{\text{T}}$-cut of
       \SI{1.5}{\giga\electronvolt}}
   \end{subfigure}
-  \caption{Purity matrices with normalised rows showing the migration of
-    the true decay modes to the reconstructed modes.}
-  \label{fig:migmat}
+  \caption{Purity matrices showing the fractional composition of the
+    reconstructed decay modes in \si{percent}. Evaluation on an independent
+    testing sample. Statistical fluctuations due to limited sample size can be
+    neglected.}
+  \label{fig:puritymat_comparison_baseline_15cut}
   \todo[inline]{Check whether the 'diagonal efficiency' is correct for
     composition matrices.}
 \end{figure}
 
+Due to the the reduction in migrations between different number of neutrals an
+overall improvement in purity of the reconstructed modes is expected. This is
+shown in the so called \emph{purity matrix} in
+Figure~\ref{fig:puritymat_comparison_baseline_15cut} where each row gives the
+fractional composition of the reconstructed decay modes and the diagonal the
+corresponding mode purity. Compared to the ATLAS algorithm, the mode
+classification using the RNN shows significant improvements in reconstructed
+mode purity due to the decreasing migration probability between modes with
+different numbers of neutral pions. The largest improvements in purity are
+observed in modes containing one or more neutral pions with the largest being in
+the $h^\pm \geq 2\pi^0$ mode with an absolute increase of \SI{9.7}{\percent}.
 
 
-\section{Additional Information}
+\subsection{Additional Information}
+\label{sec:add_info}
 
+This section aims to increase the classification power of the RNN by including
+additional information in the network. For this the focus lies on the inclusion
+of conversion tracks, shots and additional cluster moments. The following
+summarises the intention behind these sources of information:
 \begin{description}
 \item[Conversion tracks] Often photons from the $\pi^0$ decay convert into
-  electron-positron pairs in the material of the inner detector. Conversions can
-  therefore \todo{Why? Electrons bent out of cone? Neutral PFOs fail $\pi^0$-ID?
-    Will the electrons be reconstructed in neutral PFOs?} lead to an
-  underestimation of the number of neutral pions. The inclusion of conversion
-  tracks in the classification aims to reduce migrations to decay modes with
-  fewer neutrals.
+  electron-positron pairs in the material of the inner detector. These pairs are
+  bent from the direction of the initiating photon in the magnetic field of the
+  inner detector. This can weaken the signature of neutral pions in the decay as
+  the energy can be split into different PFOs, affecting the
+  $\pi^0$~identification score and the number of associated shots. In some cases
+  the algorithm can fail to reconstruct neutral PFOs. This can lead to an
+  underestimation of the number of neutral pions.
+
+  The inclusion of conversion tracks in the classification aims to reduce
+  migrations to decay modes with fewer neutrals. For this tracks classified as
+  \emph{conversion} according to the track classification are used.
 
 \item[Shots] Due to the boosted topology of tau decays in ATLAS (especially at
-  high-$p_\text{T}$) neutral pion clusters can merge with the charged or another
-  neutral pion leading to a reduction in the reconstructed number of neutrals.
-  Information on nearby shots \todo{NHitsInEM1 is already in the neut.\ PFOs}
-  can further improve classification.
+  high transverse momenta) neutral pion clusters can merge with the charged or
+  another neutral pion leading to a reduction in the reconstructed number of
+  neutrals. Information on nearby shots \todo{NHitsInEM1 is already in the
+    neut.\ PFOs} can further improve classification.
 
 \item[Add. cluster moments] Further improvements in classifying merged clusters
   can be achieved by using shower shape information similar to what is used for
   the $\pi^0$ identification.
 \end{description}
+
+These problems, their origin and potential solutions are discussed
+in the following section.
+These problems are the subject of the following section.
+Challenges: No reconstructed PFOs, migrations between decay modes with one or
+more than one neutrals.
 
 \todo[inline]{These are cluster moments of the reclustered cells in PS, EM1 and
   EM2.}
@@ -425,7 +459,7 @@ Longitudinal moments were not found to lead to an increase performance.
   overfitting).Technically would allow multiple outputs: Could do Pi0 Cluster-ID
   internally. What else has been tested?}
 
-\section{Combining Everything}
+\subsection{Extended Model}
 
 \begin{figure}[!ht]
   \begin{subfigure}{0.48\textwidth}
