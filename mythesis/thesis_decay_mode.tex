@@ -25,6 +25,9 @@ Ref.~\cite{atlas:taurec:decaymodes} will be adopted.
 \todo[inline]{Signature of the decay modes (Could be moved to
   \textit{Theoretical Background})}
 
+\todo[inline]{Readable text in migration matrices when printed
+  -- dark blue???}
+
 \section{Tau Particle Flow}
 \label{sec:tau_pflow}
 
@@ -201,14 +204,15 @@ the $[-1, 1]$ range. For the neutral PFO specific variables
 $S_\text{BDT}^{\pi^0}$ and $N_\text{shots}$ no preprocessing is needed.
 
 Charged and neutral PFOs are passed in ascending transverse momentum ordering to
-the shared dense layers with 24 units each \todo{Up to 3 charged PFOs, Up to 10
-  neutral PFOs -- not optimised}. The intermediate representation of the input
-sequence is then passed into the LSTM layers each with 24 units and hard sigmoid
-recurrent activation. The recurrent layers return a single element containing 24
-scalar values which are subsequently merged and passed through three dense
-layers with 48, 32 and 5 units respectively. The outputs of the different layers
-are activated using the $\tanh$ activation function with the exception of the
-last dense layer, which uses \emph{Softmax} activation.
+the shared dense layers with 24 units each \todo{Up to 3 charged PFOs (upper
+  limit for given selection), Up to 10 neutral PFOs -- not optimised}. The
+intermediate representation of the input sequence is then passed into the LSTM
+layers each with 24 units and hard sigmoid recurrent activation. The recurrent
+layers return a single element containing 24 scalar values which are
+subsequently merged and passed through three dense layers with 48, 32 and 5
+units respectively. The outputs of the different layers are activated using the
+$\tanh$ activation function with the exception of the last dense layer, which
+uses \emph{Softmax} activation.
 
 For each reconstructed tau decay the model returns one probability for each of
 the five decay modes. The reconstructed decay mode is then given as the mode
@@ -399,14 +403,27 @@ summarises the intention behind these sources of information:
   \emph{conversion} according to the track classification are used.
 
 \item[Shots] Due to the boosted topology of tau decays in ATLAS (especially at
-  high transverse momenta) neutral pion clusters can merge with the charged or
-  another neutral pion leading to a reduction in the reconstructed number of
-  neutrals. Information on nearby shots \todo{NHitsInEM1 is already in the
-    neut.\ PFOs} can further improve classification.
+  large transverse momentum) neutral pion clusters can merge with other charged
+  or neutral pion clusters. Without additional information two merged neutral
+  pion clusters cannot be distinguished using purely kinematic quantities of the
+  PFOs leading to a underestimation of the number of neutrals. To improve the
+  discrimination of merged neutral pion clusters the finely segmented strip
+  layer in the calorimeter is used. For this the network is extended to also use
+  a sequence of shots associated with a given reconstructed tau decay~(cf.\
+  Section~\ref{sec:shot_reco}). This differs from the approach in
+  Section~\ref{sec:pfo_baseline}, where only the number of shots associated with
+  a neutral PFO is used, as it allows including transverse momenta and angular
+  distances of shots.
 
-\item[Add. cluster moments] Further improvements in classifying merged clusters
-  can be achieved by using shower shape information similar to what is used for
-  the $\pi^0$ identification.
+  This further aims to reduce migrations to modes with fewer neutrals.
+
+\item[Neutral PFO cluster properties] Further improvements in classifying events
+  with merged clusters can be achieved by employing shower shape information of
+  the clusters used for PFO reconstruction. These clusters are created during
+  the PFO reconstruction (cf.\ Section~\ref{sec:tau_pflow}) using cells in the
+  Presampler, EM1 and EM2. Moments and other properties of the clusters, similar
+  to the discriminants used for $\pi^0$-identification, are used to extend the
+  input variables of neutral PFOs in the network.
 \end{description}
 
 These problems, their origin and potential solutions are discussed
@@ -417,6 +434,20 @@ more than one neutrals.
 
 \todo[inline]{These are cluster moments of the reclustered cells in PS, EM1 and
   EM2.}
+
+\subsubsection{Conversion Tracks}
+What variables, how many tracks, which tracks (400MeV reco threshold)
+
+Up to 4 tracks (only roughly optimised by hand)
+
+\subsubsection{Shots}
+What variables, how many shots, which shot selection (Nphoton > 0,
+$\eta$-dependent $E_\text{T}$ cut -- whats the intention of this cut?)
+
+Up to 6 shots (only roughly optimised by hand)
+
+\subsubsection{Neutral PFO cluster properties}
+What variables, number of neutral pfos unchanged
 
 \begin{description}
 \item[Lateral shower width $\langle R^2 \rangle$] Second moment of the radial
