@@ -432,21 +432,80 @@ These problems are the subject of the following section.
 Challenges: No reconstructed PFOs, migrations between decay modes with one or
 more than one neutrals.
 
-\todo[inline]{These are cluster moments of the reclustered cells in PS, EM1 and
-  EM2.}
+\todo[inline]{Number of objects optimised by hand}
 
 \subsubsection{Conversion Tracks}
-What variables, how many tracks, which tracks (400MeV reco threshold)
 
-Up to 4 tracks (only roughly optimised by hand)
+The architecture of the baseline model depicted in
+Figure~\ref{fig:pfo_rnn_baseline_arch} is extended by a third branch taking a
+sequence of tracks classified as \emph{conversion} according to the track
+classification algorithm. The sequence of layers is identical to the PFO
+branches, with the exception that the number of units in the shared and LSTM
+layers are reduced to 16 (from 24). In addition the size of the dense layers
+following the three merged recurrent branches are increased to 64 and 32
+repectively (from 48/24) to account for the increased number of units of the
+three merged branches.
+
+A maximum of four conversion tracks are passed to the network in ascending
+transverse momentum ordering. The tracks have to pass a transverse momentum
+threshold of \SI{400}{\MeV} from track reconstruction. The network inputs for
+each track contain the transverse momentum of the track~$p_\text{T, track}$, as
+well as the angular position of the tau axis~$(\varphi_\tau, \eta_\tau)$ and the
+angular distance~$(\Delta\varphi, \Delta\eta)$ between track and tau axis. The
+angular distances are calculated using track parameters using the beamspot as
+the orgin as well as using the position of the extrapolated track on the face of
+EM1.
 
 \subsubsection{Shots}
-What variables, how many shots, which shot selection (Nphoton > 0,
-$\eta$-dependent $E_\text{T}$ cut -- whats the intention of this cut?)
-
-Up to 6 shots (only roughly optimised by hand)
+The architecture to include shots in the decay mode classification is identical
+to the one used for conversion tracks in the previous section. Analogously, up
+to six reconstructed shots are fed to the network in ascending transverse
+momentum ordering. Only shots with one or more photons~$N_\text{photon} > 0$ are
+considered (cf.\ Section~\ref{sec:shot_reco}). This selection effectively
+applies a lower threshold on the transverse momentum $p_\text{T}^\text{shot}$ to
+suppress shots originating from noise or fluctuations of the photon
+shower~\cite{atlas:taurec:decaymodes}. The theshold is parametrised in four
+$|\eta|$-bins and ranges from \SI{300}{\MeV} to \SI{430}{\MeV} depending on the
+detector region. Shots from the transition region of the
+calorimeter~$1.37 < |\eta| < 1.52$ are not used. The set of input variables is
+defined analogously to the previous part by replacing $p_\text{T}$ and the
+angular distances $(\Delta\varphi, \Delta\eta)$ with the corresponding shot
+quantities.
 
 \subsubsection{Neutral PFO cluster properties}
+
+\begin{table}[htb]
+  \centering
+  {\def\arraystretch{1.5}
+  \begin{tabular}{p{4.5cm}p{9cm}}
+    \toprule
+    \textbf{Lateral shower width}\newline$\langle R^2 \rangle$ &
+    Second moment of the radial distance $R$ between cluster cells and shower \\
+
+    \textbf{$\eta$ width in EM1}\newline$\langle (\eta - \eta_\text{cluster})^2\rangle$ &
+    Second moment of the pseudorapidity distance between cluster cells in EM1
+    and the energy barycentre of the cluster~$\eta_\text{cluster}$~\cite{atlas:taurec:decaymodes} \\
+
+    \textbf{Number of pos.\ cells in EM1} $N_\text{EM1}^\text{pos}$ &
+    Number of cells with positive energy in EM1~\cite{atlas:taurec:decaymodes}\\
+
+    \textbf{Core energy fraction}\newline$f_\text{core}$ &
+    Fraction of the total cluster energy contained in the highest energetic cell
+    in Presampler, EM1 and EM2~\cite{atlas_topoclustering} \\
+
+    \textbf{Energy fraction in EM2}\newline$f_\text{EM2}$ &
+    Fraction of PFO energy contained in EM2\\
+
+    \textbf{Fraction of subtracted transverse momentum} $f_\text{sub}$ &
+    Fraction of total cluster energy subtracted during reconstruction of the
+    particle flow object\\
+    \bottomrule
+  \end{tabular}
+  }
+  \caption{Cluster variables}
+  \label{tab:cluster_variables}
+\end{table}
+
 What variables, number of neutral pfos unchanged
 
 \begin{description}
@@ -479,6 +538,9 @@ What variables, number of neutral pfos unchanged
 \end{description}
 Longitudinal moments were not found to lead to an increase performance.
 
+
+\subsubsection{Performance Evaluation}
+
 \begin{table}[htb]
   \centering
   \input{./tables/pfo_add_info.tex}
@@ -489,6 +551,10 @@ Longitudinal moments were not found to lead to an increase performance.
 \todo[inline]{Try out bidirectional LSTMs and stacked ones (still not
   overfitting).Technically would allow multiple outputs: Could do Pi0 Cluster-ID
   internally. What else has been tested?}
+
+A summary of all experiments is given in Table~\ref{tab:pfo_add_experiments}.
+Tested bidirectional LSTMs for neutral PFOs -- marginal improvement
+\SI{0.2}{\percent} to \SI{0.3}{\percent}.
 
 \subsection{Extended Model}
 
