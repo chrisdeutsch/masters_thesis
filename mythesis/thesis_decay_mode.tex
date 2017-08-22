@@ -477,12 +477,12 @@ quantities.
 \begin{table}[htb]
   \centering
   {\def\arraystretch{1.5}
-  \begin{tabular}{p{4.5cm}p{9cm}}
+  \begin{tabular}{p{5cm}p{9cm}}
     \toprule
     \textbf{Lateral shower width}\newline$\langle R^2 \rangle$ &
-    Second moment of the radial distance $R$ between cluster cells and shower \\
+    Second moment of the radial distance $R$ between cluster cells and shower axis \cite{atlas_topoclustering}. \\
 
-    \textbf{$\eta$ width in EM1}\newline$\langle (\eta - \eta_\text{cluster})^2\rangle$ &
+    \textbf{$\eta$-width in EM1}\newline$\langle (\eta - \eta_\text{cluster})^2\rangle$ &
     Second moment of the pseudorapidity distance between cluster cells in EM1
     and the energy barycentre of the cluster~$\eta_\text{cluster}$~\cite{atlas:taurec:decaymodes} \\
 
@@ -495,47 +495,19 @@ quantities.
 
     \textbf{Energy fraction in EM2}\newline$f_\text{EM2}$ &
     Fraction of PFO energy contained in EM2\\
-
-    \textbf{Fraction of subtracted transverse momentum} $f_\text{sub}$ &
-    Fraction of total cluster energy subtracted during reconstruction of the
-    particle flow object\\
     \bottomrule
   \end{tabular}
   }
-  \caption{Cluster variables}
+  \caption{Properties of neutral PFO clusters for improving decay mode
+    classification.}
   \label{tab:cluster_variables}
 \end{table}
 
-What variables, number of neutral pfos unchanged
+The fraction of total cluster energy subtracted during reconstruction of the PFO
+\begin{align*}
+  f_\text{sub} = \frac{p_\text{T}^\text{cluster} - p_\text{T}^\text{PFO}}{p_\text{T}^\text{cluster}} \eqdot
+\end{align*}
 
-\begin{description}
-\item[Lateral shower width $\langle R^2 \rangle$] Second moment of the radial
-  distance $R$ between cluster cells and shower
-  axis~\cite{atlas_topoclustering}.
-
-\item[$\eta$ width in EM1 $\langle (\eta - \eta_\text{cluster})^2\rangle$]
-  Second moment of the pseudorapidity distance between cluster cells in EM1 and
-  the energy barycentre of the
-  cluster~$\eta_\text{cluster}$~\cite{atlas:taurec:decaymodes}.
-
-\item[Number of positive cells in EM1 $N_\text{EM1}^\text{pos}$] Number of cells
-  with positive energy in EM1~\cite{atlas:taurec:decaymodes}.
-
-\item[Core energy fraction $f_\text{core}$] Fraction of the total cluster energy
-  contained in the highest energetic cell in Presampler, EM1 and
-  EM2~\cite{atlas_topoclustering}.
-
-\item[Energy fraction in EM2 $f_\text{EM2}$] $f_\text{EM2} = E_\text{EM2} / E$
-  \todo{Highly anti-correlated with EM1 therefore only one is picked.}
-
-\item[Fraction of subtracted transverse momentum $f_\text{sub}$] Fraction of
-  total cluster energy subtracted during reconstruction of the particle flow
-  object
-  \begin{align*}
-    f_\text{sub} = \frac{p_\text{T}^\text{cluster} - p_\text{T}^\text{PFO}}{p_\text{T}^\text{cluster}} \eqdot
-  \end{align*}
-
-\end{description}
 Longitudinal moments were not found to lead to an increase performance.
 
 
