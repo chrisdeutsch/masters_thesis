@@ -384,6 +384,8 @@ the $h^\pm \geq 2\pi^0$ mode with an absolute increase of \SI{9.7}{\percent}.
 \subsection{Additional Information}
 \label{sec:add_info}
 
+\todo[inline]{Merge weird subchapters: Intention + realisation}
+
 This section aims to increase the classification power of the RNN by including
 additional information in the network. For this the focus lies on the inclusion
 of conversion tracks, shots and additional cluster moments. The following
@@ -474,6 +476,19 @@ quantities.
 
 \subsubsection{Neutral PFO cluster properties}
 
+Including additional properties of neutral PFO clusters does not require changes
+in the network architecture. In addition to the neutral PFO variables of the
+baseline model in Section~\ref{sec:pfo_baseline} the model is extended using the
+variables in Table~\ref{tab:cluster_variables}. Variables describing the
+longitudinal shower shape, e.g.\ the depth of the shower
+center~$\lambda_\text{center}$ or the longitudinal
+spread~$\langle \lambda^2 \rangle$ of the shower, are not found to improve decay
+mode classification significantly. \todo{Look at leading PFO in 1p1n to show
+  that they differ in transverse shower shape. Write about core energy fraction}
+Only the energy fraction in the EM2 sampling of the calorimeter is used, as it
+is highly anti-correlated with the fraction in EM1 thus not providing additional
+separation power.
+
 \begin{table}[htb]
   \centering
   {\def\arraystretch{1.5}
@@ -498,37 +513,76 @@ quantities.
     \bottomrule
   \end{tabular}
   }
-  \caption{Properties of neutral PFO clusters for improving decay mode
-    classification.}
+  \caption{Definition of variables based on properties of neutral PFO clusters
+    to improve decay mode classification.}
   \label{tab:cluster_variables}
 \end{table}
 
-The fraction of total cluster energy subtracted during reconstruction of the PFO
+A variable measuring the overlap of neutral and charged PFOs is tested
+separately from the variables in Table~\ref{tab:cluster_variables}. It is the
+fraction of transverse momentum subtracted from the cluster during
+reconstruction of the PFO
 \begin{align*}
-  f_\text{sub} = \frac{p_\text{T}^\text{cluster} - p_\text{T}^\text{PFO}}{p_\text{T}^\text{cluster}} \eqdot
+  f_\text{sub} = \frac{p_\text{T}^\text{cluster} - p_\text{T}^\text{neut.\ PFO}}{p_\text{T}^\text{cluster}} \eqcomma
 \end{align*}
-
-Longitudinal moments were not found to lead to an increase performance.
-
+where $p_\text{T}^\text{cluster}$ is the transverse momentum of the PFO cluster
+and $p_\text{T}^\text{neut.\ PFO}$ the transverse momentum of the neutral PFO,
+i.e.\ after subtraction of the hadronic energy.
 
 \subsubsection{Performance Evaluation}
+
+In Table~\ref{tab:pfo_add_experiments} the diagonal efficiencies of the RNN
+classification after including additional inputs are summarised. In addition to
+the previously described inputs, the performance after including hadronic PFOs,
+i.e.\ objects created from energy in the hadronic part of \emph{TopoClusters} in
+the core region $\Delta R < 0.2$ of the reconstructed tau, is evaulated. It is
+not found to lead to a significant improvement in classification power
+considering the increase in model complexity. Moreover, a model with neutral
+PFOs ordering given by the $\pi^0$-identification score is evaluated, which does
+not significantly improve on the transverse momentum ordering.
 
 \begin{table}[htb]
   \centering
   \input{./tables/pfo_add_info.tex}
-  \caption{Additional experiments}
+  \caption{Summary of the improvements in decay mode classification performance
+    when extending the RNN with additional inputs. The metrics are evaluated on
+    an independent testing sample.}
   \label{tab:pfo_add_experiments}
+  \todo[inline]{Errors not negligible. Is this validation or testing set?}
 \end{table}
 
-\todo[inline]{Try out bidirectional LSTMs and stacked ones (still not
-  overfitting).Technically would allow multiple outputs: Could do Pi0 Cluster-ID
-  internally. What else has been tested?}
+The largest improvement in separation power are observed when including
+conversion tracks and shots in the classification. Both reduce migrations to
+modes with fewer neutral pions with a small increase in migrations due to
+overestimation of the neutral pion count. Migration and purity matrices for the
+different experiments are omitted for brevity and can be found in
+Appendix~\ref{sec:app_decay_mode_exp}. Using the extrapolated track position
+does not show any improvements over using the track parameters at the beamspot.
+This is likely due to parameters at the beamspot more closely resembling the
+original direction of the photon. \todo{Shots}
 
-A summary of all experiments is given in Table~\ref{tab:pfo_add_experiments}.
-Tested bidirectional LSTMs for neutral PFOs -- marginal improvement
-\SI{0.2}{\percent} to \SI{0.3}{\percent}.
+Extending the inputs for each neutral PFO by properties of the clusters also
+leads to a significant improvement in diagonal efficiency. Furthermore the
+fraction of transverse momentum subtracted from the cluster~$f_\text{sub}$
+substantially increases the diagonal efficiency for minimal complexity cost. A
+possible future extension would be to perform the full $\pi^0$-identification
+internally to improve the classification power with an identification
+specialised for use in the network.
+
+Alternative architectures including bidirectional LSTMs and multiple recurrent
+layers only show marginal improvements in the range of \num{0.2} to
+\SI{0.3}{\percent} in diagonal efficiency over a simpler model using a single
+LSTM layer.
 
 \subsection{Extended Model}
+\label{sec:extended_model}
+
+The baseline model is extended using the most significant sources of additional
+information from Section~\ref{sec:add_info}. This includes conversion tracks,
+shots, and additional properties of the neutral PFO clusters including the
+fraction of subtracted transverse momentum.
+
+\todo[inline]{Architecture. Still same pt threshold}
 
 \begin{figure}[!ht]
   \begin{subfigure}{0.48\textwidth}
@@ -541,9 +595,26 @@ Tested bidirectional LSTMs for neutral PFOs -- marginal improvement
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat.pdf}
     \subcaption{Purity matrix}
   \end{subfigure}
-  \caption{Combined}
+  \caption{Migration and purity matrices for the extended model including
+    conversion, shot and additional cluster information. }
   \label{fig:decay_mode_combined}
 \end{figure}
+
+After extending the baseline model, the peaks in the mode probabilities for tau
+decays without reconstructed neutral PFOs (cf.\
+Figure~\ref{fig:mode_proba_ptcut}) are significantly reduced as the additional
+conversion track and shot information can aid in the discrimination even when no
+neutral PFOs are present. For completeness the five mode probabilities of the
+extended model are summarised in Appendix~\ref{app:combined_probabilities}.
+
+In Figure~\ref{fig:decay_mode_combined} the migration and purity matrix of the
+extended model is shown. The additional discrimination power increases the
+diagonal efficiency from \SI{78.0}{\percent} of the baseline model to
+\SI{81.5}{\percent}. This is due to an absolute increase in efficiency of the
+order of \SI{5}{\percent} for modes containing one or more neutrals
+$h^\pm \pi^0$, $h^\pm \geq 2\pi^0$ and $3h^\pm\geq1\pi^0$. The purity is mostly
+affected in the $h^\pm$ and $h^\pm \geq 2\pi^0$ modes, where the absolute
+improvement is approximately \SI{5}{\percent}.
 
 \begin{figure}[!ht]
   \begin{subfigure}{0.48\textwidth}
@@ -560,13 +631,21 @@ Tested bidirectional LSTMs for neutral PFOs -- marginal improvement
   \label{fig:mode_efficiency_purity}
 \end{figure}
 
-\todo[inline]{Class probabilities (showing the non-existent peak). Improvements
-  for Higgs CP measurement in
+\todo[inline]{Improvements for Higgs CP measurement in
   $H \rightarrow \tau\tau \rightarrow \rho \rho 2\nu$. Performance when applying
   medium tau identification. Fluid classification -- a single PFO is not
   'causing' a particular classification result -- could use heuristic methods to
   reconstruct neutral pions after classification. Unleash on data without upper
   $p_\text{T}$ limit.}
+
+Many modes can be used for Higgs-CP. An important mode for Higgs-$\mathcal{CP}$
+measurements is the~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay
+mode. Measuring the angles
+
+
+$H \to \tautau \to \rho\rho 2 \nu$
+
+$H \to \tautau \to \pi\pi 2\nu$
 
 
 \begin{figure}[!ht]
