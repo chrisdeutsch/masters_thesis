@@ -631,37 +631,25 @@ improvement is approximately \SI{5}{\percent}.
   \label{fig:mode_efficiency_purity}
 \end{figure}
 
-\todo[inline]{Improvements for Higgs CP measurement in
-  $H \rightarrow \tau\tau \rightarrow \rho \rho 2\nu$. Performance when applying
-  medium tau identification. Fluid classification -- a single PFO is not
-  'causing' a particular classification result -- could use heuristic methods to
-  reconstruct neutral pions after classification. Unleash on data without upper
-  $p_\text{T}$ limit.}
+The improvements in overall classification power can be employed in
+Higgs-$\mathcal{CP}$ measurements using various decay modes of the tau lepton.
+An example is the~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay
+for~$H \to \tau\tau$ events corresponding to the $h^\pm \pi^0$ mode. This
+measurement requires the neutral pions to be reconstructed and identified in the
+measured final state. The RNN uses global features of the tau decay and
+therefore does not provide a set of neutral PFOs responsible for the decision.
+To measure the $\mathcal{CP}$ properties of the Higgs boson an additional
+algorithm would be required to identifiy and reconstruct the neutral pions. For
+$\mathcal{CP}$-measurement in the $\rho\nu$ mode using the extended RNN an
+absolute improvement in signal efficiency~\SI{7.2}{\percent} and an improvement
+in mode purity of~\SI{8.2}{\percent}. Depending on the performance of
+reconstructing the neutral pion this could lead to a significant improvement of
+the signal to background ratio.
 
-Many modes can be used for Higgs-CP. An important mode for Higgs-$\mathcal{CP}$
-measurements is the~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay
-mode. Measuring the angles
+\todo[inline]{Improvements for energy calibration}
 
-
-$H \to \tautau \to \rho\rho 2 \nu$
-
-$H \to \tautau \to \pi\pi 2\nu$
-
-
-\begin{figure}[!ht]
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat_med_id.pdf}
-    \subcaption{Migration matrix}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat_med_id.pdf}
-    \subcaption{ Purity matrix}
-  \end{subfigure}
-  \caption{Combined with medium tau id}
-  \label{fig:decay_mode_combined_med_id}
-\end{figure}
+% $H \to \tautau \to \rho\rho 2 \nu$
+% $H \to \tautau \to \pi\pi 2\nu$
 
 \clearpage
 \subsection{High-$p_\text{T}$ performance}
@@ -695,6 +683,22 @@ $H \to \tautau \to \pi\pi 2\nu$
   \label{fig:highpt_matrices}
 \end{figure}
 
+\subsection{Tau-ID}
+
+\begin{figure}[!ht]
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat_med_id.pdf}
+    \subcaption{Migration matrix}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat_med_id.pdf}
+    \subcaption{ Purity matrix}
+  \end{subfigure}
+  \caption{Combined with medium tau id}
+  \label{fig:decay_mode_combined_med_id}
+\end{figure}
 
 %%% Local Variables:
 %%% mode: latex
