@@ -196,7 +196,9 @@ kinematic quantities the following variables are used:
 \todo[inline]{Give reasons for this variable selection. \SI{1.5}{\percent}
   improvement for shots}
 
-\todo[inline]{Preprocessing:} The transverse momenta of the reconstructed tau as
+\todo[inline]{Preprocessing:}
+\todo[inline]{50--10--40: train-val-test split}
+The transverse momenta of the reconstructed tau as
 well as the PFOs are log-transformed and subsequently standardised (by
 subtracting the mean and dividing by the standard deviation of the transformed
 variable). The remaining kinematic variables are transformed to fall into the
@@ -607,6 +609,23 @@ conversion track and shot information can aid in the discrimination even when no
 neutral PFOs are present. For completeness the five mode probabilities of the
 extended model are summarised in Appendix~\ref{app:combined_probabilities}.
 
+\begin{figure}[htb]
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/efficiency_profile.pdf}
+    \subcaption{Efficiency profile}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/purity_profile.pdf}
+    \subcaption{Purity profile}
+  \end{subfigure}
+  \caption{Efficiency and purity of the decay mode classification using the
+    combined model as a function of reconstructed visible momentum~$p_\text{T}$
+    of the tau decay. Evaluated on an independent testing sample.}
+  \label{fig:mode_efficiency_purity}
+\end{figure}
+
 In Figure~\ref{fig:decay_mode_combined} the migration and purity matrix of the
 extended model is shown. The additional discrimination power increases the
 diagonal efficiency from \SI{78.0}{\percent} of the baseline model to
@@ -622,25 +641,38 @@ dependence on the transverse momentum of the tau. In contrast to this the
 1-prong mode containing more than one and the 3-prong mode with neutral pions
 show a significant increase in efficiency in the \num{20} to \SI{40}{\GeV}
 range. This is likely due to difficulties classifying events with soft neutral
-pions \todo{Check migration matrix}. The purity \todo{Continue}. The plots in
-Figure~\ref{fig:mode_efficiency_purity} indicate that the the RNN-based
-classification algorithm could be used beyond the design limit of \SI{100}{\GeV}
-of the particle flow algorithm.
+pions \todo{Check migration matrix}. The purity \todo{Continue}.
 
-\begin{figure}[!ht]
+The plots in Figure~\ref{fig:mode_efficiency_purity} indicate that the the
+RNN-based classification algorithm could be used beyond the design limit of
+\SI{100}{\GeV} of the particle flow algorithm, as the efficiencies and purities
+remain flat at large transverse momenta. In
+Figure~\ref{fig:mode_efficiency_purity_highpt} efficiencies and purities are
+shown after retraining the extended model on training data without applying the
+upper bound of \SI{100}{\GeV} in reconstructed transverse momentum of the tau.
+
+Diagonal efficiency of \SI{77.6}{\percent} for candidates over \SI{100}{\GeV}.
+Wide 'maximum' around \SI{100}{\GeV}. Efficiency flat for most modes except 1pXn
+(merging). Purity of modes containing neutrals decreasing. Still fairly large
+efficiencies and purities for decays up to \SI{250}{\GeV}ish.
+
+\begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/efficiency_profile.pdf}
+    \includegraphics{./figures/decay_mode_classification/highpt/efficiency_profile.pdf}
     \subcaption{Efficiency profile}
   \end{subfigure}\hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/purity_profile.pdf}
+    \includegraphics{./figures/decay_mode_classification/highpt/purity_profile.pdf}
     \subcaption{Purity profile}
   \end{subfigure}
-  \caption{$p_\text{T}$-dependence of mode efficiency and purity}
-  \label{fig:mode_efficiency_purity}
+  \caption{$p_\text{T}$-dependence of mode efficiency and purity. Retraining
+    model without upper bound in transverse momentum.}
+  \todo[inline]{Larger pt range would be useful? To show sharp drop.}
+  \label{fig:mode_efficiency_purity_highpt}
 \end{figure}
+
 
 The improvements in overall classification power can be employed in
 Higgs-$\mathcal{CP}$ measurements using various decay modes of the tau
@@ -658,42 +690,14 @@ improvement in mode purity of~\SI{8.2}{\percent}. Depending on the performance
 of reconstructing the neutral pion this could lead to a significant improvement
 of the signal to background ratio.
 
-\todo[inline]{Improvements for energy calibration}
+Another potential use of the improved classification performance would be to
+employ a decay mode specific energy calibration for the measurement of the tau
+visible transverse momentum. This could, without the need to explicitly
+reconstruct neutral pions, improve the energy resolution of reconstructed
+hadronic tau decays.
 
 % $H \to \tautau \to \rho\rho 2 \nu$
 % $H \to \tautau \to \pi\pi 2\nu$
-
-\clearpage
-\subsection{High-$p_\text{T}$ performance}
-\begin{figure}[htb]
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/highpt/efficiency_profile.pdf}
-    \subcaption{Efficiency profile}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/highpt/purity_profile.pdf}
-    \subcaption{Purity profile}
-  \end{subfigure}
-  \caption{$p_\text{T}$-dependence of mode efficiency and purity}
-  \label{fig:mode_efficiency_purity_highpt}
-\end{figure}
-
-\begin{figure}[htb]
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/highpt/mig_mat_pt_geq_100.pdf}
-    \subcaption{Migration matrix. $p_\text{T} > \SI{100}{\giga\electronvolt}$}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/highpt/comp_mat_geq_100.pdf}
-    \subcaption{Purity matrix. $p_\text{T} > \SI{100}{\giga\electronvolt}$}
-  \end{subfigure}
-  \caption{highpt}
-  \label{fig:highpt_matrices}
-\end{figure}
 
 %%% Local Variables:
 %%% mode: latex
