@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20170724171005" modified="D:20170724174311"/>
+<info created="D:20170724171005" modified="D:20170824150725"/>
 <preamble>\usepackage{amsmath}
 \usepackage{txfonts}
 </preamble>
@@ -265,14 +265,7 @@ h
 h
 </path>
 <text matrix="1 0 0 1 8 -8" transformations="translations" pos="148 796" stroke="0.216 0.494 0.722" type="minipage" width="40" height="11.064" depth="5.95" valign="center" size="9" style="center">Shared dense</text>
-<text matrix="1 0 0 1 68 -8" transformations="translations" pos="148 796" stroke="black" type="minipage" width="40" height="5.62" depth="0.5" valign="center" size="9" style="center">LSTM</text>
-<path matrix="1 0 0 1 60 -16" stroke="black" pen="0.6">
-156 816 m
-156 792 l
-196 792 l
-196 816 l
-h
-</path>
+<text matrix="1 0 0 1 68 -8" transformations="translations" pos="148 796" stroke="0.216 0.494 0.722" type="minipage" width="40" height="5.62" depth="0.5" valign="center" size="9" style="center">LSTM</text>
 <path matrix="1 0 0 1 0 -56" stroke="0.216 0.494 0.722" pen="0.6">
 156 816 m
 156 792 l
@@ -281,8 +274,8 @@ h
 h
 </path>
 <text matrix="1 0 0 1 8 -48" transformations="translations" pos="148 796" stroke="0.216 0.494 0.722" type="minipage" width="40" height="11.064" depth="5.95" valign="center" size="9" style="center">Shared dense</text>
-<text matrix="1 0 0 1 68 -48" transformations="translations" pos="148 796" stroke="black" type="minipage" width="40" height="5.62" depth="0.5" valign="center" size="9" style="center">LSTM</text>
-<path matrix="1 0 0 1 60 -56" stroke="black" pen="0.6">
+<text matrix="1 0 0 1 68 -48" transformations="translations" pos="148 796" stroke="0.216 0.494 0.722" type="minipage" width="40" height="5.62" depth="0.5" valign="center" size="9" style="center">LSTM</text>
+<path matrix="1 0 0 1 60 -56" stroke="0.216 0.494 0.722" pen="0.6">
 156 816 m
 156 792 l
 196 792 l
@@ -329,27 +322,27 @@ h
 368 776 m
 388 776 l
 </path>
-<path matrix="1 0 0 1 -60 -16" stroke="0.216 0.494 0.722" pen="0.6">
+<path matrix="1 0 0 1 -60 -16" stroke="0.302 0.686 0.29" pen="0.6">
 156 816 m
 156 792 l
 196 792 l
 196 816 l
 h
 </path>
-<text matrix="1 0 0 1 -52 -8" transformations="translations" pos="148 796" stroke="0.216 0.494 0.722" type="minipage" width="40" height="11.081" depth="5.96" valign="center" size="9" style="center">Charged PFOs</text>
-<path matrix="1 0 0 1 -60 -56" stroke="0.216 0.494 0.722" pen="0.6">
+<text matrix="1 0 0 1 -52 -8" transformations="translations" pos="148 796" stroke="0.302 0.686 0.29" type="minipage" width="40" height="11.081" depth="5.96" valign="center" size="9" style="center">Charged PFOs</text>
+<path matrix="1 0 0 1 -60 -56" stroke="0.302 0.686 0.29" pen="0.6">
 156 816 m
 156 792 l
 196 792 l
 196 816 l
 h
 </path>
-<text matrix="1 0 0 1 -52 -48" transformations="translations" pos="148 796" stroke="0.216 0.494 0.722" type="minipage" width="40" height="11.081" depth="5.96" valign="center" size="9" style="center">Neutral PFOs</text>
-<path matrix="1 0 0 1 8 -8" stroke="0.216 0.494 0.722" pen="0.6" arrow="normal/small">
+<text matrix="1 0 0 1 -52 -48" transformations="translations" pos="148 796" stroke="0.302 0.686 0.29" type="minipage" width="40" height="11.081" depth="5.96" valign="center" size="9" style="center">Neutral PFOs</text>
+<path matrix="1 0 0 1 8 -8" stroke="0.302 0.686 0.29" pen="0.6" arrow="normal/small">
 128 756 m
 148 756 l
 </path>
-<path matrix="1 0 0 1 8 -8" stroke="0.216 0.494 0.722" pen="0.6" arrow="normal/small">
+<path matrix="1 0 0 1 8 -8" stroke="0.302 0.686 0.29" pen="0.6" arrow="normal/small">
 128 796 m
 148 796 l
 </path>
@@ -372,5 +365,12 @@ h
 </path>
 <text matrix="0.707107 -0.707107 0.707107 0.707107 -441.522 361.041" pos="192 796" stroke="0" type="label" width="12.009" height="4.763" depth="0.07" valign="baseline" size="7" style="math">\tanh</text>
 <text matrix="0.707107 0.707107 -0.707107 0.707107 683.642 49.3249" pos="192 796" stroke="black" type="label" width="12.009" height="4.763" depth="0.07" valign="top" size="7" style="math">\tanh</text>
+<path matrix="1 0 0 1 60 -16" stroke="0.216 0.494 0.722" pen="0.6">
+156 816 m
+156 792 l
+196 792 l
+196 816 l
+h
+</path>
 </page>
 </ipe>

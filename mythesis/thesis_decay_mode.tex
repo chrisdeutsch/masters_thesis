@@ -28,6 +28,8 @@ Ref.~\cite{atlas:taurec:decaymodes} will be adopted.
 \todo[inline]{Readable text in migration matrices when printed
   -- dark blue???}
 
+\todo[inline]{Plot some discriminating variables?}
+
 \section{Tau Particle Flow}
 \label{sec:tau_pflow}
 
@@ -88,10 +90,10 @@ power. Decay mode classification employing the \emph{Tau Particle
   Flow}-algorithm is optimised for operation in the low-momentum regime due to
 the decreasing momentum resolution in the tracking system as well as the
 additional boost of the tau decay products leading to merging of
-$\pi^0$-clusters. Therefore this chapter focuses focus on the classification of
-hadronic tau lepton decays with visible transverse
-momenta~$p_\text{T} < \SI{100}{\giga\electronvolt}$ \todo{High momentum
-  performance is also shown!}.
+$\pi^0$-clusters. Therefore the main focus is on the classification of hadronic
+tau lepton decays with visible transverse
+momenta~$p_\text{T} < \SI{100}{\giga\electronvolt}$ but prospects of a
+classification algorithm usable over an extended momentum range are also given.
 
 \section{Classification with Tau Particle Flow and Recurrent Neural Networks}
 \label{sec:pfo_general}
@@ -100,46 +102,43 @@ The charged and neutral PFOs reconstructed with the \emph{Tau Particle
   Flow}-algorithm contain information about the daughter particles of the tau
 decay and can be used for decay mode classification. Properties of charged and
 neutral PFOs are combined in recurrent neural networks to perform multi-class
-classification. Mainly kinematic information (e.g.\ transverse momentum, angular
-deviation from the tau axis) is used to describe each PFO. Moreover the
-$\pi^0$-likeness in form of the neutral pion identification BDT score is
-included in the classification to be able to discriminate between neutral PFOs
-originating from a $\pi^0$ and remnants of the subtraction or pile-up.
+classification. Mainly kinematic information, e.g.\ the transverse momentum and
+angular deviation from the tau axis, is used to describe each PFO. Moreover the
+$\pi^0$-likeness in form of the neutral pion identification score is included in
+the classification to be able to discriminate between neutral PFOs originating
+from a neutral pion and remnants of the subtraction or pile-up.
 
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/decay_mode_classification/baseline_architecture.pdf}
-  \caption{Architecture. Highlighted in blue are layers that operate on a sequence of inputs.}
+  \caption{Architecture of the baseline model operating on sequences of charged
+    and neutral PFOs. The activation function is denoted after each layer.
+    Layers operating on sequential inputs are highlighted in blue.}
   \label{fig:pfo_rnn_baseline_arch}
-  \todo[inline]{Include branches for conversion tracks \& shots}
 \end{figure}
 
 The network architecture used for the decay mode classification is shown in
 Figure~\ref{fig:pfo_rnn_baseline_arch} and is similar to the networks used for
-tau-identification in the previous chapter. At the input layer the network is
-split into two branches each accepting a number of charged and neutral PFOs
-respectively. The shared dense layer applies an affine transformation on the
-input variables of each PFO. Afterwards the input sequences are fed into the
-recurrent LSTM layer which subsequently return a single vector of activations.
-The activations of both branches are then merged and passed through a network
-containing three dense layers. The final dense layer has five units equal to the
-number of decay modes to classify. The Softmax activation function is applied to
-the final layer, ensuring that the output activations sum to one.
+tau-identification in the previous chapter. The inputs of the network are split
+into two branches each accepting a number of charged and neutral PFOs. A shared
+dense layer applies an affine transformation to the input variables of each PFO.
+Afterwards the transformed sequences are fed into the recurrent layer returning
+a single vector of activations. The activations of both branches are
+concatenated and passed through a network containing three dense layers. The
+final dense layer has five units equal to the number of decay modes to classify.
+Application of the Softmax activation function on the final layer ensures that
+the output activations can be interpreted as mode probabilities.
 
 \subsection{Baseline Model}
 \label{sec:pfo_baseline}
 
-For training and evaluation of the model a sample containing the process
-$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used (full sample
-identifier in Appendix~\ref{sec:app_mc16a_taus}). The baseline tau selection
-given in Section~\ref{sec:bdt_eventsim} is applied and the visible transverse
-momentum~$p_\text{T}$ of the hadronic decay is required to be less than
-\SI{100}{\giga\electronvolt} at reconstruction and generator-level. Moreover
-only tau-leptons with the true decay mode being one of $h^\pm$, $h^\pm \pi^0$,
-$h^\pm \geq 2\pi^0$, $3h^\pm$ or $3h^\pm \geq 1\pi^0$ and omitting decay chains
-containing intermediate $\text{K}^0$ are used. The mode composition of the
-reconstructed tau decays after these selections is summarised in
-Table~\ref{tab:mode_reco_eff}.
+For training and evaluation of the model a sample of the
+process~$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used (cf.\
+Section~\ref{sec:bdt_eventsim}). Compared to the dataset used for the
+tau-identification studies, it features an updated tuning of the default decay
+mode classification and an increase in the number of simulated events by
+\SI{50}{\percent}. The sample identifier is given in
+Appendix~\ref{app:mc16a_taus}.
 
 \begin{table}[htb]
   \centering
@@ -150,35 +149,45 @@ Table~\ref{tab:mode_reco_eff}.
     $f_\text{reco}$; Mode fraction of taus also passing medium tau id.
     $f_\text{BR}$ fraction assuming fully efficient reconstruction.}
   \label{tab:mode_reco_eff}
+  \todo[inline]{What should be in this table?}
 \end{table}
+
+In addition to the baseline selection given in Section~\ref{sec:bdt_eventsim},
+the visible transverse momentum of the hadronic tau decay is required to be less
+than \SI{100}{\giga\electronvolt} at reconstruction and generator-level.
+Moreover, only taus with the generated decay mode being one of $h^\pm$,
+$h^\pm \pi^0$, $h^\pm \geq 2\pi^0$, $3h^\pm$ or $3h^\pm \geq 1\pi^0$ and
+omitting decays containing intermediate~\smash{$\text{K}^0$} are used. The mode
+composition of the sample after applying this preselection is summarised in
+Table~\ref{tab:mode_reco_eff}.
 
 The discrimination of the decay modes utilises kinematic quantities of the
 reconstructed tau decay as well as the charged and neutral particle flow
-objects:
+objects. The neutral and charged PFO variables are summarised in the following:
 \begin{description}
-\item[Kinematic quantities of the tau decay:] The visible transverse
-  momentum~$p_\text{T}^\tau$ and the angular
+\item[Kinematic quantities of the reconstructed tau decay:] The visible
+  transverse momentum~$p_\text{T}^\tau$ and the angular
   direction~$(\varphi_\tau, \eta_\tau)$ of the reconstructed tau-axis. The
   momentum is calibrated at LC-scale without applying a tau-specific energy
   calibration.
 
 \item[Kinematic quantities of charged and neutral PFOs:] The reconstructed
   transverse momentum $p_\text{T}^\text{PFO}$ and the signed angular distances
-  to the reconstructed tau decay in transverse~$\Delta\varphi$ and longitudinal
+  to the reconstructed tau-axis in transverse~$\Delta\varphi$ and longitudinal
   direction~$\Delta\eta \coloneqq \eta_\text{PFO} - \eta_\tau$. The transverse
   angular distance~$\Delta\varphi$ is defined analogously to the longitudinal
-  case but also accounting for the periodicity in~$\varphi$. Signed angular
-  distances relative to the tau-axis are used to ensure that coordinates are
+  case but also accounting for the periodicity in the azimuthal angle~$\varphi$.
+  Angular deviations from the tau-axis are used to ensure that coordinates are
   comparable between different tau candidates.
 \end{description}
-The variable set used for neutral PFOs is extended to allow for the
+For neutral PFOs the set of variables is extended to allow for the
 identification of clusters originating from neutral pions. In addition to the
 kinematic quantities the following variables are used:
 \begin{description}
-\item[$\pi^0$ identification score $S_\text{BDT}^{\pi^0}$:] BDT-based
-  discriminant combining cluster information in the electromagnetic part of the
-  calorimeter to identify neutral PFOs originating from the $\pi^0$
-  decay~\cite{atlas:taurec:decaymodes}.
+\item[$\pi^0$-identification score $S_\text{BDT}^{\pi^0}$:] BDT-based
+  discriminant combining shower shape information in the electromagnetic part of
+  the calorimeter to identify neutral PFOs originating from photons of the
+  $\pi^0$ decay~\cite{atlas:taurec:decaymodes}.
 
 \item[Number of shots $N_\text{shots}$:] Number of shots (cf.\
   Section~\ref{sec:shot_reco}) associated with a neutral PFO cluster. Shots are
@@ -186,15 +195,14 @@ kinematic quantities the following variables are used:
   cluster fulfils $E_\text{T} > \SI{500}{\mega\electronvolt}$ and is within
   $\Delta R < 0.4$ to the tau axis. In cases where the cell is shared between
   multiple clusters, it is associated to the cluster to which the seed cell
-  contributes with the largest weight.
+  contributes with the largest weight~\cite{athena}.
 
-  The fine segmentation of the strip layer of the EM calorimeter is used to
-  count local energy maxima created by individual photons and allow to recover
+  The fine segmentation of the strip layer in the EM calorimeter is used to
+  count local energy maxima created by individual photons, allowing to recover
   the correct number of neutrals in cases where the energy depositions of two
   neutral pions are reconstructed as a single cluster in the calorimeter.
 \end{description}
-\todo[inline]{Give reasons for this variable selection. \SI{1.5}{\percent}
-  improvement for shots}
+\todo[inline]{\SI{1.5}{\percent} improvement for shots}
 
 \todo[inline]{Preprocessing:}
 \todo[inline]{50--10--40: train-val-test split}
