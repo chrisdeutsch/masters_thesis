@@ -548,9 +548,8 @@ not significantly improve on the transverse momentum ordering.
   \input{./tables/pfo_add_info.tex}
   \caption{Summary of the improvements in decay mode classification performance
     when extending the RNN with additional inputs. The metrics are evaluated on
-    an independent testing sample.}
+    the validation sample.}
   \label{tab:pfo_add_experiments}
-  \todo[inline]{Errors not negligible. Is this validation or testing set?}
 \end{table}
 
 The largest improvement in separation power are observed when including
@@ -640,8 +639,9 @@ efficiencies of the $h^\pm$, $h^\pm \pi^0$ and $3h^\pm$ modes show no strong
 dependence on the transverse momentum of the tau. In contrast to this the
 1-prong mode containing more than one and the 3-prong mode with neutral pions
 show a significant increase in efficiency in the \num{20} to \SI{40}{\GeV}
-range. This is likely due to difficulties classifying events with soft neutral
-pions \todo{Check migration matrix}. The purity \todo{Continue}.
+range. This is likely due to difficulties in classfying events containing
+neutral pions with low transverse momenta \todo{Reason}. The purity
+\todo{Continue}.
 
 The plots in Figure~\ref{fig:mode_efficiency_purity} indicate that the the
 RNN-based classification algorithm could be used beyond the design limit of
@@ -673,22 +673,23 @@ efficiencies and purities for decays up to \SI{250}{\GeV}ish.
   \label{fig:mode_efficiency_purity_highpt}
 \end{figure}
 
-
 The improvements in overall classification power can be employed in
-Higgs-$\mathcal{CP}$ measurements using various decay modes of the tau
-lepton~\cite{Berge2014}. An example is
+$\mathcal{CP}$ measurements of the Higgs boson using various decay modes of the
+tau lepton~\cite{Berge2014}. An example is
 the~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay
 for~$H \to \tau\tau$ events corresponding to the $h^\pm \pi^0$ mode. This
 measurement requires the neutral pions to be reconstructed and identified in the
 measured final state. The RNN uses global features of the tau decay and
 therefore does not provide a set of neutral PFOs responsible for the decision.
 To measure the $\mathcal{CP}$ properties of the Higgs boson an additional
-algorithm would be required to identifiy and reconstruct the neutral pions. For
-the Higgs-$\mathcal{CP}$ measurement in the $\rho\nu$ mode using the extended
-RNN an absolute improvement in signal efficiency~\SI{7.2}{\percent} and an
+algorithm would be required to identifiy and reconstruct neutral pions given the
+classification. For the measurement in the $\rho\nu$ mode using the extended RNN
+an absolute improvement in signal efficiency~\SI{7.2}{\percent} and an
 improvement in mode purity of~\SI{8.2}{\percent}. Depending on the performance
 of reconstructing the neutral pion this could lead to a significant improvement
-of the signal to background ratio.
+of the signal to background ratio. The remaining modes show similar improvements
+in mode efficiency and purity with respect to the algorithm currently in use at
+ATLAS.
 
 Another potential use of the improved classification performance would be to
 employ a decay mode specific energy calibration for the measurement of the tau
