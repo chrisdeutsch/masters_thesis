@@ -269,21 +269,7 @@ threshold. The studies in this thesis use a \SI{1.5}{\giga\electronvolt}
 threshold to account for potential mismodelling but further studies are needed
 to prove the necessity of this cut.
 
-Figure~\ref{fig:mode_proba_ptcut} depicts two examples of mode probability
-estimates on the testing sample. A complete set of probabilities for all five
-decay modes is omitted for brevity and can be found in
-Appendix~\ref{app:baseline_probabilities}. The $h^\pm$ mode probability in
-Figure~\ref{fig:1p0n_proba} shows that the estimated probabilities for generated
-modes containing one or more neutral pions are frequently small. Nevertheless,
-when no neutral PFOs are reconstructed they can be as large as
-\SI{90}{\percent}, causing decays to be falsely classified. The same feature can
-be observed in Figure~\ref{fig:1p1n_proba}, where the $h^\pm \pi^0$ mode
-probabilities are small. Additionally, generated 1-prong decays with more than
-one neutral pion often exceed $h^\pm \pi^0$ probabilities of \SI{50}{\percent}
-leading to significant migrations of true $h^\pm \geq 2 \pi^0$ to the
-$h^\pm \pi^0$ decay mode.
-
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/mode_proba_baseline_ptcut_1_5_only_1p/proba_1p0n.pdf}
@@ -305,25 +291,25 @@ $h^\pm \pi^0$ decay mode.
   \label{fig:mode_proba_ptcut}
 \end{figure}
 
-The migration probability of generated decay modes to a given reconstructed mode
-can be summarised in the so called \emph{migration matrix}. In
-Figure~\ref{fig:migmat_comparison_baseline_15cut} migration matrices for both
-the RNN as well as the ATLAS default algorithm is depicted. The diagonal entries
-give the efficiencies to reconstruct the corresponding decay mode while the
-off-diagonal measures the migration probability. The diagonal efficiency can
-also be interpreted as the mean of the diagonal entries of this matrix weighted
-by the reconstructed mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The
-individual efficiencies and migration probabilities in the matrix can vary
-between different trainings of the network as a decrease in efficiency in one
-mode can be compensated by an improvement in another. Nevertheless the diagonal
-efficiency is a stable metric between different trainings and is used as a
-figure of merit for subsequent investigations.
+Figure~\ref{fig:mode_proba_ptcut} depicts two examples of mode probability
+estimates on the testing sample. A complete set of probabilities for all five
+decay modes is omitted for brevity and can be found in
+Appendix~\ref{app:baseline_probabilities}. The $h^\pm$ mode probability in
+Figure~\ref{fig:1p0n_proba} shows that the estimated probabilities for generated
+modes containing one or more neutral pions are frequently small. Nevertheless,
+when no neutral PFOs are reconstructed they can be as large as
+\SI{90}{\percent}, causing decays to be falsely classified. The same feature can
+be observed in Figure~\ref{fig:1p1n_proba}, where the $h^\pm \pi^0$ mode
+probabilities are small. Additionally, generated 1-prong decays with more than
+one neutral pion often exceed $h^\pm \pi^0$ probabilities of \SI{50}{\percent}
+leading to significant migrations of true $h^\pm \geq 2 \pi^0$ to the
+$h^\pm \pi^0$ decay mode.
 
-\begin{figure}[htb]
+\begin{figure}[tb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/mig_mat_pantau.pdf}
-    \subcaption{ATLAS default algorithm: \emph{PanTau}}
+    \subcaption{ATLAS default algorithm}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -331,28 +317,29 @@ figure of merit for subsequent investigations.
     \subcaption{RNN with neutral PFO $p_{\text{T}}$-cut of
       \SI{1.5}{\GeV}}
   \end{subfigure}
-  \caption{Migration matrices showing the migration probabilities in
-    \si{\percent} of the true decay modes to the reconstructed modes. Evaluation
-    on an independent testing sample. Statistical fluctuations due to limited
-    sample size can be neglected.}
-  \todo[inline]{After reconstruction in
-    $\gamma^* \rightarrow \tau \tau \, \text{hadr.}$ and omitting decays
-    containing neutral kaons.}
+  \caption{Migration matrices showing the migration probabilities of the true
+    decay modes to the reconstructed modes in \si{\percent}. Evaluation on the
+    independent testing sample. Statistical fluctuations due to limited sample
+    size can be neglected.}
   \label{fig:migmat_comparison_baseline_15cut}
 \end{figure}
 
-In comparison with the ATLAS default algorithm the RNN significantly improves
-the reconstruction efficiencies of all five decay modes leading to an overall
-increase in diagonal efficiency by \SI{4.8}{\percent}. Large improvements are
-observed in the efficiencies for the $h^\pm$, $h^\pm \geq 2\pi^0$ and
-$3h^\pm \geq 1\pi^0$ modes. Furthermore the RNN shows a significant reduction in
-migrations due to under- or overestimation of the number of neutral pions.
-Migrations between 1- and 3-prong modes are of similar magnitude for both the
-ATLAS algorithm and the RNN classification \todo{Not true as there is a
-  significant improvement in 1-prong to reco 3-prong migration, indicating that
-  decay mode classification according to classified tracks is suboptimal}.
+The migration probability of generated decay modes to a given reconstructed mode
+can be summarised in the so called \emph{migration matrix}.
+Figure~\ref{fig:migmat_comparison_baseline_15cut} shows migration matrices of
+the ATLAS default algorithm and the RNN-based decay mode classification. The
+diagonal entries give the efficiencies to correctly reconstruct the
+corresponding decay mode while the off-diagonal measures the migration
+probability between modes. The diagonal efficiency can also be interpreted as
+the mean of the diagonal entries of this matrix weighted by the reconstructed
+mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The individual efficiencies
+and migration probabilities in the matrix can vary between different trainings
+of the network as a decrease in efficiency in one mode can be compensated by an
+improvement in another. Nevertheless, the diagonal efficiency is a stable metric
+between different trainings and is used as a figure of merit for subsequent
+investigations.
 
-\begin{figure}[htb]
+\begin{figure}[tb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/comp_mat_pantau.pdf}
@@ -365,13 +352,22 @@ ATLAS algorithm and the RNN classification \todo{Not true as there is a
       \SI{1.5}{\giga\electronvolt}}
   \end{subfigure}
   \caption{Purity matrices showing the fractional composition of the
-    reconstructed decay modes in \si{percent}. Evaluation on an independent
+    reconstructed decay modes in \si{\percent}. Evaluation on the independent
     testing sample. Statistical fluctuations due to limited sample size can be
     neglected.}
   \label{fig:puritymat_comparison_baseline_15cut}
-  \todo[inline]{Check whether the 'diagonal efficiency' is correct for
-    composition matrices.}
 \end{figure}
+
+In comparison with the ATLAS default algorithm the RNN significantly improves
+the reconstruction efficiencies of all five decay modes leading to an overall
+increase in diagonal efficiency by \SI{4.8}{\percent}. Large improvements are
+observed in the efficiencies for the $h^\pm$, $h^\pm \geq 2\pi^0$ and
+$3h^\pm \geq 1\pi^0$ modes. Furthermore the RNN shows a significant reduction in
+migrations due to under- or overestimation of the number of neutral pions.
+Migrations between 1- and 3-prong modes are of similar magnitude for both the
+ATLAS algorithm and the RNN classification \todo{Not true as there is a
+  significant improvement in 1-prong to reco 3-prong migration, indicating that
+  decay mode classification according to classified tracks is suboptimal}.
 
 Due to the the reduction in migrations between different number of neutrals an
 overall improvement in purity of the reconstructed modes is expected. This is
