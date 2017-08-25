@@ -390,10 +390,10 @@ architecture.
 \todo[inline]{Number of objects optimised by hand}
 
 \subsubsection{Conversion Tracks}
-Often photons from the \smash{$\pi^0$}-decay convert into electron-positron
-pairs in material of the inner detector. The magnetic field bends the pair from
-the direction of the initiating photon, spreading out the energy deposition in
-the EM calorimeter. This can lead to neutral PFOs being reconstructed from
+Often photons from the \smash{$\pi^0$}-decay convert in the material of the
+inner detector into electron-positron pairs. The magnetic field bends the pair
+from the direction of the initiating photon, spreading out the energy deposition
+in the EM calorimeter. This can lead to neutral PFOs being reconstructed from
 clusters originating from individual electrons, affecting the
 \smash{$\pi^0$}-identification score and the number of associated shots. In some
 cases the algorithm can fail to reconstruct neutral PFOs, thus the presence of
@@ -401,27 +401,24 @@ high momentum conversion tracks can be an indicator of decay modes containing
 neutral pions. The inclusion of conversion tracks in the classification aims to
 reduce migrations to decay modes with fewer neutrals.
 
-\todo[inline]{continue}
-
-The architecture of the baseline model depicted in
-Figure~\ref{fig:pfo_rnn_baseline_arch} is extended by a third branch taking a
+The architecture of the baseline model (cf.\
+Figure~\ref{fig:pfo_rnn_baseline_arch}) is extended by a third branch taking a
 sequence of tracks classified as \emph{conversion} according to the track
-classification algorithm. The sequence of layers is identical to the PFO
-branches, with the exception that the number of units in the shared and LSTM
-layers are reduced to 16 (from 24). In addition the size of the dense layers
-following the three merged recurrent branches are increased to 64 and 32
-repectively (from 48/24) to account for the increased number of units of the
-three merged branches.
+classification algorithm. Its sequence of layers is identical to the other
+branches except that the number of units in the shared dense and LSTM layers are
+reduced to 16 (from 24). To account for the increased number of units of the
+three merged branches, the size of the consecutive dense layers are increased to
+64 and 32 units (from 48/24).
 
 A maximum of four conversion tracks are passed to the network in ascending
-transverse momentum ordering. The tracks have to pass a transverse momentum
-threshold of \SI{400}{\MeV} from track reconstruction. The network inputs for
-each track contain the transverse momentum of the track~$p_\text{T, track}$, as
-well as the angular position of the tau axis~$(\varphi_\tau, \eta_\tau)$ and the
-angular distance~$(\Delta\varphi, \Delta\eta)$ between track and tau axis. The
-angular distances are calculated using track parameters using the beamspot as
-the orgin as well as using the position of the extrapolated track on the face of
-EM1.
+transverse momentum ordering. Tracks are required to pass a transverse momentum
+threshold of \SI{400}{\MeV} from the track reconstruction. The inputs for each
+track contain the transverse momentum of the track~$p_\text{T}^\text{track}$,
+the angular direction of the tau axis~$(\varphi_\tau, \eta_\tau)$ and the
+angular distance~$(\Delta\varphi, \Delta\eta)$ between track and tau-axis. The
+angular distances are calculated using track parameters at the perigee with
+respect to the beamspot and alternatively using the position of the extrapolated
+track hit on the face of EM1.
 
 \subsubsection{Shots}
 
