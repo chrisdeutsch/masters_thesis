@@ -25,9 +25,6 @@ Ref.~\cite{atlas:taurec:decaymodes} will be adopted.
 \todo[inline]{Signature of the decay modes (Could be moved to
   \textit{Theoretical Background})}
 
-\todo[inline]{Readable text in migration matrices when printed
-  -- dark blue???}
-
 \todo[inline]{Plot some discriminating variables?}
 
 \section{Tau Particle Flow}
@@ -198,57 +195,60 @@ kinematic quantities the following variables are used:
   contributes with the largest weight~\cite{athena}.
 
   The fine segmentation of the strip layer in the EM calorimeter is used to
-  count local energy maxima created by individual photons, allowing to recover
-  the correct number of neutrals in cases where the energy depositions of two
-  neutral pions are reconstructed as a single cluster in the calorimeter.
+  count local energy maxima created by individual photons, allowing in some
+  cases to recover the correct number of neutrals when the energy depositions of
+  two neutral pions are reconstructed as a single cluster in the calorimeter.
+  Moreover, it supports the identification of neutral pions as no shot
+  information is used in the current identification algorithm.
+  \todo{\SI{1.5}{\percent} impact on diag.\ eff.}
 \end{description}
-\todo[inline]{\SI{1.5}{\percent} improvement for shots}
 
-\todo[inline]{Preprocessing:}
-\todo[inline]{50--10--40: train-val-test split}
-The transverse momenta of the reconstructed tau as
-well as the PFOs are log-transformed and subsequently standardised (by
-subtracting the mean and dividing by the standard deviation of the transformed
-variable). The remaining kinematic variables are transformed to fall into the
-the $[-1, 1]$ range. For the neutral PFO specific variables
-$S_\text{BDT}^{\pi^0}$ and $N_\text{shots}$ no preprocessing is needed.
+Analogously to the RNN-based tau identification in Chapter~\ref{sec:rnn}, the
+full dataset is split into a training~(\SI{50}{\percent}),
+validation~(\SI{10}{\percent}) and testing sample~(\SI{40}{\percent}). The
+transverse momenta of the reconstructed tau and PFOs are log-transformed and
+subsequently standardised by subtracting the mean and dividing by the standard
+deviation derived from the distributions in the training sample. For the neutral
+PFO specific variables~\smash{$S_\text{BDT}^{\pi^0}$} and
+\smash{$N_\text{shots}$} no preprocessing is required. The remaining kinematic
+variables, i.e.\ angular direction of the tau-axis and angular deviation of the
+PFO, are scaled into the~$[-1, 1]$-interval.
 
 Charged and neutral PFOs are passed in ascending transverse momentum ordering to
-the shared dense layers with 24 units each \todo{Up to 3 charged PFOs (upper
-  limit for given selection), Up to 10 neutral PFOs -- not optimised}. The
-intermediate representation of the input sequence is then passed into the LSTM
-layers each with 24 units and hard sigmoid recurrent activation. The recurrent
-layers return a single element containing 24 scalar values which are
-subsequently merged and passed through three dense layers with 48, 32 and 5
-units respectively. The outputs of the different layers are activated using the
-$\tanh$ activation function with the exception of the last dense layer, which
-uses \emph{Softmax} activation.
+the shared dense layers with 24 units each. A maximum of three charged PFOs
+corresponding to the \emph{charged} tracks and up to ten neutral PFOs are used.
+The intermediate representations after the shared dense layers are passed into
+the LSTM layers, each returning a vector of 24 activations. The activations of
+both branches are merged and passed through a network of three dense layers with
+48, 32 and 5 units, respectively.
 
-For each reconstructed tau decay the model returns one probability for each of
-the five decay modes. The reconstructed decay mode is then given as the mode
-with the highest probability according to the model. A different scheme for
+For a given reconstructed tau decay the model returns one probability for each
+of the five decay modes. The decay mode is classified as the mode with the
+largest probability estimate according to the model. A different scheme for
 determining the decay mode would be to require the largest mode probability to
 exceed the second largest by a predefined margin. This would increase the purity
-of the reconstructed modes at the expense of reducing the reconstruction
-efficiency (should be evaluated on analysis-level).
+of the classified modes at the expense of reducing the efficiency. As this
+scheme depends on the requirements of the particular analysis, the following
+will focus on classification according to the highest probability.
 
 In contrast to the decay mode classification algorithm currently in use at the
 ATLAS experiment, no discrimination of 1- and 3-prong modes according to the
-number of tracks that are classified as \emph{charged} is made. However each
-charged PFO is associated with a \emph{charged} track such that the number of
-tracks is indirectly available to the network. The network is not strictly
-required to use this information allowing migrations of reconstructed 1-track
-(3-track) hadronic tau decays to 3-prong (1-prong) modes. If this behaviour is
-not desired then the decay mode can be classified as the mode with the highest
-probability that is still compatible with the number of reconstructed tracks
-\todo{Compare two migration matrices. One with the track requirement one
-  without}.
+number of reconstructed tracks that are classified as \emph{charged} is made.
+However, as each charged PFO is associated with a \emph{charged} track the
+number of tracks is indirectly available to the network. The network is not
+strictly required to use this information allowing migrations of reconstructed
+1-track (3-track) hadronic tau decays to 3-prong (1-prong) modes. If this
+behaviour is not desired then the decay mode can be classified as the mode with
+the highest probability that is still compatible with the number of
+reconstructed tracks. For the following studies these migrations are allowed as
+the loss in classification power is small when constraining the model (a
+comparison is given in Appendix~\ref{app:mode_classification_track_constraint}).
 
 \begin{table}[htb]
   \centering
   \input{./tables/neutral_pfo_ptcut.tex}
-  \caption{Diagonal efficiency on an independent testing sample as a function of
-    the transverse momentum threshold on the neutral PFOs. A separate network is
+  \caption{Diagonal efficiency on the validation sample as a function of the
+    transverse momentum threshold on the neutral PFOs. A separate network is
     trained for each threshold.}
   \label{tab:neut_ptcut}
 \end{table}
