@@ -377,59 +377,31 @@ given after extending the model with additional information.
 \subsection{Additional Information}
 \label{sec:add_info}
 
-\todo[inline]{Merge weird subchapters: Intention + realisation}
+This section aims to increase the discrimination power of the RNN-based decay
+mode classification by including additional information into the network. The
+focus lies on the inclusion of conversion tracks, shots, and further properties
+of the neutral PFO clusters. The following describes the intention behind each
+source of additional information and how it is included into the network
+architecture.
 
-This section aims to increase the classification power of the RNN by including
-additional information in the network. For this the focus lies on the inclusion
-of conversion tracks, shots and additional cluster moments. The following
-summarises the intention behind these sources of information:
-\begin{description}
-\item[Conversion tracks] Often photons from the $\pi^0$ decay convert into
-  electron-positron pairs in the material of the inner detector. These pairs are
-  bent from the direction of the initiating photon in the magnetic field of the
-  inner detector. This can weaken the signature of neutral pions in the decay as
-  the energy can be split into different PFOs, affecting the
-  $\pi^0$~identification score and the number of associated shots. In some cases
-  the algorithm can fail to reconstruct neutral PFOs. This can lead to an
-  underestimation of the number of neutral pions.
-
-  The inclusion of conversion tracks in the classification aims to reduce
-  migrations to decay modes with fewer neutrals. For this tracks classified as
-  \emph{conversion} according to the track classification are used.
-
-\item[Shots] Due to the boosted topology of tau decays in ATLAS (especially at
-  large transverse momentum) neutral pion clusters can merge with other charged
-  or neutral pion clusters. Without additional information two merged neutral
-  pion clusters cannot be distinguished using purely kinematic quantities of the
-  PFOs leading to a underestimation of the number of neutrals. To improve the
-  discrimination of merged neutral pion clusters the finely segmented strip
-  layer in the calorimeter is used. For this the network is extended to also use
-  a sequence of shots associated with a given reconstructed tau decay~(cf.\
-  Section~\ref{sec:shot_reco}). This differs from the approach in
-  Section~\ref{sec:pfo_baseline}, where only the number of shots associated with
-  a neutral PFO is used, as it allows including transverse momenta and angular
-  distances of shots.
-
-  This further aims to reduce migrations to modes with fewer neutrals.
-
-\item[Neutral PFO cluster properties] Further improvements in classifying events
-  with merged clusters can be achieved by employing shower shape information of
-  the clusters used for PFO reconstruction. These clusters are created during
-  the PFO reconstruction (cf.\ Section~\ref{sec:tau_pflow}) using cells in the
-  Presampler, EM1 and EM2. Moments and other properties of the clusters, similar
-  to the discriminants used for $\pi^0$-identification, are used to extend the
-  input variables of neutral PFOs in the network.
-\end{description}
-
-These problems, their origin and potential solutions are discussed
-in the following section.
-These problems are the subject of the following section.
-Challenges: No reconstructed PFOs, migrations between decay modes with one or
-more than one neutrals.
+\todo[inline]{Challenges: No reconstructed PFOs, migrations between decay modes
+  with one or more than one neutrals.}
 
 \todo[inline]{Number of objects optimised by hand}
 
 \subsubsection{Conversion Tracks}
+Often photons from the \smash{$\pi^0$}-decay convert into electron-positron
+pairs in material of the inner detector. The magnetic field bends the pair from
+the direction of the initiating photon, spreading out the energy deposition in
+the EM calorimeter. This can lead to neutral PFOs being reconstructed from
+clusters originating from individual electrons, affecting the
+\smash{$\pi^0$}-identification score and the number of associated shots. In some
+cases the algorithm can fail to reconstruct neutral PFOs, thus the presence of
+high momentum conversion tracks can be an indicator of decay modes containing
+neutral pions. The inclusion of conversion tracks in the classification aims to
+reduce migrations to decay modes with fewer neutrals.
+
+\todo[inline]{continue}
 
 The architecture of the baseline model depicted in
 Figure~\ref{fig:pfo_rnn_baseline_arch} is extended by a third branch taking a
@@ -452,6 +424,25 @@ the orgin as well as using the position of the extrapolated track on the face of
 EM1.
 
 \subsubsection{Shots}
+
+% from descr
+Due to the boosted topology of tau decays in ATLAS (especially at
+  large transverse momentum) neutral pion clusters can merge with other charged
+  or neutral pion clusters. Without additional information two merged neutral
+  pion clusters cannot be distinguished using purely kinematic quantities of the
+  PFOs leading to a underestimation of the number of neutrals. To improve the
+  discrimination of merged neutral pion clusters the finely segmented strip
+  layer in the calorimeter is used. For this the network is extended to also use
+  a sequence of shots associated with a given reconstructed tau decay~(cf.\
+  Section~\ref{sec:shot_reco}). This differs from the approach in
+  Section~\ref{sec:pfo_baseline}, where only the number of shots associated with
+  a neutral PFO is used, as it allows including transverse momenta and angular
+  distances of shots.
+
+  This further aims to reduce migrations to modes with fewer neutrals.
+% END
+
+
 The architecture to include shots in the decay mode classification is identical
 to the one used for conversion tracks in the previous section. Analogously, up
 to six reconstructed shots are fed to the network in ascending transverse
@@ -469,6 +460,16 @@ quantities.
 
 \subsubsection{Neutral PFO cluster properties}
 
+% from descr
+Further improvements in classifying events
+  with merged clusters can be achieved by employing shower shape information of
+  the clusters used for PFO reconstruction. These clusters are created during
+  the PFO reconstruction (cf.\ Section~\ref{sec:tau_pflow}) using cells in the
+  Presampler, EM1 and EM2. Moments and other properties of the clusters, similar
+  to the discriminants used for $\pi^0$-identification, are used to extend the
+  input variables of neutral PFOs in the network.
+  % end
+
 Including additional properties of neutral PFO clusters does not require changes
 in the network architecture. In addition to the neutral PFO variables of the
 baseline model in Section~\ref{sec:pfo_baseline} the model is extended using the
@@ -484,8 +485,8 @@ separation power.
 
 \begin{table}[htb]
   \centering
-  {\def\arraystretch{1.5}
-  \begin{tabular}{p{5cm}p{9cm}}
+  {\def\arraystretch{1.4}\small
+  \begin{tabular}{p{4.5cm}p{9cm}}
     \toprule
     \textbf{Lateral shower width}\newline$\langle R^2 \rangle$ &
     Second moment of the radial distance $R$ between cluster cells and shower axis \cite{atlas_topoclustering}. \\
