@@ -327,17 +327,17 @@ $h^\pm \pi^0$ decay mode.
 The migration probability of generated decay modes to a given reconstructed mode
 can be summarised in the so called \emph{migration matrix}.
 Figure~\ref{fig:migmat_comparison_baseline_15cut} shows migration matrices of
-the ATLAS default algorithm and the RNN-based decay mode classification. The
-diagonal entries give the efficiencies to correctly reconstruct the
-corresponding decay mode while the off-diagonal measures the migration
-probability between modes. The diagonal efficiency can also be interpreted as
-the mean of the diagonal entries of this matrix weighted by the reconstructed
-mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The individual efficiencies
-and migration probabilities in the matrix can vary between different trainings
-of the network as a decrease in efficiency in one mode can be compensated by an
-improvement in another. Nevertheless, the diagonal efficiency is a stable metric
-between different trainings and is used as a figure of merit for subsequent
-investigations.
+the ATLAS default algorithm~\cite{atlas:taurec:decaymodes} and the RNN-based
+decay mode classification. The diagonal entries give the efficiencies to
+correctly reconstruct the corresponding decay mode while the off-diagonal
+measures the migration probability between modes. The diagonal efficiency can
+also be interpreted as the mean of the diagonal entries of this matrix weighted
+by the reconstructed mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The
+individual efficiencies and migration probabilities in the matrix can vary
+between different trainings of the network as a decrease in efficiency in one
+mode can be compensated by an improvement in another. Nevertheless, the diagonal
+efficiency is a stable metric between different trainings and is used as a
+figure of merit for subsequent investigations.
 
 \begin{figure}[tb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -358,29 +358,21 @@ investigations.
   \label{fig:puritymat_comparison_baseline_15cut}
 \end{figure}
 
-In comparison with the ATLAS default algorithm the RNN significantly improves
-the reconstruction efficiencies of all five decay modes leading to an overall
-increase in diagonal efficiency by \SI{4.8}{\percent}. Large improvements are
-observed in the efficiencies for the $h^\pm$, $h^\pm \geq 2\pi^0$ and
-$3h^\pm \geq 1\pi^0$ modes. Furthermore the RNN shows a significant reduction in
-migrations due to under- or overestimation of the number of neutral pions.
-Migrations between 1- and 3-prong modes are of similar magnitude for both the
-ATLAS algorithm and the RNN classification \todo{Not true as there is a
-  significant improvement in 1-prong to reco 3-prong migration, indicating that
-  decay mode classification according to classified tracks is suboptimal}.
+In comparison with the ATLAS default algorithm, the RNN-based decay mode
+classification improves the efficiencies of all five decay modes leading to an
+absolute increase in diagonal efficiency of \SI{4.8}{\percent}. Furthermore, a
+significant reduction in migrations due to under- or overestimation of the
+number of neutral pions is observed. Migrations between 1- and 3-prong modes are
+of similar magnitude for both algorithms.
 
-Due to the the reduction in migrations between different number of neutrals an
-overall improvement in purity of the reconstructed modes is expected. This is
-shown in the so called \emph{purity matrix} in
-Figure~\ref{fig:puritymat_comparison_baseline_15cut} where each row gives the
-fractional composition of the reconstructed decay modes and the diagonal the
-corresponding mode purity. Compared to the ATLAS algorithm, the mode
-classification using the RNN shows significant improvements in reconstructed
-mode purity due to the decreasing migration probability between modes with
-different numbers of neutral pions. The largest improvements in purity are
-observed in modes containing one or more neutral pions with the largest being in
-the $h^\pm \geq 2\pi^0$ mode with an absolute increase of \SI{9.7}{\percent}.
-
+Due to the reduction of migrations between different modes an overall
+improvement in purity of the reconstructed modes is expected. This is shown in
+the so called \emph{purity matrix} in
+Figure~\ref{fig:puritymat_comparison_baseline_15cut}, where each row gives the
+fractional composition of the reconstructed decay modes in terms of the
+generated mode. The comparison shows the expected improvement in purity of all
+five reconstructed modes. A more detailed discussion of the results will be
+given after extending the model with additional information.
 
 \subsection{Additional Information}
 \label{sec:add_info}
@@ -562,7 +554,7 @@ This is likely due to parameters at the beamspot more closely resembling the
 original direction of the photon. \todo{Shots}
 
 Extending the inputs for each neutral PFO by properties of the clusters also
-leads to a significant improvement in diagonal efficiency. Furthermore the
+leads to a significant improvement in diagonal efficiency. Furthermore, the
 fraction of transverse momentum subtracted from the cluster~$f_\text{sub}$
 substantially increases the diagonal efficiency for minimal complexity cost. A
 possible future extension would be to perform the full $\pi^0$-identification
