@@ -208,8 +208,8 @@ full dataset is split into a training~(\SI{50}{\percent}),
 validation~(\SI{10}{\percent}) and testing sample~(\SI{40}{\percent}). The
 transverse momenta of the reconstructed tau and PFOs are log-transformed and
 subsequently standardised by subtracting the mean and dividing by the standard
-deviation derived from the distributions in the training sample. For the neutral
-PFO specific variables~\smash{$S_\text{BDT}^{\pi^0}$} and
+deviation, derived from the distributions in the training sample. For the
+neutral PFO specific variables~\smash{$S_\text{BDT}^{\pi^0}$} and
 \smash{$N_\text{shots}$} no preprocessing is required. The remaining kinematic
 variables, i.e.\ angular direction of the tau-axis and angular deviation of the
 PFO, are scaled into the~$[-1, 1]$-interval.
@@ -241,52 +241,47 @@ strictly required to use this information allowing migrations of reconstructed
 behaviour is not desired then the decay mode can be classified as the mode with
 the highest probability that is still compatible with the number of
 reconstructed tracks. For the following studies these migrations are allowed as
-the loss in classification power is small when constraining the model (a
-comparison is given in Appendix~\ref{app:mode_classification_track_constraint}).
+the loss in classification power is small when constraining the model (cf.\
+Appendix~\ref{app:mode_classification_track_constraint} for a comparison).
 
 \begin{table}[htb]
   \centering
   \input{./tables/neutral_pfo_ptcut.tex}
-  \caption{Diagonal efficiency on the validation sample as a function of the
-    transverse momentum threshold on the neutral PFOs. A separate network is
-    trained for each threshold.}
+  \caption{Diagonal efficiency evaluated on the validation sample as a function
+    of the transverse momentum threshold for neutral PFOs. The network is
+    retrained for each threshold.}
   \label{tab:neut_ptcut}
 \end{table}
 
-Reconstructed hadronic tau decays contain neutral PFOs that are not originating
-from neutral pions but from other sources. Moreover it is not known how well
-these PFOs are modelled in the simulation that is used to train and evaluate the
-models. Therefore the neutral PFOs used in the RNN are required to pass a
-$p_\text{T}$-threshold. Table~\ref{tab:neut_ptcut} summarises the diagonal
-efficiency of the classification for four different $p_\text{T}$-thresholds. The
-diagonal efficiency is defined as the fraction of correctly classified tau
-decays in an independent testing sample.
-It is observed that the overall classification performance does not degrade when
-no $p_\text{T}$-cut is applied, indicating that the network is insensitive to
-neutral PFOs with low momentum from sources other than a $\pi^0$-decay. This is
-expected as the network has access to the $\pi^0$-identification score and
-transverse momentum of the PFO. Moreover, only a slow decrease in the diagonal
-efficiency is observed when increasing the threshold to up to \SI{2}{\GeV}
-implying that a momentum threshold on neutral PFOs in case of significant
-mismodelling will not lead to a significant decrease in classification
-performance. The studies in this thesis use a \SI{1.5}{\giga\electronvolt} to
-account for potential mismodelling but further studies are needed to prove the
-necessity of this threshold.
+Neutral PFOs with small transverse momenta often do not originate from neutral
+pions but from other sources. Moreover, it is not understood how well they are
+modelled in the simulation. Therefore neutral PFOs passed to the network (at
+training and evaluation time) are required to exceed a predefined
+$p_\text{T}$-threshold. The diagonal efficiency, i.e.\ the fraction of correctly
+classified modes in an independent sample, is summarised in
+Table~\ref{tab:neut_ptcut} for four different $p_\text{T}$-thresholds. The
+classification power does not degrade when no $p_\text{T}$-cut is applied,
+indicating that the model is insensitive to low momentum PFOs from sources other
+than a \smash{$\pi^0$}-decay. This is expected as the network has access to the
+\smash{$\pi^0$}-identification score and transverse momentum. Additionally, only
+a slow decrease in diagonal efficiency is observed when increasing the
+threshold. The studies in this thesis use a \SI{1.5}{\giga\electronvolt}
+threshold to account for potential mismodelling but further studies are needed
+to prove the necessity of this cut.
 
-In Figure~\ref{fig:mode_proba_ptcut} two examples of mode probability estimates
-of the RNN on an independent testing sample are depicted. A complete set of
-probabilities for all five decay modes is omitted for brevity and can be found
-in Appendix~\ref{app:baseline_probabilities}. The $h^\pm$ mode probability in
-Figure~\ref{fig:1p0n_proba} shows that in most cases the probabilities for
-generated modes containing one or more neutral pions are small. However if no
-neutral PFOs are reconstructed then the probability can be as large as
-\SI{90}{\percent}. In these cases the decay is falsely classified as~$h^\pm$ as
-the probability is larger than \SI{50}{\percent}. The same feature can be
-observed in Figure~\ref{fig:1p1n_proba}, where the $h^\pm \pi^0$ mode
-probability is small. Additionally, the probabilities for generated 1-prong
-decays with more than one neutral pion have large tails exceeding
-\SI{50}{\percent} leading to significant migrations from $h^\pm \geq 2 \pi^0$ to
-the $h^\pm \pi^0$ decay mode. \todo{Ref to next section}
+Figure~\ref{fig:mode_proba_ptcut} depicts two examples of mode probability
+estimates on the testing sample. A complete set of probabilities for all five
+decay modes is omitted for brevity and can be found in
+Appendix~\ref{app:baseline_probabilities}. The $h^\pm$ mode probability in
+Figure~\ref{fig:1p0n_proba} shows that the estimated probabilities for generated
+modes containing one or more neutral pions are frequently small. Nevertheless,
+when no neutral PFOs are reconstructed they can be as large as
+\SI{90}{\percent}, causing decays to be falsely classified. The same feature can
+be observed in Figure~\ref{fig:1p1n_proba}, where the $h^\pm \pi^0$ mode
+probabilities are small. Additionally, generated 1-prong decays with more than
+one neutral pion often exceed $h^\pm \pi^0$ probabilities of \SI{50}{\percent}
+leading to significant migrations of true $h^\pm \geq 2 \pi^0$ to the
+$h^\pm \pi^0$ decay mode.
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
