@@ -39,8 +39,8 @@ charged or neutral \emph{particle flow objects}~(PFOs), can be used to classify
 the hadronic decay modes and for improving the energy resolution of the
 reconstructed hadronic tau decay by employing a decay mode specific calibration.
 The following description of the algorithm is based on
-Ref.~\cite{atlas:taurec:decaymodes} including recent changes to the reconstruction
-algorithms.
+Ref.~\cite{atlas:taurec:decaymodes} including recent changes to the
+reconstruction algorithms.
 
 Charged PFOs are reconstructed from tracks classified as \emph{charged}
 according to the track classification. The charge and transverse momentum of the
@@ -245,7 +245,7 @@ Appendix~\ref{app:mode_classification_track_constraint} for a comparison).
 
 \begin{table}[htb]
   \centering
-  \input{./tables/neutral_pfo_ptcut.tex}
+  {\small\input{./tables/neutral_pfo_ptcut.tex}}
   \caption{Diagonal efficiency evaluated on the validation sample as a function
     of the transverse momentum threshold for neutral PFOs. The network is
     retrained for each threshold.}
@@ -500,47 +500,49 @@ in network architecture.
 
 \subsubsection{Performance Evaluation}
 
-In Table~\ref{tab:pfo_add_experiments} the diagonal efficiencies of the RNN
-classification after including additional inputs are summarised. In addition to
-the previously described inputs, the performance after including hadronic PFOs,
-i.e.\ objects created from energy in the hadronic part of \emph{TopoClusters} in
-the core region $\Delta R < 0.2$ of the reconstructed tau, is evaulated. It is
-not found to lead to a significant improvement in classification power
-considering the increase in model complexity. Moreover, a model with neutral
-PFOs ordering given by the $\pi^0$-identification score is evaluated, which does
-not significantly improve on the transverse momentum ordering.
-
 \begin{table}[htb]
   \centering
-  \input{./tables/pfo_add_info.tex}
-  \caption{Summary of the improvements in decay mode classification performance
-    when extending the RNN with additional inputs. The metrics are evaluated on
-    the validation sample.}
+  {\small\input{./tables/pfo_add_info.tex}}
+  \caption{Decay mode classification performance after extending the RNN. The
+    metrics are evaluated on the validation sample.}
   \label{tab:pfo_add_experiments}
 \end{table}
 
-The largest improvement in separation power are observed when including
+Table~\ref{tab:pfo_add_experiments} summarises the diagonal efficiency of the
+RNN-based classification for the different experiments. In addition to the
+previously described inputs, the performance after including hadronic PFOs,
+i.e.\ objects created from energy in the hadronic part of \emph{TopoClusters} in
+the core region~$\Delta R < 0.2$ of the reconstructed tau, is evaluated. It is
+not found to significantly improve the performance considering the increase in
+model complexity. Moreover, a model using an ascending $\pi^0$-identification
+score ordering for the neutral PFOs shows no significant improvement over the
+transverse momentum ordering.
+
+The largest improvements in diagonal efficiency are observed when including
 conversion tracks and shots in the classification. Both reduce migrations to
-modes with fewer neutral pions with a small increase in migrations due to
-overestimation of the neutral pion count. Migration and purity matrices for the
-different experiments are omitted for brevity and can be found in
-Appendix~\ref{sec:app_decay_mode_exp}. Using the extrapolated track position
-does not show any improvements over using the track parameters at the beamspot.
-This is likely due to parameters at the beamspot more closely resembling the
-original direction of the photon. \todo{Shots}
+modes with fewer neutral pions, while minimally increasing the probability of
+overestimating the neutral pion count \todo{check this}. Moreover, using the
+extrapolated track position does not show an improvement over using the track
+parameters at the perigee with respect to the beamspot.
+% This is likely due to parameters at the beamspot more closely resembling the
+% original direction of the photon
+% Migration and purity matrices for the different experiments are omitted for
+% brevity and can be found in Appendix~\ref{sec:app_decay_mode_exp} \todo{Remove
+%   from appendix -- not interesting?}.
 
-Extending the inputs for each neutral PFO by properties of the clusters also
-leads to a significant improvement in diagonal efficiency. Furthermore, the
-fraction of transverse momentum subtracted from the cluster~$f_\text{sub}$
-substantially increases the diagonal efficiency for minimal complexity cost. A
-possible future extension would be to perform the full $\pi^0$-identification
-internally to improve the classification power with an identification
-specialised for use in the network.
+Extending the inputs of the neutral PFOs by cluster properties increases the
+diagonal efficiency by~\SI{1.12 +- 0.07}{\percent} \todo{What's the point?}.
+Furthermore, the fraction of transverse momentum subtracted from the
+cluster~$f_\text{sub}$ significantly improves the classification power at a
+minimal complexity cost. A possible future extension of the network would be to
+include all $\pi^0$-identification variables in each neutral PFO, thus allowing
+the network to learn a $\pi^0$-identification specialised for decay mode
+classification.
 
-Alternative architectures including bidirectional LSTMs and multiple recurrent
-layers only show marginal improvements in the range of \num{0.2} to
-\SI{0.3}{\percent} in diagonal efficiency over a simpler model using a single
-LSTM layer.
+Finally, alternative architectures including bidirectional LSTM and stacked
+recurrent layers are tested, only showing marginal improvements in the range of
+\num{0.2} to \SI{0.3}{\percent} in diagonal efficiency over a model using a
+single LSTM layer.
 
 \subsection{Extended Model}
 \label{sec:extended_model}
@@ -662,7 +664,7 @@ Another potential use of the improved classification performance would be to
 employ a decay mode specific energy calibration for the measurement of the tau
 visible transverse momentum. This could, without the need to explicitly
 reconstruct neutral pions, improve the energy resolution of reconstructed
-hadronic tau decays.
+hadronic tau decays. \todo{This is actually done in COMBINED \& MVA TES}
 
 % $H \to \tautau \to \rho\rho 2 \nu$
 % $H \to \tautau \to \pi\pi 2\nu$
