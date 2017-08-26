@@ -200,7 +200,6 @@ kinematic quantities the following variables are used:
   two neutral pions are reconstructed as a single cluster in the calorimeter.
   Moreover, it supports the identification of neutral pions as no shot
   information is used in the current identification algorithm.
-  \todo{\SI{1.5}{\percent} impact on diag.\ eff.}
 \end{description}
 
 Analogously to the RNN-based tau identification in Chapter~\ref{sec:rnn}, the
@@ -422,38 +421,31 @@ track hit on the face of EM1.
 
 \subsubsection{Shots}
 
-% from descr
-Due to the boosted topology of tau decays in ATLAS (especially at
-  large transverse momentum) neutral pion clusters can merge with other charged
-  or neutral pion clusters. Without additional information two merged neutral
-  pion clusters cannot be distinguished using purely kinematic quantities of the
-  PFOs leading to a underestimation of the number of neutrals. To improve the
-  discrimination of merged neutral pion clusters the finely segmented strip
-  layer in the calorimeter is used. For this the network is extended to also use
-  a sequence of shots associated with a given reconstructed tau decay~(cf.\
-  Section~\ref{sec:shot_reco}). This differs from the approach in
-  Section~\ref{sec:pfo_baseline}, where only the number of shots associated with
-  a neutral PFO is used, as it allows including transverse momenta and angular
-  distances of shots.
+The boosted topology of tau decays in ATLAS can cause neutral pion clusters to
+merge with clusters originating from other pions. Using purely kinematic
+quantities of reconstructed PFOs does not allow to identify merged neutral pion
+clusters, leading to an underestimation of the number of neutrals. The baseline
+model already includes the number of shots matched to a given neutral
+PFO~$N_\text{shots}$, significantly improving the discrimination power of the
+network and account for approximately \SI{1.5}{\percent} of diagonal efficiency.
+The network is extended to receive a sequence of shots associated with a
+reconstructed tau decay~(cf.\ Section~\ref{sec:shot_reco}). This differs from
+the approach in the baseline model by also including transverse momentum and the
+angular position of shots in the calorimeter.
 
-  This further aims to reduce migrations to modes with fewer neutrals.
-% END
-
-
-The architecture to include shots in the decay mode classification is identical
-to the one used for conversion tracks in the previous section. Analogously, up
-to six reconstructed shots are fed to the network in ascending transverse
-momentum ordering. Only shots with one or more photons~$N_\text{photon} > 0$ are
-considered (cf.\ Section~\ref{sec:shot_reco}). This selection effectively
-applies a lower threshold on the transverse momentum $p_\text{T}^\text{shot}$ to
-suppress shots originating from noise or fluctuations of the photon
-shower~\cite{atlas:taurec:decaymodes}. The theshold is parametrised in four
-$|\eta|$-bins and ranges from \SI{300}{\MeV} to \SI{430}{\MeV} depending on the
-detector region. Shots from the transition region of the
-calorimeter~$1.37 < |\eta| < 1.52$ are not used. The set of input variables is
-defined analogously to the previous part by replacing $p_\text{T}$ and the
-angular distances $(\Delta\varphi, \Delta\eta)$ with the corresponding shot
-quantities.
+The network architecture is identical to the one used for conversion tracks in
+the previous section. Analogously, up to six reconstructed shots are passed to
+the network in ascending transverse momentum ordering. Only shots with one or
+more photons~$N_\text{photons} > 0$ are considered (cf.\
+Section~\ref{sec:shot_reco}). This selection applies an lower threshold on the
+transverse momentum~$p_\text{T}^\text{shot}$ to suppress shots originating from
+noise or fluctuations of the photon shower~\cite{atlas:taurec:decaymodes}. The
+threshold is parametrised in four bins of $|\eta|$, ranging from \num{300} to
+\SI{430}{\MeV} depending on the detector region.
+% Shots from the transition region of the calorimeter~$1.37 < |\eta| < 1.52$ are
+% not used.
+The set of input variables is defined in analogy to charged PFOs and conversion
+tracks by replacing the inputs with the corresponding shot quantities.
 
 \subsubsection{Neutral PFO cluster properties}
 
