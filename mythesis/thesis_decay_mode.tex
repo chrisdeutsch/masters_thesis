@@ -547,14 +547,24 @@ single LSTM layer.
 \subsection{Extended Model}
 \label{sec:extended_model}
 
-The baseline model is extended using the most significant sources of additional
-information from Section~\ref{sec:add_info}. This includes conversion tracks,
-shots, and additional properties of the neutral PFO clusters including the
-fraction of subtracted transverse momentum.
+The baseline model is extended using sources of additional information from
+Section~\ref{sec:add_info}. This includes conversion tracks (without track
+extrapolation), shots and additional properties of neutral PFO clusters
+including the fraction of subtracted transverse momentum. The architecture
+% \footnote{Shared dense/LSTM layers: 24 units (chrg.\ \& neut.\ PFOs), 16 units
+% (conv.\ tracks and shots). Dense layers: 64/32/5 units.}
+is adjusted accordingly to allow sequences of conversion tracks and shots to be
+passed to the network. The same \SI{1.5}{\GeV} transverse momentum threshold is
+applied to neutral PFOs.
 
-\todo[inline]{Architecture. Still same pt threshold}
+After extending the model, the peaks in the estimated mode probabilities for tau
+decays without reconstructed neutral PFOs (cf.\
+Figure~\ref{fig:mode_proba_ptcut}) are significantly reduced as the additional
+conversion track and shot information can aid in the discrimination even when no
+neutral PFOs are present. For completeness the five mode probabilities of the
+extended model are summarised in Appendix~\ref{app:combined_probabilities}.
 
-\begin{figure}[!ht]
+\begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat.pdf}
@@ -565,50 +575,63 @@ fraction of subtracted transverse momentum.
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat.pdf}
     \subcaption{Purity matrix}
   \end{subfigure}
-  \caption{Migration and purity matrices for the extended model including
-    conversion, shot and additional cluster information. }
+  \caption{Migration and purity matrices of the extended model including
+    conversion, shot and additional cluster information. Evaluated on the
+    testing sample with negligible statistical errors.}
   \label{fig:decay_mode_combined}
 \end{figure}
 
-After extending the baseline model, the peaks in the mode probabilities for tau
-decays without reconstructed neutral PFOs (cf.\
-Figure~\ref{fig:mode_proba_ptcut}) are significantly reduced as the additional
-conversion track and shot information can aid in the discrimination even when no
-neutral PFOs are present. For completeness the five mode probabilities of the
-extended model are summarised in Appendix~\ref{app:combined_probabilities}.
+In Figure~\ref{fig:decay_mode_combined} the migration and purity matrix of the
+extended model is shown. The additional discrimination power increases the
+diagonal efficiency from~\SI{78.0}{\percent} of the baseline model
+to~\SI{81.5}{\percent}. This is due to an absolute increase in efficiency of the
+order of~\SI{5}{\percent} for modes containing one or more neutral pions.
+% $h^\pm \pi^0$, $h^\pm \geq 2\pi^0$ and $3h^\pm\geq1\pi^0$.
+The purity is mostly affected in the $h^\pm$ and $h^\pm \geq 2\pi^0$~modes with
+an absolute purity improvement of~\SI{4.9}{\percent} and~\SI{7.0}{\percent} over
+the baseline model. For the reconstructed $h^\pm$~mode the large contamination
+due to the abundant $h^\pm \pi^0$~mode is mainly reduced by the inclusion of
+conversion tracks and shots.
+% Tau decays without reco. neutral PFOs!
+Moreover, the reconstructed $h^\pm \geq 2\pi^0$~mode purity, also showing
+contamination of $h^\pm$, is primarily improved by the inclusion of shot
+information.
+% Merged pi0 clusters
 
 \begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/efficiency_profile.pdf}
-    \subcaption{Efficiency profile}
+    \vspace*{-1.6em}
+    \subcaption{}
   \end{subfigure}\hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/purity_profile.pdf}
-    \subcaption{Purity profile}
+    \vspace*{-1.6em}
+    \subcaption{}
   \end{subfigure}
-  \caption{Efficiency and purity of the decay mode classification using the
-    combined model as a function of reconstructed visible momentum~$p_\text{T}$
-    of the tau decay. Evaluated on an independent testing sample.}
+  \caption{Efficiency and purity profiles of the decay mode classification using
+    the extended model as a function of reconstructed visible
+    momentum~$p_\text{T}$ of the tau decay. Evaluated on the testing sample.
+    Statistical errors are of the order of the marker size.}
   \label{fig:mode_efficiency_purity}
 \end{figure}
 
-In Figure~\ref{fig:decay_mode_combined} the migration and purity matrix of the
-extended model is shown. The additional discrimination power increases the
-diagonal efficiency from \SI{78.0}{\percent} of the baseline model to
-\SI{81.5}{\percent}. This is due to an absolute increase in efficiency of the
-order of \SI{5}{\percent} for modes containing one or more neutrals
-$h^\pm \pi^0$, $h^\pm \geq 2\pi^0$ and $3h^\pm\geq1\pi^0$. The purity is mostly
-affected in the $h^\pm$ and $h^\pm \geq 2\pi^0$ modes, where the absolute
-improvement is approximately \SI{5}{\percent}. The dependency of mode
-classification efficiency and purity on the reconstructed transverse momentum of
-the tau lepton is shown in Figure~\ref{fig:mode_efficiency_purity}. The
-efficiencies of the $h^\pm$, $h^\pm \pi^0$ and $3h^\pm$ modes show no strong
-dependence on the transverse momentum of the tau. In contrast to this the
+The dependency of the mode classification efficiency and purity on the
+reconstructed transverse momentum of the tau lepton is shown in
+Figure~\ref{fig:mode_efficiency_purity}. The efficiencies of the $h^\pm$,
+$h^\pm \pi^0$ and $3h^\pm$ modes show no strong dependence on the transverse
+momentum of the tau.
+
+\todo[inline]{Continue...}
+
+In contrast to this the
 1-prong mode containing more than one and the 3-prong mode with neutral pions
 show a significant increase in efficiency in the \num{20} to \SI{40}{\GeV}
-range. This is likely due to difficulties in classfying events containing
+range.
+
+This is likely due to difficulties in classfying events containing
 neutral pions with low transverse momenta \todo{Reason}. The purity
 \todo{Continue}.
 
@@ -629,12 +652,14 @@ efficiencies and purities for decays up to \SI{250}{\GeV}ish.
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/efficiency_profile.pdf}
-    \subcaption{Efficiency profile}
+    \vspace*{-1.6em}
+    \subcaption{}
   \end{subfigure}\hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/purity_profile.pdf}
-    \subcaption{Purity profile}
+    \vspace*{-1.6em}
+    \subcaption{}
   \end{subfigure}
   \caption{$p_\text{T}$-dependence of mode efficiency and purity. Retraining
     model without upper bound in transverse momentum.}
