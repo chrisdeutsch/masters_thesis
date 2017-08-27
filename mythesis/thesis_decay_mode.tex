@@ -612,9 +612,8 @@ information.
     \subcaption{}
   \end{subfigure}
   \caption{Efficiency and purity profiles of the decay mode classification using
-    the extended model as a function of reconstructed visible
-    momentum~$p_\text{T}$ of the tau decay. Evaluated on the testing sample.
-    Statistical errors are of the order of the marker size.}
+    the extended model. Evaluated on the testing sample. Statistical errors are
+    not visible as they are of the order of the marker size.}
   \label{fig:mode_efficiency_purity}
 \end{figure}
 
@@ -622,77 +621,73 @@ The dependency of the mode classification efficiency and purity on the
 reconstructed transverse momentum of the tau lepton is shown in
 Figure~\ref{fig:mode_efficiency_purity}. The efficiencies of the $h^\pm$,
 $h^\pm \pi^0$ and $3h^\pm$ modes show no strong dependence on the transverse
-momentum of the tau.
-
-\todo[inline]{Continue...}
-
-In contrast to this the
-1-prong mode containing more than one and the 3-prong mode with neutral pions
-show a significant increase in efficiency in the \num{20} to \SI{40}{\GeV}
-range.
-
-This is likely due to difficulties in classfying events containing
-neutral pions with low transverse momenta \todo{Reason}. The purity
-\todo{Continue}.
-
-The plots in Figure~\ref{fig:mode_efficiency_purity} indicate that the the
-RNN-based classification algorithm could be used beyond the design limit of
-\SI{100}{\GeV} of the particle flow algorithm, as the efficiencies and purities
-remain flat at large transverse momenta. In
-Figure~\ref{fig:mode_efficiency_purity_highpt} efficiencies and purities are
-shown after retraining the extended model on training data without applying the
-upper bound of \SI{100}{\GeV} in reconstructed transverse momentum of the tau.
-
-Diagonal efficiency of \SI{77.6}{\percent} for candidates over \SI{100}{\GeV}.
-Wide 'maximum' around \SI{100}{\GeV}. Efficiency flat for most modes except 1pXn
-(merging). Purity of modes containing neutrals decreasing. Still fairly large
-efficiencies and purities for decays up to \SI{250}{\GeV}ish.
+momentum of the tau. In contrast to this, the 1-prong mode with more than one
+and the 3-prong mode with neutral pions show a significant increase in
+efficiency over the \num{20} to \SI{40}{\GeV} transverse momentum range. A
+possible cause is the classifier missing increasingly soft neutral pions for low
+momentum tau decays.
 
 \begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics{./figures/decay_mode_classification/highpt/efficiency_profile.pdf}
+    \includegraphics{./figures/decay_mode_classification/highpt/efficiency_profile_extended.pdf}
     \vspace*{-1.6em}
     \subcaption{}
   \end{subfigure}\hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
-    \includegraphics{./figures/decay_mode_classification/highpt/purity_profile.pdf}
+    \includegraphics{./figures/decay_mode_classification/highpt/purity_profile_extended.pdf}
     \vspace*{-1.6em}
     \subcaption{}
   \end{subfigure}
-  \caption{$p_\text{T}$-dependence of mode efficiency and purity. Retraining
-    model without upper bound in transverse momentum.}
-  \todo[inline]{Larger pt range would be useful? To show sharp drop.}
+  \caption{Efficiency and purity profile of the decay mode classification using
+    the extended model trained on the full transverse momentum range of the
+    sample. Evaluated on the testing sample.}
   \label{fig:mode_efficiency_purity_highpt}
 \end{figure}
 
-The improvements in overall classification power can be employed in
-$\mathcal{CP}$ measurements of the Higgs boson using various decay modes of the
-tau lepton~\cite{Berge2014}. An example is
-the~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay
-for~$H \to \tau\tau$ events corresponding to the $h^\pm \pi^0$ mode. This
-measurement requires the neutral pions to be reconstructed and identified in the
-measured final state. The RNN uses global features of the tau decay and
-therefore does not provide a set of neutral PFOs responsible for the decision.
-To measure the $\mathcal{CP}$ properties of the Higgs boson an additional
-algorithm would be required to identifiy and reconstruct neutral pions given the
-classification. For the measurement in the $\rho\nu$ mode using the extended RNN
-an absolute improvement in signal efficiency~\SI{7.2}{\percent} and an
-improvement in mode purity of~\SI{8.2}{\percent}. Depending on the performance
-of reconstructing the neutral pion this could lead to a significant improvement
-of the signal to background ratio. The remaining modes show similar improvements
-in mode efficiency and purity with respect to the algorithm currently in use at
-ATLAS.
+The efficiency and purity profiles in Figure~\ref{fig:mode_efficiency_purity}
+indicate that the RNN-based classification algorithm could be used beyond the
+$\SI{\sim 100}{\GeV}$ design limit of the particle flow algorithm, as the
+efficiencies and purities remain flat at large transverse momenta.
+Figure~\ref{fig:mode_efficiency_purity_highpt} shows the profiles after
+retraining the extended model on data without applying an upper limit on the
+reconstructed transverse momentum of the tau. The mode efficiencies and purities
+reach a maximum at transverse momenta of approximately \SI{100}{\GeV}, after
+which, with exception of the $h^\pm \geq 2 \pi^0$ mode, the performance only
+slowy declines.
+% Increased boost leads to 1pXn merges
+This shows that the transverse momentum range of the classification could be
+extended to approximately \SI{200}{\GeV} without the performance characteristics
+significantly dropping below the performance at \SI{20}{\GeV}. The diagonal
+efficiency at low momentum~$p_\text{T} < \SI{100}{\GeV}$ is with
+\SI{81.4}{\percent} unaffected by the training on the extended momentum range,
+while at higher momentum it amounts to \SI{77.6}{\percent}.
 
-Another potential use of the improved classification performance would be to
-employ a decay mode specific energy calibration for the measurement of the tau
-visible transverse momentum. This could, without the need to explicitly
-reconstruct neutral pions, improve the energy resolution of reconstructed
-hadronic tau decays. \todo{This is actually done in COMBINED \& MVA TES}
+In the ATLAS experiment two alternative energy calibrations for reconstructed
+hadronic tau decays are available. These use the reconstructed decay mode to
+increase the resolution of the visible transverse momentum measurement. The
+improvement in classification accuracy when using the RNN can therefore lead to
+a better energy resolution, when one of these calibrations is used.
 
-% $H \to \tautau \to \rho\rho 2 \nu$
-% $H \to \tautau \to \pi\pi 2\nu$
+A different application of the RNN-based decay mode classification would be for
+the determination of the $\mathcal{CP}$ nature of the Higgs boson, which can
+measured using various decay modes of the tau lepton in~$H \to \tau + \tau$
+events~\cite{Berge2014}. An example is the
+double~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay,
+corresponding to the $h^\pm \pi^0$ mode in this chapter. The $\mathcal{CP}$
+measurement requires the neutral pions in the final state to be reconstructed
+and identified. However, the RNN-based classification does not provide a direct
+causal relationship between a neutral PFO and the decay mode decision. Therefore
+an additional algorithm would be required to identify and reconstruct neutral
+pions in an event of a given decay mode. For the $\mathcal{CP}$ measurement in
+the $\rho\nu$ mode using the extended model an absolute improvement in mode
+efficiency of~\SI{7.2}{\percent} and purity of~\SI{8.2}{\percent} is expected
+for a single tau \todo{check}. Depending on the effectiveness of reconstructing
+the neutral pions this could lead to a significant improvement in the signal to
+background ratio for Higgs-$\mathcal{CP}$ analyses. The remaining modes show
+similar improvements in efficiency and purity with respect to the algorithm
+currently in use at the ATLAS experiment.
 
 %%% Local Variables:
 %%% mode: latex
