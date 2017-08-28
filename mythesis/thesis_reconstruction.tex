@@ -88,9 +88,8 @@ energy calibrations.
 %
 % TauTrackClassifier:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/Root/TauTrackClassifier.cxx
-Reconstructed tracks in the inner detector are associated with a reconstructed
-hadronic tau decay if they are within the cone of size $\Delta R < 0.4$ centred
-on the tau axis (corrected for the PV).
+Tracks reconstructed in the inner detector are associated with a tau candidate
+if they are within a cone of size~$\Delta R < 0.4$ with respect to the tau-axis.
 % The tracks are classified into core, wide, and other tracks: If the tracks
 % fail track selection (pt > 1GeV, IPd0Max = 1mm, IPz0Max = 1.5mm, nHitPix >= 2,
 % nHitSi >= 7) they are classified as 'other'.
@@ -108,28 +107,36 @@ on the tau axis (corrected for the PV).
 %
 % Dirk's talk in TauCP:
 % https://indico.cern.ch/event/615208/contributions/2481630/attachments/1415563/2167141/TauCP_TrackClassificationTaskforce_20170220.pdf
-\todo[inline]{This is new}
-For each track a multi-class classification is performed categorising them in to
-four track-categories: charged (TT), conversion (CT), isolation (IT) and fake
-(FT). Charged or tau-tracks are charged pion tracks from the decay of the
-tau-lepton, conversion tracks are long-lived secondary particles from converted
-photons (e.g.\ from $\pi^0$-decays) or hadronic interactions, isolation tracks
-are primary particles that are not originating from the tau-decay and includes
-tracks from the underlying event, fake tracks are reconstructed tracks with a
-low truth-matching probability in simulation (i.e.\ tracks reconstructed from
-pile-up hits?). \todo{Does this make sense?}. This is done using three boosted
-decision trees performing binary classifications of the charged \& conversion
-vs.\ isolation \& fake categories and subsequently classifying (in preliminary
-categories) charged vs.\ conversion and isolation vs.\ fake. \todo{Figure with
-  schematic of BDT setup, Input variables} The charge of the reconstructed
-tau-lepton is calculated by summing the track charge of all tracks classified as
-'charged' which also defines the \todo{prongness} of the decay. This algorithm
-is optimised to classify the tracks such that the tau is reconstructed with the
-correct number of charged tracks (i.e.\ 1 or 3) to improve reconstruction
-efficiency \todo{This is a problem for algorithms relying on isolation/fake
-  tracks}. For identification purposes an additional classification as 'modified
-isolation tracks' was introduced given by tracks that are not classified as
-'charged' and fulfil track selection criteria\footnote{Transverse momentum:
+For each track a multi-class classification is performed categorising them into
+one of four track-categories: \emph{charged}, \emph{conversion},
+\emph{isolation} and \emph{fake}. Tracks classified as \emph{charged} are tracks
+originating from charged pions of the tau decay. \emph{Conversion} tracks are
+created by long-lived secondary particles from converted photons or hadronic
+interactions. \emph{Isolation} tracks are from primary particles not originating
+from the tau decay and \emph{fake} tracks from combinations of unrelated space
+points in the inner detector.
+
+The multi-class classification is performed by using three boosted decision
+trees~(BDT) organised into two layers. In the first layer a single BDT performs
+binary classification of tracks into one of two preliminary categories:
+charged/conversion and isolation/fake. The second layer uses two BDTs to
+separate the preliminary categories into the four final track-categories. The
+BDTs employ information on track momentum, impact parameters, number of hits in
+the ID, high-threshold hits in the TRT, etc.
+
+The track classification is used to reconstruct the charge of the tau by summing
+the charge of all \emph{charged} tracks. The number of \emph{charged} tracks
+also defines whether the reconstructed tau is a 1- or 3-prong decay.
+
+\todo[inline]{Continue}
+
+This algorithm is optimised to classify the
+tracks such that the tau is reconstructed with the correct number of charged
+tracks (i.e.\ 1 or 3) to improve reconstruction efficiency \todo{This is a
+  problem for algorithms relying on isolation/fake tracks}. For identification
+purposes an additional classification as 'modified isolation tracks' was
+introduced given by tracks that are not classified as 'charged' and fulfil track
+selection criteria\footnote{Transverse momentum:
   $p_\mathrm{T} > \SI{1}{\giga\electronvolt}$, Impact parameters w.r.t.\ the
   interaction point (TJVA): $d_0^\text{IP} < \SI{1}{mm}$,
   $|z_0^\text{IP}| \sin\theta < \SI{1.5}{mm}$; Track quality criteria:
@@ -169,11 +176,6 @@ calculate the isolation variables SumPtTrkFrac and massTrkSys \todo{Ref to
     increasing multiplicity of jets with higher pt. Might be a problem with
     weighting scheme?}
 \end{figure}
-
-\todo[inline]{Reasons for miss-classification of number of charged hadrons:
-  Conversion tracks, Fake tracks, Merged tracks or tracking inefficiencies
-  (missing hits, vertex matching inefficiencies). Could move this to the MVA
-  tracking section.}
 
 \section{Energy Calibration}
 \label{sec:reco_energy_calib}
