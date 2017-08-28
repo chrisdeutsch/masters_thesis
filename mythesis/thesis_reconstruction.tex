@@ -126,14 +126,25 @@ the ID, high-threshold hits in the TRT, etc.
 
 The track classification is used to reconstruct the charge of the tau by summing
 the charge of all \emph{charged} tracks. The number of \emph{charged} tracks
-also defines whether the reconstructed tau is a 1- or 3-prong decay.
+also defines whether the reconstructed tau is a 1- or 3-prong decay. This
+algorithm is optimised to reconstruct taus with the correct number of
+\emph{charged} tracks, such that the reconstruction efficiency is maximised.
+Therefore a derived track-category is used to calculate isolation variables for
+the purpose of tau-identification. The \emph{modified isolation} category
+consists of not classified as \emph{charged} and passing track selection
+criteria:
+\begin{align*}
+  &p_\text{T} > \SI{1}{\GeV} & &d_0^\text{IP} < \SI{1}{mm} & &|z_0^\text{IP} \sin\theta| < \SI{1.5}{mm} \\
+  &N_\text{Pixel} \geq 2 & &N_\text{Si} \geq 7 \eqcomma
+\end{align*}
+where $d_0^\text{IP}$ ($z_0^\text{IP}$) \todo{Check if IP is correct} is the
+transverse (longitudinal) impact parameter with respect to the interaction point
+and $N_\text{Pixel}$ ($N_\text{Si}$) the number of pixel (silicon) hits
+including dead sensors on the trajectory.
 
 \todo[inline]{Continue}
 
-This algorithm is optimised to classify the
-tracks such that the tau is reconstructed with the correct number of charged
-tracks (i.e.\ 1 or 3) to improve reconstruction efficiency \todo{This is a
-  problem for algorithms relying on isolation/fake tracks}. For identification
+For identification
 purposes an additional classification as 'modified isolation tracks' was
 introduced given by tracks that are not classified as 'charged' and fulfil track
 selection criteria\footnote{Transverse momentum:
