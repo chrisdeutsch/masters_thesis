@@ -5,27 +5,26 @@
 In this chapter the sequence learning techniques developed for
 tau-identification are applied to the problem of decay mode classification of
 hadronic tau lepton decays. In the following the decay modes containing one
-charged hadron~$h^\pm$ with one~$h^\pm \pi^0$ or more than one neutral
-pion~$h^\pm \geq 2\pi^0$ as well as three charged hadrons without
-neutrals~$3h^\pm$ or at least one neutral pion~$3h^\pm \geq 1\pi^0$ shall be
-discriminated. The hadron~$h^\pm$ includes charged pions as well as kaons while
-decays over intermediate~$\text{K}^0$ are omitted. These five decay modes make
-up the majority of hadronic tau decays (approx.\ \SI{92}{\percent}). Neural
-networks naturally extend from binary to multi-class classification problems
-making them well-suited for the discrimination of the hadronic decay modes.
+charged hadron~\smash{$h^\pm$} with one~\smash{$h^\pm \pi^0$} or more than one
+neutral pion~\smash{$h^\pm \geq 2\pi^0$} as well as three charged hadrons
+without neutrals~\smash{$3h^\pm$} or at least one neutral
+pion~\smash{$3h^\pm \geq 1\pi^0$} shall be discriminated. The
+hadron~\smash{$h^\pm$} includes charged pions and kaons while decays containing
+intermediate~\smash{$\text{K}^0$} are omitted. These five decay modes make up,
+with a fraction of over \SI{95}{\percent}, the majority of hadronic tau decays.
+% (11.51 + 36.51 + 9.46 + 5.09)/(100. - 17.82 - 17.39) = 0.9657354530020062
+Neural networks naturally extend from binary to multi-class classification
+problems making them well-suited for the discrimination of the hadronic decay
+modes.
 
-At first a quick overview of the \emph{Tau Particle Flow}-algorithm is given,
-which is used to reconstruct neutral and charged decay products. Subsequently a
+At first a brief overview of the \emph{Tau Particle Flow}-algorithm is given,
+which is used to reconstruct neutral and charged decay products. Subsequently, a
 neural network is developed that uses the reconstructed decay products to
-classify the decay mode into one of five categories. Finally the network is
+classify the decay mode into one of five categories. Finally, the network is
 extended by including additional information from conversion tracks, cluster
-moments and shot information. In the following the notation established in
-Ref.~\cite{atlas:taurec:decaymodes} will be adopted.
-
-\todo[inline]{Signature of the decay modes (Could be moved to
-  \textit{Theoretical Background})}
-
-\todo[inline]{Plot some discriminating variables?}
+properties and shots. In the following the notation established in
+Ref.~\cite{atlas:taurec:decaymodes} will be adopted. \todo{Plot some
+  discriminating variables? $N_\text{shots}$?}
 
 \section{Tau Particle Flow}
 \label{sec:tau_pflow}
@@ -40,7 +39,7 @@ the hadronic decay modes and for improving the energy resolution of the
 reconstructed hadronic tau decay by employing a decay mode specific calibration.
 The following description of the algorithm is based on
 Ref.~\cite{atlas:taurec:decaymodes} including recent changes to the
-reconstruction algorithms.
+reconstruction.
 
 Charged PFOs are reconstructed from tracks classified as \emph{charged}
 according to the track classification. The charge and transverse momentum of the
@@ -53,32 +52,33 @@ used to calculate the energy of the PFO.
 % hadronic showers depositing most of their energy in the hadronic calorimeters
 % (incl.\ EM3) \todo{Motivation for this sentence?}.
 
-Neutral pions often deposit their energy in a single cluster in the EM
-calorimeter (Presampler, EM1/EM2) caused by two collimated photons from the
-$\pi^0$~decay. Therefore neutral PFOs are reconstructed by clustering all cells
-in the electromagnetic part of the calorimeter within the~$\Delta R < 0.4$ cone
-about the tau axis \todo{Check instead of core-region?}. If a cluster is in the
-proximity of a charged PFO then the energy deposition of the charged hadron in
-the EM calorimeter has to be separated from the neutral pion energy. The energy
-$E_{h^\pm}^{\text{EM}}$ that needs to be subtracted to remove the contribution
-of the charged hadron is estimated by
+Neutral pions decay almost immediately into two collimated photons, which often
+deposit their energy in a single cluster in the electromagnetic part of the
+calorimeter, consisting of the Presampler and the EM1/EM2 samplings. Therefore,
+neutral PFOs are reconstructed by clustering cells in the electromagnetic part
+of the calorimeter within the~$\Delta R < 0.4$ cone about the tau axis. If a
+cluster is in the proximity of a charged PFO then the energy deposition of the
+charged hadron in the EM calorimeter has to be separated from the neutral pion
+energy. The energy $E_{h^\pm}^{\text{EM}}$ that needs to be subtracted to remove
+the contribution of the charged hadron is estimated by
 \begin{align*}
   E_{h^\pm}^{\text{EM}} = E_{h^\pm}^{\text{track}} - E_{h^\pm}^{\text{HAD}} \eqcomma
 \end{align*}
 where $E_{h^\pm}^{\text{track}}$ is the energy of the charged PFO measured in
 the tracking system and $E_{h^\pm}^{\text{HAD}}$ the energy of the charged PFO
-deposited in the hadronic part of the calorimeter. $E_{h^\pm}^{\text{HAD}}$ is
+deposited in the hadronic part of the
+calorimeter~\cite{atlas:taurec:decaymodes}. $E_{h^\pm}^{\text{HAD}}$ is
 calculated by matching clustered energy deposits in the HCAL to the closest
 track of a charged PFO. The contribution of the charged hadron in the EM
 calorimeter~$E_{h^\pm}^{\text{EM}}$ is subtracted from the closest neutral PFO
 cluster if the angular distance between cluster and extrapolated track is
-smaller than~$\Delta R < 0.04$. \todo{Zero mass hypothesis for neutrals?}
-Neutral PFOs can often be reconstructed from an incomplete subtraction of the
-charged hadron energy deposition in the EM calorimeter or by pile-up. For decay
-mode classification it is necessary to identify the neutral pions in all
-reconstructed neutral PFOs of the tau decay. The identification exploits the
-difference in shower shape of hadronic showers initiated by charged hadrons and
-compact showers from photons of the $\pi^0$ decay using multivariate methods.
+smaller than~$\Delta R < 0.04$. Neutral PFOs can often be reconstructed from an
+incomplete subtraction of the charged hadron energy deposition in the EM
+calorimeter or by pile-up. For decay mode classification it is necessary to
+identify the neutral pions in all reconstructed neutral PFOs of the tau decay.
+The identification exploits the difference in shower shape of hadronic showers
+initiated by charged hadrons and compact showers from photons of the $\pi^0$
+decay using multivariate methods.
 
 The number of identified neutral pions can be used for a preliminary
 classification of the decay mode. The following sections will be concerned with
@@ -96,9 +96,9 @@ classification algorithm usable over an extended momentum range are also given.
 \label{sec:pfo_general}
 
 The charged and neutral PFOs reconstructed with the \emph{Tau Particle
-  Flow}-algorithm contain information about the daughter particles of the tau
-decay and can be used for decay mode classification. Properties of charged and
-neutral PFOs are combined in recurrent neural networks to perform multi-class
+  Flow}-algorithm contain information about daughter particles of the tau decay
+and can be used for decay mode classification. Properties of charged and neutral
+PFOs are combined in recurrent neural networks to perform multi-class
 classification. Mainly kinematic information, e.g.\ the transverse momentum and
 angular deviation from the tau axis, is used to describe each PFO. Moreover the
 $\pi^0$-likeness in form of the neutral pion identification score is included in
