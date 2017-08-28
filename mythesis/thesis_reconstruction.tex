@@ -9,26 +9,27 @@
 % AlgHolders:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRec/python/TauAlgorithmsHolder.py
 %
-This chapter summarises the offline reconstruction procedure used at ATLAS to
-reconstruct hadronic decays of tau leptons as given in \cite{atlas:taurec:run1,
-  atlas:taurec:run2}. Additionally recent changes to the reconstruction
-algorithms are included (packages \texttt{tauRec}, \texttt{tauRecTools} in the
-software framework \textsc{Athena}).
-\todo[inline]{MVA tracking \cite{duschinger}}
+This chapter describes the offline reconstruction of hadronic tau decays used in
+the ATLAS experiment. It summarises the reconstruction as given in Refs.\
+\cite{atlas:taurec:run1, atlas:taurec:run2}, while also including recent changes
+to the reconstruction algorithms. The recent changes are compiled from
+documentation available in the tau reconstruction packages of the ATLAS software
+framework~\textsc{Athena}~\cite{athena}. The introduction of a track selection
+and classification using multivariate methods in Ref.\ \cite{duschinger} has the
+largest impact on the work presented in this thesis.
 
 % JetSeedBuilder:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/JetSeedBuilder.cxx
 Candidates for hadronic tau decays are seeded by jets formed by the
 anti-$k_\mathrm{t}$ jet algorithm using a distance parameter of $R = 0.4$ on
-three-dimensional clusters of calorimeter cells called \emph{TopoClusters}
-calibrated using the local hadronic calibration (LC-scale)
-\cite{local_hadronic_calib}\todo{accounts for non-compensating nature of the
-  calo by classifying clusters as em or hadronic, dead material, out-of-cluster
-  energy of low-pt particles that are bent from the jet}. The jet seed has to
-satisfy $p_\mathrm{T} > \SI{10}{GeV}$ and is required to fall into the
-acceptance range of the tracking system $|\eta| < \num{2.5}$. \todo{At this step
-  tau $p_\mathrm{T}, \eta, \varphi, m$ ($m$: invariant mass) are set to the ones
-  of the jet seed -- what does this mean? Read up on jet algs}
+three-dimensional clusters of calorimeter cells called \emph{TopoClusters}. The
+clusters are calibrated using the local hadronic calibration (LC) to account for
+the non-compensating nature of the calorimeter, dead material and out-of-cluster
+energy~\cite{local_hadronic_calib}. To seed a tau candidate the jet has to
+satisfy~$p_\text{T} > \SI{10}{\GeV}$ and is required to fall into the acceptance
+range of the tracking system~$|\eta| < \num{2.5}$.
+% At this step tau $p_\mathrm{T}, \eta, \varphi, m$ ($m$: invariant mass) are
+% set to the ones of the jet seed -- what does this mean? Read up on jet algs
 
 \section{Vertex Association}
 \label{sec:reco_vertex_assoc}
@@ -44,39 +45,41 @@ acceptance range of the tracking system $|\eta| < \num{2.5}$. \todo{At this step
 % Tracking CP recommendations
 % \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/TrackingCPPreRecsSummer2017#Track_to_Vertex_Association}
 In events with multiple primary vertices the tau production vertex has to be
-identified. Reconstructed tracks associated to the calorimeter jet via
-ghost-matching\footnote{Tracks matched unambiguously to calorimeter jets by
-  adding the tracks with infinitesimal energy to the constituent list and
-  rerunning the jet algorithm.} that lie in a cone of $\Delta R < 0.2$ with
-respect to the jet axis and fulfil $p_\mathrm{T} > \SI{1}{\giga\electronvolt}$
-and basic track quality criteria $N_\mathrm{Pixel} \geq 2$ (PixelHits +
-PixelDeadSensors) and $N_\mathrm{Si} \geq 7$ (PixelHits + SCTHits +
-PixelDeadSensors + SCTDeadSensors) are selected. The primary vertex is
-then associated to be the one maximising the Jet Vertex Fraction
+identified. For this reconstructed tracks that are associated to the calorimeter
+jet
+% via ghost-matching\footnote{Tracks matched unambiguously to calorimeter jets
+% by adding the tracks with infinitesimal energy to the constituent list
+% and rerunning the jet algorithm.}
+and lie in a cone of $\Delta R < 0.2$ with respect to the jet axis are selected.
+Tracks that fulfil $p_\text{T} > \SI{1}{\GeV}$ and basic track quality
+criteria\footnote{Number of pixel hits~$N_\text{Pixel} \geq 2$, number of
+  silicon hits~$N_\text{Si} = N_\text{Pixel} + N_\text{SCT} \geq 7$. Dead
+  sensors on the trajectory are also counted.} are used for vertex association.
+The primary vertex maximising the so called \emph{Jet Vertex Fraction} (JVF)
 \begin{align*}
-  \mathrm{JVF} = \frac{\sum_\text{Vtx.\ \& TJVA} p_\mathrm{T}}
-                                           {\sum_\text{TJVA} p_\mathrm{T}}
+  \text{JVF} = \frac{p_\text{T}\text{-sum of selected tracks assigned to the vertex}}{p_\text{T}\text{-sum of selected tracks}}
 \end{align*}
-given by the ratio of the $p_\mathrm{T}$ sum of all selected tracks that are
-also matched to the vertex\footnote{Impact parameter based association with the
-  primary vertex. $|d_0| < \SI{2.5}{mm}$ with respect to beamline and
-  $|(\Delta z_0) \sin\theta| < \SI{3}{mm}$. $\Delta z_0$ is the longitudinal
-  distance of vertex and track} to the sum of $p_\mathrm{T}$ of all selected
-tracks.
+% \begin{align*}
+%   \mathrm{JVF} = \frac{\sum_\text{Vtx.\ \& TJVA} p_\mathrm{T}}
+%                                            {\sum_\text{TJVA} p_\mathrm{T}}
+% \end{align*}
+is associated to the tau candidate.
+% \footnote{Impact parameter based association with the
+%   primary vertex. $|d_0| < \SI{2.5}{mm}$ with respect to beamline and
+%   $|(\Delta z_0) \sin\theta| < \SI{3}{mm}$. $\Delta z_0$ is the longitudinal
+%   distance of vertex and track}
 
 % TauAxisSetter:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauAxisSetter.cxx
-The LC calibrated energy of the tau is set to the energy of all
-\emph{TopoClusters} within a cone of $\Delta R < 0.2$ with respect to the
-barycentre\footnote{$\eta$ and $\phi$ of the four momentum vector given by the
-  sum of all cluster 4-momenta.} of all clusters of the jet at LC scale
-(\texttt{ptDetectorAxis}) and is the baseline for further energy calibration
-\todo{This part could be in the first paragraph}. Finally the tau axis ($\eta$,
-$\phi$\footnote{strictly also $p_\mathrm{T}$ as a result}) is corrected for the
-position of the primary vertex (\texttt{ptIntermediateAxis}). After the axis
-correction and the identification of the primary vertex, the track impact
-parameters can be recalculated with respect to the primary vertex (like for
-z0sinThetaTJVA).
+After the primary vertex is found, the visible four-momentum of the tau
+candidate is calculated.
+% Assuming constituents have zero mass.
+For this the barycentre of cluster energy (LC scale) in the jet is determined.
+The four-momentum of each jet constituent in the coordinate system of the
+associated vertex, falling within a cone of~$\Delta R < 0.2$ with respect to the
+barycentre, is summed. This defines the visible tau momentum at LC scale and the
+tau-axis. The visible tau momentum at LC scale is used as a baseline for further
+energy calibrations.
 
 \section{Track Selection and Classification}
 \label{sec:reco_track_sel_classif}
