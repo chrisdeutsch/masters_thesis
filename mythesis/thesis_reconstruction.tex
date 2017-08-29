@@ -236,33 +236,37 @@ discussed here, as only LC- and TES-calibrated taus are used in this thesis.
 
 \section{Shot Reconstruction}
 \label{sec:shot_reco}
-\todo[inline]{Move this somewhere else}
 
-\todo[inline]{Whats the purpose? Reconstruct individual photons in
-  $\pi^0$-decay}
+Reconstructing individual photons originating from neutral pions in hadronic tau
+decays can be useful for various applications (e.g.\ classification of the
+hadronic decay mode). The photons from the $\pi^0$-decay are highly collimated
+and therefore deposit their energy in a single \emph{TopoCluster}. The fine
+$\eta$-segmentation of the strip layer EM1 allows individual photons to be
+detected using local maxima of cell energy. The reconstructed objects are called
+\emph{shots}.
 
 % TauShotFinder
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauShotFinder.cxx
-Local maximum in EM1 strip layer determined by cells within 0.2 (0.4?) to the
-tau axis. Cells required to have above \SI{100}{\mega\electronvolt}. Two seed
-cells can't be neighbours in eta. Seed cell must be local maximum in eta (both
-neighbours are required to have lower cell energy). Shot construction: Seed
-cells neighbouring a seed cell in phi direction are merged (only the highest pt
-neighbour is merged). A cluster is built in a 5 (eta) x 1 (phi) window around
-the seed or 5 x 2 in case a neighbouring seed was merged in. The four-momentum
-is set to the cell energy/eta/phi of the seed cell or in case of merged seeds to
-the sum of the seed cell pt and the barycentre of energy in phi direction. The
-number of photons in the shot is calculated as a function of 5 $|\eta|$ bins
-($0, 0.8, 1.39, 1.51, 1.8, \infty$). If the seed energy (energy in a window of
-width 3x1(2)) is smaller then a threshold no photon is counted. If it exceeds
-the threshold \{430 MeV, 300 MeV, crack, 330 Mev, 350 MeV\} one photon is
-counted. In case the shot energy exceeds 10 GeV the photon is counted twice.
+The reconstruction of shots uses calorimeter cells in EM1 in a cone
+of~$\Delta R < 0.4$ with respect to the tau-axis that
+fulfil~$E_\text{T} > \SI{100}{\MeV}$. A shot is seeded by cells with a local
+maximum of transverse energy in $\eta$.
+% The neighboring cells are required to have smaller $E_\text{T}$.
+If multiple seed cells are adjacent in~$\varphi$, the seed is merged with the
+neighboring cell of the largest transverse energy. In this case the
+four-momentum of the shot is set by summing the transverse energies and forming
+the $E_\text{T}$-weighted angular position of both cells. Otherwise the shot
+four-momentum is set to the four-momentum of the seed cell.
 
-
-\todo{Cite ATHENA?}
-\cite{atlas:taurec:run1}
-\cite{atlas:taurec:run2}
-\cite{atlas:taurec:decaymodes}
+The number of photons~$N_\text{photons}$ in a shot is determined by its
+transverse energy. If the transverse energy of the shot exceeds a detector
+region dependent threshold of \num{300} to \SI{430}{\GeV}, a single photon is
+counted. Otherwise, no photon is counted to reduce contributions of shots not
+originating from photons. For large transverse momenta of the neutral pion the
+strip layer cannot resolve individual photons, therefore shots exceeding
+transverse energies of \SI{10}{\GeV} are counted twice.
+% Bins: ($0, 0.8, 1.39, 1.51, 1.8, \infty$)
+% Thresholds: \{430 MeV, 300 MeV, crack, 330 Mev, 350 MeV\}
 
 %%% Local Variables:
 %%% mode: latex
