@@ -140,20 +140,22 @@ criteria:
 where $d_0^\text{IP}$ ($z_0^\text{IP}$) \todo{Check if IP is correct} is the
 transverse (longitudinal) impact parameter with respect to the interaction point
 and $N_\text{Pixel}$ ($N_\text{Si}$) the number of pixel (silicon) hits
-including dead sensors on the trajectory.
+including dead sensors on the trajectory. Tracks in the \emph{modified
+  isolation} category are used to calculate discriminants, e.g.\ the momentum
+fraction of isolation tracks, for tau-identification.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics{./figures/bdt_perf/mva_tracking_rejection.pdf}
+  \caption{Rejection due to MVA tracking. Rejection of tau candidates from
+    dijets after baseline tau selection.}
+  \label{fig:mva_tracking_rejection}
+  \todo[inline]{Ticks are fucked. Increasing rejection with pt \textrightarrow
+    increasing multiplicity of jets with higher pt. Might be a problem with
+    weighting scheme?}
+\end{figure}
 
 \todo[inline]{Continue}
-
-For identification
-purposes an additional classification as 'modified isolation tracks' was
-introduced given by tracks that are not classified as 'charged' and fulfil track
-selection criteria\footnote{Transverse momentum:
-  $p_\mathrm{T} > \SI{1}{\giga\electronvolt}$, Impact parameters w.r.t.\ the
-  interaction point (TJVA): $d_0^\text{IP} < \SI{1}{mm}$,
-  $|z_0^\text{IP}| \sin\theta < \SI{1.5}{mm}$; Track quality criteria:
-  $N_\text{Pixel} \geq 2$ and $N_\text{Si} \geq 7$}. This category is used to
-calculate the isolation variables SumPtTrkFrac and massTrkSys \todo{Ref to
-  section where these are defined}.
 
 \todo{NTrack requirement for analyses and rejection due to this requirement}
 % Tau Tracks: tracks from the direct tau decay (pions)
@@ -177,17 +179,6 @@ calculate the isolation variables SumPtTrkFrac and massTrkSys \todo{Ref to
 % eProbabilityHT: Conversion tracks
 % qOverP, dR: IT, FT
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics{./figures/bdt_perf/mva_tracking_rejection.pdf}
-  \caption{Rejection due to MVA tracking. Rejection of tau candidates from
-    dijets after baseline tau selection.}
-  \label{fig:mva_tracking_rejection}
-  \todo[inline]{Ticks are fucked. Increasing rejection with pt \textrightarrow
-    increasing multiplicity of jets with higher pt. Might be a problem with
-    weighting scheme?}
-\end{figure}
-
 \section{Energy Calibration}
 \label{sec:reco_energy_calib}
 % TauCalibrateLC:
@@ -207,6 +198,15 @@ calculate the isolation variables SumPtTrkFrac and massTrkSys \todo{Ref to
 % if calibConst <= 0: calibConst = 1.0
 % energyFinal = energyPUCorr / calibConst
 %
+The visible momentum measurement of the hadronic tau decay at LC scale is not
+optimised to accuratly reflect the true visible momentum. Additional corrections
+for energy contributions due to pile-up and energy depositions outside of the
+$\Delta R < 0.2$ cone need to be taken into account. Therefore, an energy
+calibration is applied to the reconstructed object accounting for pile-up and
+the detector response in different $\eta$ regions.
+
+\todo[inline]{Continue}
+
 \todo{Motivation: LC scale not optimised for tau energy measurement; e.g.
   hadronic composition of the final state, pile-up, cone size of 0.2. Reduce
   bias and improve resolution} To get the visible tau energy a further energy
