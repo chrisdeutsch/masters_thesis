@@ -543,6 +543,7 @@ background and 3-prong signal distributions, due to the limited sample size
   \caption{'Overtraining' visible on the edges of the BDT score distribution
     (1-prong)}
   \label{fig:bdt_ks5_scores}
+  \todo[inline]{To appendix}
 \end{figure}
 
 Instead of choosing the BDT with the largest rejection, compatibility of the
@@ -574,7 +575,19 @@ shown in Figure~\ref{fig:bdt_ks5_scores}.
   \label{fig:bdt_rocs}
 \end{figure}
 
-In Figure~\ref{fig:bdt_rocs} receiver operating characteristic curve (ROC-curve)
+The operating point of a BDT depends on the threshold applied to its output
+score, thus defining a trade-off between signal efficiency and background
+rejection. Figure~\ref{fig:bdt_rocs} shows the performance characteristics as
+the classification threshold is varied and is also called the receiver operating
+characteristic curve (ROC-curve). Comparing \emph{BDT A} and \emph{BDT B} for
+the 1- and 3-prong identification, the decrease in rejection of the conservative
+model is approximately \SI{5}{\percent} of the relevant efficiency ranges.
+Moreover, the rejection of the conservative \emph{BDT B} improves on the
+reference by \num{10} to \SI{16}{\percent} on the for tau-identification
+relevant signal efficiency range. The rejection of the 3-prong BDT is
+approximately one order of magnitude larger than for the 1-prong case. This can
+largely be attributed to the availablility of invariant mass and secondary
+vertex information.
 
 \subsection{Working Points}
 \label{sec:bdt_working_points}
@@ -600,16 +613,6 @@ In Figure~\ref{fig:bdt_rocs} receiver operating characteristic curve (ROC-curve)
   \caption{Working points (BDT A)}
 \end{figure}
 
-Working points (Gammatautau -- Ztautau)
-
-Signal efficiencies 1P (3P):
-\begin{itemize}
-\item Very Loose: 95\% (95\%)
-\item Loose: 85\% (75\%)
-\item Medium: 75\% (60\%)
-\item Tight: 60\% (45\%)
-\end{itemize}
-
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -623,6 +626,7 @@ Signal efficiencies 1P (3P):
   \end{subfigure}
   \caption{Working points (BDT A) \mytodo{Larger pt range in appendix}.
     \mytodo{Ratio is bootstrapped due to highly correlated errors}}
+  \todo[inline]{To appendix}
 \end{figure}
 
 
@@ -749,41 +753,22 @@ of cutting out outliers), Partial Dependence, Including $p_\mathrm{T}$
 
 Impact on (reconstructed) decay modes (?)
 
+\todo[inline]{Partial Dependence Plots}
+
+\todo[inline]{Give explanation for how the rejection vs pt plot looks}
+
 \subsubsection{Performance on Quark- / Gluon-initiated Jets}
 \label{sec:bdt_perf_quark_gluon}
 
 Impact of Quark / Gluon initiated jets on Tau-ID (i.e. performance of ID
 on Quark / Gluon jets)
 
+\todo[inline]{Quark/Gluon performance}
+
 \subsection{Performance on Data}
 \label{sec:bdt_perf_data}
 
-Performance on TAUP4 (?)
-
-% -------------------------------------------------------------------------- %
-\begin{itemize}
-\item Description \& Plots of the input variables
-  \begin{itemize}
-  \item How does etOverPtLeadTrk differ from EMPOverTrkSysP for 1-prong taus?
-  \end{itemize}
-
-\item Variable importance (Google: Variable Importance Measures)
-  \begin{itemize}
-  \item Drop-one test
-  \item Partial dependence (can we use a two way partial dependence plot to
-    show interaction of pt and another variable?)
-    \url{http://scikit-learn.org/stable/modules/ensemble.html#interpretation}
-  \end{itemize}
-
-\item $p_\mathrm{T}$-dependency 2D histograms of (centFrac / innerTrkAvgDist --
-  worse \& SumPtTrkFrac -- should get better) (Plot 'variable separation' vs.
-  pt)
-
-\item Performance on gluon / quark initiated jets
-
-\item Cross check with data (jets only)?
-
-\end{itemize}
+\todo[inline]{Performance on TAUP4?}
 
 %%% Local Variables:
 %%% mode: latex
