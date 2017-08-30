@@ -3,14 +3,14 @@
   Trees}
 \label{sec:bdt}
 The reconstruction of hadronic tau lepton decays described in
-chapter~\ref{sec:reconstruction} is based on the reconstruction of jets using
+Chapter~\ref{sec:reconstruction} is based on the reconstruction of jets using
 the anti-$k_\text{T}$ jet algorithm operating on clusters of calorimeter cells.
 Jets originating from quarks or gluons, which are more abundant than tau leptons
 due to the large multijet production cross section at the LHC, are often
 reconstructed as candidates for hadronic tau lepton decays and represent a
 significant background in many analyses. The reconstruction itself offers little
 rejection of multijet events with the exception of the track classification
-(cmp.\ section~\ref{sec:reco_track_sel_classif}) when requiring 1- or 3-prong
+(cf.\ Section~\ref{sec:reco_track_sel_classif}) when requiring 1- or 3-prong
 decays. In the ATLAS experiment an identification algorithm based on
 multivariate methods utilising track and shower shape variables is used to
 discriminate hadronic tau decays from multijet events.
@@ -20,19 +20,19 @@ including definitions of the discriminating variables and the configuration of
 the BDTs used for distinguishing hadronic tau decays (hereafter called signal)
 and tau candidates from multijet events (hereafter called background). The
 simulated samples used for training and performance evaluation of the models,
-the reweighting scheme and the preselection are described in
-section~\ref{sec:bdt_eventsim}. In section~\ref{sec:bdt_hyperparam} a systematic
+the kinematic reweighting and the preselection are described in
+Section~\ref{sec:bdt_eventsim}. In Section~\ref{sec:bdt_hyperparam} a systematic
 optimisation of the BDT configuration is performed to improve the overall
-rejection of the identification. Subsequently the variable selection is
+rejection of the identification. Subsequently, the variable selection is
 investigated to improve the rejection by adding new variables and removing
 variables only contributing little to the overall identification performance.
 The chapter is concluded by evaluating the performance of the optimised BDTs.
 
 In the following the signal efficiency, i.e.\ the fraction of reconstructed tau
-candidates originating from hadronic tau decays passing some selection, will be
+candidates originating from hadronic tau decays passing a selection, will be
 referred as the \emph{efficiency}. The \emph{rejection} refers to the inverse
 background efficiency, i.e.\ the inverse fraction of tau candidates from
-multijet events and pile-up passing the selection. The aim of this chapter is to
+multijet events and pile-up passing a selection. The aim of this chapter is to
 improve the rejection of multijet events at a fixed signal efficiency such that
 analyses using tau identification observe larger signal-to-background ratios.
 
@@ -50,16 +50,15 @@ analyses using tau identification observe larger signal-to-background ratios.
 \section{Description of the Tau-Identification Procedure}
 \label{sec:bdt_tauid}
 The tau identification algorithm currently in use in the ATLAS experiment
-employs BDTs with high-level input variables described in
-section~\ref{sec:bdt_features}. The identification uses separate BDTs for 1- and
-3-prong hadronic tau lepton decays with different sets of input variables.
-Classification with BDTs return a score measuring the confidence of the binary
-decision. This allows a trade off between signal efficiency and background
-rejection by choosing different decision thresholds. In the ATLAS experiment
-these thresholds are parametrised as functions of the reconstructed visible
-transverse momentum~$p_\text{T}$ and the average number of interactions per
-bunch crossing~$\mu$ such that the signal efficiency is constant in different
-momentum and pile-up regimes.
+employs BDTs with high-level input variables. The identification uses separate
+BDTs for 1- and 3-prong hadronic tau lepton decays with different sets of input
+variables. Classification with BDTs return a score measuring the confidence of
+the binary decision. This allows a trade off between signal efficiency and
+background rejection by choosing different decision thresholds. In the ATLAS
+experiment these thresholds are parametrised as functions of the reconstructed
+visible transverse momentum~$p_\text{T}$ and the average number of interactions
+per bunch crossing~$\mu$ such that the signal efficiency is constant in
+different momentum and pile-up regimes.
 
 \subsection{Discriminating Variables}
 \label{sec:bdt_features}
@@ -74,23 +73,25 @@ in this layer.
 The variables defined in \cite{atlas:taurec:run2} are updated to contain the
 latest changes in the reconstruction, the largest being the introduction of the
 multivariate track classification algorithm. They target the features of
-hadronic tau decays discussed in section~\ref{sec:features_tau_decay} \todo{Also
-  sensitive to $\pi^0$ content}. The definitions are:
+hadronic tau decays discussed in section~\ref{sec:features_tau_decay}. The
+definitions are:
 \begin{description}
 \item[Central energy fraction ($f_\text{cent}$):] Fraction of transverse energy
-  (EM scale) deposited in calorimeter cells with a barycentre in a cone of
+  at EM scale deposited in calorimeter cells with a barycentre in a cone of
   radius $\Delta R < 0.1$, and cells in a cone of radius $\Delta R < 0.2$ with
-  respect to the reconstructed tau axis (i.e.\ the axis after correcting for the
-  position of the primary vertex cf.\ section~\ref{sec:reco_vertex_assoc}). The
-  calorimeter cells must be matched to a \emph{TopoCluster}.
+  respect to the reconstructed tau axis.
+  % (i.e.\ the axis after correcting for the position of the primary vertex cf.\
+  % section~\ref{sec:reco_vertex_assoc}).
+  For noise suppression the calorimeter cells must be part of a
+  \emph{TopoCluster}.
 
 \item[Inverse momentum fraction of the leading track
-  ($f_\text{leadtrack}^{-1}$):] Fraction of transverse energy (EM scale)
+  ($f_\text{leadtrack}^{-1}$):] Fraction of transverse energy at EM scale
   deposited in calorimeter cells (matched to \emph{TopoClusters}) with a
   barycentre in a cone of radius~$\Delta R < 0.2$ with respect to the tau axis
   and the transverse momentum of the highest transverse momentum track
   classified as \emph{charged} according to the track classification (cf.\
-  section~\ref{sec:reco_track_sel_classif}).
+  Section~\ref{sec:reco_track_sel_classif}).
 
 \item[Track radius ($R_\text{track}$):] Mean $\Delta R$-distance of the tau axis
   and tracks classified as \emph{charged} weighted by the transverse
@@ -98,7 +99,7 @@ hadronic tau decays discussed in section~\ref{sec:features_tau_decay} \todo{Also
 
 \item[Maximum track $\Delta R$ ($\Delta R_\text{max}$):] Maximum
   $\Delta R$-distance of all tracks classified as \emph{charged} with respect to
-  the tau axis. Equivalent to $R_\text{track}$ for 1-prong hadronic tau decays.
+  the tau axis. Equivalent to $R_\text{track}$ for 1-prong decays.
 
 \item[Transverse impact parameter significance of the leading track
   ($| S_\text{leadtrack} |$):] Absolute value of the transverse impact
@@ -107,14 +108,13 @@ hadronic tau decays discussed in section~\ref{sec:features_tau_decay} \todo{Also
   track and vertex fit.
 
 \item[Transverse flight path significance ($S_\text{T}^\text{flight}$):]
-  Distance between secondary vertex reconstructed using tracks classified as
+  Distance between the secondary vertex reconstructed using tracks classified as
   \emph{charged} and primary vertex in the transverse plane divided by the
   estimated uncertainty from the secondary vertex fit.
 
-\item[Momentum fraction of isolation tracks ($f_\text{iso}^\text{track}$):]
-  Transverse momentum~$p_\text{T}$ sum of \emph{modified isolation} tracks
-  divided by the transverse momentum sum of \emph{modified isolation} and
-  \emph{charged} tracks.
+\item[Momentum fraction of isolation tracks ($f_\text{iso}^\text{track}$):] Sum
+  of transverse momenta of \emph{modified isolation} tracks divided by the sum
+  of transverse momenta of \emph{modified isolation} and \emph{charged} tracks.
 
 \item[EM energy fraction of charged pions ($f_\text{EM}^\text{track-HAD}$):]
   Energy deposited by charged pions in the electromagnetic part of the
@@ -163,21 +163,24 @@ hadronic tau decays discussed in section~\ref{sec:features_tau_decay} \todo{Also
     decays from multijet events.}
   \label{fig:bdt_discriminants}
 \end{figure}
-Two important variables for the identification of hadronic tau lepton decays are
-depicted in figure~\ref{fig:bdt_discriminants}. Figure~\ref{fig:sumpttrkfrac}
-indicates that that background events reconstructed as 1-prong candidates often
-contain a large momentum fraction. Moreover the invariant mass of the track
-system for 3-prong candidates in figure~\ref{fig:masstrksys} shows that the
-invariant mass for signal events is peaked at below \SI{2.5}{\giga\electronvolt}
-while background events can have large masses.
-Table~\ref{tab:baseline_variables} summarises which variables are used in the
-different BDTs for 1- and 3-prong candidates.
+
 \begin{table}[htb]
   \centering
-  \input{./tables/baseline_variables.tex}
+  {\def\arraystretch{1.35}\small\input{./tables/baseline_variables.tex}}
   \caption{Variables used for identification}
   \label{tab:baseline_variables}
 \end{table}
+
+Two important variables for the identification of hadronic tau lepton decays are
+depicted in figure~\ref{fig:bdt_discriminants}. Figure~\ref{fig:sumpttrkfrac}
+shows the momentum fraction of isolation
+tracks~\smash{$f_\text{iso}^\text{track}$} indicating that that background
+events reconstructed as 1-prong candidates often contain a large momentum
+fraction. Moreover, the invariant mass of the track system for 3-prong
+candidates in figure~\ref{fig:masstrksys} shows that the invariant mass for
+signal events is peaked at below \SI{2.5}{\giga\electronvolt} while background
+events can have large masses. Table~\ref{tab:baseline_variables} summarises
+which variables are used in the different BDTs for 1- and 3-prong candidates.
 
 \todo[inline]{Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
   motivate the use of MVA methods / BDTs}
@@ -186,7 +189,7 @@ different BDTs for 1- and 3-prong candidates.
 The current implementation of the tau identification algorithm in the ATLAS
 reconstruction framework uses BDTs trained with TMVA~\cite{tmva}. \todo{The
   config before the implementing the work in this thesis was:} The maximum depth
-of individual decision trees are limited to $d_\text{tree} = 8$ and the minimum
+of individual decision trees is limited to~$d_\text{tree} = 8$ and the minimum
 fraction of events contained in a node considered for further splitting
 is~$f_\text{node}^\text{min} = \SI{0.1}{\percent}$. An ensemble
 of~$N_\text{trees} = 100$ decision trees is trained using the \emph{AdaBoost}
@@ -195,8 +198,8 @@ multiplying the weight of incorrectly classified training examples (i.e.\ larger
 learning rates increase this factor). The decision trees return estimated class
 probabilities and no \emph{pruning} of statistically insignificant splits is
 applied. This configuration is used as a starting point for further
-optimisations. The full configuration of the TMVA-BDTs can be found in
-appendix~\ref{app:tmva_config}.
+optimisations. The full configuration of the TMVA-BDTs is summarised in
+appendix~\ref{app:tmva_config} for reproducibility.
 
 % \begin{align*}
 %   N_\text{trees} &= 100 & d_\text{tree} &= 8 & \beta &= 0.2 \\
@@ -230,7 +233,7 @@ fragmentation. The quark-gluon fraction is approximately \SI{60}{\percent}.
 
 \begin{table}[htb]
   \centering
-  \input{./tables/sample_size.tex}
+  {\small\input{./tables/sample_size.tex}}
   \caption{Number of candidates after baseline tau selection.}
   \label{tab:sample_size}
 \end{table}
@@ -301,13 +304,18 @@ are log-transformed while long-tailed distributions and outliers due to detector
 resolution effects are clamped to fall into a specified range of values. The
 exact transformations can be found in appendix~\ref{app:variable_transforms}.
 
-\todo[inline]{Evaluation will always be on an from training independent sample.
-  Hold-out cross validation: \SI{50}{\percent} of the sample is held-out}
+Hold-out validation is used to measure how well the model generalises to data
+that was not used to train the model. This is done by splitting the signal and
+background samples into two equally sized samples called \emph{training} and
+\emph{testing sample}. The \emph{training sample} is used to train the model and
+the \emph{testing sample} is exclusively used to determine the performance
+characteristics of the model. Unless otherwise noted, the metrics and figures
+given in the following sections are evaluated on the \emph{testing sample}.
 
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
 
-In chapter~\ref{sec:ml_boosting} two boosting algorithms \emph{AdaBoost} and
+In Chapter~\ref{sec:ml_boosting} two boosting algorithms \emph{AdaBoost} and
 \emph{Gradient Boosting} were introduced. They are compared by training BDTs for
 both algorithms and varying a boosting-specific parameter called the learning
 rate. The learning rate for \emph{AdaBoost} is typically denoted by~$\beta$
@@ -316,13 +324,14 @@ Reducing the learning rate artificially slows down the boosting process by
 causing additional trees to have a smaller impact on the ensemble.
 
 The 1-prong tau identification BDTs with the input variables and configuration
-summarised in section~\ref{sec:bdt_tauid} are trained on tau candidates from the
-signal and background samples (cf.\ section~\ref{sec:bdt_eventsim}). The
+summarised in Section~\ref{sec:bdt_tauid} are trained on tau candidates from the
+signal and background samples (cf.\ Section~\ref{sec:bdt_eventsim}). The
 learning rates for \emph{AdaBoost} and \emph{Gradient Boosting} are varied from
 0.05 to 1.0 and the background rejection is calculated for a fixed signal
-efficiency of \SI{60}{\percent}. For this a cut value on the output score of the
-BDT is determined such that \SI{60}{\percent} of the tau candidates in the
-signal sample pass this selection.
+efficiency of \SI{60}{\percent}. For this a single cut on the output score of
+the BDT is determined such that \SI{60}{\percent} of the tau candidates in the
+signal sample pass this selection. This is an approximation to the \emph{tight}
+working point of the tau-identification used in the ATLAS experiment.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -354,8 +363,9 @@ weight on misclassified events ($y f(x) < 0$) such that it is more robust for
 problems where signal and background are inseparable in certain regions of phase
 space. For the tau identification algorithm this is often the case for jets
 initiated by light quarks which more closely resemble hadronic decays of tau
-leptons in the variables used for identification. Gradient Boosting is used for
-further optimisation steps.
+leptons in the variables used for identification. Due to the significant
+increase in rejection when using Gradient Boosting, it is used for the further
+optimisation steps.
 
 \subsection{Grid Search}
 \label{sec:bdt_grid_search}
@@ -367,7 +377,7 @@ larger number of trees to converge. In addition the maximum tree
 depth~$d_\text{tree}$ and the fraction of events required for node
 splitting~$f_\text{node}^\text{min}$. Both parameters limit the depth of a tree
 and therefore the allowed order of variable interactions in a single tree (e.g.\
-$d_\text{tree} = 2$ allows interactions of up to two variables). Finally bagged
+$d_\text{tree} = 2$ allows interactions of up to two variables). Finally, bagged
 boosting is investigated where each tree is grown using a random sample of
 training events drawn with replacement from the full training sample. This
 method aims to reduce overfitting (i.e.\ trees learning statistical fluctuations
@@ -376,7 +386,7 @@ events~$f_\text{bag}$ in the random sample.
 
 These hyperparameters are optimised by forming a grid in the parameter space and
 training and evaluating a BDT trained for each point on this grid. The grid is
-parametrised by the following parameter planes
+given by the following hyperparameter values
 \begin{align*}
   N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} & \eta &\in \{0.05, 0.1, 0.2, 0.4\} & d_\mathrm{tree} &\in \{4, 6, 8, 12, 16\}\\
   f_\mathrm{node}^\mathrm{min} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} & f_\text{bag} &\in \{\text{None}, \SI{50}{\percent} \}
@@ -393,24 +403,28 @@ ATLAS.
     \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_MaxDepth_NTrees.pdf}
     \vspace*{-1.6em}
     \subcaption{}
+    \label{fig:gridscan_maxdepth_ntrees}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_Shrinkage_NTrees.pdf}
     \vspace*{-1.6em}
     \subcaption{}
+    \label{fig:gridscan_shrinkage_ntrees}
   \end{subfigure}
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_Shrinkage_MaxDepth.pdf}
     \vspace*{-1.6em}
     \subcaption{}
+    \label{fig:gridscan_shrinkage_maxdepth}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/gridsearch_1p/scan_MinNodeSize_MaxDepth.pdf}
     \vspace*{-1.6em}
     \subcaption{}
+    \label{fig:gridscan_minnodesize_maxdepth}
   \end{subfigure}
   \caption{Background rejection at \SI{60}{\percent} signal efficiency as a
     function of the BDT hyperparameters. Bagged boosting with a subsample
@@ -421,62 +435,47 @@ ATLAS.
   \label{fig:hyperparameter_scan_1p}
 \end{figure}
 
-\todo[inline]{Continue}
+In Figure~\ref{fig:hyperparameter_scan_1p} the background rejection of the
+1-prong tau-identification BDT is shown as a function of the hyperparameters of
+the model. The relation between the hyperparameters and their impact on the
+background rejection are discussed in the following.
 
-In figure~\ref{fig:hyperparameter_scan_1p} the background rejection of the
-1-prong tau identification BDT is shown as a function of the hyperparameters of
-the model.
-
-- Relation between ntrees and tree depth clearly visible.
-
-- Deep trees quickly overfit when small limit due to minimum node size
-
-- Deep trees with a large learning rate overfit
-
-Relatively wide performance maximum.
-
-
-Optimising the 3-prong tau identification BDT shows similar results which are
-summarised in appendix~\ref{app:grid_search_3p} and are omitted for brevity.
+The relationship of the number of trees~$N_\text{trees}$ in the ensemble with
+the maximum tree depth~$d_\text{tree}$ and learning rate~$\eta$ of the gradient
+boosting is shown in Figures~\ref{fig:gridscan_maxdepth_ntrees} and
+\subref{fig:gridscan_shrinkage_ntrees}. A distinct trade-off can be observed
+between the hyperparameters $d_\text{tree}$ and $N_\text{trees}$, where a large
+number of shallow trees and a small number of deep trees can reach similar
+background rejection. Moreover, small learning rates~$\eta$ require many trees
+to properly fit the model. For a large number of trees and large maximum tree
+depths or learning rates the model overfits, i.e.\ learns statistical
+fluctuations in the training sample and therefore exhibits a decreased
+generalisation performance. This effect can also be observed in
+Figure~\ref{fig:gridscan_shrinkage_maxdepth}, where highly complex trees with a
+depth of 16 can lead to overfitting if the learning rate is too large. The
+importance of choosing an appropriate minimum node
+size~$f_\text{min}^\text{node}$ is shown in
+Figure~\ref{fig:gridscan_minnodesize_maxdepth}. If the minimum node size is
+chosen too small the model does not properly fit the data. However, small
+minimum node size can quickly lead to overfitting for decision trees with a
+large maximum depth. The interplay of the maximum tree depth and minimum node
+size when constraining \todo{continue}. The optimisation of the 3-prong
+tau-identification shows similar results, which are summarised in
+Appendix~\ref{app:grid_search_3p} and are omitted here for brevity.
 
 \begin{table}[htb]
   \centering
-  \input{./tables/bdt_config.tex}
+  {\small\input{./tables/bdt_config.tex}}
   \caption{BDT configuration. Rejection is given at \SI{60}{\percent} for
     1-prong and \SI{45}{\percent} for 3-prong.}
+  \label{tab:bdt_perfs}
 \end{table}
 
-
-Explain why for 1-prong a subsampling model is better than for 3-prong. The
-1-prong case seems to be limited by background statistics while the 3-prong case
-is limited by signal statistics. Could the reason for the preferred subsampling
-models in the 1-prong case be the low statistics for the background? Why?
-
-Explain that the 16 depth trees are not of depth 16 in most cases because it is
-limited by MinNodeSize. Assuming the data is split in equal parts for each
-binary split then the effective depth is roughly
-$d = \log_2(\SI{100}{\percent} / \SI{0.1}{\percent}) \approx 10$.
-
-Reasons for using the 'less overtrained' example:
-\begin{itemize}
-\item More robust to potential decreases in number of training examples for
-  future tunings
-\item BDT fits statistical fluctuations (why is this bad when we see an overall
-  improvement in performance? how does this fit in with the NN studies where
-  this is often the case?)
-\item Tuning of downstream algorithms on same sample (algorithms learn overly
-  optimistic Tau-ID)
-\end{itemize}
-
-TMVA Grid Search
-XGBoost (?)
-Comparison with previous setup
-
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p0304.pdf}
-    \subcaption{Overtrained example (BDT A):
+    \subcaption{Overtrained example 1-prong (BDT A):
       \mbox{$N_\text{Trees} = 800$},
       \mbox{$d_\text{Tree} = 16$},
       \mbox{$\nu = 0.05$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
@@ -485,29 +484,50 @@ Comparison with previous setup
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0317.pdf}
+    \subcaption{Overtrained example 3-prong(BDT A):
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 16$},
+      \mbox{$\nu = 0.1$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
+      no bagging
+    }
+  \end{subfigure}
+  \caption{'Overtraining' visible on the edges of the BDT score distribution
+    (1-prong)}
+  \label{fig:bdt_overfitting_scores}
+\end{figure}
+
+The grid search shows that the maximum of rejection is wide spanning over
+multiple grid points. The configurations of the 1- and 3-prong BDTs are
+summarised in Table~\ref{tab:bdt_perfs}. The models with the name \emph{BDT A}
+consist of the BDT with the highest rejection at the corresponding signal
+efficiency. One observes that these BDTs fall on an edge of the parameter grid,
+indicating that a configuration with larger rejection can be found outside of
+the scanned hyperparameter region. However, looking at the distribution of the
+BDT scores for signal and background tau candidates on both the training and the
+testing sample in Figure~\ref{fig:bdt_overfitting_scores} one observes that the
+BDT score distributions deviate between training and testing sample. This
+indicates that the BDTs are picking up statistical fluctuations in the training
+samples and signals that these configurations are close to overfitting. The
+deviations of the score distributions are most significant for the 1-prong
+background and 3-prong signal distributions, due to the limited sample size
+(cf.\ Table~\ref{tab:sample_size}).
+
+% The one-prong BDT is optimised for efficiency of the tight working-point (in the
+% scan no flattening was applied). However the 3-prong BDT was optimised for the
+% loose working-point, because the rejection of the 3-prong ID is roughly one
+% order of magnitude larger thus the tight working-point is not a stable metric
+% considering the size of the available background sample.
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p_subsampling0269.pdf}
     \subcaption{Good training (BDT B):
       \mbox{$N_\text{Trees} = 400$},
       \mbox{$d_\text{Tree} = 8$},
       \mbox{$\nu = 0.1$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
       \mbox{$f_\text{bag} = \SI{50}{\percent}$}
-    }
-  \end{subfigure}
-  \caption{'Overtraining' visible on the edges of the BDT score distribution
-    (1-prong)}
-  \label{fig:bdt_1p_scores}
-\end{figure}
-
-
-\begin{figure}[ht]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/scores/grid_3p0317.pdf}
-    \subcaption{Overtrained example (BDT A):
-      \mbox{$N_\text{Trees} = 800$},
-      \mbox{$d_\text{Tree} = 16$},
-      \mbox{$\nu = 0.1$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
-      no bagging
     }
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
@@ -521,30 +541,22 @@ Comparison with previous setup
     }
   \end{subfigure}
   \caption{'Overtraining' visible on the edges of the BDT score distribution
-    (3-prong)}
-  \label{fig:bdt_3p_scores}
+    (1-prong)}
+  \label{fig:bdt_ks5_scores}
 \end{figure}
 
+Instead of choosing the BDT with the largest rejection, compatibility of the
+signal and background BDT score distributions is required. This is done for
+reasons of robustness to a potential decrease in training statistics for future
+tunings. The compatibility of two distributions is measured using the $p$-value
+of the Kolmogorov-Smirnov (KS) test. The configuration~\emph{BDT B} in
+Table~\ref{tab:bdt_perfs} consists of the BDT with the highest rejection at the
+specified signal efficiency, while also requiring that the $p$-value of the
+KS-test between training and testing sample is larger than \SI{5}{\percent}. The
+score distributions after requiring compatibility according to the KS-test is
+shown in Figure~\ref{fig:bdt_ks5_scores}.
 
-Description of what is seen in the scan:
-\begin{itemize}
-\item Strong dependence of $N_\text{trees}$ and $d_\text{tree}$: low number
-  shallow trees leads to underfitting; high number of deep trees starts to
-  degrade performance due to overfitting
-\item Strong dependence of shrinkage and number of trees: Very narrow maximum in
-  feature space - shrinkage has to be tuned for the number of trees. Significant
-  overfitting in high shrinkage high ntree region.
-\item Maximum tree depth vs shrinkage: Deep trees need low shrinkage to avoid
-  overfitting and vice versa for underfitting.
-\item Maximum tree depth vs minnodesize: Critical parameter to set correctly. If
-  set too large severe underfitting is observed. For small minimum node sizes
-  one has to be careful to not set the tree depth too high since minimum node
-  size is the depth limiter in most cases. One tuning strategy could be to set
-  the tree depth to very large values and just limit using minimum node size but
-  this would require fine tuning for different sample sizes.
-\end{itemize}
-
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/roc/bdt_1p_comparison.pdf}
@@ -559,18 +571,20 @@ Description of what is seen in the scan:
   \end{subfigure}
   \caption{\emph{ROC}-Curves. \mytodo{Rule of thumb? For 10 percent signal
       efficiency which factor of rejection do we get?}}
+  \label{fig:bdt_rocs}
 \end{figure}
 
-The one-prong BDT is optimised for efficiency of the tight working-point (in the
-scan no flattening was applied). However the 3-prong BDT was optimised for the
-loose working-point, because the rejection of the 3-prong ID is roughly one
-order of magnitude larger thus the tight working-point is not a stable metric
-considering the size of the available background sample.
-
-In partial dependence plots you can see the nonlinear decision boundaries.
+In Figure~\ref{fig:bdt_rocs} receiver operating characteristic curve (ROC-curve)
 
 \subsection{Working Points}
 \label{sec:bdt_working_points}
+
+\begin{table}[htb]
+  \centering
+  {\small\input{./tables/working_point_efficiencies.tex}}
+  \caption{Working point efficiencies}
+  \label{tab:wp_eff}
+\end{table}
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
