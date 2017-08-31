@@ -568,6 +568,8 @@ vertex information.
 \subsection{Working Points}
 \label{sec:bdt_working_points}
 
+\todo[inline]{Subsection of 'Hyperparameter Optimisation' makes no sense!}
+
 \begin{table}[htb]
   \centering
   {\small\input{./tables/working_point_efficiencies.tex}}
@@ -629,10 +631,16 @@ significantly change the signature of the highly energetic tau decay.
 
 \todo[inline]{Show signal efficiency?}
 
-\section{Feature Selection}
-\label{sec:bdt_feature_selection}
-Before proceeding to feature selection a reliable hyperparameter setup has to be
-found.
+\section{Variable Selection}
+\label{sec:bdt_variable_selection}
+
+After optimising the hyperparameter configuration and defining the working
+points to be used by analyses, an investigation of the input variable selection
+for the BDTs is performed. First the set of variables is extended to improve the
+rejection of tau candidates from multijet events. Subsequently, input variables
+with an insignificant impact on the discriminative power are removed to simplify
+the model.
+
 \subsection{Transverse Momentum Dependency of Features}
 \label{sec:bdt_incl_pt}
 
@@ -680,7 +688,7 @@ and using this as an input to the BDT.
 
 \begin{table}[htb]
   \centering
-  \input{./tables/bdt_new_variables.tex}
+  {\small\input{./tables/bdt_new_variables.tex}}
   \caption{New variables}
   \label{tab:bdt_new_variables}
 \end{table}
@@ -692,6 +700,7 @@ and using this as an input to the BDT.
   correlations;}
 
 \begin{figure}[ht]
+  \centering
   \begin{subfigure}[t]{0.33\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/var_importance/1p_iter1.pdf}
@@ -723,6 +732,7 @@ of cutting out outliers), Partial Dependence, Including $p_\mathrm{T}$
 \label{sec:bdt_perf_sim}
 
 \begin{figure}[ht]
+  \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/post_optimisation/rejection_tight_1p.pdf}
