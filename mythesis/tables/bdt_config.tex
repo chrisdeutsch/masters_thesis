@@ -4,15 +4,17 @@
   S[table-format=2.0]
   S[table-format=1.2]
   c
+  S[table-format=2.1]
+  S[table-format=2.1]
   c}
   \toprule
-  & Name & {$N_\text{trees}$} & {$\eta$} & {$d_\text{tree}$} & {$f_\text{node}^\text{min}$ / \si{\percent}} & {$f_\text{bag}$} & {Rejection} \\
+  & Name & {$N_\text{trees}$} & {$\eta$} & {$d_\text{tree}$} & {$f_\text{node}^\text{min}$ / \si{\percent}} & {$f_\text{bag}$} & {$p_\text{sig}^\text{KS}$ / \si{\percent}} & {$p_\text{bkg}^\text{KS}$ / \si{\percent}} & {Rejection} \\
   \midrule
-  \multirow{2}{*}{1-prong} & BDT A & 800 & 0.05 & 16 & 0.01 & -- & \num{85.16 +- 0.63} \\ % 85.1554489136 +- 0.627610266209
-  & BDT B & 400 & 0.1 & 8 & 0.1 & \SI{50}{\percent} & \num{83.17 +- 0.61} \\ % 83.1734085083 +- 0.60996067524
+  \multirow{2}{*}{1-prong} & BDT A & 800 & 0.05 & 16 & 0.01 & -- & 0.0 & 0.0 & \num{85.16 +- 0.63} \\ % 85.1554489136 +- 0.627610266209
+  & BDT B & 400 & 0.1 & 8 & 0.1 & \SI{50}{\percent} & 67.3 & 5.8 & \num{83.17 +- 0.61} \\ % 83.1734085083 +- 0.60996067524
   \midrule
-  \multirow{2}{*}{3-prong} & BDT A & 800 & 0.1 & 16 & 0.01 & -- & \num{1793 +- 31} \\ % 1792.56018066 +- 30.3141174316
-  & BDT B & 800 & 0.4 & 6 & 0.1 & -- & \num{1725 +- 33} \\ % 1725.49645996 +- 32.5099754333
+  \multirow{2}{*}{3-prong} & BDT A & 800 & 0.1 & 16 & 0.01 & -- & 0.0 & 0.0 & \num{1793 +- 31} \\ % 1792.56018066 +- 30.3141174316
+  & BDT B & 800 & 0.4 & 6 & 0.1 & -- & 5.1 & 42.8 & \num{1725 +- 33} \\ % 1725.49645996 +- 32.5099754333
   \bottomrule
 \end{tabular}
 

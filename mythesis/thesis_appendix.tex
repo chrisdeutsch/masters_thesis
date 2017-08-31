@@ -349,6 +349,51 @@ JZ7W:50000
 \end{tabular}
 
 \clearpage
+\section{BDT Stuff}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0327.pdf}
+    \subcaption{Good training (BDT B):
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 6$},
+      \mbox{$\nu = 0.4$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
+      \mbox{$f_\text{bag} = \text{None}$}
+    }
+  \end{subfigure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0317.pdf}
+    \subcaption{Overtrained example 3-prong(BDT A):
+      \mbox{$N_\text{Trees} = 800$},
+      \mbox{$d_\text{Tree} = 16$},
+      \mbox{$\nu = 0.1$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
+      no bagging
+    }
+  \end{subfigure}
+  \caption{'Overtraining' visible on the edges of the BDT score distribution
+    (1-prong)}
+  \label{fig:bdt_ks5_scores}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_1p/rejection_tight.pdf}
+    \subcaption{1-prong (tight)}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
+    \subcaption{3-prong (tight)}
+  \end{subfigure}
+  \caption{Working points (BDT A) \mytodo{Larger pt range in appendix}.
+    \mytodo{Ratio is bootstrapped due to highly correlated errors}}
+\end{figure}
+
+
+\clearpage
 \section{Decay Mode Classification using Recurrent Neural Networks}
 \subsection{Baseline Probabilities}
 \label{app:baseline_probabilities}
