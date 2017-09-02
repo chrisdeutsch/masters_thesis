@@ -182,6 +182,27 @@ Variable evolution:
 \subsubsection{Rate-Reduction at the High Level Trigger}
 \label{sec:hlt_rate_reduction}
 
+Extended barrel to~$\eta = \num{4.0}$. JZ0W sample \todo{cross section} and
+Ztautau sample with~$\mu = \num{200}$. Offline reconstruction using Run-II
+calibrations -- i.e.\ not optimised for HL-LHC conditions (shitty energy
+calibration -- thats why plots are vs.\ truth pt)
+
+\begin{figure}[htb]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/trigger/pt_rate_reg.pdf}
+    \subcaption{Rate JZ0W as a function of thresholds}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/trigger/taueff_reg.pdf}
+    \subcaption{Di-tau efficiency}
+  \end{subfigure}
+  \caption{Di-tau trigger}
+  \label{fig:rnn_ditau_trigger}
+\end{figure}
+
 The high rates of the High Level Trigger (HLT) for tau leptons need to be
 reduced. At the HLT no track information is available due to the high time
 requirements of the ATLAS tracking algorithm. The rate reduction is limited to
