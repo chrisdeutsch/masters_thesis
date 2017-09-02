@@ -32,15 +32,13 @@ Ref.~\cite{atlas:taurec:decaymodes} will be adopted. \todo{Plot some
 \label{sec:tau_pflow}
 
 The \emph{Tau Particle Flow}-algorithm is a specialised particle flow algorithm
-for reconstruction of charged and neutral constituents in hadronic tau decays
-with visible transverse momenta of up to \SI{100}{\giga\electronvolt}. It aims
-to improve reconstruction of individual particles by optimally combining the
-information in several subdetector-systems. The reconstructed objects, called
-charged or neutral \emph{particle flow objects}~(PFOs), can be used to classify
-the hadronic decay modes and for improving the energy resolution of the
-reconstructed hadronic tau decay by employing a decay mode specific calibration.
-The following description of the algorithm is based on
-Ref.~\cite{atlas:taurec:decaymodes} including recent changes to the
+for the reconstruction of charged and neutral constituents in hadronic tau
+decays with visible transverse momenta of up to \SI{100}{\giga\electronvolt}. It
+aims to improve reconstruction of individual particles by optimally combining
+the information in several subdetector-systems. The reconstructed objects,
+called charged or neutral \emph{particle flow objects}~(PFOs), can be used to
+classify the hadronic decay modes. The following description of the algorithm is
+based on Ref.~\cite{atlas:taurec:decaymodes} including recent changes to the
 reconstruction.
 
 Charged PFOs are reconstructed from tracks classified as \emph{charged}
@@ -59,40 +57,40 @@ deposit their energy in a single cluster in the electromagnetic part of the
 calorimeter, consisting of the Presampler and the EM1/EM2 samplings. Therefore,
 neutral PFOs are reconstructed by clustering cells in the electromagnetic part
 of the calorimeter within the~$\Delta R < 0.4$ cone about the tau axis. If a
-cluster is in the proximity of a charged PFO then the energy deposition of the
+cluster is in the proximity of a charged PFO, then the energy deposition of the
 charged hadron in the EM calorimeter has to be separated from the neutral pion
 energy. The energy $E_{h^\pm}^{\text{EM}}$ that needs to be subtracted to remove
-the contribution of the charged hadron is estimated by
+the contribution of the charged hadron is estimated
+by~\cite{atlas:taurec:decaymodes}
 \begin{align*}
   E_{h^\pm}^{\text{EM}} = E_{h^\pm}^{\text{track}} - E_{h^\pm}^{\text{HAD}} \eqcomma
 \end{align*}
-where $E_{h^\pm}^{\text{track}}$ is the energy of the charged PFO measured in
-the tracking system and $E_{h^\pm}^{\text{HAD}}$ the energy of the charged PFO
-deposited in the hadronic part of the
-calorimeter~\cite{atlas:taurec:decaymodes}. $E_{h^\pm}^{\text{HAD}}$ is
-calculated by matching clustered energy deposits in the HCAL to the closest
-track of a charged PFO. The contribution of the charged hadron in the EM
-calorimeter~$E_{h^\pm}^{\text{EM}}$ is subtracted from the closest neutral PFO
-cluster if the angular distance between cluster and extrapolated track is
-smaller than~$\Delta R < 0.04$. Neutral PFOs can often be reconstructed from an
-incomplete subtraction of the charged hadron energy deposition in the EM
-calorimeter or by pile-up. For decay mode classification it is necessary to
-identify the neutral pions in all reconstructed neutral PFOs of the tau decay.
-The identification exploits the difference in shower shape of hadronic showers
-initiated by charged hadrons and compact showers from photons of the $\pi^0$
-decay using multivariate methods.
+where \smash{$E_{h^\pm}^{\text{track}}$} is the energy of the charged PFO
+measured in the tracking system and \smash{$E_{h^\pm}^{\text{HAD}}$} the energy
+it deposited in the hadronic part of the calorimeter.
+\smash{$E_{h^\pm}^{\text{HAD}}$} is calculated by matching clustered energy
+deposits in the HCAL to the closest track of a charged PFO. The contribution of
+the charged hadron in the EM calorimeter~\smash{$E_{h^\pm}^{\text{EM}}$} is
+subtracted from the closest neutral PFO cluster if the angular distance between
+cluster and extrapolated track is smaller than~$\Delta R < 0.04$. Neutral PFOs
+can often be reconstructed from an incomplete subtraction of the charged hadron
+energy deposition in the EM calorimeter or by pile-up. For decay mode
+classification it is necessary to identify the neutral pions in all
+reconstructed neutral PFOs of the tau decay. The identification exploits the
+difference in shower shape of hadronic showers from charged hadrons and compact
+showers from photons of the $\pi^0$-decay using multivariate methods.
 
 The number of identified neutral pions can be used for a preliminary
 classification of the decay mode. The following sections will be concerned with
-combining reconstructed PFOs in neural networks to achieve better classification
+combining reconstructed PFOs in neural networks to achieve larger classification
 power. Decay mode classification employing the \emph{Tau Particle
   Flow}-algorithm is optimised for operation in the low-momentum regime due to
-the decreasing momentum resolution in the tracking system as well as the
-additional boost of the tau decay products leading to merging of
-$\pi^0$-clusters. Therefore the main focus is on the classification of hadronic
-tau lepton decays with visible transverse
-momenta~$p_\text{T} < \SI{100}{\giga\electronvolt}$ but prospects of a
-classification algorithm usable over an extended momentum range are also given.
+the decreasing momentum resolution in the tracking system at high transverse
+momenta as well as the additional boost of the tau decay products leading to
+merging of $\pi^0$-clusters. Therefore, the main focus lies on the
+classification of hadronic tau lepton decays with visible transverse
+momenta~$p_\text{T} < \SI{100}{\giga\electronvolt}$ but prospects of applying
+the algorithm on an extended momentum range are also given.
 
 \section{Classification with Tau Particle Flow and Recurrent Neural Networks}
 \label{sec:pfo_general}
@@ -102,7 +100,7 @@ The charged and neutral PFOs reconstructed with the \emph{Tau Particle
 and can be used for decay mode classification. Properties of charged and neutral
 PFOs are combined in recurrent neural networks to perform multi-class
 classification. Mainly kinematic information, e.g.\ the transverse momentum and
-angular deviation from the tau axis, is used to describe each PFO. Moreover the
+angular deviation from the tau axis, is used to describe each PFO. Moreover, the
 $\pi^0$-likeness in form of the neutral pion identification score is included in
 the classification to be able to discriminate between neutral PFOs originating
 from a neutral pion and remnants of the subtraction or pile-up.
@@ -123,10 +121,11 @@ into two branches each accepting a number of charged and neutral PFOs. A shared
 dense layer applies an affine transformation to the input variables of each PFO.
 Afterwards the transformed sequences are fed into the recurrent layer returning
 a single vector of activations. The activations of both branches are
-concatenated and passed through a network containing three dense layers. The
-final dense layer has five units equal to the number of decay modes to classify.
-Application of the Softmax activation function on the final layer ensures that
-the output activations can be interpreted as mode probabilities.
+concatenated \todo{shorten this as it will be explained in the RNN-ID part} and
+passed through a network containing three dense layers. The final dense layer
+has five units equal to the number of decay modes to classify. Application of
+the Softmax activation function on the final layer ensures that the output
+activations can be interpreted as mode probabilities.
 
 \subsection{Baseline Model}
 \label{sec:pfo_baseline}
@@ -136,8 +135,7 @@ process~$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used (cf.\
 Section~\ref{sec:bdt_eventsim}). Compared to the dataset used for the
 tau-identification studies, it features an updated tuning of the default decay
 mode classification and an increase in the number of simulated events by
-\SI{50}{\percent}. The sample identifier is given in
-Appendix~\ref{app:mc16a_taus}.
+\SI{50}{\percent}. The sample is given in Appendix~\ref{app:mc16a_taus}.
 
 \begin{table}[htb]
   \centering
@@ -151,32 +149,33 @@ Appendix~\ref{app:mc16a_taus}.
   \todo[inline]{What should be in this table?}
 \end{table}
 
-In addition to the baseline selection given in Section~\ref{sec:bdt_eventsim},
-the visible transverse momentum of the hadronic tau decay is required to be less
-than \SI{100}{\giga\electronvolt} at reconstruction and generator-level.
-Moreover, only taus with the generated decay mode being one of $h^\pm$,
-$h^\pm \pi^0$, $h^\pm \geq 2\pi^0$, $3h^\pm$ or $3h^\pm \geq 1\pi^0$ and
-omitting decays containing intermediate~\smash{$\text{K}^0$} are used. The mode
-composition of the sample after applying this preselection is summarised in
-Table~\ref{tab:mode_reco_eff}.
+In addition to the baseline tau selection given in
+Section~\ref{sec:bdt_eventsim}, the visible transverse momentum of the hadronic
+tau decay is required to be less than \SI{100}{\giga\electronvolt} at
+reconstruction and generator-level. Moreover, only taus with the generated decay
+mode being one of $h^\pm$, $h^\pm \pi^0$, $h^\pm \geq 2\pi^0$, $3h^\pm$ or
+$3h^\pm \geq 1\pi^0$ and omitting decays containing
+intermediate~\smash{$\text{K}^0$} are used. The mode composition of the sample
+after applying this preselection is summarised in Table~\ref{tab:mode_reco_eff}.
 
 The discrimination of the decay modes utilises kinematic quantities of the
 reconstructed tau decay as well as the charged and neutral particle flow
-objects. The neutral and charged PFO variables are summarised in the following:
+objects. The variables attached to each neutral and charged PFO are summarised
+in the following:
 \begin{description}
 \item[Kinematic quantities of the reconstructed tau decay:] The visible
   transverse momentum~$p_\text{T}^\tau$ and the angular
-  direction~$(\varphi_\tau, \eta_\tau)$ of the reconstructed tau-axis. The
-  momentum is calibrated at LC-scale without applying a tau-specific energy
+  direction~$(\varphi_\tau, \eta_\tau)$ of the reconstructed tau axis. The
+  momentum is calibrated at LC scale without applying a tau-specific energy
   calibration.
 
 \item[Kinematic quantities of charged and neutral PFOs:] The reconstructed
   transverse momentum $p_\text{T}^\text{PFO}$ and the signed angular distances
-  to the reconstructed tau-axis in transverse~$\Delta\varphi$ and longitudinal
+  to the reconstructed tau axis in transverse~$\Delta\varphi$ and longitudinal
   direction~$\Delta\eta \coloneqq \eta_\text{PFO} - \eta_\tau$. The transverse
   angular distance~$\Delta\varphi$ is defined analogously to the longitudinal
   case but also accounting for the periodicity in the azimuthal angle~$\varphi$.
-  Angular deviations from the tau-axis are used to ensure that coordinates are
+  Angular deviations from the tau axis are used to ensure that coordinates are
   comparable between different tau candidates.
 \end{description}
 For neutral PFOs the set of variables is extended to allow for the
@@ -186,11 +185,11 @@ kinematic quantities the following variables are used:
 \item[$\pi^0$-identification score $S_\text{BDT}^{\pi^0}$:] BDT-based
   discriminant combining shower shape information in the electromagnetic part of
   the calorimeter to identify neutral PFOs originating from photons of the
-  $\pi^0$ decay~\cite{atlas:taurec:decaymodes}.
+  $\pi^0$-decay~\cite{atlas:taurec:decaymodes}.
 
 \item[Number of shots $N_\text{shots}$:] Number of shots (cf.\
   Section~\ref{sec:shot_reco}) associated with a neutral PFO cluster. Shots are
-  associated with a cluster if it contains the seed cell of the shot and the
+  associated with a cluster if it contains the seed cell of the shot, the PFO
   cluster fulfils $E_\text{T} > \SI{500}{\mega\electronvolt}$ and is within
   $\Delta R < 0.4$ to the tau axis. In cases where the cell is shared between
   multiple clusters, it is associated to the cluster to which the seed cell
@@ -208,20 +207,20 @@ Analogously to the RNN-based tau identification in Chapter~\ref{sec:rnn}, the
 full dataset is split into a training~(\SI{50}{\percent}),
 validation~(\SI{10}{\percent}) and testing sample~(\SI{40}{\percent}). The
 transverse momenta of the reconstructed tau and PFOs are log-transformed and
-subsequently standardised by subtracting the mean and dividing by the standard
-deviation, derived from the distributions in the training sample. For the
-neutral PFO specific variables~\smash{$S_\text{BDT}^{\pi^0}$} and
+subsequently standardised. \todo{by subtracting the mean and dividing by the
+  standard deviation, derived from the distributions in the training sample.}
+For the neutral PFO specific variables~\smash{$S_\text{BDT}^{\pi^0}$} and
 \smash{$N_\text{shots}$} no preprocessing is required. The remaining kinematic
-variables, i.e.\ angular direction of the tau-axis and angular deviation of the
+variables, i.e.\ angular direction of the tau axis and angular deviation of the
 PFO, are scaled into the~$[-1, 1]$-interval.
 
 Charged and neutral PFOs are passed in ascending transverse momentum ordering to
-the shared dense layers with 24 units each. A maximum of three charged PFOs
-corresponding to the \emph{charged} tracks and up to ten neutral PFOs are used.
-The intermediate representations after the shared dense layers are passed into
-the LSTM layers, each returning a vector of 24 activations. The activations of
-both branches are merged and passed through a network of three dense layers with
-48, 32 and 5 units, respectively.
+a shared dense layers with 24 units each. A maximum of three charged PFOs each
+corresponding to a \emph{charged} track and up to ten neutral PFOs are used. The
+intermediate representations after the shared dense layers are passed into the
+LSTM layers, each returning a vector of 24 activations. The activations of both
+branches are merged and passed through a network of three dense layers with 48,
+32 and 5 units, respectively.
 
 For a given reconstructed tau decay the model returns one probability for each
 of the five decay modes. The decay mode is classified as the mode with the
@@ -242,8 +241,8 @@ strictly required to use this information allowing migrations of reconstructed
 behaviour is not desired then the decay mode can be classified as the mode with
 the highest probability that is still compatible with the number of
 reconstructed tracks. For the following studies these migrations are allowed as
-the loss in classification power is small when constraining the model (cf.\
-Appendix~\ref{app:mode_classification_track_constraint} for a comparison).
+the loss in classification power is small when constraining the model (a
+comparison is given in Appendix~\ref{app:mode_classification_track_constraint}).
 
 \begin{table}[htb]
   \centering
@@ -330,13 +329,13 @@ can be summarised in the so called \emph{migration matrix}.
 Figure~\ref{fig:migmat_comparison_baseline_15cut} shows migration matrices of
 the ATLAS default algorithm~\cite{atlas:taurec:decaymodes} and the RNN-based
 decay mode classification. The diagonal entries give the efficiencies to
-correctly reconstruct the corresponding decay mode while the off-diagonal
+correctly reconstruct the corresponding decay mode, while the off-diagonal
 measures the migration probability between modes. The diagonal efficiency can
 also be interpreted as the mean of the diagonal entries of this matrix weighted
-by the reconstructed mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The
-individual efficiencies and migration probabilities in the matrix can vary
-between different trainings of the network as a decrease in efficiency in one
-mode can be compensated by an improvement in another. Nevertheless, the diagonal
+by the mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The individual
+efficiencies and migration probabilities in the matrix can vary between
+different trainings of the network as a decrease in efficiency in one mode can
+be compensated by an improvement in another. Nevertheless, the diagonal
 efficiency is a stable metric between different trainings and is used as a
 figure of merit for subsequent investigations.
 
@@ -361,10 +360,10 @@ figure of merit for subsequent investigations.
 
 In comparison with the ATLAS default algorithm, the RNN-based decay mode
 classification improves the efficiencies of all five decay modes leading to an
-absolute increase in diagonal efficiency of \SI{4.8}{\percent}. Furthermore, a
-significant reduction in migrations due to under- or overestimation of the
-number of neutral pions is observed. Migrations between 1- and 3-prong modes are
-of similar magnitude for both algorithms.
+absolute increase in diagonal efficiency of \SI{4.8}{\percent} to a total of
+\SI{78.0}{\percent}. Furthermore, a significant reduction in migrations due to
+under- or overestimation of the number of neutral pions is observed. Migrations
+between 1- and 3-prong modes are of similar magnitude for both algorithms.
 
 Due to the reduction of migrations between different modes an overall
 improvement in purity of the reconstructed modes is expected. This is shown in
@@ -404,14 +403,14 @@ classification algorithm. Its sequence of layers is identical to the other
 branches except that the number of units in the shared dense and LSTM layers are
 reduced to 16 (from 24). To account for the increased number of units of the
 three merged branches, the size of the consecutive dense layers are increased to
-64 and 32 units (from 48/24).
+64 and 32 units (from 48/32).
 
 A maximum of four conversion tracks are passed to the network in ascending
 transverse momentum ordering. Tracks are required to pass a transverse momentum
 threshold of \SI{400}{\MeV} from the track reconstruction. The inputs for each
 track contain the transverse momentum of the track~$p_\text{T}^\text{track}$,
 the angular direction of the tau axis~$(\varphi_\tau, \eta_\tau)$ and the
-angular distance~$(\Delta\varphi, \Delta\eta)$ between track and tau-axis. The
+angular distance~$(\Delta\varphi, \Delta\eta)$ between track and tau axis. The
 angular distances are calculated using track parameters at the perigee with
 respect to the beamspot and alternatively using the position of the extrapolated
 track hit on the face of EM1.
@@ -424,21 +423,22 @@ quantities of reconstructed PFOs does not allow to identify merged neutral pion
 clusters, leading to an underestimation of the number of neutrals. The baseline
 model already includes the number of shots matched to a given neutral
 PFO~$N_\text{shots}$, significantly improving the discrimination power of the
-network and accounting for approximately \SI{1.5}{\percent} of diagonal
+network and accounting for an absolute \SI{1.5}{\percent} of diagonal
 efficiency. The network is extended to receive a sequence of shots associated
-with a reconstructed tau decay~(cf.\ Section~\ref{sec:shot_reco}). This differs
-from the approach in the baseline model by also including transverse momentum
-and the angular position of shots in the calorimeter.
+with a reconstructed tau decay. This differs from the approach in the baseline
+model by also including transverse momentum and the angular position of shots in
+the calorimeter.
 
 The network architecture is identical to the one used for conversion tracks in
 the previous section. Analogously, up to six reconstructed shots are passed to
 the network in ascending transverse momentum ordering. Only shots with one or
 more photons~$N_\text{photons} > 0$ are considered (cf.\
 Section~\ref{sec:shot_reco}). This selection applies a lower threshold on the
-transverse momentum~$p_\text{T}^\text{shot}$ to suppress shots originating from
-noise or fluctuations of the photon shower~\cite{atlas:taurec:decaymodes}. The
-threshold is parametrised in four bins of $|\eta|$, ranging from \num{300} to
-\SI{430}{\MeV} depending on the detector region.
+transverse momentum~\smash{$p_\text{T}^\text{shot}$} to suppress shots
+originating from noise or fluctuations of the photon
+shower~\cite{atlas:taurec:decaymodes}. The threshold is parametrised in four
+bins of $|\eta|$, ranging from \num{300} to \SI{430}{\MeV} depending on the
+detector region.
 % Shots from the transition region of the calorimeter~$1.37 < |\eta| < 1.52$ are
 % not used.
 The set of input variables is defined in analogy to charged PFOs and conversion
@@ -451,8 +451,8 @@ by employing shower shape information. For this clusters created during PFO
 reconstruction (cf.\ Section~\ref{sec:tau_pflow}) are used to calculate moments
 and other cluster properties.
 % Clustering in Presampler, EM1 and EM2
-The discriminants are summarised in Table~\ref{tab:cluster_variables} and are
-similar to the variables used for $\pi^0$-identification.
+The discriminants are summarised in Table~\ref{tab:cluster_variables} and
+include variables also used for $\pi^0$-identification.
 
 \begin{table}[htb]
   \centering
@@ -523,36 +523,36 @@ transverse momentum ordering.
 The largest improvements in diagonal efficiency are observed when including
 conversion tracks and shots in the classification. Both reduce migrations to
 modes with fewer neutral pions, while minimally increasing the probability of
-overestimating the neutral pion count \todo{check this}. Moreover, using the
+overestimating the neutral pion count in some modes. Moreover, using the
 extrapolated track position does not show an improvement over using the track
 parameters at the perigee with respect to the beamspot.
 % This is likely due to parameters at the beamspot more closely resembling the
-% original direction of the photon
-% Migration and purity matrices for the different experiments are omitted for
-% brevity and can be found in Appendix~\ref{sec:app_decay_mode_exp} \todo{Remove
-%   from appendix -- not interesting?}.
+% original direction of the photon Migration and purity matrices for the
+% different experiments are omitted for brevity and can be found in
+% Appendix~\ref{sec:app_decay_mode_exp} \todo{Remove from appendix -- not
+% interesting?}.
 
-Extending the inputs of the neutral PFOs by cluster properties increases the
-diagonal efficiency by~\SI{1.12 +- 0.07}{\percent} \todo{What's the point?}.
-Furthermore, the fraction of transverse momentum subtracted from the
-cluster~$f_\text{sub}$ significantly improves the classification power at a
-minimal complexity cost. A possible future extension of the network would be to
-include all $\pi^0$-identification variables in each neutral PFO, thus allowing
-the network to learn a $\pi^0$-identification specialised for decay mode
-classification.
+A significant improvement in classification accuracy of \SI{1.12 +-
+  0.07}{\percent} is observed, when extending the neutral PFO variable set with
+additional cluster properties. Furthermore, the fraction of transverse momentum
+subtracted from the cluster~$f_\text{sub}$ significantly improves the
+classification power at a minimal complexity cost. A possible future extension
+of the network would be to include the $\pi^0$-identification variables in each
+neutral PFO, thus allowing the network to learn a $\pi^0$-identification
+specialised for decay mode classification.
 
-Finally, alternative architectures including bidirectional LSTM and stacked
-recurrent layers are tested, only showing marginal improvements in the range of
-\num{0.2} to \SI{0.3}{\percent} in diagonal efficiency over a model using a
-single LSTM layer.
+Finally, alternative architectures including bidirectional LSTM and multiple
+consecutive LSTM layers are tested, only showing marginal improvements in the
+range of \num{0.2} to \SI{0.3}{\percent} in diagonal efficiency over a model
+using a single LSTM layer.
 
 \subsection{Extended Model}
 \label{sec:extended_model}
 
-The baseline model is extended using sources of additional information from
-Section~\ref{sec:add_info}. This includes conversion tracks (without track
-extrapolation), shots and additional properties of neutral PFO clusters
-including the fraction of subtracted transverse momentum. The architecture
+The baseline model is extended using sources of additional information from the
+previous section. This includes conversion tracks (without track extrapolation),
+shots and additional properties of neutral PFO clusters including the fraction
+of subtracted transverse momentum. The architecture
 % \footnote{Shared dense/LSTM layers: 24 units (chrg.\ \& neut.\ PFOs), 16 units
 % (conv.\ tracks and shots). Dense layers: 64/32/5 units.}
 is adjusted accordingly to allow sequences of conversion tracks and shots to be
@@ -563,8 +563,9 @@ After extending the model, the peaks in the estimated mode probabilities for tau
 decays without reconstructed neutral PFOs (cf.\
 Figure~\ref{fig:mode_proba_ptcut}) are significantly reduced as the additional
 conversion track and shot information can aid in the discrimination even when no
-neutral PFOs are present. For completeness the five mode probabilities of the
-extended model are summarised in Appendix~\ref{app:combined_probabilities}.
+neutral PFOs are present. For completeness plots of the mode probability
+estimates of the extended model are summarised in
+Appendix~\ref{app:combined_probabilities}.
 
 \begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
@@ -626,8 +627,8 @@ $h^\pm \pi^0$ and $3h^\pm$ modes show no strong dependence on the transverse
 momentum of the tau. In contrast to this, the 1-prong mode with more than one
 and the 3-prong mode with neutral pions show a significant increase in
 efficiency over the \num{20} to \SI{40}{\GeV} transverse momentum range. A
-possible cause is the classifier missing increasingly soft neutral pions for low
-momentum tau decays.
+possible explanation is that the classifier misses increasingly soft neutral
+pions for low momentum tau decays.
 
 \begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
@@ -653,18 +654,20 @@ indicate that the RNN-based classification algorithm could be used beyond the
 $\SI{\sim 100}{\GeV}$ design limit of the particle flow algorithm, as the
 efficiencies and purities remain flat at large transverse momenta.
 Figure~\ref{fig:mode_efficiency_purity_highpt} shows the profiles after
-retraining the extended model on data without applying an upper limit on the
+retraining the model on data without applying an upper limit on the
 reconstructed transverse momentum of the tau. The mode efficiencies and purities
 reach a maximum at transverse momenta of approximately \SI{100}{\GeV}, after
 which, with exception of the $h^\pm \geq 2 \pi^0$ mode, the performance only
 slowy declines.
 % Increased boost leads to 1pXn merges
 This shows that the transverse momentum range of the classification could be
-extended to approximately \SI{200}{\GeV} without the performance characteristics
-significantly dropping below the performance at \SI{20}{\GeV}. The diagonal
+extended to approximately \SI{200}{\GeV}, while still keeping the performance
+characteristics comparable to the performance at \SI{20}{\GeV}. The diagonal
 efficiency at low momentum~$p_\text{T} < \SI{100}{\GeV}$ is with
 \SI{81.4}{\percent} unaffected by the training on the extended momentum range,
-while at higher momentum it amounts to \SI{77.6}{\percent}.
+while at higher momenta it amounts to \SI{77.6}{\percent}. The extended momentum
+range could be beneficial to analyses with high-momentum taus that also employ
+decay mode information.
 
 In the ATLAS experiment two alternative energy calibrations for reconstructed
 hadronic tau decays are available. These use the reconstructed decay mode to
@@ -677,19 +680,19 @@ the determination of the $\mathcal{CP}$ nature of the Higgs boson, which can
 measured using various decay modes of the tau lepton in~$H \to \tau + \tau$
 events~\cite{Berge2014}. An example is the
 double~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay,
-corresponding to the $h^\pm \pi^0$ mode in this chapter. The $\mathcal{CP}$
-measurement requires the neutral pions in the final state to be reconstructed
-and identified. However, the RNN-based classification does not provide a direct
-causal relationship between a neutral PFO and the decay mode decision. Therefore
-an additional algorithm would be required to identify and reconstruct neutral
-pions in an event of a given decay mode. For the $\mathcal{CP}$ measurement in
-the $\rho\nu$ mode using the extended model an absolute improvement in mode
+corresponding to the $h^\pm \pi^0$ mode. The $\mathcal{CP}$ measurement requires
+the neutral pions in the final state to be reconstructed and identified.
+However, the RNN-based classification does not provide a direct causal
+relationship between a neutral PFO and the decay mode decision. Therefore an
+additional algorithm would be required to identify and reconstruct neutral pions
+in an event of a given decay mode. For the $\mathcal{CP}$ measurement in the
+$\rho\nu$ mode using the extended model an absolute improvement in mode
 efficiency of~\SI{7.2}{\percent} and purity of~\SI{8.2}{\percent} is expected
-for a single tau \todo{check}. Depending on the effectiveness of reconstructing
-the neutral pions this could lead to a significant improvement in the signal to
-background ratio for Higgs-$\mathcal{CP}$ analyses. The remaining modes show
-similar improvements in efficiency and purity with respect to the algorithm
-currently in use at the ATLAS experiment.
+for a single tau. Depending on the effectiveness of reconstructing the neutral
+pions this could lead to a significant improvement in the signal to background
+ratio for Higgs-$\mathcal{CP}$ analyses. The remaining modes show similar
+improvements in efficiency and purity with respect to the algorithm currently in
+use at the ATLAS experiment.
 
 %%% Local Variables:
 %%% mode: latex
