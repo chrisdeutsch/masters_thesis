@@ -192,19 +192,18 @@ In the following the configuration of the BDTs used before including the
 improvements presented in this thesis is described. At the time of writing, most
 of the changes are already implemented in the current tau identification.
 
-The current implementation of the tau identification algorithm in the ATLAS
-reconstruction framework uses BDTs trained with TMVA~\cite{tmva}. The maximum
-depth of individual decision trees is limited to~$d_\text{tree} = 8$ and the
-minimum fraction of events contained in a node considered for further splitting
+For training and evaluating BDTs in the ATLAS reconstruction framework
+TMVA~\cite{tmva} is used. The maximum depth of individual decision trees is
+limited to~$d_\text{tree} = 8$ and the minimum fraction of events contained in a
+node considered for further splitting
 is~$f_\text{node}^\text{min} = \SI{0.1}{\percent}$. An ensemble
 of~$N_\text{trees} = 100$ decision trees is trained using the \emph{AdaBoost}
-algorithm with a learning rate $\beta = 0.2$, which determines the factor
-multiplying the weight of incorrectly classified training examples (i.e.\ larger
-learning rates increase this factor). The decision trees return estimated class
-probabilities and no \emph{pruning} of statistically insignificant splits is
-applied. This configuration is used as a starting point for further
-optimisations. The full configuration of the TMVA-BDTs is summarised in
-appendix~\ref{app:tmva_config} for reproducibility.
+algorithm with a learning rate $\beta = 0.2$. Individual decision trees return
+estimated class probabilities (instead of the majority class) and no
+\emph{pruning} of statistically insignificant splits is applied. This
+configuration is used as a starting point for further optimisations. The full
+configuration of the TMVA-BDTs is summarised in appendix~\ref{app:tmva_config}
+for reproducibility.
 
 % \begin{align*}
 %   N_\text{trees} &= 100 & d_\text{tree} &= 8 & \beta &= 0.2 \\
@@ -215,65 +214,61 @@ appendix~\ref{app:tmva_config} for reproducibility.
 \section{Event Simulation, Preselection and Reweighting}
 \label{sec:bdt_eventsim}
 
-\todo[inline]{$\sqrt{s} = \SI{13}{\tera\electronvolt}$, $\mu = \num{30}$}
-
-For training and performance evaluation of the models simulated data is used.
-The signal samples (i.e.\ hadronic tau lepton decays) are created by the process
-$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$, where at generator-level
-leptonic decays are disabled. Moreover interference with and on-/ off-shell
-production of the $\mathrm{Z}^0$ boson is disabled. The reason for not using a
-sample employing the Drell--Yan process including interference and on- /
-off-shell production of the $\mathrm{Z}^0$ boson is that the tau polarisation
-changes for di-tau invariant masses close to the $\mathrm{Z}$-mass whereas
-unpolarised taus are desired. Moreover the di-tau mass spectrum is smooth and
-decreasing without increased statistics close to the $\mathrm{Z}$ mass which is
-not needed for performance studies. The background for the identification
-studies uses simulated dijet events with anti-$k_\text{T}$ truth jets (distance
-parameter $R = 0.6$) with transverse momenta up
-to~\SI{1800}{\giga\electronvolt}. A complete summary of the event samples can be
-found in appendix~\ref{app:preprod_taus} and~\ref{app:preprod_dijets}. Both the
-signal and the background samples are generated using \textsc{Pythia}~8 with the
-A14 tune and leading order PDFs NNPDF23LO. \textsc{EvtGen} is used for b
-fragmentation. The quark-gluon fraction is approximately \SI{60}{\percent}.
+For training and performance evaluation of the models simulated data at a centre
+of mass energy of~$\sqrt{s} = \SI{13}{\TeV}$ and an average number of
+interactions per bunch crossing of~$\mu = \num{30}$ is used. The signal samples
+are created by the process~$\gamma^* \to \tau \tau \, \text{(hadr.)}$, where at
+generator-level leptonic decays of the tau are disabled. Moreover, interference
+and on-/ off-shell production of the $\text{Z}^0$~boson is disabled. The reason
+for not using a sample employing the Drell--Yan process including interference
+and on- / off-shell production is that the tau polarisation changes for di-tau
+invariant masses close to the $\text{Z}^0$ mass whereas unpolarised taus are
+desired. Moreover, the di-tau mass spectrum is smooth and decreasing without an
+increased number of events close to the $\text{Z}^0$ mass, making it convenient
+for performance studies. Simulated dijet events are used as the background
+contribution, suppyling tau candidates with transverse momenta of up to
+approximately~\SI{1800}{\GeV}. The quark-gluon fraction of jets in the
+background sample is approximately \SI{60}{\percent}, strongly affecting the
+performance of the identification algorithms. A complete summary of the event
+samples can be found in appendix~\ref{app:samples}. Both the signal and the
+background samples are generated using \textsc{Pythia}~8 with the A14 tune and
+the NNPDF23LO PDF set. %\textsc{EvtGen} is used for b fragmentation.
 
 \begin{table}[htb]
   \centering
   {\small\input{./tables/sample_size.tex}}
-  \caption{Number of candidates after baseline tau selection.}
+  \caption{Number of tau candidates after the baseline selection.}
   \label{tab:sample_size}
 \end{table}
 
 A preselection is applied to the event samples to match typical selections
-applied at analysis level. Therefore the identification studies focus on
+applied at analysis-level. Therefore the identification studies focus on
 candidates with visible transverse
 momenta~$p_\text{T} > \SI{20}{\giga\electronvolt}$. Reconstructed taus are
 required to fall into the acceptance region of the tracking
-system~$|\eta| < 2.5$ while rejecting candidates in the transition region
-between barrel and end-cap of the calorimeter~$1.37 < |\eta| < 1.52$. The number
-of reconstructed tracks (i.e.\ tracks classified as \emph{charged}) must be one
-or three. Candidates in the signal samples are truth-matched to taus at
-generator-level and the same selections (i.e.\ transverse momentum,
-pseudorapidity, number of charged hadrons in the decay) are applied at
-truth-level. The number of tau candidates after this baseline selection is
-summarised in table~\ref{tab:sample_size}.
+system~$|\eta| < 2.5$, while rejecting candidates in the transition region
+between barrel and end-cap of the calorimeter~\mbox{$1.37 < |\eta| < 1.52$}. The
+number of reconstructed \emph{charged} tracks must be one or three. Candidates
+in the signal samples are truth-matched to taus at generator-level and the same
+selections, i.e.\ transverse momentum, pseudorapidity, number of charged hadrons
+in the decay, are applied at truth-level. The number of tau candidates in the
+signal and background sample after the baseline selection is summarised in
+table~\ref{tab:sample_size}.
 
 \begin{figure}[htb]
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/pt_mu_samples/mu.pdf}
-    \subcaption{Average number of interactions per bunch crossing~$\mu$
-      ($\langle \mu \rangle = 30$)}
+    \subcaption{Pile-up profile used in the simulation.}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/pt_mu_samples/pt.pdf}
     \subcaption{Transverse momentum spectrum of reconstructed tau candidates
-      after baseline selection in $\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$
-      and dijet samples with mass slices JZ1W to JZ6W.}
+      after baseline selection.}
   \end{subfigure}
-  \caption{Transverse momentum $p_\text{T}$ of tau candidates and pile-up
-    spectrum of the samples.}
+  \caption{ABC123}
   \label{fig:pt_mu}
 \end{figure}
 
