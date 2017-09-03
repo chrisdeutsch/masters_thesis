@@ -3,17 +3,16 @@
   Trees}
 \label{sec:bdt}
 The reconstruction of hadronic tau lepton decays described in
-Chapter~\ref{sec:reconstruction} is based on the reconstruction of jets using
-the anti-$k_\text{T}$ jet algorithm operating on clusters of calorimeter cells.
-Jets originating from quarks or gluons, which are more abundant than tau leptons
-due to the large multijet production cross section at the LHC, are often
+Chapter~\ref{sec:reconstruction} is based on jets reconstructed using the
+anti-$k_\text{T}$ jet algorithm operating on clusters of calorimeter cells. Jets
+originating from quarks or gluons, which are more abundant than tau leptons due
+to the large multijet production cross section at the LHC, are often
 reconstructed as candidates for hadronic tau lepton decays and represent a
 significant background in many analyses. The reconstruction itself offers little
-rejection of multijet events with the exception of the track classification
-(cf.\ Section~\ref{sec:reco_track_sel_classif}) when requiring 1- or 3-prong
-decays. In the ATLAS experiment an identification algorithm based on
-multivariate methods utilising track and shower shape variables is used to
-discriminate hadronic tau decays from multijet events.
+rejection of multijet events with the exception of the track classification when
+requiring 1- or 3-track decays. In the ATLAS experiment an identification
+algorithm based on multivariate methods utilising track and shower shape
+variables is used to discriminate hadronic tau decays from multijet events.
 
 This chapter will start with a description of the tau identification procedure
 including definitions of the discriminating variables and the configuration of
@@ -24,17 +23,20 @@ the kinematic reweighting and the preselection are described in
 Section~\ref{sec:bdt_eventsim}. In Section~\ref{sec:bdt_hyperparam} a systematic
 optimisation of the BDT configuration is performed to improve the overall
 rejection of the identification. Subsequently, the variable selection is
-investigated to improve the rejection by adding new variables and removing
-variables only contributing little to the overall identification performance.
-The chapter is concluded by evaluating the performance of the optimised BDTs.
+investigated to improve the background rejection by adding new variables and
+removing variables only contributing little to the overall identification
+performance. The chapter is concluded by evaluating the performance of the
+optimised BDTs.
 
 In the following the signal efficiency, i.e.\ the fraction of reconstructed tau
 candidates originating from hadronic tau decays passing a selection, will be
 referred as the \emph{efficiency}. The \emph{rejection} refers to the inverse
 background efficiency, i.e.\ the inverse fraction of tau candidates from
-multijet events and pile-up passing a selection. The aim of this chapter is to
-improve the rejection of multijet events at a fixed signal efficiency such that
-analyses using tau identification observe larger signal-to-background ratios.
+multijet events and pile-up passing a selection. Therefore the efficiencies and
+rejection rates given in this chapter will not account for reconstruction
+efficiency. The aim of this chapter is to improve the rejection of multijet
+events at a fixed signal efficiency such that analyses using tau identification
+observe larger signal-to-background ratios.
 
 \todo[inline]{Working point efficiencies for pt and mu\\
   Rejection for full pt range;\\
@@ -45,15 +47,17 @@ analyses using tau identification observe larger signal-to-background ratios.
   because rejection is enhanced due to pile-up fakes)? Why does rejection
   increase again for high pt?; \\
   BDT is optimised for a 'gammatautau'-like spectrum (focused on improving
-  rejection at low pt);}
+  rejection at low pt);\\
+  Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
+  motivate the use of MVA methods / BDTs}
 
 \section{Description of the Tau-Identification Procedure}
 \label{sec:bdt_tauid}
 The tau identification algorithm currently in use in the ATLAS experiment
 employs BDTs with high-level input variables. The identification uses separate
-BDTs for 1- and 3-prong hadronic tau lepton decays with different sets of input
+BDTs for the 1- and 3-prong identification with different sets of input
 variables. Classification with BDTs return a score measuring the confidence of
-the binary decision. This allows a trade off between signal efficiency and
+the binary decision. This allows a trade-off between signal efficiency and
 background rejection by choosing different decision thresholds. In the ATLAS
 experiment these thresholds are parametrised as functions of the reconstructed
 visible transverse momentum~$p_\text{T}$ and the average number of interactions
@@ -65,15 +69,15 @@ different momentum and pile-up regimes.
 
 Neutral components of hadronic tau lepton decays, i.e.\ photons originating from
 the neutral pion decay almost exclusively deposit their energy in the Presampler
-and first two layers of the electromagnetic calorimeter (EM1 \& EM2). For
-purpose of the reconstruction of hadronic tau decays EM3 is already considered
-to be part of the hadronic calorimeter, as only the charged pions deposit energy
-in this layer.
+and first two layers of the electromagnetic calorimeter (EM1 \& EM2). For the
+purpose of reconstructing hadronic tau decays EM3 is already considered to be
+part of the hadronic calorimeter, as only the charged pions deposit energy in
+this layer.
 
-The variables defined in \cite{atlas:taurec:run2} are updated to contain the
-latest changes in the reconstruction, the largest being the introduction of the
-multivariate track classification algorithm. They target the features of
-hadronic tau decays discussed in section~\ref{sec:features_tau_decay}. The
+The variables defined in Ref.~\cite{atlas:taurec:run2} are updated to contain
+the latest changes in the reconstruction, the largest being the introduction of
+the multivariate track classification algorithm. They target the features of
+hadronic tau decays discussed in Section~\ref{sec:features_tau_decay}. The
 definitions are:
 \begin{description}
 \item[Central energy fraction ($f_\text{cent}$):] Fraction of transverse energy
@@ -87,19 +91,18 @@ definitions are:
 
 \item[Inverse momentum fraction of the leading track
   ($f_\text{leadtrack}^{-1}$):] Fraction of transverse energy at EM scale
-  deposited in calorimeter cells (matched to \emph{TopoClusters}) with a
+  deposited in calorimeter cells (as part of \emph{TopoClusters}) with a
   barycentre in a cone of radius~$\Delta R < 0.2$ with respect to the tau axis
   and the transverse momentum of the highest transverse momentum track
-  classified as \emph{charged} according to the track classification (cf.\
-  Section~\ref{sec:reco_track_sel_classif}).
+  classified as \emph{charged} according to the track classification.
 
-\item[Track radius ($R_\text{track}$):] Mean $\Delta R$-distance of the tau axis
-  and tracks classified as \emph{charged} weighted by the transverse
+\item[Track radius ($R_\text{track}$):] Mean $\Delta R$-distance of tracks
+  classified as \emph{charged} and the tau axis weighted by the transverse
   momentum~$p_\text{T}$ of each track.
 
 \item[Maximum track $\Delta R$ ($\Delta R_\text{max}$):] Maximum
   $\Delta R$-distance of all tracks classified as \emph{charged} with respect to
-  the tau axis. Equivalent to $R_\text{track}$ for 1-prong decays.
+  the tau axis. Equivalent to $R_\text{track}$ for 1-track taus.
 
 \item[Transverse impact parameter significance of the leading track
   ($| S_\text{leadtrack} |$):] Absolute value of the transverse impact
@@ -150,13 +153,13 @@ definitions are:
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/baseline_bdt_vars/1p/SumPtTrkFrac.pdf}
-    \subcaption{Momentum fraction of isolation tracks (1-prong).}
+    \subcaption{Momentum fraction of isolation tracks for 1-prong candidates.}
     \label{fig:sumpttrkfrac}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/baseline_bdt_vars/3p/massTrkSys.pdf}
-    \subcaption{Mass of the track system (3-prong).}
+    \subcaption{Mass of the track system for 3-prong candidates.}
     \label{fig:masstrksys}
   \end{subfigure}
   \caption{Examples of two important variables for discriminating hadronic tau
@@ -172,25 +175,27 @@ definitions are:
 \end{table}
 
 Two important variables for the identification of hadronic tau lepton decays are
-depicted in figure~\ref{fig:bdt_discriminants}. Figure~\ref{fig:sumpttrkfrac}
-shows the momentum fraction of isolation
-tracks~\smash{$f_\text{iso}^\text{track}$} indicating that that background
-events reconstructed as 1-prong candidates often contain a large momentum
-fraction. Moreover, the invariant mass of the track system for 3-prong
-candidates in figure~\ref{fig:masstrksys} shows that the invariant mass for
-signal events is peaked at below \SI{2.5}{\giga\electronvolt} while background
-events can have large masses. Table~\ref{tab:baseline_variables} summarises
-which variables are used in the different BDTs for 1- and 3-prong candidates.
+depicted in Figure~\ref{fig:bdt_discriminants}. The remaining variables for 1-
+and 3-prong decays are summarised in Appendix~\ref{app:tauid_vars}.
+Figure~\ref{fig:sumpttrkfrac} shows the momentum fraction of isolation
+tracks~\smash{$f_\text{iso}^\text{track}$} in 1-prong candidates. It indicates
+that isolation tracks often carry a large momentum fraction for background
+candidates, while signal events often do not have reconstructed isolation
+tracks. Moreover, the invariant mass of the track system for 3-prong candidates
+in Figure~\ref{fig:masstrksys} shows that it peaks for signal candidates below
+the mass of the tau lepton, while background candidates can have large masses.
+Table~\ref{tab:baseline_variables} summarises which variables are used in the
+BDTs for 1- and 3-prong candidates.
 
-\todo[inline]{Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
-  motivate the use of MVA methods / BDTs}
+\subsection{Configuration of the BDTs for Tau Identification}
+In the following the configuration of the BDTs used before including the
+improvements presented in this thesis is described. At the time of writing, most
+of the changes are already implemented in the current tau identification.
 
-\subsection{BDT-Setup}
 The current implementation of the tau identification algorithm in the ATLAS
-reconstruction framework uses BDTs trained with TMVA~\cite{tmva}. \todo{The
-  config before the implementing the work in this thesis was:} The maximum depth
-of individual decision trees is limited to~$d_\text{tree} = 8$ and the minimum
-fraction of events contained in a node considered for further splitting
+reconstruction framework uses BDTs trained with TMVA~\cite{tmva}. The maximum
+depth of individual decision trees is limited to~$d_\text{tree} = 8$ and the
+minimum fraction of events contained in a node considered for further splitting
 is~$f_\text{node}^\text{min} = \SI{0.1}{\percent}$. An ensemble
 of~$N_\text{trees} = 100$ decision trees is trained using the \emph{AdaBoost}
 algorithm with a learning rate $\beta = 0.2$, which determines the factor
