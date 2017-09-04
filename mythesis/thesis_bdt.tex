@@ -287,23 +287,25 @@ momentum.
 %   bottom, \SI{59}{\percent} including bottom); approx.\ \SI{60}{\percent}
 %   quark-gluon fraction}
 
+
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
-Machine learning algorithms have hyperparameters defining the complexity of the
-model that cannot be determined as part of the training process. Often these
-parameters need problem specific tuning to obtain the highest discriminative
-power for a given algorithm. The BDTs of the 1- and 3-prong tau identification
-are optimised separately with respect to the boosting algorithm used and the
-most important hyperparameters.
+Machine learning algorithms have hyperparameters that define the complexity of
+the model. Hyperparameters cannot be determined as part of the training process
+and must be set beforehand. Often these parameters need problem specific tuning
+to obtain the highest discriminative power for a given algorithm. The BDTs of
+the 1- and 3-prong tau identification are optimised separately with respect to
+the boosting algorithm used and the most important hyperparameters.
 
 Some input variables have highly skewed and long-tailed distributions leading to
 suboptimal decision trees as TMVA uses equidistant sampling points for finding
 the best possible split on a given variable. Therefore transformations are
-applied to the input variables to improve . For this highly skewed distributions
-are log-transformed while long-tailed distributions and outliers due to detector
-resolution effects are clamped to fall into a specified range of values. The
-exact transformations can be found in appendix~\ref{app:variable_transforms}.
+applied to the input variables to improve the split finding. For this highly
+skewed distributions are log-transformed while long-tailed distributions and
+outliers due to detector resolution effects are clamped to fall into a specified
+range of values. The exact transformations can be found in
+Appendix~\ref{app:variable_transforms}.
 
 Hold-out validation is used to measure how well the model generalises to data
 that was not used to train the model. This is done by splitting the signal and
