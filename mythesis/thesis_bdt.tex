@@ -268,18 +268,19 @@ table~\ref{tab:sample_size}.
     \subcaption{Transverse momentum spectrum of reconstructed tau candidates
       after baseline selection.}
   \end{subfigure}
-  \caption{ABC123}
+  \caption{Properties of the simulated signal and background samples.}
   \label{fig:pt_mu}
 \end{figure}
 
-In figure~\ref{fig:pt_mu} the distribution of reconstructed transverse
-momenta~$p_\text{T}$ of tau candidates in the signal and background samples is
-shown. Since the samples are created using different processes the
-$p_\text{T}$-spectrum differ for both samples. When training the identification
-algorithms distinguish signal and background by the momentum spectrum alone.
-Therefore weights are applied to each tau candidates in the background sample
-such that the weighted signal and background samples are indistinguishable in
-the reconstructed transverse momentum.
+In Figure~\ref{fig:pt_mu} the pile-up profile of the simulation and the
+distribution of visible transverse momenta~$p_\text{T}$ of tau candidates in the
+signal and background samples is shown. Since the samples are created using
+different processes, the $p_\text{T}$-spectra differ for both samples. When
+training the identification algorithms it is important to avoid distinguishing
+signal and background by the momentum spectrum. Therefore weights are applied to
+each tau candidates in the background sample such that the weighted signal and
+background samples are indistinguishable in the reconstructed transverse
+momentum.
 
 % \todo[inline]{Reweighting, Quark-Gluon Fraction (3P: \SI{55}{\percent} excluding
 %   bottom, \SI{58}{\percent} including bottom) (1P: \SI{55}{\percent} excluding
