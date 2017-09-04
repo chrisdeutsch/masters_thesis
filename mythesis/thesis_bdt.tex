@@ -392,18 +392,18 @@ learning statistical fluctuations in the training sample and thus reducing
 generalisation performance. The corresponding hyperparameter is the fraction of
 events~$f_\text{bag}$ in the random sample.
 
-These hyperparameters are optimised by forming a grid in the parameter space and
-training and evaluating a BDT trained for each point on this grid. The grid is
-given by the following hyperparameter values
+These hyperparameters are optimised by forming a grid in the hyperparameter
+space and training a BDT for each point on this grid. Subsequently, the
+performance of each trained BDT is evaluated. The grid is defined by the
+following hyperparameter values
 \begin{align*}
   N_\mathrm{trees} &\in \{25, 50, 100, 200, 400, 800\} & \eta &\in \{0.05, 0.1, 0.2, 0.4\} & d_\mathrm{tree} &\in \{4, 6, 8, 12, 16\}\\
   f_\mathrm{node}^\mathrm{min} &\in \{\SI{0.01}{\percent}, \SI{0.1}{\percent},\SI{1.0}{\percent}\} & f_\text{bag} &\in \{\text{None}, \SI{50}{\percent} \}
 \end{align*}
-resulting in a total of 720 grid points. The rejection is, analogously to the
-previous section, calculated using a single cut on the output score to obtain a
-signal efficiency comparable to the tight working points (i.e.\
-\SI{60}{\percent} for 1-prong and \SI{45}{\percent} for 3-prong decays) used in
-ATLAS.
+resulting in a total of 720 grid points each for the 1- and 3-prong BDT. The
+rejection is, analogously to the previous section, calculated using a single cut
+on the output score to obtain a signal efficiency comparable to the tight
+working points used in ATLAS.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -434,41 +434,38 @@ ATLAS.
     \subcaption{}
     \label{fig:gridscan_minnodesize_maxdepth}
   \end{subfigure}
-  \caption{Background rejection at \SI{60}{\percent} signal efficiency as a
-    function of the BDT hyperparameters. Bagged boosting with a subsample
-    fraction~$f_\text{bag} = \SI{50}{\percent}$ is used and the remaining
-    parameters are fixed such that the 'best' BDT is contained within the
-    plots.}
-  \todo[inline]{Better word for 'best' as it is not the best BDT}
+  \vspace*{-0.3em}
+  \caption{Background rejection of the 1-prong BDT at \SI{60}{\percent} signal
+    efficiency as a function of BDT hyperparameters. Bagged boosting with a
+    sample fraction~$f_\text{bag} = \SI{50}{\percent}$ is used.}
   \label{fig:hyperparameter_scan_1p}
 \end{figure}
 
 In Figure~\ref{fig:hyperparameter_scan_1p} the background rejection of the
-1-prong tau-identification BDT is shown as a function of the hyperparameters of
+1-prong tau identification BDT is shown as a function of the hyperparameters of
 the model. The relation between the hyperparameters and their impact on the
 background rejection are discussed in the following.
 
-The relationship of the number of trees~$N_\text{trees}$ in the ensemble with
-the maximum tree depth~$d_\text{tree}$ and learning rate~$\eta$ of the gradient
-boosting is shown in Figures~\ref{fig:gridscan_maxdepth_ntrees} and
+The interaction of the number of trees in the ensemble~$N_\text{trees}$ with the
+maximum tree depth~$d_\text{tree}$ and learning rate~$\eta$ is shown in
+Figures~\ref{fig:gridscan_maxdepth_ntrees} and
 \subref{fig:gridscan_shrinkage_ntrees}. A distinct trade-off can be observed
-between the hyperparameters $d_\text{tree}$ and $N_\text{trees}$, where a large
-number of shallow trees and a small number of deep trees can reach similar
-background rejection. Moreover, small learning rates~$\eta$ require many trees
+between the hyperparameters~$d_\text{tree}$ and $N_\text{trees}$, where a large
+number of shallow trees and a small number of deep trees can reach a similar
+background rejection. Moreover, small learning rates~$\eta$ require more trees
 to properly fit the model. For a large number of trees and large maximum tree
-depths or learning rates the model overfits, i.e.\ learns statistical
-fluctuations in the training sample and therefore exhibits a decreased
-generalisation performance. This effect can also be observed in
+depths or learning rates the model overfits leading to a loss of generalisation
+performance. This effect can also be observed in
 Figure~\ref{fig:gridscan_shrinkage_maxdepth}, where highly complex trees with a
-depth of 16 can lead to overfitting if the learning rate is too large. The
+depth of 16 can significantly overfit if the learning rate is set too large. The
 importance of choosing an appropriate minimum node
-size~$f_\text{min}^\text{node}$ is shown in
-Figure~\ref{fig:gridscan_minnodesize_maxdepth}. If the minimum node size is
-chosen too small the model does not properly fit the data. However, small
-minimum node size can quickly lead to overfitting for decision trees with a
-large maximum depth. The interplay of the maximum tree depth and minimum node
-size when constraining \todo{continue}. The optimisation of the 3-prong
-tau-identification shows similar results, which are summarised in
+size~$f_\text{node}^\text{min}$ is shown in
+Figure~\ref{fig:gridscan_minnodesize_maxdepth}. If it is chosen too large the
+model does not properly fit the data. However, a small minimum node size can
+quickly lead to overfitting for decision trees with a large maximum depth. This
+is due to the interplay of~$d_\text{tree}$ and~$f_\text{node}^\text{min}$, when
+constraining the depth of the decision trees. The optimisation of the 3-prong
+tau identification shows similar results, which are summarised in
 Appendix~\ref{app:grid_search_3p} and are omitted here for brevity.
 
 \begin{table}[htb]
