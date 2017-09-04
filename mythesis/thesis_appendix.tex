@@ -354,30 +354,21 @@ JZ7W:50000
 
 \clearpage
 \section{BDT Stuff}
+\label{app:bdt_stuff}
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/bdt_perf/scores/grid_3p0327.pdf}
-    \subcaption{Good training (BDT B):
-      \mbox{$N_\text{Trees} = 800$},
-      \mbox{$d_\text{Tree} = 6$},
-      \mbox{$\nu = 0.4$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
-      \mbox{$f_\text{bag} = \text{None}$}
-    }
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0317.pdf}
+    \subcaption{BDT A (3-prong)}
   \end{subfigure}
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/bdt_perf/scores/grid_3p0317.pdf}
-    \subcaption{Overtrained example 3-prong(BDT A):
-      \mbox{$N_\text{Trees} = 800$},
-      \mbox{$d_\text{Tree} = 16$},
-      \mbox{$\nu = 0.1$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
-      no bagging
-    }
+    \includegraphics{./figures/bdt_perf/scores/grid_3p0327.pdf}
+    \subcaption{BDT B (3-prong)}
   \end{subfigure}
-  \caption{'Overtraining' visible on the edges of the BDT score distribution
-    (1-prong)}
+  \caption{Distributions of the 3-prong tau identification BDT score for the
+    training and testing sample for both signal and background.}
   \label{fig:bdt_ks5_scores}
 \end{figure}
 
