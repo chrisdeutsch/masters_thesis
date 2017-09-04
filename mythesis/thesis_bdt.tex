@@ -291,21 +291,22 @@ momentum.
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
-Machine learning algorithms have hyperparameters that define the complexity of
-the model. Hyperparameters cannot be determined as part of the training process
-and must be set beforehand. Often these parameters need problem specific tuning
-to obtain the highest discriminative power for a given algorithm. The BDTs of
-the 1- and 3-prong tau identification are optimised separately with respect to
-the boosting algorithm used and the most important hyperparameters.
+Machine learning algorithms have parameters that define the complexity of the
+model. They cannot be determined as part of the training process and are
+therefore called hyperparameters. Often these parameters need problem specific
+tuning to obtain the best discriminative power for a given algorithm. In the
+following the BDTs of the 1- and 3-prong tau identification are optimised
+separately with respect to the boosting algorithm and the most important
+hyperparameters.
 
-Some input variables have highly skewed and long-tailed distributions leading to
-suboptimal decision trees as TMVA uses equidistant sampling points for finding
-the best possible split on a given variable. Therefore transformations are
-applied to the input variables to improve the split finding. For this highly
-skewed distributions are log-transformed while long-tailed distributions and
-outliers due to detector resolution effects are clamped to fall into a specified
-range of values. The exact transformations can be found in
-Appendix~\ref{app:variable_transforms}.
+Many input variables for the identification have skewed or long-tailed
+distributions leading to suboptimal decision trees as TMVA uses equidistant
+sampling points for finding the best possible split on a given variable.
+Therefore transformations are applied to the variables to improve the split
+finding. For this highly skewed distributions are log-transformed, while
+long-tailed distributions and outliers due to detector resolution effects are
+clamped to fall into a specified range of values. The exact transformations can
+be found in Appendix~\ref{app:variable_transforms}.
 
 Hold-out validation is used to measure how well the model generalises to data
 that was not used to train the model. This is done by splitting the signal and
@@ -318,25 +319,28 @@ given in the following sections are evaluated on the \emph{testing sample}.
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
 
-In Chapter~\ref{sec:ml_boosting} two boosting algorithms \emph{AdaBoost} and
-\emph{Gradient Boosting} were introduced. They are compared by training BDTs for
-both algorithms and varying a boosting-specific parameter called the learning
-rate. The learning rate for \emph{AdaBoost} is typically denoted by~$\beta$
-while for the case of gradient boosting it is called \emph{shrinkage}~$\eta$.
-Reducing the learning rate artificially slows down the boosting process by
-causing additional trees to have a smaller impact on the ensemble.
+In Chapter~\ref{sec:ml_boosting} the two boosting algorithms \emph{AdaBoost} and
+\emph{Gradient Boosting} were introduced. The performance of both algorithms for
+tau identification is compared by training BDTs and varying a boosting-specific
+parameter called the learning rate. The learning rate for \emph{AdaBoost} is
+typically denoted by~$\beta$, while for the case of gradient boosting it is
+called \emph{shrinkage}~$\eta$. Reducing the learning rate artificially slows
+down the boosting process by decreasing the impact of additional trees on the
+ensemble. Empirically it has been found that small learning rates often lead to
+improvements in test error~\cite{esl}.
 
-The 1-prong tau identification BDTs with the input variables and configuration
-summarised in Section~\ref{sec:bdt_tauid} are trained on tau candidates from the
-signal and background samples (cf.\ Section~\ref{sec:bdt_eventsim}). The
-learning rates for \emph{AdaBoost} and \emph{Gradient Boosting} are varied from
-0.05 to 1.0 and the background rejection is calculated for a fixed signal
-efficiency of \SI{60}{\percent}. For this a single cut on the output score of
-the BDT is determined such that \SI{60}{\percent} of the tau candidates in the
-signal sample pass this selection. This is an approximation to the \emph{tight}
-working point of the tau-identification used in the ATLAS experiment.
+The 1-prong tau identification BDT with the input variables and configuration
+summarised in Section~\ref{sec:bdt_tauid} is trained on tau candidates from the
+signal and background samples. The learning rates for both boosting algorithms
+are varied between 0.05 and 1.0. At each setting the background rejection is
+calculated at a fixed signal efficiency of~\SI{60}{\percent}. For this a single
+cut on the output score of the BDT is determined such that~\SI{60}{\percent} of
+tau candidates in the signal sample pass this selection. This is an
+approximation of the \emph{tight}~working point of the tau identification used
+in the ATLAS experiment.
 
 \begin{figure}[htb]
+  \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/boosting.pdf}
@@ -346,45 +350,46 @@ working point of the tau-identification used in the ATLAS experiment.
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering \includegraphics{./figures/theory/boosting_loss.pdf}
-    \subcaption{Loss function of \emph{AdaBoost} (exp.\ loss), \emph{Gradient
-        Boosting} (binom.\ log-likelihood loss) as a function of the
-      margin~$y f(x)$ (true class $y \in \{-1, 1\}$, BDT score
-      $f(x) \in [-1, 1]$).}
+    \subcaption{Classification losses as a function of the margin~$y f(x)$ with
+      the true class~$y \in \{-1, 1\}$ and the BDT response~$f(x) \in [-1, 1]$.}
     \label{fig:boosting_loss}
-    \todo[inline]{Margin from -1 to 1}
   \end{subfigure}
-  \caption{Loss function investigation}
+  \caption{Optimisation of the boosting algorithm for tau identification.}
 \end{figure}
 
-In figure~\ref{fig:bdt_boosting_alg} the rejection is shown as a function of the
-learning rate for both the \emph{AdaBoost} and \emph{Gradient Boosting}
-algorithm. An improvement in rejection of approximately \SI{10}{\percent} is
-observed when using \emph{Gradient Boosting}. The reason for this improvement is
-the robust loss function used in the \emph{Gradient Boosting} implementation of
-TMVA. The loss function (shown in figure~\ref{fig:boosting_loss}) puts less
-weight on misclassified events ($y f(x) < 0$) such that it is more robust for
-problems where signal and background are inseparable in certain regions of phase
-space. For the tau identification algorithm this is often the case for jets
-initiated by light quarks which more closely resemble hadronic decays of tau
-leptons in the variables used for identification. Due to the significant
-increase in rejection when using Gradient Boosting, it is used for the further
-optimisation steps.
+In Figure~\ref{fig:bdt_boosting_alg} the rejection is shown as a function of the
+learning rate for both algorithms. An improvement in rejection of approximately
+\SI{10}{\percent} is observed when using \emph{Gradient Boosting}. The reason
+for this improvement is the robust loss function (binomial log-likelihood loss)
+used in the \emph{Gradient Boosting} implementation of TMVA. The loss functions
+are depicted in Figure~\ref{fig:boosting_loss} showing that the \emph{Gradient
+  Boosting} implementation puts less emphasis on misclassified events
+($y f(x) < 0$) compared to the exponential loss of \emph{AdaBoost}. This makes
+\emph{Gradient Boosting} more robust choice for problems where signal and
+background are inseparable in certain regions of phase space. For tau
+identification this is often the case for jets initiated by light quarks, which
+more closely resemble hadronic decays of tau leptons. Due to the significant
+increase in rejection when using \emph{Gradient Boosting}, it is used for the
+further optimisation steps.
 
-\subsection{Grid Search}
+\subsection{Grid Search in Hyperparameter Space}
 \label{sec:bdt_grid_search}
-Aside from the boosting algorithm BDTs have important hyperparameters that need
+
+Aside from the boosting algorithm, BDTs have important hyperparameters that need
 to be optimised to obtain the best possible performance. These are the number of
-trees~$N_\text{trees}$ in the ensemble and the learning rate~$\eta$, which are
-boosting-specific parameters and are related as small learning rates require a
-larger number of trees to converge. In addition the maximum tree
+trees~ $N_\text{trees}$ in the ensemble and the learning rate~$\eta$. Both
+parameters are boosting-specific and related as small learning rates require a
+large number of trees to converge and vice versa. Additionally, the maximum tree
 depth~$d_\text{tree}$ and the fraction of events required for node
-splitting~$f_\text{node}^\text{min}$. Both parameters limit the depth of a tree
-and therefore the allowed order of variable interactions in a single tree (e.g.\
-$d_\text{tree} = 2$ allows interactions of up to two variables). Finally, bagged
-boosting is investigated where each tree is grown using a random sample of
-training events drawn with replacement from the full training sample. This
-method aims to reduce overfitting (i.e.\ trees learning statistical fluctuations
-in the training sample) and the corresponding hyperparameter is the fraction of
+splitting~$f_\text{node}^\text{min}$ are important parameters related to
+individual decision trees in the ensemble. Both parameters limit the depth of a
+tree and therefore the allowed order of variable interactions (e.g.\
+$d_\text{tree} = 2$ allows interactions of up to two variables). The final
+parameter that is investigated is \emph{bagged boosting} where each tree is
+grown using a random sample of training events drawn with replacement from the
+full training sample. This method aims to reduce overfitting, i.e.\ models
+learning statistical fluctuations in the training sample and thus reducing
+generalisation performance. The corresponding hyperparameter is the fraction of
 events~$f_\text{bag}$ in the random sample.
 
 These hyperparameters are optimised by forming a grid in the parameter space and
@@ -647,35 +652,36 @@ the model.
 \subsection{Transverse Momentum Dependency of Features}
 \label{sec:bdt_incl_pt}
 
-\begin{figure}[ht]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_sig.pdf}
-    \subcaption{Signal}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_bkg.pdf}
-    \subcaption{Background}
-  \end{subfigure}
-    \caption{$p_\text{T}$-dependency of the central energy fraction.}
-  \label{fig:bdt_pt_dependency}
-\end{figure}
+% Do I need these plots?
+% \begin{figure}[ht]
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_sig.pdf}
+%     \subcaption{Signal}
+%   \end{subfigure}\hfill
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics{./figures/bdt_perf/cent_frac_vs_pt_bkg.pdf}
+%     \subcaption{Background}
+%   \end{subfigure}
+%     \caption{$p_\text{T}$-dependency of the central energy fraction.}
+%   \label{fig:bdt_pt_dependency}
+% \end{figure}
 
 A lot of the input features have (at least a small) dependency with the
 reconstructed $p_\text{T}$ changing the separation of signal and background in
 the features as a function of $p_\text{T}$. This effect has a large impact on
 the overall isolation of the shower in the calorimeter and the tracks. An
 example of this is the central energy fraction $f_\text{cent}$ shown in figure
-\ref{fig:bdt_pt_dependency}. While the energy for signal events is mostly
-contained in the cone of size $\Delta R < 0.1$ there are significant
-contributions to the $0.1 < \Delta R < 0.2$ annulus for dijets reconstructed as
-low $p_\text{T}$ tau candidates. To take advantage of the varying separation of
-the input features in different $p_\text{T}$-regions the transverse momentum can
-be included as an input to the BDT. It is important that the signal and
-background samples used for training are reweighted such that no discrimination
-purely based on the $p_\text{T}$-spectra of the samples is possible. For the use
-of tau-identification in analyses the working point efficiencies in data must be
+[does not exist anymore]. While the energy for signal events is mostly contained
+in the cone of size $\Delta R < 0.1$ there are significant contributions to the
+$0.1 < \Delta R < 0.2$ annulus for dijets reconstructed as low $p_\text{T}$ tau
+candidates. To take advantage of the varying separation of the input features in
+different $p_\text{T}$-regions the transverse momentum can be included as an
+input to the BDT. It is important that the signal and background samples used
+for training are reweighted such that no discrimination purely based on the
+$p_\text{T}$-spectra of the samples is possible. For the use of
+tau-identification in analyses the working point efficiencies in data must be
 determined in a tag-and-probe measurement. For reconstructed taus with
 transverse momenta greater than \SI{100}{\giga\electronvolt} there is limited
 statistics. In practice the measured efficiencies need to be extrapolated to
