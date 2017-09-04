@@ -471,8 +471,11 @@ Appendix~\ref{app:grid_search_3p} and are omitted here for brevity.
 \begin{table}[htb]
   \centering
   {\small\input{./tables/bdt_config.tex}}
-  \caption{BDT configuration. Rejection is given at \SI{60}{\percent} for
-    1-prong and \SI{45}{\percent} for 3-prong.}
+  \caption{Resulting BDT configurations after performing the grid search. BDT~A
+    denotes the BDT with the largest rejection on the testing sample, while
+    BDT~B also requires a KS test $p$-value of at least \SI{5}{\percent}. The
+    rejection is given at \SI{60}{\percent} (\SI{45}{\percent}) signal
+    efficiency for 1-prong (3-prong) identification.}
   \label{tab:bdt_perfs}
 \end{table}
 
@@ -480,45 +483,33 @@ Appendix~\ref{app:grid_search_3p} and are omitted here for brevity.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p0304.pdf}
-    \subcaption{Overtrained example 1-prong (BDT A):
-      \mbox{$N_\text{Trees} = 800$},
-      \mbox{$d_\text{Tree} = 16$},
-      \mbox{$\nu = 0.05$, $f_\text{min.}^\text{Node} = \SI{0.01}{\percent}$},
-      no bagging
-    }
+    \subcaption{BDT A (1-prong)}
     \label{fig:bdt_score_1p}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/scores/grid_1p_subsampling0269.pdf}
-    \subcaption{Good training (BDT B):
-      \mbox{$N_\text{Trees} = 400$},
-      \mbox{$d_\text{Tree} = 8$},
-      \mbox{$\nu = 0.1$, $f_\text{min}^\text{Node} = \SI{0.1}{\percent}$},
-      \mbox{$f_\text{bag} = \SI{50}{\percent}$}
-    }
+    \subcaption{BDT B (1-prong)}
     \label{fig:bdt_score_1p_ks5}
   \end{subfigure}
-  \caption{'Overtraining' visible on the edges of the BDT score distribution
-    (1-prong)}
+  \caption{Distributions of the 1-prong tau identification BDT score for the
+    training and testing sample for both signal and background.}
   \label{fig:bdt_overfitting_scores}
 \end{figure}
 
-The grid search shows that the maximum of rejection is wide spanning over
-multiple grid points. The configurations of the 1- and 3-prong BDTs are
-summarised in Table~\ref{tab:bdt_perfs}. The models with the name \emph{BDT A}
-consist of the BDT with the highest rejection at the corresponding signal
-efficiency. One observes that these BDTs fall on an edge of the parameter grid,
+Two configurations for both the 1- and 3-prong BDT are summarised in
+Table~\ref{tab:bdt_perfs}. The models denoted by \mbox{BDT A} consist of the
+BDTs with the largest rejection at the corresponding signal efficiency. One
+observes that these configurations fall on the edge of the parameter grid,
 indicating that a configuration with larger rejection can be found outside of
-the scanned hyperparameter region. However, looking at the distribution of the
-BDT scores for signal and background tau candidates on both the training and the
-testing sample in Figure~\ref{fig:bdt_overfitting_scores} one observes that the
-BDT score distributions deviate between training and testing sample. This
-indicates that the BDTs are picking up statistical fluctuations in the training
-samples and signals that these configurations are close to overfitting. The
-deviations of the score distributions are most significant for the 1-prong
-background and 3-prong signal distributions, due to the limited sample size
-(cf.\ Table~\ref{tab:sample_size}).
+the scanned hyperparameter region. However, the distributions of the BDT scores
+for signal and background tau candidates on both the training and testing sample
+in Figure~\ref{fig:bdt_score_1p} show that the distributions deviate between
+training and testing sample. This is due to the model learning statistical
+fluctuations in the training sample which are not present in the testing sample,
+indicating that it is close to overfitting. These deviations are most
+significant for the 1-prong background and the 3-prong signal distributions due
+to their limited sample size (cf.\ Table~\ref{tab:sample_size}).
 
 % The one-prong BDT is optimised for efficiency of the tight working-point (in the
 % scan no flattening was applied). However the 3-prong BDT was optimised for the
@@ -526,17 +517,17 @@ background and 3-prong signal distributions, due to the limited sample size
 % order of magnitude larger thus the tight working-point is not a stable metric
 % considering the size of the available background sample.
 
-
 Instead of choosing the BDT with the largest rejection, compatibility of the
-signal and background BDT score distributions is required. This is done for
+signal and background BDT score distributions is also required. This is done for
 reasons of robustness to a potential decrease in training statistics for future
-tunings. The compatibility of two distributions is measured using the $p$-value
-of the Kolmogorov-Smirnov (KS) test. The configuration~\emph{BDT B} in
-Table~\ref{tab:bdt_perfs} consists of the BDT with the highest rejection at the
-specified signal efficiency, while also requiring that the $p$-value of the
-KS-test between training and testing sample is larger than \SI{5}{\percent}. The
-score distributions after requiring compatibility according to the KS-test is
-shown in Figure~\ref{fig:bdt_ks5_scores}.
+tunings of the tau identification. The compatibility of two distributions is
+measured using the $p$-value of the Kolmogorov-Smirnov test (KS test). The
+configuration~\mbox{BDT B} in Table~\ref{tab:bdt_perfs} consists of the BDT with
+the highest rejection at the specified signal efficiency, while also requiring
+that the $p$-value of the KS-test between training and testing sample is larger
+than \SI{5}{\percent}. The score distributions after requiring compatibility
+according to the KS-test is shown in Figure~\ref{fig:bdt_score_1p_ks5}.
+\todo[inline]{Where can I find 3-prong.}
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -570,7 +561,7 @@ approximately one order of magnitude larger than for the 1-prong case. This can
 largely be attributed to the availablility of invariant mass and secondary
 vertex information.
 
-\subsection{Working Points}
+\section{Working Points}
 \label{sec:bdt_working_points}
 
 \todo[inline]{Subsection of 'Hyperparameter Optimisation' makes no sense!}
