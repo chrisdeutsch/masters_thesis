@@ -621,7 +621,7 @@ rejection of tau candidates from multijet events. Subsequently, input variables
 with an insignificant impact on the discriminative power are removed to simplify
 the model.
 
-\subsection{Transverse Momentum Dependency of Features}
+\subsection{Transverse Momentum Dependency of Input Variables}
 \label{sec:bdt_incl_pt}
 
 % Do I need these plots?
@@ -640,20 +640,37 @@ the model.
 %   \label{fig:bdt_pt_dependency}
 % \end{figure}
 
-A lot of the input features have (at least a small) dependency with the
-reconstructed $p_\text{T}$ changing the separation of signal and background in
-the features as a function of $p_\text{T}$. This effect has a large impact on
-the overall isolation of the shower in the calorimeter and the tracks. An
-example of this is the central energy fraction $f_\text{cent}$ shown in figure
-[does not exist anymore]. While the energy for signal events is mostly contained
-in the cone of size $\Delta R < 0.1$ there are significant contributions to the
-$0.1 < \Delta R < 0.2$ annulus for dijets reconstructed as low $p_\text{T}$ tau
-candidates. To take advantage of the varying separation of the input features in
-different $p_\text{T}$-regions the transverse momentum can be included as an
-input to the BDT. It is important that the signal and background samples used
-for training are reweighted such that no discrimination purely based on the
-$p_\text{T}$-spectra of the samples is possible. For the use of
-tau-identification in analyses the working point efficiencies in data must be
+The distributions of the variables used for tau identification change depending
+on the reconstructed transverse momentum of the tau candidates. This impacts the
+identification algorithm as the separation of signal and background in a given
+variable often varies as a function of~$p_\text{T}$.
+
+\todo[inline]{Continue}
+
+This effect has a large impact on
+the overall isolation of the shower in the calorimeter and the tracks.
+An example of this is the central energy fraction $f_\text{cent}$ shown in
+figure [does not exist anymore]. While the energy for signal events is mostly
+contained in the cone of size $\Delta R < 0.1$ there are significant
+contributions to the $0.1 < \Delta R < 0.2$ annulus for dijets reconstructed as
+low $p_\text{T}$ tau candidates.
+
+To take advantage of the varying signal/background separation of variables in
+different $p_\text{T}$-regions the reconstructed transverse momentum can be
+included as an input to the BDT. Correlations between the remaining input
+variables and the reconstructed~$p_\text{T}$ can then be used to discriminate
+signal and background tau candidates. The kinematic reweighting (cf.\
+Section~\ref{sec:bdt_eventsim}) ensures that the classification uses only
+correlations of the transverse momentum with the remaining inputs and not the
+distinct $p_\text{T}$-spectra of the signal and background samples.
+
+\todo[inline]{Continue}
+
+systematic errors of the tau energy scale.
+The BDT uses intermediate axis
+
+For the use
+of tau-identification in analyses the working point efficiencies in data must be
 determined in a tag-and-probe measurement. For reconstructed taus with
 transverse momenta greater than \SI{100}{\giga\electronvolt} there is limited
 statistics. In practice the measured efficiencies need to be extrapolated to
@@ -694,6 +711,7 @@ and using this as an input to the BDT.
   \end{subfigure}
   \caption{Variable importance. Averaged rejection loss over a gamma-tautau like
     dijet spectrum}
+  \todo[inline]{3-prong uses medium working point.}
   \label{fig:variable_importance}
 \end{figure}
 
