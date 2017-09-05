@@ -645,49 +645,62 @@ on the reconstructed transverse momentum of the tau candidates. This impacts the
 identification algorithm as the separation of signal and background in a given
 variable often varies as a function of~$p_\text{T}$.
 
-\todo[inline]{Continue}
-
-This effect has a large impact on
-the overall isolation of the shower in the calorimeter and the tracks.
-An example of this is the central energy fraction $f_\text{cent}$ shown in
-figure [does not exist anymore]. While the energy for signal events is mostly
-contained in the cone of size $\Delta R < 0.1$ there are significant
-contributions to the $0.1 < \Delta R < 0.2$ annulus for dijets reconstructed as
-low $p_\text{T}$ tau candidates.
+Variables that are affected by this are the track radius~$R_\text{track}$ and
+the maximum track~$\Delta R$. At large transverse momentum \emph{charged} tracks
+tend to be closer to the tau axis for both signal and background candidates,
+thus reducing the separation in these variables. Similarly, the central energy
+fraction~$f_\text{cent}$ of background candidates increases at high transverse
+momentum making them more tau-like. In contrast to this, the variables based on
+invariant masses~$m_\text{track}$ and~$m_\text{EM+track}$ show a larger
+separation at high momentum. This is because the mass of signal candidates is
+bounded by the mass of the tau lepton, while for candidates from multijet events
+the invariant mass increases with increasing transverse momentum. \todo{Plots?}
 
 To take advantage of the varying signal/background separation of variables in
-different $p_\text{T}$-regions the reconstructed transverse momentum can be
-included as an input to the BDT. Correlations between the remaining input
-variables and the reconstructed~$p_\text{T}$ can then be used to discriminate
-signal and background tau candidates. The kinematic reweighting (cf.\
+different $p_\text{T}$-regions the reconstructed transverse momentum is included
+as an input to the BDT. Correlations between the remaining input variables and
+the reconstructed~$p_\text{T}$ can then be used to discriminate signal and
+background tau candidates. The kinematic reweighting (cf.\
 Section~\ref{sec:bdt_eventsim}) ensures that the classification uses only
 correlations of the transverse momentum with the remaining inputs and not the
 distinct $p_\text{T}$-spectra of the signal and background samples.
 
-\todo[inline]{Continue}
-
-systematic errors of the tau energy scale.
-The BDT uses intermediate axis
-
-For the use
-of tau-identification in analyses the working point efficiencies in data must be
-determined in a tag-and-probe measurement. For reconstructed taus with
-transverse momenta greater than \SI{100}{\giga\electronvolt} there is limited
-statistics. In practice the measured efficiencies need to be extrapolated to
-higher $p_\text{T}$-regions and therefore it should be avoided to have an
-explicit $p_\text{T}$-dependence in the BDT above this threshold (an implicit
-dependency due to correlations of the regular features like the central energy
-fraction can not be avoided). This is realised by \emph{clamping} the transverse
-momentum
+For the use of tau identification in analyses the working point efficiencies in
+data must be determined in a tag-and-probe measurement. Due to the limited
+number of taus with transverse momenta greater than \SI{100}{\Gev}, the
+efficiency measurement needs to extrapolate to higher $p_\text{T}$-regions.
+Therefore it should be avoided to introduce an explicit $p_\text{T}$-dependence
+for transverse momenta larger than \SI{100}{\GeV}. This is realised by
+\emph{clamping} the transverse momentum
 \begin{align*}
   p_\text{T}^\text{clamp} = \min(p_\text{T}, \SI{100}{\giga\electronvolt})
 \end{align*}
-and using this as an input to the BDT.
+for the use in the BDT. An implicit dependency cannot be avoided due to the
+correlations of the remaining identification variables with the reconstructed
+transverse momentum.
+
+The \emph{clamped} transverse momentum at LC scale is included as an input
+variable into the BDT. No tau-specific energy calibration is used to avoid
+introducing systematic errors from the tau energy scale. In
+Table~\ref{tab:bdt_new_variables} the relative rejection gain is summarised
+after including the transverse momentum. Including the clamped
+momentum~\smash{$p_\text{T}^\text{clamp}$} increases the rejection by up to
+\SI{4.9 +- 0.2}{\percent} for the 1-prong loose, and \SI{3.6 +- 0.5}{\percent}
+for the 3-prong medium working point. The comparison of the relative rejection
+gain after including the unclamped momentum~$p_\text{T}$ and the clamped
+momentum~\smash{$p_\text{T}^\text{clamp}$} show that the majority of rejection
+is retained after clamping.
+
+Also shown in the table is the rejection after including the momentum fraction
+of isolation tracks~$f_\text{iso}^\text{track}$ into the 3-prong BDT, where it
+was previously not used. It shows a significant improvement in rejection
+especially at the looser working points.
 
 \begin{table}[htb]
   \centering
   {\small\input{./tables/bdt_new_variables.tex}}
-  \caption{New variables}
+  \caption{Rejection gain on the weighted background sample after including
+    additional variables.}
   \label{tab:bdt_new_variables}
 \end{table}
 
@@ -719,10 +732,6 @@ One prong: Drop only ChPiEMEOverCaloEME \SI{0.7 +- 0.3}{\percent}
 
 Three prong: Drop innerTrkAvgDist \SI{0.3 +- 0.6}{\percent}, then
 ChPiEMEOverCaloEME \SI{1.2 +- 0.6}{\percent}, then etOverPtLeadTrk (do not drop)
-
-Variable correlations, importance (dropped variables) \& dependence with
-$p_\mathrm{T}$ (2D Hist - including pt), Variable Transformations (instead
-of cutting out outliers), Partial Dependence, Including $p_\mathrm{T}$
 
 \section{Identification Performance on Simulated Data}
 \label{sec:bdt_perf}
