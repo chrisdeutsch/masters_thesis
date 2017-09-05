@@ -707,79 +707,75 @@ especially at the looser working points.
 \subsection{Variable Importance}
 \label{sec:bdt_var_importance}
 
-After including the clamped transverse
-momentum~\smash{$p_\text{T}^\text{clamp}$} in both BDTs and the momentum
-fraction of isolation tracks~\smash{$f_\text{iso}^\text{track}$} in the 3-prong
-BDT, a systematic evaluation of the variable importance is performed. This is
-done to simplify the model by reducing the number of input variables.
+After including the transverse momentum~\smash{$p_\text{T}^\text{clamp}$} and
+the momentum fraction of isolation tracks~\smash{$f_\text{iso}^\text{track}$} as
+inputs to the BDTs, a systematic evaluation of the variable importance is
+performed. The aim is to simplify the model by removing variables with small
+contributions to the classification power.
 
-The importance of individual variables in the BDT is determined by removing it
-and retraining the model. Afterwards the rejection loss compared to the baseline
-is calculated. Doing this for all input variables allows to rank their
-importance for discriminating signal and background candidates. This method is
-used, as opposed to the built-in methods of TMVA, as it properly treats
-correlated variables.
+The importance of individual variables is determined by training a model without
+including the variable and calculating the rejection loss with respect to the
+baseline model using the full variable set. Doing this for all input variables
+allows to rank their importance for discriminating signal and background tau
+candidates. This method is used, as opposed to the built-in methods of TMVA, as
+it properly treats correlated variables.
 
 \begin{figure}[htb]
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/var_importance/1p_iter1.pdf}
-    \subcaption{1-prong BDT at the tight working point (\SI{60}{\percent} signal
+    \subcaption{1-prong BDT at the tight working point (\SI{60}{\percent}
       efficiency).}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/var_importance/3p_iter1.pdf}
     \subcaption{3-prong BDT at the medium working point (\SI{60}{\percent}
-      signal efficiency).}
+      efficiency).}
   \end{subfigure}
-  \caption{Measurement of the variable importance in the 1- and 3-prong BDTs.
-    Shown is the average rejection loss over the weighted background sample.}
+  \caption{Variable importance in the 1- and 3-prong BDT. The average rejection
+    loss at the specified working point is evaluated on the weighted background
+    sample.}
   \label{fig:variable_importance}
 \end{figure}
 
-In Figure~\ref{fig:variable_importance} the variable importance for the 1- and
-3-prong BDT is depicted. The rejection loss is calculated at the tight working
-point for the 1-prong BDT and at the medium working point for the 3-prong BDT.
-The medium working point is chosen due to the large rejection of the 3-prong
-identification leading to less stable rankings.
+Figure~\ref{fig:variable_importance} depicts the variable importance for the 1-
+and 3-prong BDT. The rejection loss is calculated at the tight working point for
+the 1-prong and at the medium working point for the 3-prong BDT. The medium
+working point is chosen due to the large rejection of the 3-prong identification
+leading to less stable rankings.
 
 The ranking shows that variables sensitive to the decay length of the tau
 lepton, i.e.\ the transverse impact parameter
 significance~$|S_\text{leadtrack}|$ and transverse flight path
 significance~$S_\text{T}^\text{flight}$, have a large impact on the
 classification performance. Moreover, the momentum fraction of isolation
-tracks~$f_\text{iso}^\text{track}$ accounts for the majority of the rejection of
-the 1-prong identification. The mass of the track system~$m_\text{track}$ also
-contributes substantially to the rejection of the 3-prong tau identification.
-\todo{Say something about $p_\text{T}^\text{clamp}$ and
-  $f_\text{iso}^\text{track}$}
+tracks~$f_\text{iso}^\text{track}$ accounts for the majority of the background
+rejection in the 1-prong identification. In the 3-prong BDT the mass of the
+track system~$m_\text{track}$ contributes substantially to the rejection.
 
 The variable importance ranking identifies several weak variables used in the
 BDTs. The EM energy fraction of charged
 pions~\smash{$f_\text{EM}^\text{track-HAD}$} shows a small significance with a
-rejection loss of \SI{0.7 +- 0.3}{\percent} in the 1-prong BDT. This is due to
-its high correlation with the fraction of track-plus-EM-system~$p_\text{T}$
-(\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$}) with a linear correlation
+rejection loss of~\SI{0.7 +- 0.3}{\percent} after removing it from the 1-prong
+BDT. This is due to its high correlation
+with~\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$} with a linear correlation
 coefficient of approximately \SI{70}{\percent} for both signal and background.
-Analogously, the track radius~$R_\text{track}$ in the 3-prong BDT is highly
+Similarly, the track radius~$R_\text{track}$ in the 3-prong BDT is highly
 correlated with the maximum track~$\Delta R$ and therefore removing this
 variable does not result in a significant decrease in background rejection.
 
 After removing the first variable from each BDT the variable importance is
-reevaluated. For the 1-prong BDT the next weakest variable is the track
-radius~$R_\text{track}$ but with a rejection loss of \SI{3.2 +- 0.4}{\percent}
-with respect to the baseline it contributes significantly and is therefore
-retained. Following the same procedure for the 3-prong BDT shows that the EM
-fraction of charged pions~\smash{$f_\text{EM}^\text{track-HAD}$}, due to its
-correlation with~\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$}, contributes
-little to the discriminative power with a rejection loss of \SI{1.2 +-
-  0.6}{\percent} after removing the variable.
-
-The set of variables and their importance is summarised in
-Figure~\ref{fig:variable_importance_final}. After removing weak variables from
-the BDTs
+reevaluated to account for correlations between the removed and the remaining
+variables. After removing~\smash{$f_\text{EM}^\text{track-HAD}$} from the
+1-prong BDT, the weakest variable is the track radius~$R_\text{track}$.
+Removing~$R_\text{track}$ leads to a rejection loss of \SI{3.2 +- 0.4}{\percent}
+with respect to the baseline (the model using the full variable set) and is
+therefore retained. Following the same procedure for the 3-prong BDT shows
+that~\smash{$f_\text{EM}^\text{track-HAD}$} contributes little to the
+discriminative power with a rejection loss of \SI{1.2 +- 0.6}{\percent} after
+removing the variable.
 
 \begin{figure}[htb]
   \centering
@@ -795,13 +791,18 @@ the BDTs
     \subcaption{3-prong BDT at the medium working point (\SI{60}{\percent}
       signal efficiency).}
   \end{subfigure}
-  \caption{Measurement of the variable importance in the 1- and 3-prong BDTs
-    after removing weak variables. Shown is the average rejection loss over the
-    weighted background sample. The rejection loss is calculated with respect to
-    the BDT using the full variable set.}
+  \caption{Variable importance in the 1- and 3-prong BDTs after removing weak
+    variables. The average rejection loss at the specified working point is
+    evaluated on the weighted background sample and is calculated with respect
+    to the full variable set.}
   \label{fig:variable_importance_final}
 \end{figure}
 
+The set of variables and their importance after removing weak variables is
+summarised in Figure~\ref{fig:variable_importance_final}. The change in input
+variables alters the importance ranking slightly, especially affecting variables
+that are correlated with dropped variables (e.g.\
+\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$}).
 
 % Correlations:
 % 1P: ChPiEMEOverCaloEME and ptRatioEflowApprox: sig (bkg) \SI{72}{\percent} (\SI{68}{\percent})
