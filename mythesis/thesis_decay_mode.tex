@@ -207,12 +207,11 @@ Analogously to the RNN-based tau identification in Chapter~\ref{sec:rnn}, the
 full dataset is split into a training~(\SI{50}{\percent}),
 validation~(\SI{10}{\percent}) and testing sample~(\SI{40}{\percent}). The
 transverse momenta of the reconstructed tau and PFOs are log-transformed and
-subsequently standardised. \todo{by subtracting the mean and dividing by the
-  standard deviation, derived from the distributions in the training sample.}
-For the neutral PFO specific variables~\smash{$S_\text{BDT}^{\pi^0}$} and
-\smash{$N_\text{shots}$} no preprocessing is required. The remaining kinematic
-variables, i.e.\ angular direction of the tau axis and angular deviation of the
-PFO, are scaled into the~$[-1, 1]$-interval.
+subsequently standardised. For the neutral PFO specific
+variables~\smash{$S_\text{BDT}^{\pi^0}$} and \smash{$N_\text{shots}$} no
+preprocessing is required. The remaining kinematic variables, i.e.\ angular
+direction of the tau axis and angular deviation of the PFO, are scaled into
+the~$[-1, 1]$-interval.
 
 Charged and neutral PFOs are passed in ascending transverse momentum ordering to
 a shared dense layers with 24 units each. A maximum of three charged PFOs each

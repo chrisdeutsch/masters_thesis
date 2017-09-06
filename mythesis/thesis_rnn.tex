@@ -39,29 +39,43 @@ model selection and early stopping. A separate sample, as opposed to the testing
 sample, is used to avoid introducing biases in the performance measurement on
 the testing sample.
 
-A multi-layer perceptron with two hidden layers~(cf.\
-Section~\ref{sec:nn_feedforward}) is used
+To reproduce the performance of the BDT-based tau identification a multi-layer
+perceptron (MLP) with two hidden layers~(cf.\ Section~\ref{sec:nn_feedforward})
+is used. The MLP uses the same input variables used for the optimised BDT.
+Moreover, the input variables are standardised by subtracting the mean and
+dividing by the standard deviation derived from the distributions in the
+training sample. This preprocessing step is important as the gradient descent
+algorithm used for training is sensitive to variables on different scales. The
+input layer of the MLP consists of 9 (10) neurons corresponding to the input
+variables for the 1-prong (3-prong) identification. Both hidden layers of the
+MLP have a size of 128 units, which are activated by rectified linear units
+(ReLU). A single output neuron using the logistic sigmoid as its activation
+function, therefore returning probabilities of an event being signal-like. The
+binary cross-entropy loss function is used and minimised by the \emph{Adam}
+optimiser.
 
-rectified linear units (ReLU)
+\begin{figure}[htb]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \missingfigure{Make 1-prong ROC comparison}
+    \subcaption{1-prong}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \missingfigure{Make 3-prong ROC comparison}
+    \subcaption{3-prong}
+  \end{subfigure}
+  \caption{ROC-Curves}
+  \label{fig:roc_mlp_bdt_comparison}
+  \todo[inline]{Make Reference dashed to see both ROC curves.}
+\end{figure}
 
-- Same input variables \& same transformations
-- Train, Validation, Test split of \SI{40}{\percent} - \SI{10}{\percent} - \SI{50}{\percent}
-- Validation set monitored during training (but not used for training) to stop training early when no improvements in validation loss are observed (using testing set would introduce bias)
-- Additionally standardisation is applied (subtract mean and divide by standard deviation) -- important to get a working network (feature scaling)
-- Dense layers with ReLU activation
-- binary cross entropy loss function (backref)
-- Comparison with BDT-based ID
-
-\todo[inline]{Explain the reason for the train-validation-test split. 50-10-40.
-  Validation is used for model selection, while testing is used to give final
-  performance results. This procedure will be used for the remainder of this
-  thesis.}
-
-\todo[inline]{ROC-Curves comparing BDT ID and MLP ID. Make reference dashed to
-  see the MLP curve.}
+In Figure~\ref{fig:roc_mlp_bdt_comparison}
+\todo[inline]{Continue}
 
 \todo[inline]{How does the performance depend on the size of the sample (this
   would be very interesting to see)}
+
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
 
@@ -117,7 +131,7 @@ Variable importances:
 
 \begin{table}[ht]
   \centering
-  \input{./tables/track_rnn_var_importance.tex}
+  {\small\input{./tables/track_rnn_var_importance.tex}}
   \caption{Variable importance table}
 \end{table}
 
