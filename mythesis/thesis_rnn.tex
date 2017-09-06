@@ -2,47 +2,66 @@
 \chapter{Identification of Hadronic Tau Lepton Decays using Neural Networks}
 \label{sec:rnn}
 
-\todo[inline]{Plots todo:\\
-  ROC MLP \\
-  ROC Track \\
-  ROC Cluster \\
-  ROC Combined \\
-}
+This chapter investigates the application of neural networks for tau
+identification. First it will be shown that a simple multi-layer perceptron
+(MLP) can achieve a classification performance comparable to the optimised BDT
+from the previous chapter. Subsequently, novel sequence learning techniques are
+employed to create classifiers operating on sequences of reconstructed objects.
+For this the recurrent neural networks based on the LSTM architecture are used
+to create classifiers operating on tracks in the inner detector and clusters in
+the calorimeter. In this context a tau identification algorithm using purely
+calorimeter information is developed and its potential application for reducing
+the trigger-rate of a di-tau trigger at the \emph{High Luminosity LHC} (HL-LHC)
+is presented. Finally, a model combining the multi-layer perceptron and the
+recurrent networks operating on track- and cluster-information is developed.
 
-\todo[inline]{Check whether the missing tau hits in the ID are a problem at
-  high-pt.}
-
-\todo[inline]{Explain the reason for the train-validation-test split. 50-10-40.
-  Validation is used for model selection, while testing is used to give final
-  performance results.}
-
-TODOs:
-\begin{itemize}
-\item Visualisation of RNN features:
-  \begin{itemize}
-  \item correlation with output / label
-  \item partial dependence plots
-  \end{itemize}
-\item LSTM cell size scan $n_c \in \{8, 16, 24, 32, 48, 64\}$
-\item Group-wise variable importances for RNN
-\item Study pile-up dependency of RNN vs BDT-ID
-\item d0 and z0sintheta significances should be used instead of raw values
-
-\item How does the performance depend on the size of the sample (this
-  would be very interesting to see)
-\end{itemize}
+\todo[inline]{Same samples as BDT-ID (except HL-LHC).}
 
 \section{Identification using Feedforward Neural Networks}
 \label{sec:ffnn_id}
 
-\begin{itemize}
-\item MLP Tau-ID (only densely connected layers)
-  \begin{itemize}
-  \item Comparison with BDT-based ID
-  \item Scaling with more data
-  \end{itemize}
-\end{itemize}
+Before proceeding to sequence classification techniques the viability of neural
+networks to perform tau identification using simple network architectures is
+shown. This will aid as a introduction to important concepts when training
+neural networks. Moreover, the resulting network will be used as a building
+block in the final model.
 
+The optimised BDT from Chapter~\ref{sec:bdt} will be used as a reference for the
+investigations in this chapter. Therefore the models will be trained and
+evaluated using the same event samples, preselection and reweighting scheme
+presented in Section~\ref{sec:bdt_eventsim}. In contrast to hold-out validation
+used in the previous chapter, the full event sample is now randomly split into a
+training, validation and testing sample. The samples have a relative size of
+\SI{40}{\percent}, \SI{10}{\percent} and \SI{50}{\percent}, respectively. The
+purpose of the training and testing sample is the same as before, however the
+validation sample is monitored during the training process and used to perform
+model selection and early stopping. A separate sample, as opposed to the testing
+sample, is used to avoid introducing biases in the performance measurement on
+the testing sample.
+
+A multi-layer perceptron with two hidden layers~(cf.\
+Section~\ref{sec:nn_feedforward}) is used
+
+rectified linear units (ReLU)
+
+- Same input variables \& same transformations
+- Train, Validation, Test split of \SI{40}{\percent} - \SI{10}{\percent} - \SI{50}{\percent}
+- Validation set monitored during training (but not used for training) to stop training early when no improvements in validation loss are observed (using testing set would introduce bias)
+- Additionally standardisation is applied (subtract mean and divide by standard deviation) -- important to get a working network (feature scaling)
+- Dense layers with ReLU activation
+- binary cross entropy loss function (backref)
+- Comparison with BDT-based ID
+
+\todo[inline]{Explain the reason for the train-validation-test split. 50-10-40.
+  Validation is used for model selection, while testing is used to give final
+  performance results. This procedure will be used for the remainder of this
+  thesis.}
+
+\todo[inline]{ROC-Curves comparing BDT ID and MLP ID. Make reference dashed to
+  see the MLP curve.}
+
+\todo[inline]{How does the performance depend on the size of the sample (this
+  would be very interesting to see)}
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
 
@@ -59,8 +78,17 @@ TODOs:
 State that the RNN is mainly optimised for 1-prong operation and give reasons
 for that (i.e.\ higher branching ratio)
 
+\todo[inline]{Correlation with output / label}
+\todo[inline]{Group-wise variable importances for RNN}
+\todo[inline]{LSTM cell size scan $n_c \in \{8, 16, 24, 32, 48, 64\}$}
+
 \subsection{Track-RNN}
 \label{sec:rnn_tracks}
+
+\todo[inline]{ROC-Curves}
+
+\todo[inline]{Check whether the missing tau hits in the ID are a problem at
+  high-pt.}
 
 Using reconstructed tracks with a minimum transverse momentum of
 \SI{400}{\mega\electronvolt} (already applied in track reconstruction).
@@ -144,6 +172,8 @@ What has been tested:
 \subsection{Cluster-RNN}
 \label{sec:rnn_clusters}
 
+\todo[inline]{ROC-Curves}
+
 \todo{Idea is to use cluster moments as a proxy for cell-based variables}
 
 Variable evolution:
@@ -213,6 +243,9 @@ crossing rate \SI{31.6}{\mega\hertz}.
 \subsection{Combined-RNN}
 \label{sec:rnn_combined}
 
+\todo[inline]{ROC-Curves}
+
+
 \begin{itemize}
 \item Architecture
 \item Performance w.r.t. BDT-ID
@@ -221,6 +254,7 @@ crossing rate \SI{31.6}{\mega\hertz}.
   invariant mass difficult
 \end{itemize}
 
+\todo[inline]{Study pile-up dependency of RNN vs BDT-ID}
 
 %%% Local Variables:
 %%% mode: latex
