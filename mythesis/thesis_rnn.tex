@@ -79,15 +79,32 @@ In Figure~\ref{fig:roc_mlp_bdt_comparison}
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
 
+- After showing that a simple MLP can capture the performance of the optimised BDT proceed to using sequence learning for tau identification.
+
 \subsection{General Description}
 \label{sec:rnn_descr}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics{./figures/rnn/track_rnn_schematic.pdf}
+  \includegraphics[scale=0.9]{./figures/rnn/track_rnn_schematic.pdf}
   \caption{Schematic of the Track-RNN}
   \label{fig:track_rnn_schematic}
 \end{figure}
+
+
+- Motivation:
+
+- Take sequences of reconstructed objects. In this case tracks and clusters and
+their properties.
+
+- Pass them one by one to a recurrent neural network
+
+- Perform tau identification
+
+- Describe base architecture
+
+-
+
 
 State that the RNN is mainly optimised for 1-prong operation and give reasons
 for that (i.e.\ higher branching ratio)
