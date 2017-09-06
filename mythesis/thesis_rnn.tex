@@ -2,28 +2,32 @@
 \chapter{Identification of Hadronic Tau Lepton Decays using Neural Networks}
 \label{sec:rnn}
 
+\todo[inline]{Plots todo:\\
+  ROC MLP \\
+  ROC Track \\
+  ROC Cluster \\
+  ROC Combined \\
+}
+
+\todo[inline]{Check whether the missing tau hits in the ID are a problem at
+  high-pt.}
+
 \todo[inline]{Explain the reason for the train-validation-test split. 50-10-40.
   Validation is used for model selection, while testing is used to give final
   performance results.}
 
 TODOs:
 \begin{itemize}
-\item Remove missing cluster moments and replace with pt-weighted version from
-  MVA-TES if necessary
-\item Trigger: retrain RNN and look at event-level rejection. Produce JZ0W
-  sample?
 \item Visualisation of RNN features:
   \begin{itemize}
   \item correlation with output / label
   \item partial dependence plots
   \end{itemize}
-\item Redo Cluster-RNN ncluster scan (make sure to not get outliers)
-\item Do Track-/Cluster-RNN n-scans for 3-prong
 \item LSTM cell size scan $n_c \in \{8, 16, 24, 32, 48, 64\}$
 \item Group-wise variable importances for RNN
 \item Study pile-up dependency of RNN vs BDT-ID
 \item d0 and z0sintheta significances should be used instead of raw values
-  \url{https://twiki.cern.ch/twiki/bin/viewauth/AtlasProtected/InDetTrackingDC14#Impact_parameters_z0_d0_definiti}
+
 \item How does the performance depend on the size of the sample (this
   would be very interesting to see)
 \end{itemize}
@@ -130,15 +134,10 @@ What has been tested:
 \item Preprocessing
 \item Input variables \& correlation with true (or predicted?) class labels.
   Partial dependence plots? Variable importance?
-\item Validation loss vs. number of tracks
 \item Standalone performance vs. BDT-based ID
 \end{itemize}
 
 \begin{itemize}
-\item Replace $\Delta R_\mathrm{JS}$ with $\Delta \eta$ and $\Delta \varphi$
-  (try extrapolated \& non-extrapolated)
-\item Replace pt asymmetry with $pt_\mathrm{JS}$
-\item Do a validation loss vs.\ number of tracks scan
 \item Validation loss vs.\ sample size
 \end{itemize}
 
@@ -214,16 +213,12 @@ crossing rate \SI{31.6}{\mega\hertz}.
 \subsection{Combined-RNN}
 \label{sec:rnn_combined}
 
-TODO:
-\begin{itemize}
-\item Remove cluster moments that were stripped from data (hottest cell
-  fraction, energy density)
-\item Replace with pt-weighted variables from MVA-tracking
-\end{itemize}
-
 \begin{itemize}
 \item Architecture
 \item Performance w.r.t. BDT-ID
+\item ROC of Track+Cluster \& Track+Cluster+IDvars
+\item 3-prong cannot achieve Tau-ID level: Secondary vertex determination and
+  invariant mass difficult
 \end{itemize}
 
 
