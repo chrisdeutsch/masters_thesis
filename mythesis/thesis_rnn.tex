@@ -57,24 +57,32 @@ optimiser.
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \missingfigure{Make 1-prong ROC comparison}
+    \includegraphics{./figures/rnn/mlp/mlp_bdt_ratio_1p.pdf}
     \subcaption{1-prong}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \missingfigure{Make 3-prong ROC comparison}
+    \includegraphics{./figures/rnn/mlp/mlp_bdt_ratio_3p.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{ROC-Curves}
+  \caption{Ratio of background rejection of the MLP and the optimised BDT as a
+    function of signal efficiency. The band indicates the $1\sigma$-interval.}
   \label{fig:roc_mlp_bdt_comparison}
-  \todo[inline]{Make Reference dashed to see both ROC curves.}
 \end{figure}
 
-In Figure~\ref{fig:roc_mlp_bdt_comparison}
-\todo[inline]{Continue}
+In Figure~\ref{fig:roc_mlp_bdt_comparison} the ratio of rejection of the MLP and
+the optimised BDT is depicted as a function of the signal efficiency. The
+1-prong MLP shows comparable performance above \SI{60}{\percent} signal
+efficiency, which approximately corresponds to the tight working point. Over the
+intermediate efficiency range the performance degrades slightly. The 3-prong MLP
+is consistent with the performance of the optimised BDT identification with a
+small improvement at high efficiencies.
 
-\todo[inline]{How does the performance depend on the size of the sample (this
-  would be very interesting to see)}
+To summarise, both the 1- and 3-prong MLP show similar performance
+characteristics as the optimised BDT from Chapter~\ref{sec:bdt}. The results
+show that neural networks are a viable method to perform tau identification.
+
+\todo[inline]{A sentence to transition into the next chapter.}
 
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
@@ -252,15 +260,26 @@ beginning of Run-II and increases the average number of interactions per bunch
 crossing to \num{200}. The increase in particle density poses a challenge to the
 trigger systems and reconstruction algorithms.
 
-
-
-
 $\text{Z} / \text{DY} \to \tau \tau$
-
 
 - Higher readout granularity of the calorimeter allows better identification of physics objects at the trigger
 
+- New trigger architecture introducing a 'Global Trigger System' using full calorimeter granularity with topoclustering and anti-kt jets (to improve object identification which is essential in high pile-up scenario)
+
+Initial scoping document: Offline thresholds \SI{40}{\GeV}, \SI{30}{\GeV}
+(approx. run I threshold) in $|\eta| < 2.5$~\cite{phase_2_scoping} with output
+rate of \SI{200}{\kilo\hertz}
+
+No upgrade \SI{60}{\GeV}, \SI{50}{\GeV} \cite{phase_2_idr}
+
+
 - New trigger architecture: Trigger split in two parts: L0 and L1 (accept-rate of \SI{200}{\kilo\hertz})
+
+- Samples
+
+- Investigation using offline reconstructed taus (upgrades in readout allow anti-kt jets at trigger and therefore taus are close to what we have at offline)
+
+- Preselection the same except no tracking related cuts (i.e.\ no separation in 1 and 3-prong decays)
 
 Extended barrel to~$\eta = \num{4.0}$. JZ0W sample \todo{cross section} and
 Ztautau sample with~$\mu = \num{200}$ and $\sqrt{s} = \SI{14}{\TeV}$. Offline
@@ -291,11 +310,16 @@ calorimeter-based variables.
 HL-LHC \cite{hl_lhc}. Target rate \SI{200}{\kilo\hertz} from average bunch
 crossing rate \SI{31.6}{\mega\hertz}.
 
+\todo[inline]{Find comparison}
+
+
 \subsection{Combined-RNN}
 \label{sec:rnn_combined}
 
 \todo[inline]{ROC-Curves}
 
+\todo[inline]{Money plot: Rejection vs pt for Combined, Optimised BDT and
+  Reference}
 
 \begin{itemize}
 \item Architecture
