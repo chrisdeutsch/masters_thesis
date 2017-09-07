@@ -247,7 +247,7 @@ Variable evolution:
 \item Standalone performance
 \end{itemize}
 
-\subsubsection{Rate-Reduction at the High Level Trigger}
+\subsubsection{Di-Tau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}
 
 The Phase-II upgrade of the LHC called the High Luminosity LHC (HL-LHC) is
@@ -260,58 +260,85 @@ beginning of Run-II and increases the average number of interactions per bunch
 crossing to \num{200}. The increase in particle density poses a challenge to the
 trigger systems and reconstruction algorithms.
 
-$\text{Z} / \text{DY} \to \tau \tau$
+In the ATLAS experiment a \emph{Global Trigger System} aims to provide access to
+the full calorimeter granularity with topoclustering and jet finding using
+iterative jet algorithms in regions of interest~\cite{phase_2_scoping}. This
+aims to improve the identification of physics objects at trigger-level to cope
+with increasing trigger rates due to pile-up. Due to the availability of full
+calorimeter granularity, offline reconstructed taus can be used to give
+prospects of the potential performance of a di-tau trigger in the HL-LHC
+environment.
 
-- Higher readout granularity of the calorimeter allows better identification of physics objects at the trigger
+A prospective study on the usage of the cluster-based RNN for identification of
+taus in a di-tau trigger is given. Offline reconstructed taus are used as an
+approximation to the objects at the Phase-II trigger. The study uses simulated
+samples of~$\text{Z} / \text{DY} \to \tau \tau$ and dijets at HL-LHC conditions
+with centre-of-mass energy~$\sqrt{s}=\SI{14}{\TeV}$ and average interactions per
+bunch crossing~$\mu = 200$ (cf.\ Appendix~\ref{app:upgrade_samples}).
 
-- New trigger architecture introducing a 'Global Trigger System' using full calorimeter granularity with topoclustering and anti-kt jets (to improve object identification which is essential in high pile-up scenario)
+The cluster-based RNN identification is retrained on individual tau candidates
+in the HL-LHC upgrade samples using the same preselection used for the BDT
+identification in Chapter~\ref{sec:bdt} with the exception of any
+tracking-related requirements. The leading and subleading tau with respect to
+the reconstructed transverse momentum (using Run-II calibrations) are selected
+in a given event, while additionally requiring truth-matched hadronic tau decays
+for the signal sample. The RNN identification is applied to each tau
+individually resulting in two identification scores per event. The leading and
+subleading tau~$p_\text{T}$ and identification scores are combined in a logistic
+regression to assign a single di-tau identification score to each event.
 
-Initial scoping document: Offline thresholds \SI{40}{\GeV}, \SI{30}{\GeV}
-(approx. run I threshold) in $|\eta| < 2.5$~\cite{phase_2_scoping} with output
-rate of \SI{200}{\kilo\hertz}
-
-No upgrade \SI{60}{\GeV}, \SI{50}{\GeV} \cite{phase_2_idr}
-
-
-- New trigger architecture: Trigger split in two parts: L0 and L1 (accept-rate of \SI{200}{\kilo\hertz})
-
-- Samples
-
-- Investigation using offline reconstructed taus (upgrades in readout allow anti-kt jets at trigger and therefore taus are close to what we have at offline)
-
-- Preselection the same except no tracking related cuts (i.e.\ no separation in 1 and 3-prong decays)
-
-Extended barrel to~$\eta = \num{4.0}$. JZ0W sample \todo{cross section} and
-Ztautau sample with~$\mu = \num{200}$ and $\sqrt{s} = \SI{14}{\TeV}$. Offline
-reconstruction using Run-II calibrations -- i.e.\ not optimised for HL-LHC
-conditions (shitty energy calibration -- thats why plots are vs.\ truth pt)
+The accept-rate of \SI{200}{\kilo\hertz} of the higher-level triggers limits the
+maximum trigger-rate of the di-tau trigger. Achieving this rate requires
+$p_\text{T}$-thresholds on leading and subleading taus as well as application of
+the di-tau identification. The thresholds should be kept low to ensure high
+signal acceptance for physics analyses. For the purposes of this study a single
+cut on the identification score is used to identify di-tau events.
 
 \begin{figure}[htb]
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/trigger/pt_rate_reg.pdf}
-    \subcaption{Rate JZ0W as a function of thresholds}
+    \subcaption{Trigger-rate after RNN-based identification as a function of
+      leading and subleading tau offline $p_\text{T}$-threshold.}
+    \label{fig:rate_vs_thresholds}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/trigger/taueff_reg.pdf}
-    \subcaption{Di-tau efficiency}
+    \subcaption{Di-tau selection efficiency of RNN-based identification with
+      \SI{25}{\GeV} $p_\text{T}$-thresholds with respect to offline
+      reconstructed tau lepton pairs measured in $\text{Z} \to \tau\tau$.}
+    \label{fig:ditau_trigger_eff}
   \end{subfigure}
-  \caption{Di-tau trigger}
+  \caption{Feasibility of using TopoClusters for a di-tau trigger at the
+    HL-LHC.}
   \label{fig:rnn_ditau_trigger}
 \end{figure}
 
-The high rates of the High Level Trigger (HLT) for tau leptons need to be
-reduced. At the HLT no track information is available due to the high time
-requirements of the ATLAS tracking algorithm. The rate reduction is limited to
-calorimeter-based variables.
+The large dijet production cross section allows the assumption, that all
+background events in the simulated sample correspond to a rate equal to the
+average bunch crossing rate of~\SI{31.6}{\mega\hertz}. In
+Figure~\ref{fig:rate_vs_thresholds} the trigger-rate is shown as a function of
+the leading and subleading $p_\text{T}$-thresholds after applying di-tau
+identification. The target rate can be achieved with a offline
+$p_\text{T}$-threshold of \SI{25}{\GeV} on both taus.
+Figure~\ref{fig:ditau_trigger_eff} shows the efficiency of the identification
+using the leading and subleading \SI{25}{\GeV} threshold with respect to all
+offline reconstructed di-tau pairs. The di-tau efficiency starts to plateau at
+true visible transverse momentum~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the
+leading tau with an efficiency of approximately~\SI{90}{\percent}.
 
-HL-LHC \cite{hl_lhc}. Target rate \SI{200}{\kilo\hertz} from average bunch
-crossing rate \SI{31.6}{\mega\hertz}.
-
-\todo[inline]{Find comparison}
-
+Ref.~\cite{phase_2_scoping} outlines a di-tau trigger with offline
+$p_\text{T}$-threshold on the leading and subleading tau of \SI{40}{\GeV} and
+\SI{30}{\GeV}, respectively. The approach using the cluster-based RNN
+identification achieves the target rate at a reduced $p_\text{T}$-threshold
+of~\SI{25}{\GeV}. The efficiency of the selection shows opportunities for
+further enhancements by employing a proper tau energy calibration for HL-LHC
+conditions and using a more advanced decision threshold for the di-tau
+identification. The decision threshold could be loosened with increasing
+transverse momentum to ensure a quicker turn-on and full efficiency at
+high-$p_\text{t}$.
 
 \subsection{Combined-RNN}
 \label{sec:rnn_combined}
