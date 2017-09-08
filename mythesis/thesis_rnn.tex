@@ -37,7 +37,8 @@ purpose of the training and testing sample is the same as before, however the
 validation sample is monitored during the training process and used to perform
 model selection and early stopping. A separate sample, as opposed to the testing
 sample, is used to avoid introducing biases in the performance measurement on
-the testing sample.
+the testing sample. This approach will be used for the remainder of this
+chapter.
 
 To reproduce the performance of the BDT-based tau identification a multi-layer
 perceptron (MLP) with two hidden layers~(cf.\ Section~\ref{sec:nn_feedforward})
@@ -102,24 +103,34 @@ show that neural networks are a viable method to perform tau identification.
 
 - Motivation:
 
++ Track-based variables contribute with a large majority of rejection -- further
+exploit track information
+
++ Current tuning of the track classification: found to be suboptimal isolation
+category for tau identification switched to modified isolation tracks (only
+trained to classifiy tau decays not for tracks of dijet events)
+
++ Information might be lost when only considering a small selection of
+high-level variables (e.g. no information on momentum of individual tracks or
+their distance to the tau axis, only summarising quantities like momentum
+fractions, mean distances etc.) (the same is true for cluster information)
+
 - Take sequences of reconstructed objects. In this case tracks and clusters and
-their properties.
+their properties. Also properties of the global tau.
 
-- Pass them one by one to a recurrent neural network
+- Pass them one by one to a recurrent neural network (ordering)
 
-- Perform tau identification
+- Perform tau identification. Classifying a sequence of objects
 
-- Describe base architecture
+- Describe base architecture. Input -- Masking -- Shared dense -- LSTM -- Dense (sigmoid)
 
--
+- Explain what shared dense does
 
+- Hyperparams mainly optimised for 1-prong operation
 
-State that the RNN is mainly optimised for 1-prong operation and give reasons
-for that (i.e.\ higher branching ratio)
 
 \todo[inline]{Correlation with output / label}
 \todo[inline]{Group-wise variable importances for RNN}
-\todo[inline]{LSTM cell size scan $n_c \in \{8, 16, 24, 32, 48, 64\}$}
 
 \subsection{Track-RNN}
 \label{sec:rnn_tracks}
@@ -161,8 +172,6 @@ Variable importances:
 \end{table}
 
 \todo{use 10 tracks}
-
-\todo{LSTM cell size scan? 8, 12, 16, 24, 32, 48, 64}
 
 \todo{Variable importance (in groups?)}
 
@@ -212,14 +221,17 @@ What has been tested:
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/roc.pdf}
-    \subcaption{ROC-curves of the Track-RNN}
+    \subcaption{ROC-curves for 1-prong (1P) and 3-prong (3P) tau
+      identification.}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/ratios.pdf}
-    \subcaption{Ratios}
+    \subcaption{Rejection ratio of the Track-RNN with respect to the optimised
+      BDT.}
   \end{subfigure}
-  \caption{Track-RNN}
+  \caption{Classification performance of the Track-RNN compared to the optimised
+    BDT for tau identification.}
   \label{fig:track_rnn_roc_ratios}
 \end{figure}
 
