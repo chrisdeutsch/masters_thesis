@@ -173,6 +173,8 @@ Variable importances:
 
 \todo{use 10 tracks}
 
+\todo[inline]{uses 32 lstm units}
+
 \todo{Variable importance (in groups?)}
 
 \todo{\SI{40}{\percent} training, \SI{10}{\percent} validation and \SI{50}{\percent} testing}
@@ -235,6 +237,26 @@ What has been tested:
   \label{fig:track_rnn_roc_ratios}
 \end{figure}
 
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/track/pt_corr.pdf}
+    \subcaption{}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/track/z0_corr.pdf}
+    \subcaption{}
+  \end{subfigure}
+  \caption{Classification performance of the Track-RNN compared to the optimised
+    BDT for tau identification.}
+  \label{fig:track_rnn_roc_ratios}
+  \todo[inline]{Explain that $\Delta R$ is similar to $z_0$ i.e.\ close to axis
+    for leading 1 or 3 tracks far for rest. Ref to plot in appendix.}
+\end{figure}
+
+
 \subsection{Cluster-RNN}
 \label{sec:rnn_clusters}
 
@@ -273,6 +295,25 @@ Variable evolution:
 \item Validation loss vs. number of clusters
 \item Standalone performance
 \end{itemize}
+
+
+\begin{figure}[ht]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/cluster/roc.pdf}
+    \subcaption{ROC-curves for 1-prong (1P) and 3-prong (3P) tau
+      identification.}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/cluster/ratios.pdf}
+    \subcaption{Rejection ratio of the Cluster-RNN with respect to the optimised
+      BDT.}
+  \end{subfigure}
+  \caption{Classification performance of the Cluster-RNN compared to the optimised
+    BDT for tau identification.}
+  \label{fig:cluster_rnn_roc_ratios}
+\end{figure}
 
 \subsubsection{Di-Tau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}
