@@ -137,35 +137,25 @@ motivated ordering scheme. For the RNN using track information a
 descending~$p_\text{T}^\text{track}$ ordering is used. In practice the maximum
 sequence length is limited by truncation.
 
+The tracks and the values of their input variables are passed in order to a
+dense layer with shared weights. This layer applies a transformation on the
+variables of each individual track, where the parameters of this transformation
+are shared between each element in the sequence. This layer creates a sequence
+of intermediate representations of the tracks, which are then passed to the
+recurrent layer employing the LSTM architecture. The output of the final time
+step of the RNN, consisting of a vector of activations, is then passed to a
+dense layer with one neuron with logistic sigmoid activation. The activation of
+the output neuron can then be used to classify the tau candidate as signal or
+background.
 
+\subsection{Track-RNN}
+\label{sec:rnn_tracks}
 
-
-
-- Perform tau identification. Classifying a sequence of objects
-
-- Describe base architecture. Input -- Masking -- Shared dense -- LSTM -- Dense (sigmoid)
-
-- Explain what shared dense does
 
 - Hyperparams mainly optimised for 1-prong operation
 
 Hyperparameters do not claim to be optimal. Roughly optimised by hand observing the validation loss during training.
 
-\todo[inline]{Group-wise variable importances for RNN}
-
-
-A shared
-dense layer applies an affine transformation to the input variables of each PFO.
-Afterwards the transformed sequences are fed into the recurrent layer returning
-a single vector of activations.
-The activations of both branches are
-concatenated \todo{shorten this as it will be explained in the RNN-ID part} and
-passed through a network containing three dense layers.
-
-
-
-\subsection{Track-RNN}
-\label{sec:rnn_tracks}
 
 \todo[inline]{ROC-Curves}
 
