@@ -93,30 +93,46 @@ presented capturing low-level information by employing sequence classification
 techniques. A general description of the method is given and subsequently
 applied to reconstructed tracks and clusters in the calorimeter.
 
-\subsection{General Description}
+\subsection{Motivation and General Description}
 \label{sec:rnn_descr}
 
-\begin{figure}[ht]
+The variable importance of the BDT-based tau identification in
+Section~\ref{sec:bdt_var_importance} showed that a large fraction of the
+background rejection can be attributed to variables derived from tracking
+information. Examples are the variables sensitive to the decay length of the tau
+lepton~$|S_\text{leadtrack}|$ and $S_\text{T}^\text{flight}$ as well as the
+transverse momentum fraction of isolation tracks~$f_\text{iso}^\text{track}$ and
+the mass of the track system~$m_\text{track}$. Moreover, during the preparation
+of the tau identification for the ATLAS reconstruction release to be used for
+the remainder of Run-II, it was observed that tracks classified as
+\emph{isolation}, i.e.\ primary particle tracks not originating from the tau
+decay, offer discriminative power against tau candidates from multijet events.
+However, instabilities of the \emph{isolation} track category lead to the
+necessity to decouple tau identification and the track classification by
+introducing the \emph{modified isolation} category. This lead to an average
+rejection loss of the order of \SI{20}{\percent} for the 1-prong identification,
+while the 3-prong identification was not significantly affected. Therefore, the
+aim is to improve the use of isolation information in reconstructed tracks of a
+hadronic tau decay.
+
+For this purpose recurrent neural networks using the LSTM architecture are used
+to classify a sequence of objects reconstructed in the detector. The following
+will focus on describing the method using tracks in the inner detector but using
+different physics objects is analogous.
+
+each track has associated variables: track transverse momentum angular distances (specifics later)
+can also have global variables not associated with a specific track (e.g.\ tau variables)
+
+\begin{figure}[htb]
   \centering
   \includegraphics[scale=0.9]{./figures/rnn/track_rnn_schematic.pdf}
-  \caption{Schematic of the Track-RNN}
+  \caption{Schematic description of a recurrent neural network using individual
+    tracks for tau identification.}
   \label{fig:track_rnn_schematic}
 \end{figure}
 
+In Figure~\ref{fig:track_rnn_schematic} the architecture used in this chapter.
 
-- Motivation:
-
-+ Track-based variables contribute with a large majority of rejection -- further
-exploit track information
-
-+ Current tuning of the track classification: found to be suboptimal isolation
-category for tau identification switched to modified isolation tracks (only
-trained to classifiy tau decays not for tracks of dijet events)
-
-+ Information might be lost when only considering a small selection of
-high-level variables (e.g. no information on momentum of individual tracks or
-their distance to the tau axis, only summarising quantities like momentum
-fractions, mean distances etc.) (the same is true for cluster information)
 
 - Take sequences of reconstructed objects. In this case tracks and clusters and
 their properties. Also properties of the global tau.
@@ -133,8 +149,6 @@ their properties. Also properties of the global tau.
 
 Hyperparameters do not claim to be optimal. Roughly optimised by hand observing the validation loss during training.
 
-
-\todo[inline]{Correlation with output / label}
 \todo[inline]{Group-wise variable importances for RNN}
 
 
