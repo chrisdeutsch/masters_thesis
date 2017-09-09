@@ -144,23 +144,43 @@ are shared between each element in the sequence. This layer creates a sequence
 of intermediate representations of the tracks, which are then passed to the
 recurrent layer employing the LSTM architecture. The output of the final time
 step of the RNN, consisting of a vector of activations, is then passed to a
-dense layer with one neuron with logistic sigmoid activation. The activation of
+dense layer with one neuron and logistic sigmoid activation. The activation of
 the output neuron can then be used to classify the tau candidate as signal or
 background.
 
 \subsection{Track-RNN}
 \label{sec:rnn_tracks}
 
+- Track requirement 400 MeV
 
-- Hyperparams mainly optimised for 1-prong operation
+- Val loss vs number of tracks (time ordering makes no sense?)
 
-Hyperparameters do not claim to be optimal. Roughly optimised by hand observing the validation loss during training.
+- Input variables and motivation for each
+
+- Preprocessing
 
 
-\todo[inline]{ROC-Curves}
 
-\todo[inline]{Check whether the missing tau hits in the ID are a problem at
-  high-pt.}
+- Number of units for different layers
+
+- Hyperparameters mainly optimised for 1-prong
+
+- Hyperparameters not claim to be optimal. Roughly optimised by hand obs. val loss
+
+
+
+- ROC Curve
+
+- Variable importance
+
+- Correlations
+
+
+
+- Working points deferred to later
+
+- What else has been tested? (Bidirectional, stacked)
+
 
 Using reconstructed tracks with a minimum transverse momentum of
 \SI{400}{\mega\electronvolt} (already applied in track reconstruction).
@@ -193,21 +213,6 @@ Variable importances:
   \caption{Variable importance table}
 \end{table}
 
-\todo{use 10 tracks}
-
-\todo[inline]{uses 32 lstm units}
-
-\todo{Variable importance (in groups?)}
-
-\todo{\SI{40}{\percent} training, \SI{10}{\percent} validation and \SI{50}{\percent} testing}
-
-What has been tested:
-\begin{itemize}
-\item Ordering $p_\text{T}$
-\item Preprocessing
-\item Variables: Track classification
-\item
-\end{itemize}
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -226,20 +231,6 @@ What has been tested:
   \caption{Tracks associated with a tau}
   \label{fig:rnn_ntracks}
 \end{figure}
-
-\begin{itemize}
-\item Motivation (i.e. \texttt{SumPtTrkFrac} \& MVA-tracking)
-\item Architecture (mention rough optimisation by hand while monitoring
-  validation loss)
-\item Preprocessing
-\item Input variables \& correlation with true (or predicted?) class labels.
-  Partial dependence plots? Variable importance?
-\item Standalone performance vs. BDT-based ID
-\end{itemize}
-
-\begin{itemize}
-\item Validation loss vs.\ sample size
-\end{itemize}
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -278,6 +269,9 @@ What has been tested:
     for leading 1 or 3 tracks far for rest. Ref to plot in appendix.}
 \end{figure}
 
+
+\todo[inline]{Check whether the missing tau hits in the ID are a problem at
+  high-pt.}
 
 \subsection{Cluster-RNN}
 \label{sec:rnn_clusters}
