@@ -115,14 +115,6 @@ while the 3-prong identification was not significantly affected. Therefore, the
 aim is to improve the use of isolation information in reconstructed tracks of a
 hadronic tau decay.
 
-For this purpose recurrent neural networks using the LSTM architecture are used
-to classify a sequence of objects reconstructed in the detector. The following
-will focus on describing the method using tracks in the inner detector but using
-different physics objects is analogous.
-
-each track has associated variables: track transverse momentum angular distances (specifics later)
-can also have global variables not associated with a specific track (e.g.\ tau variables)
-
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=0.9]{./figures/rnn/track_rnn_schematic.pdf}
@@ -131,13 +123,23 @@ can also have global variables not associated with a specific track (e.g.\ tau v
   \label{fig:track_rnn_schematic}
 \end{figure}
 
-In Figure~\ref{fig:track_rnn_schematic} the architecture used in this chapter.
+For this purpose recurrent neural networks using the LSTM architecture are used
+to classify a sequence of objects reconstructed in the detector. The following
+will focus on describing the method using tracks in the inner detector but the
+use of other physics objects is analogous. Figure~\ref{fig:track_rnn_schematic}
+describes the architecture used for the remainder of this chapter. Reconstructed
+hadronic tau decays have a number of associated tracks, which can be interpreted
+as elements in a sequence. Each track in the sequence has variables related to
+the properties of the track, e.g.\ the transverse momentum of the track.
+Moreover, the elements can also be assigned global information about the tau
+decay. The sequence of tracks is sorted given a well-defined and physically
+motivated ordering scheme. For the RNN using track information a
+descending~$p_\text{T}^\text{track}$ ordering is used. In practice the maximum
+sequence length is limited by truncation.
 
 
-- Take sequences of reconstructed objects. In this case tracks and clusters and
-their properties. Also properties of the global tau.
 
-- Pass them one by one to a recurrent neural network (ordering)
+
 
 - Perform tau identification. Classifying a sequence of objects
 
