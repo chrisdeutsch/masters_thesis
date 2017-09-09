@@ -3,19 +3,17 @@
 \label{sec:rnn}
 
 This chapter investigates the application of neural networks for tau
-identification. First it will be shown that a simple multi-layer perceptron
-(MLP) can achieve a classification performance comparable to the optimised BDT
-from the previous chapter. Subsequently, novel sequence learning techniques are
-employed to create classifiers operating on sequences of reconstructed objects.
-For this the recurrent neural networks based on the LSTM architecture are used
-to create classifiers operating on tracks in the inner detector and clusters in
-the calorimeter. In this context a tau identification algorithm using purely
+identification. First it will be shown that a multi-layer perceptron (MLP) can
+achieve a classification performance comparable to the optimised BDT from the
+previous chapter. Subsequently, novel sequence learning techniques are employed
+to create classifiers operating on sequences of reconstructed objects. For this
+the recurrent neural networks based on the LSTM architecture are used to create
+classifiers operating on tracks in the inner detector and clusters in the
+calorimeter. In this context a tau identification algorithm using purely
 calorimeter information is developed and its potential application for reducing
 the trigger-rate of a di-tau trigger at the \emph{High Luminosity LHC} (HL-LHC)
 is presented. Finally, a model combining the multi-layer perceptron and the
 recurrent networks operating on track- and cluster-information is developed.
-
-\todo[inline]{Same samples as BDT-ID (except HL-LHC).}
 
 \section{Identification using Feedforward Neural Networks}
 \label{sec:ffnn_id}
@@ -131,6 +129,17 @@ their properties. Also properties of the global tau.
 
 \todo[inline]{Correlation with output / label}
 \todo[inline]{Group-wise variable importances for RNN}
+
+
+A shared
+dense layer applies an affine transformation to the input variables of each PFO.
+Afterwards the transformed sequences are fed into the recurrent layer returning
+a single vector of activations.
+The activations of both branches are
+concatenated \todo{shorten this as it will be explained in the RNN-ID part} and
+passed through a network containing three dense layers.
+
+
 
 \subsection{Track-RNN}
 \label{sec:rnn_tracks}

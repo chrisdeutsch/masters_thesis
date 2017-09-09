@@ -5,7 +5,7 @@
 \todo[inline]{Shots are actually used in PanTau. Check if I stated the opposite.}
 
 In this chapter the sequence learning techniques developed for
-tau-identification are applied to the problem of decay mode classification of
+tau identification are applied to the problem of decay mode classification of
 hadronic tau lepton decays. In the following the decay modes containing one
 charged hadron~\smash{$h^\pm$} with one~\smash{$h^\pm \pi^0$} or more than one
 neutral pion~\smash{$h^\pm \geq 2\pi^0$} as well as three charged hadrons
@@ -75,7 +75,7 @@ subtracted from the closest neutral PFO cluster if the angular distance between
 cluster and extrapolated track is smaller than~$\Delta R < 0.04$. Neutral PFOs
 can often be reconstructed from an incomplete subtraction of the charged hadron
 energy deposition in the EM calorimeter or by pile-up. For decay mode
-classification it is necessary to identify the neutral pions in all
+classification it is necessary to identify the neutral pions in the
 reconstructed neutral PFOs of the tau decay. The identification exploits the
 difference in shower shape of hadronic showers from charged hadrons and compact
 showers from photons of the $\pi^0$-decay using multivariate methods.
@@ -116,16 +116,14 @@ from a neutral pion and remnants of the subtraction or pile-up.
 
 The network architecture used for the decay mode classification is shown in
 Figure~\ref{fig:pfo_rnn_baseline_arch} and is similar to the networks used for
-tau-identification in the previous chapter. The inputs of the network are split
-into two branches each accepting a number of charged and neutral PFOs. A shared
-dense layer applies an affine transformation to the input variables of each PFO.
-Afterwards the transformed sequences are fed into the recurrent layer returning
-a single vector of activations. The activations of both branches are
-concatenated \todo{shorten this as it will be explained in the RNN-ID part} and
-passed through a network containing three dense layers. The final dense layer
-has five units equal to the number of decay modes to classify. Application of
-the Softmax activation function on the final layer ensures that the output
-activations can be interpreted as mode probabilities.
+tau identification in the previous chapter. The inputs of the network are split
+into two branches each accepting a number of charged and neutral PFOs. Each
+branch consists of a shared dense layer followed by the recurrent layer. The
+activations of both branches are merged and passed to a network consisting of
+three dense layers. The final dense layer has five units equal to the number of
+decay modes to classify. Application of the Softmax activation function on the
+final layer ensures that the output activations can be interpreted as mode
+probabilities.
 
 \subsection{Baseline Model}
 \label{sec:pfo_baseline}
@@ -133,20 +131,18 @@ activations can be interpreted as mode probabilities.
 For training and evaluation of the model a sample of the
 process~$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used (cf.\
 Section~\ref{sec:bdt_eventsim}). Compared to the dataset used for the
-tau-identification studies, it features an updated tuning of the default decay
+tau identification studies, it features an updated tuning of the default decay
 mode classification and an increase in the number of simulated events by
 \SI{50}{\percent}. The sample is given in Appendix~\ref{app:mc16a_taus}.
 
 \begin{table}[htb]
   \centering
   {\small\input{./tables/decay_mode_reco.tex}}
-  \caption{Mode reconstruction efficiencies. $h^\pm$ can be pion or kaon.
-    Intermediate decays via neutral kaons are excluded. Branching fraction
-    $\mathcal{B}$; Mode fractions of reconstructed taus passing preselection
-    $f_\text{reco}$; Mode fraction of taus also passing medium tau id.
-    $f_\text{BR}$ fraction assuming fully efficient reconstruction.}
+  \caption{Mode fractions of reconstructed taus after
+    preselection~$f_\text{reco}$ and the expected mode fraction of a fully
+    efficient reconstruction~$f_\text{BR}$ given the branching
+    ratio~$\mathcal{B}$.}
   \label{tab:mode_reco_eff}
-  \todo[inline]{What should be in this table?}
 \end{table}
 
 In addition to the baseline tau selection given in
