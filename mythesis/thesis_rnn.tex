@@ -10,7 +10,7 @@ to create classifiers operating on sequences of reconstructed objects. For this
 the recurrent neural networks based on the LSTM architecture are used to create
 classifiers operating on tracks in the inner detector and clusters in the
 calorimeter. In this context a tau identification algorithm using purely
-calorimeter information is developed and its potential application for reducing
+calorimetric information is developed and its potential application for reducing
 the trigger-rate of a di-tau trigger at the \emph{High Luminosity LHC} (HL-LHC)
 is presented. Finally, a model combining the multi-layer perceptron and the
 recurrent networks operating on track- and cluster-information is developed.
@@ -77,16 +77,21 @@ intermediate efficiency range the performance degrades slightly. The 3-prong MLP
 is consistent with the performance of the optimised BDT identification with a
 small improvement at high efficiencies.
 
-To summarise, both the 1- and 3-prong MLP show similar performance
+To summarise, both the 1- and 3-prong MLP achieve similar performance
 characteristics as the optimised BDT from Chapter~\ref{sec:bdt}. The results
 show that neural networks are a viable method to perform tau identification.
-
-\todo[inline]{A sentence to transition into the next chapter.}
 
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
 
-- After showing that a simple MLP can capture the performance of the optimised BDT proceed to using sequence learning for tau identification.
+Thus far approaches of tau identification use high-level variables that
+summarise properties of reconstructed objects in the detector. This has the
+advantage that identification can be understood and investigations into
+systematic errors are simplified. However, discriminative power can be lost when
+transitioning from low- to high-level variables. Therefore, an approach is
+presented capturing low-level information by employing sequence classification
+techniques. A general description of the method is given and subsequently
+applied to reconstructed tracks and clusters in the calorimeter.
 
 \subsection{General Description}
 \label{sec:rnn_descr}
@@ -334,17 +339,17 @@ centre-of-mass energy
 of~$\sqrt{s} = \SI{14}{\TeV}$~\cite{hl_lhc_prelim_design_report}. This
 corresponds to a five- to sevenfold increase in luminosity with respect to the
 beginning of Run-II and increases the average number of interactions per bunch
-crossing to \num{200}. The increase in particle density poses a challenge to the
-trigger systems and reconstruction algorithms.
+crossing to up to \num{200}. The increase in particle density poses a challenge
+to the trigger systems and reconstruction algorithms.
 
-In the ATLAS experiment a \emph{Global Trigger System} aims to provide access to
-the full calorimeter granularity with topoclustering and jet finding using
-iterative jet algorithms in regions of interest~\cite{phase_2_scoping}. This
-aims to improve the identification of physics objects at trigger-level to cope
-with increasing trigger rates due to pile-up. Due to the availability of full
-calorimeter granularity, offline reconstructed taus can be used to give
-prospects of the potential performance of a di-tau trigger in the HL-LHC
-environment.
+An upgrade of the ATLAS trigger with a \emph{Global Trigger System} aims to
+provide access to the full calorimeter granularity with topoclustering and jet
+finding using iterative jet algorithms in regions of
+interest~\cite{phase_2_scoping}. This aims to improve the identification of
+physics objects at trigger-level to cope with increasing trigger rates due to
+pile-up. Due to the availability of full calorimeter granularity, offline
+reconstructed taus can be used to give prospects of the potential performance of
+a di-tau trigger in the HL-LHC environment.
 
 A prospective study on the usage of the cluster-based RNN for identification of
 taus in a di-tau trigger is given. Offline reconstructed taus are used as an
