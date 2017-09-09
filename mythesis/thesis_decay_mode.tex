@@ -2,8 +2,6 @@
 \chapter{Decay Mode Classification of Hadronic Tau Lepton Decays}
 \label{sec:decaymode}
 
-\todo[inline]{Shots are actually used in PanTau. Check if I stated the opposite.}
-
 In this chapter the sequence learning techniques developed for
 tau identification are applied to the problem of decay mode classification of
 hadronic tau lepton decays. In the following the decay modes containing one
@@ -138,9 +136,9 @@ mode classification and an increase in the number of simulated events by
 \begin{table}[htb]
   \centering
   {\small\input{./tables/decay_mode_reco.tex}}
-  \caption{Mode fractions of reconstructed taus after
+  \caption{Mode fractions of reconstructed taus after the
     preselection~$f_\text{reco}$ and the expected mode fraction of a fully
-    efficient reconstruction~$f_\text{BR}$ given the branching
+    efficient reconstruction~$f_\text{BR}$ according to the branching
     ratio~$\mathcal{B}$.}
   \label{tab:mode_reco_eff}
 \end{table}
@@ -156,14 +154,14 @@ after applying this preselection is summarised in Table~\ref{tab:mode_reco_eff}.
 
 The discrimination of the decay modes utilises kinematic quantities of the
 reconstructed tau decay as well as the charged and neutral particle flow
-objects. The variables attached to each neutral and charged PFO are summarised
-in the following:
+objects. The variables attached to each neutral and charged PFO passed to the
+network are summarised in the following:
 \begin{description}
 \item[Kinematic quantities of the reconstructed tau decay:] The visible
   transverse momentum~$p_\text{T}^\tau$ and the angular
   direction~$(\varphi_\tau, \eta_\tau)$ of the reconstructed tau axis. The
-  momentum is calibrated at LC scale without applying a tau-specific energy
-  calibration.
+  momentum is calibrated at LC scale without applying any tau-specific energy
+  calibrations.
 
 \item[Kinematic quantities of charged and neutral PFOs:] The reconstructed
   transverse momentum $p_\text{T}^\text{PFO}$ and the signed angular distances
@@ -172,16 +170,17 @@ in the following:
   angular distance~$\Delta\varphi$ is defined analogously to the longitudinal
   case but also accounting for the periodicity in the azimuthal angle~$\varphi$.
   Angular deviations from the tau axis are used to ensure that coordinates are
-  comparable between different tau candidates.
+  comparable between different tau candidates. \todo{Abbrev.\ angular distance
+    -- should be explained for RNN-ID.}
 \end{description}
 For neutral PFOs the set of variables is extended to allow for the
 identification of clusters originating from neutral pions. In addition to the
-kinematic quantities the following variables are used:
+kinematic quantities, the following variables are used:
 \begin{description}
-\item[$\pi^0$-identification score $S_\text{BDT}^{\pi^0}$:] BDT-based
-  discriminant combining shower shape information in the electromagnetic part of
-  the calorimeter to identify neutral PFOs originating from photons of the
-  $\pi^0$-decay~\cite{atlas:taurec:decaymodes}.
+\item[\smash{$\pi^0$}-identification score \smash{$S_\text{BDT}^{\pi^0}$}:]
+  BDT-based discriminant combining shower shape information in the
+  electromagnetic part of the calorimeter to identify neutral PFOs originating
+  from photons of the \smash{$\pi^0$}-decay~\cite{atlas:taurec:decaymodes}.
 
 \item[Number of shots $N_\text{shots}$:] Number of shots (cf.\
   Section~\ref{sec:shot_reco}) associated with a neutral PFO cluster. Shots are
@@ -200,8 +199,7 @@ kinematic quantities the following variables are used:
 \end{description}
 
 Analogously to the RNN-based tau identification in Chapter~\ref{sec:rnn}, the
-full dataset is split into a training~(\SI{50}{\percent}),
-validation~(\SI{10}{\percent}) and testing sample~(\SI{40}{\percent}). The
+full dataset is split into a training, validation and testing sample. The
 transverse momenta of the reconstructed tau and PFOs are log-transformed and
 subsequently standardised. For the neutral PFO specific
 variables~\smash{$S_\text{BDT}^{\pi^0}$} and \smash{$N_\text{shots}$} no
@@ -212,7 +210,7 @@ the~$[-1, 1]$-interval.
 Charged and neutral PFOs are passed in ascending transverse momentum ordering to
 a shared dense layers with 24 units each. A maximum of three charged PFOs each
 corresponding to a \emph{charged} track and up to ten neutral PFOs are used. The
-intermediate representations after the shared dense layers are passed into the
+intermediate representations after the shared dense layers are passed to the
 LSTM layers, each returning a vector of 24 activations. The activations of both
 branches are merged and passed through a network of three dense layers with 48,
 32 and 5 units, respectively.
@@ -250,7 +248,7 @@ comparison is given in Appendix~\ref{app:mode_classification_track_constraint}).
 
 Neutral PFOs with small transverse momenta often do not originate from neutral
 pions but from other sources. Moreover, it is not understood how well they are
-modelled in the simulation. Therefore neutral PFOs passed to the network (at
+modelled in the simulation. Therefore, neutral PFOs passed to the network (at
 training and evaluation time) are required to exceed a predefined
 $p_\text{T}$-threshold. The diagonal efficiency, i.e.\ the fraction of correctly
 classified modes in an independent sample, is summarised in
@@ -260,7 +258,7 @@ indicating that the model is insensitive to low momentum PFOs from sources other
 than a \smash{$\pi^0$}-decay. This is expected as the network has access to the
 \smash{$\pi^0$}-identification score and transverse momentum. Additionally, only
 a slow decrease in diagonal efficiency is observed when increasing the
-threshold. The studies in this thesis use a \SI{1.5}{\giga\electronvolt}
+threshold. The studies in this thesis use the \SI{1.5}{\giga\electronvolt}
 threshold to account for potential mismodelling but further studies are needed
 to prove the necessity of this cut.
 
@@ -289,7 +287,7 @@ to prove the necessity of this cut.
 Figure~\ref{fig:mode_proba_ptcut} depicts two examples of mode probability
 estimates on the testing sample. A complete set of probabilities for all five
 decay modes is omitted for brevity and can be found in
-Appendix~\ref{app:baseline_probabilities}. The $h^\pm$ mode probability in
+Appendix~\ref{app:baseline_probabilities}. The $h^\pm$~mode probability in
 Figure~\ref{fig:1p0n_proba} shows that the estimated probabilities for generated
 modes containing one or more neutral pions are frequently small. Nevertheless,
 when no neutral PFOs are reconstructed they can be as large as
@@ -387,9 +385,9 @@ in the EM calorimeter. This can lead to neutral PFOs being reconstructed from
 clusters originating from individual electrons, affecting the
 \smash{$\pi^0$}-identification score and the number of associated shots. In some
 cases the algorithm can fail to reconstruct neutral PFOs, thus the presence of
-high momentum conversion tracks can be an indicator of decay modes containing
-neutral pions. The inclusion of conversion tracks in the classification aims to
-reduce migrations to decay modes with fewer neutrals.
+conversion tracks can be an indicator of decay modes containing neutral pions.
+The inclusion of conversion tracks in the classification aims to reduce
+migrations to decay modes with fewer neutrals.
 
 The architecture of the baseline model (cf.\
 Figure~\ref{fig:pfo_rnn_baseline_arch}) is extended by a third branch taking a
@@ -573,7 +571,7 @@ Appendix~\ref{app:combined_probabilities}.
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat.pdf}
     \subcaption{Purity matrix}
   \end{subfigure}
-  \caption{Migration and purity matrices of the extended model including
+  \caption{Migration and purity matrix of the extended model including
     conversion, shot and additional cluster information. Evaluated on the
     testing sample with negligible statistical errors.}
   \label{fig:decay_mode_combined}
@@ -592,7 +590,7 @@ due to the abundant $h^\pm \pi^0$~mode is mainly reduced by the inclusion of
 conversion tracks and shots.
 % Tau decays without reco. neutral PFOs!
 Moreover, the reconstructed $h^\pm \geq 2\pi^0$~mode purity, also showing
-contamination of $h^\pm$, is primarily improved by the inclusion of shot
+contamination of $h^\pm \pi^0$, is primarily improved by the inclusion of shot
 information.
 % Merged pi0 clusters
 
@@ -623,7 +621,7 @@ momentum of the tau. In contrast to this, the 1-prong mode with more than one
 and the 3-prong mode with neutral pions show a significant increase in
 efficiency over the \num{20} to \SI{40}{\GeV} transverse momentum range. A
 possible explanation is that the classifier misses increasingly soft neutral
-pions for low momentum tau decays.
+pions for low momentum tau decays. \todo{Does not explain the purity behaviour}
 
 \begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
@@ -662,7 +660,7 @@ efficiency at low momentum~$p_\text{T} < \SI{100}{\GeV}$ is with
 \SI{81.4}{\percent} unaffected by the training on the extended momentum range,
 while at higher momenta it amounts to \SI{77.6}{\percent}. The extended momentum
 range could be beneficial to analyses with high-momentum taus that also employ
-decay mode information.
+decay mode information. \todo{Explain what happens at large transverse momenta}
 
 In the ATLAS experiment two alternative energy calibrations for reconstructed
 hadronic tau decays are available. These use the reconstructed decay mode to
@@ -678,7 +676,7 @@ double~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay,
 corresponding to the $h^\pm \pi^0$ mode. The $\mathcal{CP}$ measurement requires
 the neutral pions in the final state to be reconstructed and identified.
 However, the RNN-based classification does not provide a direct causal
-relationship between a neutral PFO and the decay mode decision. Therefore an
+relationship between a neutral PFO and the decay mode decision. Therefore, an
 additional algorithm would be required to identify and reconstruct neutral pions
 in an event of a given decay mode. For the $\mathcal{CP}$ measurement in the
 $\rho\nu$ mode using the extended model an absolute improvement in mode
