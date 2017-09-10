@@ -427,6 +427,39 @@ high-$p_\text{t}$.
 \subsection{Combined-RNN}
 \label{sec:rnn_combined}
 
+\begin{figure}[htb]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/roc.pdf}
+    \subcaption{ROC-curves comparing RNN and BDT ID}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/ratios.pdf}
+    \subcaption{Ratios}
+  \end{subfigure}
+  \caption{ROC Combined.}
+  \label{fig:roc_combined}
+\end{figure}
+
+\begin{figure}[htb]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \missingfigure{1-prong rejection}
+    \subcaption{1-prong}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \missingfigure{3-prong rejection}
+    \subcaption{3-prong}
+  \end{subfigure}
+  \caption{Rejection at tight working point.}
+  \label{fig:combined_working_points}
+\end{figure}
+
+
+
+
 \todo[inline]{ROC-Curves}
 
 \todo[inline]{Money plot: Rejection vs pt for Combined, Optimised BDT and
