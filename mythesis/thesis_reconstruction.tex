@@ -74,11 +74,11 @@ is associated to the tau candidate.
 After the primary vertex is found, the visible four-momentum of the tau
 candidate is calculated.
 % Assuming constituents have zero mass.
-For this the barycentre of cluster energy (LC scale) in the jet is determined.
+For this the barycentre of cluster energy at LC scale in the jet is determined.
 The four-momentum of each jet constituent in the coordinate system of the
 associated vertex, falling within a cone of~$\Delta R < 0.2$ with respect to the
 barycentre, is summed. This defines the visible tau momentum at LC scale and the
-tau-axis. The visible tau momentum at LC scale is used as a baseline for further
+tau axis. The visible tau momentum at LC scale is used as a baseline for further
 energy calibrations.
 
 \section{Track Selection and Classification}
@@ -89,7 +89,7 @@ energy calibrations.
 % TauTrackClassifier:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/Root/TauTrackClassifier.cxx
 Tracks reconstructed in the inner detector are associated with a tau candidate
-if they are within a cone of size~$\Delta R < 0.4$ with respect to the tau-axis.
+if they are within a cone of size~$\Delta R < 0.4$ with respect to the tau axis.
 % The tracks are classified into core, wide, and other tracks: If the tracks
 % fail track selection (pt > 1GeV, IPd0Max = 1mm, IPz0Max = 1.5mm, nHitPix >= 2,
 % nHitSi >= 7) they are classified as 'other'.
@@ -144,7 +144,7 @@ parameter with respect to the associated primary vertex and $N_\text{Pixel}$
 ($N_\text{Si}$) the number of pixel (silicon) hits including dead sensors on the
 trajectory. Tracks in the \emph{modified isolation} category are used to
 calculate discriminants, e.g.\ the momentum fraction of isolation tracks, for
-tau-identification.
+tau identification.
 
 % \begin{figure}[htb]
 %   \centering
@@ -206,8 +206,8 @@ reconstructed object to reduce bias and improve the resolution of the energy
 measurement.
 
 The visible transverse momentum at LC scale~$p_\text{T}^\text{LC}$ increases
-linearly with the number of reconstructed vertices~$N_\text{PV}$. Therefore, the
-pile-up contribution to the transverse momentum is estimated
+linearly with the number of reconstructed primary vertices~$N_\text{PV}$.
+Therefore, the pile-up contribution to the transverse momentum is estimated
 by~\cite{atlas:taurec:run2, calo_tes}
 \begin{align*}
   p_\text{T}^\text{pileup}(N_\text{PV}, |\eta|, n_\text{p}) &= A(|\eta|, n_\text{p}) \times N_\text{PV} \eqcomma
@@ -238,17 +238,17 @@ discussed here, as only LC- and TES-calibrated taus are used in this thesis.
 \label{sec:shot_reco}
 
 Reconstructing individual photons originating from neutral pions in hadronic tau
-decays can be useful for various applications (e.g.\ classification of the
-hadronic decay mode). The photons from the $\pi^0$-decay are highly collimated
-and therefore deposit their energy in a single \emph{TopoCluster}. The fine
-$\eta$-segmentation of the strip layer EM1 allows individual photons to be
+decays can be useful for various applications like classification of the
+hadronic decay mode. The photons from the $\pi^0$-decay are highly collimated
+and therefore often deposit their energy in a single \emph{TopoCluster}. The
+fine $\eta$-segmentation of the strip layer EM1 allows individual photons to be
 detected using local maxima of cell energy. The reconstructed objects are called
 \emph{shots}.
 
 % TauShotFinder
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauShotFinder.cxx
 The reconstruction of shots uses calorimeter cells in EM1 in a cone
-of~$\Delta R < 0.4$ with respect to the tau-axis that
+of~$\Delta R < 0.4$ with respect to the tau axis that
 fulfil~$E_\text{T} > \SI{100}{\MeV}$. A shot is seeded by cells with a local
 maximum of transverse energy in $\eta$.
 % The neighboring cells are required to have smaller $E_\text{T}$.
