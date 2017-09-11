@@ -242,8 +242,7 @@ Variable importances:
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/ratios.pdf}
-    \subcaption{Rejection ratio of the Track-RNN with respect to the optimised
-      BDT.}
+    \subcaption{Ratio of rejection of the Track-RNN and the optimised BDT.}
   \end{subfigure}
   \caption{Classification performance of the Track-RNN compared to the optimised
     BDT for tau identification.}
@@ -323,8 +322,7 @@ Variable evolution:
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/cluster/ratios.pdf}
-    \subcaption{Rejection ratio of the Cluster-RNN with respect to the optimised
-      BDT.}
+    \subcaption{Ratio of rejection of the Cluster-RNN and the optimised BDT.}
   \end{subfigure}
   \caption{Classification performance of the Cluster-RNN compared to the optimised
     BDT for tau identification.}
@@ -431,16 +429,18 @@ high-$p_\text{t}$.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/combined/roc.pdf}
-    \subcaption{ROC-curves comparing RNN and BDT ID}
+    \subcaption{ROC-curves for 1-prong (1P) and 3-prong (3P) tau identification.}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/combined/ratios.pdf}
-    \subcaption{Ratios}
+    \subcaption{Ratio of rejection of the combined model and the optimised BDT.}
   \end{subfigure}
-  \caption{ROC Combined.}
+  \caption{Classification performance of the combined model compared to the
+    optimised BDT for tau identification.}
   \label{fig:roc_combined}
 \end{figure}
+
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -458,16 +458,8 @@ high-$p_\text{t}$.
 \end{figure}
 
 
-
-
-\todo[inline]{ROC-Curves}
-
-\todo[inline]{Money plot: Rejection vs pt for Combined, Optimised BDT and
-  Reference}
-
 \begin{itemize}
 \item Architecture
-\item Performance w.r.t. BDT-ID
 \item ROC of Track+Cluster \& Track+Cluster+IDvars
 \item 3-prong cannot achieve Tau-ID level: Secondary vertex determination and
   invariant mass difficult
