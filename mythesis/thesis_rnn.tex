@@ -329,6 +329,8 @@ Variable evolution:
   \label{fig:cluster_rnn_roc_ratios}
 \end{figure}
 
+\todo[inline]{Pile-up dependency of RNN vs BDT-ID}
+
 \subsubsection{Di-Tau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}
 
@@ -441,7 +443,6 @@ high-$p_\text{t}$.
   \label{fig:roc_combined}
 \end{figure}
 
-
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -453,19 +454,13 @@ high-$p_\text{t}$.
     \includegraphics{./figures/rnn/combined/rnn_3p_tight.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Rejection at tight working point.}
+  \caption{Background rejection at the tight working point as a function of the
+    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
+    RNN-based identification.}
   \label{fig:combined_working_points}
 \end{figure}
 
 
-\begin{itemize}
-\item Architecture
-\item ROC of Track+Cluster \& Track+Cluster+IDvars
-\item 3-prong cannot achieve Tau-ID level: Secondary vertex determination and
-  invariant mass difficult
-\end{itemize}
-
-\todo[inline]{Study pile-up dependency of RNN vs BDT-ID}
 
 %%% Local Variables:
 %%% mode: latex
