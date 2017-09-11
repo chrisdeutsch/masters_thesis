@@ -125,112 +125,131 @@ hadronic tau decay.
 
 For this purpose recurrent neural networks using the LSTM architecture are used
 to classify a sequence of objects reconstructed in the detector. The following
-will focus on describing the method using tracks in the inner detector but the
-use of other physics objects is analogous. Figure~\ref{fig:track_rnn_schematic}
-describes the architecture used for the remainder of this chapter. Reconstructed
-hadronic tau decays have a number of associated tracks, which can be interpreted
-as elements in a sequence. Each track in the sequence has variables related to
-the properties of the track, e.g.\ the transverse momentum of the track.
-Moreover, the elements can also be assigned global information about the tau
-decay. The sequence of tracks is sorted given a well-defined and physically
-motivated ordering scheme. For the RNN using track information a
-descending~$p_\text{T}^\text{track}$ ordering is used. In practice the maximum
-sequence length is limited by truncation.
+will focus on describing the method using tracks in the ID but the use of other
+physics objects is analogous. Figure~\ref{fig:track_rnn_schematic} describes the
+architecture used in this chapter. Reconstructed hadronic tau decays have a
+number of associated tracks, which can be interpreted as elements in a sequence.
+Each track in the sequence has variables related to the properties of the track,
+e.g.\ the transverse momentum of the track. Moreover, the elements can also be
+assigned global information about the tau decay, e.g.\ the visible transverse
+momentum of the tau. The sequence of tracks is sorted according to a
+well-defined and physically motivated ordering scheme. For the RNN using track
+information a descending~$p_\text{T}^\text{track}$ ordering is used. In practice
+the maximum sequence length is limited by truncation.
 
 The tracks and the values of their input variables are passed in order to a
 dense layer with shared weights. This layer applies a transformation on the
 variables of each individual track, where the parameters of this transformation
-are shared between each element in the sequence. This layer creates a sequence
-of intermediate representations of the tracks, which are then passed to the
+are shared between each element in the sequence. It creates a sequence of
+intermediate representations of the tracks, which are then passed to the
 recurrent layer employing the LSTM architecture. The output of the final time
-step of the RNN, consisting of a vector of activations, is then passed to a
-dense layer with one neuron and logistic sigmoid activation. The activation of
-the output neuron can then be used to classify the tau candidate as signal or
+step of the RNN, consisting of a vector of activations, is passed to a dense
+layer with one neuron and logistic sigmoid activation. The activation of the
+output neuron can then be used to classify the tau candidate as signal or
 background.
 
 \subsection{Track-RNN}
 \label{sec:rnn_tracks}
+\todo[inline]{Better name for this section.}
 
-- Track requirement 400 MeV
+The implementation of the RNN employing track information, hereafter abbreviated
+as Track-RNN, uses tracks associated with a reconstructed tau (i.e.\ tracks in a
+$\Delta R < 0.4$ cone around the tau axis) passing a transverse momentum
+threshold of \SI{400}{\MeV} from track reconstruction. The variables attached to
+each track are summarised in the following:
+\begin{description}
+\item[Transverse momentum of track and jet] The transverse momentum of the
+  track~$p_\text{T}^\text{track}$ as measured in the tracking system is used.
+  The inclusion of the track momentum is crucial as it allows the network to
+  discriminate between tracks originating from the hard scattering and soft
+  processes. Additionally, the transverse momentum of the anti-$k_\text{t}$ jet
+  used to seed the tau candidate~$p_\text{T}^\text{jet}$ is appended to the
+  input variables of each track.
+  \todo[inline]{Why jet seed instead of tau at LC scale?}
 
-- Input variables and motivation for each
+\item[Impact parameters w.r.t.\ the tau vertex] The transverse~$d_0$ and
+  longitudinal impact parameters~$z_0 \sin\theta$ (distance of closest approach
+  in the $z$-$r$ plane) with respect to the associated primary vertex of the tau
+  decay is used. The longitudinal impact parameter is multiplied
+  by~$\sin\theta$, where~$\theta$ is the azimuthal angle of the track
+  parametrisation, to account for larger errors of~$z_0$ for tracks in the
+  forward region. Impact parameter information is important to determine whether
+  a given track originated from the tau vertex. It allows to discriminate
+  between tracks from the tau decay or jet and tracks from other interactions
+  during the same bunch crossing.
 
-- Preprocessing
+\item[Angular distance to the tau axis] The signed angular distance of the track
+  to the tau axis in the longitudinal~$\Delta \eta$ and transverse
+  plane~$\Delta \varphi$. The angular distances allow probing the spacial
+  isolation of the tracks in a tau decay.
 
+\item[Track quality criteria] The Track-RNN includes basic track quality
+  criteria to allow to reject tracks of low reconstruction quality. Therefore,
+  the number of hits in the pixel layers~$N_\text{Pixel}$ and semiconductor
+  tracker~$N_\text{SCT}$ are used.
+  % IBL TOO!
 
+\item[Electron probability] The probability of the track originating from an
+  electron estimated using high-threshold hit information in the
+  TRT~$p_\text{HT}$. It is used to identify tracks originating from photon
+  conversion.
+\end{description}
+Including the track category from the multivariate track classification was also
+investigated leading to a small improvement in discrimination power. It is not
+included in favour of decoupling the tau identification from track
+classification.
 
-- Number of units for different layers
+Basic transformations are applied to the input variables to make them mroe
+appropriate for the use in neural networks. Therefore, the transverse
+momenta~$p_\text{T}^\text{track}$ and $p_\text{T}^\text{jet}$ are
+log-transformed. Moreover, only the absolute value of the impact parameters is
+used, which is also log-transformed. Similar to the MLP the input variables have
+to be standardised. For transverse momenta and impact parameters this is done by
+subtracting an offset and dividing by a scale factor. The offset is the mean of
+the corresponding quantity in tracks of the training sample and the scale factor
+the corresponding standard deviation. Angular distances are scaled into the
+$[-1, 1]$-interval and similarly the number of hits in the inner detector
+into~$[0, 1]$. The training process is analogous the the MLP and not repeated
+here.
 
-- Hyperparameters mainly optimised for 1-prong
+The size of the layers in the architecture depicted in
+Figure~\ref{fig:track_rnn_schematic} is optimised by observing the validation
+loss while varying the number of units in different layers. A configuration
+using 32 units in the shared dense layer and 32 units in the LSTM layer shows
+decent classification performance, while still being trainable in a reasonable
+amount of time.
 
-- Hyperparameters not claim to be optimal. Roughly optimised by hand obs. val loss
-
-- Val loss vs number of tracks (time ordering makes no sense?)
-
-
-
-- ROC Curve
-
-- Variable importance
-
-- Correlations
-
-
-
-- Working points deferred to later
-
-- What else has been tested? (Bidirectional, stacked)
-
-
-Using reconstructed tracks with a minimum transverse momentum of
-\SI{400}{\mega\electronvolt} (already applied in track reconstruction).
-
-Input Variables: Transverse momentum of the track $p_\text{T}^\text{track}$
-measured in the tracking system; Absolute value of the transverse impact
-parameter $d_0$ with respect to the associated vertex; Distance of closest
-approach to the primary vertex in the $z$-$r$ plane $z_0 \sin\theta$ where
-$\theta$ is the polar angle of the track \todo{Axis is corrected, use
-  $\sin\theta$ instead of $z_0$ due to expected larger error in forward
-  direction}; Signed angular distance of track and tau axis $\Delta \eta$ and
-$\Delta \varphi$; Electron probability from high-threshold hit information in
-the TRT $p_\text{HT}$; Number of hits in IBL $N_\text{hit}^\text{IBL}$, the
-three pixel layers (B-layer, 1 and 2) $N_\text{hit}^\text{pixel}$ and the SCT
-$N_\text{hit}^\text{SCT}$ (dead sensors crossed by the reconstructed track are
-also counted as hits).
-
-Variable importances:
-\begin{enumerate}
-\item $d_0$ and $z_0 \sin\theta$
-\item $p_\text{T}^\text{track}$ and $p_\text{T}^\text{jet}$
-\item $\Delta \eta$ and $\Delta \varphi$
-\item \texttt{nInnermostPixelHits}, \texttt{nPixelHits} and \texttt{nSCTHits}
-\item \texttt{eProbabilityHT}
-\end{enumerate}
-
-\begin{table}[ht]
-  \centering
-  {\small\input{./tables/track_rnn_var_importance.tex}}
-  \caption{Variable importance table}
-\end{table}
-
-
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/ntrk_1p.pdf}
-    \subcaption{NTracks for 1-prong taus. The reco.\ three prong distribution is
-      similar with the difference being that at least three tracks are
-      required.}
+    \subcaption{Number of tracks associated to a reconstructed 1-prong tau
+      candidate.}
+    \label{fig:ntracks_tau}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/nscan/track_1p_3p.pdf}
-    \subcaption{Val.\ loss vs.\ nTracks. Errors are of the
-      order of the marker size.}
+    \subcaption{Validation loss as a function of the number of tracks used in
+      the model.}
+    \label{fig:ntracks_loss}
   \end{subfigure}
-  \caption{Tracks associated with a tau}
+  \caption{Number of tracks associated to a tau candidate and their impact on
+    the discriminative power of the Track-RNN.}
   \label{fig:rnn_ntracks}
 \end{figure}
+
+In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given tau
+candidate is depicted. The number of associated tracks can be large especially
+for candidates from background events. For practical purposes the sequence of
+tracks is truncated to reduce the memory footprint as well as training and
+evaluation time of the network. As the tracks are sorted using a descending
+$p_\text{T}^\text{track}$-ordering, truncation will only discard low momentum
+tracks. Figure~\ref{fig:ntracks_loss} shows the classification power for
+different number of tracks used in the model. The leading six tracks show a
+significant impact on the discriminative power of the model. After ten tracks no
+further improvement is observed. Therefore, the model will use tracks truncated
+after the ten leading tracks in track momentum.
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -249,6 +268,26 @@ Variable importances:
   \label{fig:track_rnn_roc_ratios}
 \end{figure}
 
+
+- ROC Curve
+
+- Variable importance
+
+- Correlations
+
+
+
+- Working points deferred to later
+
+- What else has been tested? (Bidirectional, stacked)
+
+
+\begin{table}[ht]
+  \centering
+  {\small\input{./tables/track_rnn_var_importance.tex}}
+  \caption{Variable importance table (1-prong)}
+\end{table}
+
 \begin{figure}[ht]
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
@@ -261,9 +300,7 @@ Variable importances:
     \includegraphics{./figures/rnn/track/z0_corr.pdf}
     \subcaption{}
   \end{subfigure}
-  \caption{Classification performance of the Track-RNN compared to the optimised
-    BDT for tau identification.}
-  \label{fig:track_rnn_roc_ratios}
+  \caption{Correlations}
   \todo[inline]{Explain that $\Delta R$ is similar to $z_0$ i.e.\ close to axis
     for leading 1 or 3 tracks far for rest. Ref to plot in appendix.}
 \end{figure}
