@@ -119,12 +119,13 @@ axis.
 % https://indico.cern.ch/event/615208/contributions/2481630/attachments/1415563/2167141/TauCP_TrackClassificationTaskforce_20170220.pdf
 For each track a multi-class classification is performed categorising them into
 one of four track categories: \emph{charged}, \emph{conversion},
-\emph{isolation} and \emph{fake}. Tracks classified as \emph{charged} are tracks
-originating from charged pions of the tau decay. \emph{Conversion} tracks are
-created by long-lived secondary particles from converted photons or hadronic
-interactions. \emph{Isolation} tracks are from primary particles not originating
-from the tau decay and \emph{fake} tracks from combinations of unrelated space
-points in the inner detector.
+\emph{isolation} and \emph{fake} \todo{Sounds like generator level
+  classification}. Tracks classified as \emph{charged} are tracks originating
+from charged pions of the tau decay. \emph{Conversion} tracks are created by
+long-lived secondary particles from converted photons or hadronic interactions.
+\emph{Isolation} tracks are from primary particles not originating from the tau
+decay and \emph{fake} tracks from combinations of unrelated space points in the
+inner detector.
 
 The multi-class classification is performed by using three boosted decision
 trees~(BDT) organised into two stages. In the first stage a single BDT performs
@@ -215,7 +216,9 @@ energy contributions due to pile-up, energy depositions outside of the
 $\Delta R < 0.2$ cone and detector responses in different regions need to be
 taken into account. Therefore, an energy calibration is applied to the
 reconstructed object to reduce bias and improve the resolution of the energy
-measurement. \todo{Why $E \to \pt$}
+measurement. The calibration is applied to the \tauhadvis \pt at LC scale which
+is related to the visible energy~$E_\text{vis}$ given the mass and
+pseudorapidity of the \tauhadvis candidate.
 
 The visible transverse momentum at LC scale~$p_\text{T}^\text{LC}$ increases
 linearly with the number of reconstructed primary vertices~$N_\text{PV}$
