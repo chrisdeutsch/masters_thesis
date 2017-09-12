@@ -53,6 +53,14 @@ function, therefore returning probabilities of an event being signal-like. The
 binary cross-entropy loss function is used and minimised by the \emph{Adam}
 optimiser.
 
+In Figure~\ref{fig:roc_mlp_bdt_comparison} the ratio of rejection of the MLP and
+the optimised BDT is depicted as a function of the signal efficiency. The
+1-prong MLP shows comparable performance above \SI{60}{\percent} signal
+efficiency, which approximately corresponds to the tight working point. Over the
+intermediate efficiency range the performance degrades slightly. The 3-prong MLP
+is consistent with the performance of the optimised BDT identification with a
+small improvement at high efficiencies.
+
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -68,14 +76,6 @@ optimiser.
     function of signal efficiency. The band indicates the $1\sigma$-interval.}
   \label{fig:roc_mlp_bdt_comparison}
 \end{figure}
-
-In Figure~\ref{fig:roc_mlp_bdt_comparison} the ratio of rejection of the MLP and
-the optimised BDT is depicted as a function of the signal efficiency. The
-1-prong MLP shows comparable performance above \SI{60}{\percent} signal
-efficiency, which approximately corresponds to the tight working point. Over the
-intermediate efficiency range the performance degrades slightly. The 3-prong MLP
-is consistent with the performance of the optimised BDT identification with a
-small improvement at high efficiencies.
 
 To summarise, both the 1- and 3-prong MLP achieve similar performance
 characteristics as the optimised BDT from Chapter~\ref{sec:bdt}. The results
@@ -115,14 +115,6 @@ while the 3-prong identification was not significantly affected. Therefore, the
 aim is to improve the use of isolation information in reconstructed tracks of a
 hadronic tau decay.
 
-\begin{figure}[htb]
-  \centering
-  \includegraphics[scale=0.9]{./figures/rnn/track_rnn_schematic.pdf}
-  \caption{Schematic description of a recurrent neural network using individual
-    tracks for tau identification.}
-  \label{fig:track_rnn_schematic}
-\end{figure}
-
 For this purpose recurrent neural networks using the LSTM architecture are used
 to classify a sequence of objects reconstructed in the detector. The following
 will focus on describing the method using tracks in the ID but the use of other
@@ -136,6 +128,14 @@ momentum of the tau. The sequence of tracks is sorted according to a
 well-defined and physically motivated ordering scheme. For the RNN using track
 information a descending~$p_\text{T}^\text{track}$ ordering is used. In practice
 the maximum sequence length is limited by truncation.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=0.9]{./figures/rnn/track_rnn_schematic.pdf}
+  \caption{Schematic description of a recurrent neural network using individual
+    tracks for tau identification.}
+  \label{fig:track_rnn_schematic}
+\end{figure}
 
 The tracks and the values of their input variables are passed in the predefined
 order to a dense layer with shared weights. This layer applies a transformation
@@ -153,7 +153,7 @@ background.
 \todo[inline]{Better name for this section.}
 
 The implementation of the RNN employing track information, hereafter abbreviated
-as Track-RNN, uses tracks associated with a reconstructed tau, which are tracks
+as Track--RNN, uses tracks associated with a reconstructed tau, which are tracks
 in the $\Delta R < 0.4$ cone passing a transverse momentum threshold of
 \SI{400}{\MeV} from track reconstruction. The variables attached to each track
 are summarised in the following:
@@ -183,7 +183,7 @@ are summarised in the following:
   plane~$\Delta \varphi$. The angular distances allow probing the spacial
   isolation of the tracks in a tau decay.
 
-\item[Track quality criteria] The Track-RNN includes basic track quality
+\item[Track quality criteria] The Track--RNN includes basic track quality
   criteria to allow to reject tracks of low reconstruction quality. Therefore,
   the number of hits in the pixel layers~$N_\text{Pixel}$ and semiconductor
   tracker~$N_\text{SCT}$ are used.
@@ -221,6 +221,18 @@ amount of time. Alternative architectures using bidirectional LSTM and multiple
 consecutive LSTM layers were investigated and show only marginal improvements
 over the simpler model.
 
+In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given tau
+candidate is depicted. The number of associated tracks can be large especially
+for candidates from background events. For practical purposes the sequence of
+tracks is truncated to reduce the memory footprint as well as training and
+evaluation time of the network. As the tracks are sorted using a descending
+$p_\text{T}^\text{track}$-ordering, truncation will only discard low momentum
+tracks. Figure~\ref{fig:ntracks_loss} shows the classification power for
+different number of tracks used in the model. The leading six tracks show a
+significant impact on the discriminative power of the model. After ten tracks no
+further improvement is observed. Therefore, the model will use tracks truncated
+after the ten leading tracks in transverse track momentum.
+
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -237,21 +249,19 @@ over the simpler model.
     \label{fig:ntracks_loss}
   \end{subfigure}
   \caption{Number of tracks associated to a tau candidate and their impact on
-    the discriminative power of the Track-RNN.}
+    the discriminative power of the Track--RNN.}
   \label{fig:rnn_ntracks}
 \end{figure}
 
-In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given tau
-candidate is depicted. The number of associated tracks can be large especially
-for candidates from background events. For practical purposes the sequence of
-tracks is truncated to reduce the memory footprint as well as training and
-evaluation time of the network. As the tracks are sorted using a descending
-$p_\text{T}^\text{track}$-ordering, truncation will only discard low momentum
-tracks. Figure~\ref{fig:ntracks_loss} shows the classification power for
-different number of tracks used in the model. The leading six tracks show a
-significant impact on the discriminative power of the model. After ten tracks no
-further improvement is observed. Therefore, the model will use tracks truncated
-after the ten leading tracks in transverse track momentum.
+A comparison of the ROC-curves for the BDT- and RNN-based tau identification is
+depicted in Figure~\ref{fig:track_rnn_roc_ratios}. Both the 1- and 3-prong
+Track--RNN show a performance similar to the optimised BDT. The 1-prong
+Track--RNN shows a small improvement in rejection of \num{10} to
+\SI{20}{\percent} over the BDT depending on the signal efficiency. In contrast
+to this the 3-prong RNN cannot exceed the performance of the optimised BDT, only
+capturing \num{80} to \SI{90}{\percent} of rejection. These results indicate
+that the available information in tracks is not fully exploited in the current
+BDT-based identification.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -263,30 +273,12 @@ after the ten leading tracks in transverse track momentum.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/ratios.pdf}
-    \subcaption{Ratio of rejection of the Track-RNN and the optimised BDT.}
+    \subcaption{Ratio of rejection of the Track--RNN and the optimised BDT.}
   \end{subfigure}
-  \caption{Classification performance of the Track-RNN compared to the optimised
-    BDT for tau identification.}
+  \caption{Classification performance of the Track--RNN compared to the
+    optimised BDT for tau identification.}
   \label{fig:track_rnn_roc_ratios}
 \end{figure}
-
-A comparison of the ROC-curves for the BDT- and RNN-based tau identification is
-depicted in Figure~\ref{fig:track_rnn_roc_ratios}. Both the 1- and 3-prong
-Track-RNN show a performance similar to the optimised BDT. The 1-prong Track-RNN
-shows a small improvement in rejection of \num{10} to \SI{20}{\percent} over the
-BDT depending on the signal efficiency. In contrast to this the 3-prong RNN
-cannot exceed the performance of the optimised BDT, only capturing \num{80} to
-\SI{90}{\percent} of rejection. These results indicate that the available
-information in tracks is not fully exploited in the current BDT-based
-identification.
-
-\begin{table}[htb]
-  \centering
-  {\small\input{./tables/track_rnn_var_importance.tex}}
-  \caption{Variable importance of the 1-prong Track-RNN estimated by the
-    increase in validation loss when removing groups of input variables.}
-  \label{tab:var_importance_track_rnn}
-\end{table}
 
 Due to the complexity of the network, interpretation of the model based on the
 parameters learned during training is not possible. It must be viewed as a black
@@ -304,7 +296,37 @@ and~$\Delta \varphi$ show an importance similar to the transverse momenta.
 Compared to multijet events, tracks from hadronic tau decays are expected to be
 close to the tau axis resulting in small angular distances for tracks
 originating from the tau. The number of hits in the ID and the electron
-probability~$p_\text{HT}$ shows only a marginal importance in the Track-RNN.
+probability~$p_\text{HT}$ shows only a marginal importance in the Track--RNN.
+
+\begin{table}[htb]
+  \centering
+  {\small\input{./tables/track_rnn_var_importance.tex}}
+  \caption{Variable importance of the 1-prong Track--RNN estimated by the
+    increase in validation loss when removing groups of input variables.}
+  \label{tab:var_importance_track_rnn}
+\end{table}
+
+In Figure~\ref{fig:track_rnn_correlations} the correlations of the input
+variables for each track in the sequence with the signal
+probability~$p_\text{RNN}$ estimated by the Track--RNN is depicted. In hadronic
+tau lepton decays the leading tracks in transverse momentum often correspond the
+to the charged decay products. This can be seen in the significant change in
+correlation after the first or first three tracks for 1- and 3-prong candidates,
+respectively. The correlation of the transverse track
+momentum~$p_\text{T}^\text{track}$ in Figure~\ref{fig:track_rnn_corr_pt} shows a
+positive coefficient for the leading tracks. The positive correlation implies
+that candidates with leading tracks with high transverse momentum are more
+likely to get assigned a large signal probability~$p_\text{RNN}$ by the model.
+In contrast to this, subleading tracks with large transverse momentum tend to
+reduce the signal probability, thus are more likely associated with background
+tau candidates. Similarly, the distance of closest approach to the primary
+vertex in the $\rho z$-plane~$|z_0 \sin\theta|$ in
+Figure~\ref{fig:track_rnn_corr_z0} shows that signal events are more likely to
+have leading tracks close to the primary vertex, while subleading tracks exhibit
+larger distances to the vertex. The same behaviour is observed for the
+transverse impact parameter~$|d_0|$ and the $\Delta R$-distance to the tau axis,
+which can be calculated using the signed angular distances~$\Delta \eta$ and
+$\Delta \varphi$.
 
 \begin{figure}[htb]
   \centering
@@ -328,28 +350,6 @@ probability~$p_\text{HT}$ shows only a marginal importance in the Track-RNN.
   \label{fig:track_rnn_correlations}
 \end{figure}
 
-In Figure~\ref{fig:track_rnn_correlations} the correlations of the input
-variables for each track in the sequence with the signal
-probability~$p_\text{RNN}$ estimated by the Track-RNN is depicted. In hadronic
-tau lepton decays the leading tracks in transverse momentum often correspond the
-to the charged decay products. This can be seen in the significant change in
-correlation after the first or first three tracks for 1- and 3-prong candidates,
-respectively. The correlation of the transverse track
-momentum~$p_\text{T}^\text{track}$ in Figure~\ref{fig:track_rnn_corr_pt} shows a
-positive coefficient for the leading tracks. The positive correlation implies
-that candidates with leading tracks with high transverse momentum are more
-likely to get assigned a large signal probability~$p_\text{RNN}$ by the model.
-In contrast to this, subleading tracks with large transverse momentum tend to
-reduce the signal probability, thus are more likely associated with background
-tau candidates. Similarly, the distance of closest approach to the primary
-vertex in the $\rho z$-plane~$|z_0 \sin\theta|$ in
-Figure~\ref{fig:track_rnn_corr_z0} shows that signal events are more likely to
-have leading tracks close to the primary vertex, while subleading tracks exhibit
-larger distances to the vertex. The same behaviour is observed for the
-transverse impact parameter~$|d_0|$ and the $\Delta R$-distance to the tau axis,
-which can be calculated using the signed angular distances~$\Delta \eta$ and
-$\Delta \varphi$.
-
 \todo[inline]{Write transition paragraph? Working points deferred to later.}
 
 \subsection{Network using TopoClusters}
@@ -358,7 +358,7 @@ $\Delta \varphi$.
 The BDT-based tau identification makes extensive use of calorimetric information
 using TopoClusters and collection of cells in the calorimeter. Therefore a
 separate network is developed employing TopoClusters associated with the jet
-seeding a tau candidate, hereafter called the Cluster-RNN. The variable
+seeding a tau candidate, hereafter called the Cluster--RNN. The variable
 selection is given in the following:
 \begin{description}
 \item[Transverse energy/momentum] Transverse energy of the
@@ -408,7 +408,7 @@ Has been tested energy fractions in PS, EM1, EM2, EM3
       the model.}
   \end{subfigure}
   \caption{Number of clusters associated to a tau candidate and their impact on
-    the discriminative power of the Cluster-RNN.}
+    the discriminative power of the Cluster--RNN.}
   \label{fig:rnn_nclusters}
 \end{figure}
 
@@ -424,9 +424,9 @@ Has been tested energy fractions in PS, EM1, EM2, EM3
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/cluster/ratios.pdf}
-    \subcaption{Ratio of rejection of the Cluster-RNN and the optimised BDT.}
+    \subcaption{Ratio of rejection of the Cluster--RNN and the optimised BDT.}
   \end{subfigure}
-  \caption{Classification performance of the Cluster-RNN compared to the optimised
+  \caption{Classification performance of the Cluster--RNN compared to the optimised
     BDT for tau identification.}
   \label{fig:cluster_rnn_roc_ratios}
 \end{figure}
