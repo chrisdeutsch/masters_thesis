@@ -355,16 +355,44 @@ $\Delta \varphi$.
 \subsection{Network using TopoClusters}
 \label{sec:rnn_clusters}
 
+The BDT-based tau identification makes extensive use of calorimetric information
+using TopoClusters and collection of cells in the calorimeter. Therefore a
+separate network is developed employing TopoClusters associated with the jet
+seeding a tau candidate, hereafter called the Cluster-RNN. The variable
+selection is given in the following:
+\begin{description}
+\item[Transverse energy/momentum] Transverse energy of the
+  cluster~$E_\text{T}$, transverse momentum of the jet
+  seed~$p_\text{T}^\text{jet}$.
+\item[Angular distance to the tau axis] $\Delta \eta$, $\Delta \varphi$
+\item[Cluster and signal moments] Used as a proxy to cell-level variables like
+  $f_\text{cent}$ as cell information unavailable at this step of the analysis
+  chain.
 
-\todo{Idea is to use cluster moments as a proxy for cell-based variables}
+  Lateral shower width~$\langle R^2 \rangle$,
+  Longitudinal shower width~$\langle \lambda^2 \rangle$,
+  Depth of the shower centre~$\lambda_\text{centre}$,
+  Mean energy density~$\langle \rho \rangle$,
+  Energy fraction of the most energetic cell~$f_\text{max}$~\cite{atlas_topoclustering}
+\end{description}
+Has been tested energy fractions in PS, EM1, EM2, EM3
 
-Variable evolution:
-\begin{itemize}
-\item Energy fractions in PS, EM1, EM2, EM3 (only small improvement)
-\item $\Delta R \rightarrow \Delta \phi, \Delta \eta$
-\item Importance: 1.\ Direction of the cluster $\Delta \phi, \Delta \eta$; 2.\
-  Energy and pt of the jet; 3.\ Cluster moments; 4.\ Energy fractions
-\end{itemize}
+% cluster_vars = [
+%     ("TauClusters/et_log", et_log, partial(scale, per_obj=False)),
+%     ("TauClusters/pt_jetseed_log",
+%      partial(Pt_jet_log, var="TauClusters/et", ptvar="TauJets/ptJetSeed"),
+%      partial(scale, per_obj=False)),
+%     ("TauClusters/dEta", cluster_dEta, partial(constant_scale, scale=0.4)),
+%     ("TauClusters/dPhi", cluster_dPhi, partial(constant_scale, scale=0.4)),
+%     ("TauClusters/SECOND_R", SECOND_R_log, partial(scale, per_obj=False)),
+%     ("TauClusters/SECOND_LAMBDA", SECOND_LAMBDA_log,
+%      partial(scale, per_obj=False)),
+%     ("TauClusters/FIRST_ENG_DENS", FIRST_ENG_DENS_log,
+%      partial(scale, per_obj=False)),
+%     ("TauClusters/CENTER_LAMBDA", CENTER_LAMBDA_log,
+%      partial(scale, per_obj=False)),
+%     ("TauClusters/ENG_FRAC_MAX", None, None)
+% ]
 
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -386,14 +414,6 @@ Variable evolution:
 
 \todo{Use 6 clusters}
 
-\begin{itemize}
-\item Input variables \& correlation with true class labels. Partial
-  dependence plots?
-\item Validation loss vs. number of clusters
-\item Standalone performance
-\end{itemize}
-
-
 \begin{figure}[ht]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -410,8 +430,6 @@ Variable evolution:
     BDT for tau identification.}
   \label{fig:cluster_rnn_roc_ratios}
 \end{figure}
-
-\todo[inline]{Pile-up dependency of RNN vs BDT-ID}
 
 \subsubsection{Di-Tau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}
@@ -549,6 +567,7 @@ high-$p_\text{t}$.
 \todo[inline]{Check whether the missing tau hits in the ID are a problem at
   high-pt.}
 
+\todo[inline]{Pile-up dependency of RNN vs BDT-ID}
 
 %%% Local Variables:
 %%% mode: latex
