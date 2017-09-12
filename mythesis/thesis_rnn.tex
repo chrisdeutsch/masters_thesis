@@ -169,7 +169,7 @@ are summarised in the following:
 
 \item[Impact parameters w.r.t.\ the tau vertex] The transverse~$d_0$ and
   longitudinal impact parameters~$z_0 \sin\theta$ (distance of closest approach
-  in the $z$-$r$ plane) with respect to the associated primary vertex of the tau
+  in the $\rho z$-plane) with respect to the associated primary vertex of the tau
   decay is used. The longitudinal impact parameter is multiplied
   by~$\sin\theta$, where~$\theta$ is the azimuthal angle of the track
   parametrisation, to account for larger errors of~$z_0$ for tracks in the
@@ -190,9 +190,9 @@ are summarised in the following:
   % IBL TOO!
 
 \item[Electron probability] The probability of the track originating from an
-  electron estimated using high-threshold hit information in the
-  TRT~$p_\text{HT}$. It is used to identify tracks originating from photon
-  conversion.
+  electron estimated by a likelihood-based discriminant using high-threshold hit
+  information in the TRT~$p_\text{HT}$. It is used to identify tracks
+  originating from photon conversion.
 \end{description}
 Including the track category from the multivariate track classification was also
 investigated leading to a small improvement in discrimination power. It is not
@@ -278,53 +278,79 @@ cannot exceed the performance of the optimised BDT, only capturing \num{80} to
 information in tracks is not fully exploited in the current BDT-based
 identification.
 
-\begin{table}[ht]
+\begin{table}[htb]
   \centering
   {\small\input{./tables/track_rnn_var_importance.tex}}
-  \caption{Variable importance table (1-prong)}
+  \caption{Variable importance of the 1-prong Track-RNN estimated by the
+    increase in validation loss when removing groups of input variables.}
   \label{tab:var_importance_track_rnn}
 \end{table}
 
-\todo[inline]{Ultimately these networks cannot be fully understood.}
+Due to the complexity of the network, interpretation of the model based on the
+parameters learned during training is not possible. It must be viewed as a black
+box where only the input and the output can be accessed. Nevertheless the
+variable importance and linear correlations of output and inputs can be
+evaluated to gain a better understanding of the model. In
+Table~\ref{tab:var_importance_track_rnn} the importance of the inputs is
+estimated by removing groups of related variables and retraining the model. The
+increase in validation loss is used to rank the importance of the input
+variables. The table shows that the impact parameters and transverse momenta
+have a large impact on the loss. They are essential to identify tracks
+originating from the hard scattering as opposed to tracks from other
+interactions or pile-up. The angular distances~$\Delta \eta$
+and~$\Delta \varphi$ show an importance similar to the transverse momenta.
+Compared to multijet events, tracks from hadronic tau decays are expected to be
+close to the tau axis resulting in small angular distances for tracks
+originating from the tau. The number of hits in the ID and the electron
+probability~$p_\text{HT}$ shows only a marginal importance in the Track-RNN.
 
-In Table~\ref{tab:var_importance_track_rnn} the importance of the input
-variables is estimated by removing groups of variables and retraining the model.
-The increase in validation loss then used to estimate the importance of the
-input variables. The impact parameters and transverse momentum have a large
-impact on the validation loss. They are essential, as the
+\begin{figure}[htb]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/track/pt_corr.pdf}
+    \subcaption{Transverse momentum of the track~$p_\text{T}^\text{track}$.}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/track/z0_corr.pdf}
+    \subcaption{Distance of closest approach to the tau vertex in the
+      $\rho z$-plane~$|z_0 \sin\theta|$.}
+  \end{subfigure}
+  \caption{Linear correlation coefficient between input variables and signal
+    probability~$p_\text{RNN}$ estimated by the model. The coefficient is
+    determined on the testing sample combining signal and background candidates
+    with equal total weight.}
+  \label{fig:track_rnn_correlations}
+\end{figure}
+
+In Figure~\ref{fig:track_rnn_correlations} the correlations of the input
+variables for each track in the sequence with the output of the
+Track-RNN~$p_\text{RNN}$ is depicted.
+
+- Typically the leading or three leading tracks are tracks originating from the tau decay
+
+- Compared to dijet events the leading or leading three tracks of signal show a significant increase in transverse momentum
+
+- High pt tracks after the leading / three leading tracks are more likely associated with background events
+
+- Similarly leading tracks close to the primary vertex. Increasing distance leads to a smaller signal probability.
+
+- $|d_0|$ same behaviour
+
+- A larger distance of the subleading tracks results in higher signal
+probabilities.
+
+- The angular distances $\Delta \eta$ $\Delta \varphi$ similar to~$z_0$
 
 
-Both impact parameters and pt are essential, as they need to be used to identify
-tracks originating from the tau vertex and reject low momentum tracks from pileup etc.
 
-- Variable importance
-
-- Correlations
 
 
 
 - Working points deferred to later
 
 - What else has been tested? (Bidirectional, stacked)
-
-
-
-\begin{figure}[ht]
-  \centering
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/track/pt_corr.pdf}
-    \subcaption{}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/track/z0_corr.pdf}
-    \subcaption{}
-  \end{subfigure}
-  \caption{Correlations}
-  \todo[inline]{Explain that $\Delta R$ is similar to $z_0$ i.e.\ close to axis
-    for leading 1 or 3 tracks far for rest. Ref to plot in appendix.}
-\end{figure}
 
 
 \todo[inline]{Check whether the missing tau hits in the ID are a problem at
@@ -518,6 +544,7 @@ high-$p_\text{t}$.
   \label{fig:combined_working_points}
 \end{figure}
 
+\todo[inline]{Does this improve light quark jet rejection?}
 
 
 %%% Local Variables:
