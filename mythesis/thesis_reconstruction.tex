@@ -14,20 +14,20 @@ the ATLAS experiment. It summarises the reconstruction as given in Refs.\
 \cite{atlas:taurec:run1, atlas:taurec:run2}, while also including recent changes
 to the reconstruction algorithms. The recent changes are compiled from
 documentation available in the tau reconstruction packages of the ATLAS software
-framework~\textsc{Athena}~\cite{athena}. The introduction of a track selection
-and classification using multivariate methods in Ref.\ \cite{duschinger} has the
-largest impact on the work presented in this thesis.
+framework~\textsc{Athena}~\cite{athena}. The introduction of a charged-particle
+track selection and classification using multivariate methods~\cite{duschinger}
+has the largest impact on the work presented in this thesis.
 
 % JetSeedBuilder:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/JetSeedBuilder.cxx
-Candidates for hadronic tau decays are seeded by jets formed by the
-anti-$k_\mathrm{t}$ jet algorithm using a distance parameter of $R = 0.4$ on
-three-dimensional clusters of calorimeter cells called \emph{TopoClusters}. The
-clusters are calibrated using the local hadronic calibration (LC) to account for
-the non-compensating nature of the calorimeter, dead material and out-of-cluster
-energy~\cite{local_hadronic_calib}. To seed a tau candidate the jet has to
-satisfy~$p_\text{T} > \SI{10}{\GeV}$ and is required to fall into the acceptance
-range of the tracking system~$|\eta| < \num{2.5}$.
+Candidates for \tauhadvis are seeded by jets formed by the anti-$k_\mathrm{t}$
+jet algorithm using a distance parameter of $R = 0.4$ on three-dimensional
+clusters of calorimeter cells called \emph{TopoClusters}. The clusters are
+calibrated using a local hadronic calibration (LC) to account for the
+non-compensating nature of the calorimeter, dead material and out-of-cluster
+energy~\cite{local_hadronic_calib}. To seed a \tauhadvis candidate the jet has
+to satisfy~$p_\text{T} > \SI{10}{\GeV}$ and is required to fall in the
+acceptance range of the tracking system~$|\eta| < \num{2.5}$.
 % At this step tau $p_\mathrm{T}, \eta, \varphi, m$ ($m$: invariant mass) are
 % set to the ones of the jet seed -- what does this mean? Read up on jet algs
 
@@ -45,17 +45,26 @@ range of the tracking system~$|\eta| < \num{2.5}$.
 % Tracking CP recommendations
 % \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/TrackingCPPreRecsSummer2017#Track_to_Vertex_Association}
 In events with multiple primary vertices the tau production vertex has to be
-identified. For this reconstructed tracks that are associated to the calorimeter
-jet
+identified. For this reconstructed charged-particle tracks that are matched to
+the jet via ghost-matching~\cite{ghost_matching} are used.
 % via ghost-matching\footnote{Tracks matched unambiguously to calorimeter jets
 % by adding the tracks with infinitesimal energy to the constituent list
 % and rerunning the jet algorithm.}
-and lie in a cone of $\Delta R < 0.2$ with respect to the jet axis are selected.
-Tracks that fulfil $p_\text{T} > \SI{1}{\GeV}$ and basic track quality
-criteria\footnote{Number of pixel hits~$N_\text{Pixel} \geq 2$, number of
-  silicon hits~$N_\text{Si} = N_\text{Pixel} + N_\text{SCT} \geq 7$. Dead
-  sensors on the trajectory are also counted.} are used for vertex association.
-The primary vertex maximising the so called \emph{Jet Vertex Fraction} (JVF)
+Tracks lying in a cone with radius~$\Delta R < 0.2$ with respect to the jet
+axis, fulfilling~$p_\text{T} > \SI{1}{\GeV}$ and basic track quality
+criteria\footnote{The specific requirements are: number of pixel
+  hits~$N_\text{pixel} \geq 2$, number of silicon
+  hits~$N_\text{Si} = N_\text{pixel} + N_\text{SCT} \geq 7$. Dead sensors on the
+  trajectory are also counted.} are selected for vertex association.
+% and lie in a cone with
+% radius~$\Delta R < 0.2$ with respect to the jet axis are selected. Tracks that
+% fulfil $p_\text{T} > \SI{1}{\GeV}$ and basic track quality criteria\footnote{The
+%   specific requirements are: number of pixel hits~$N_\text{pixel} \geq 2$,
+%   number of silicon hits~$N_\text{Si} = N_\text{pixel} + N_\text{SCT} \geq 7$.
+%   Dead sensors on the trajectory are also counted.} are used for vertex
+% association.
+The primary vertex maximising the so called \emph{Jet Vertex
+  Fraction}~(JVF)
 \begin{align*}
   \text{JVF} = \frac{p_\text{T}\text{-sum of selected tracks assigned to the vertex}}{p_\text{T}\text{-sum of selected tracks}}
 \end{align*}
@@ -63,7 +72,7 @@ The primary vertex maximising the so called \emph{Jet Vertex Fraction} (JVF)
 %   \mathrm{JVF} = \frac{\sum_\text{Vtx.\ \& TJVA} p_\mathrm{T}}
 %                                            {\sum_\text{TJVA} p_\mathrm{T}}
 % \end{align*}
-is associated to the tau candidate.
+is associated to the \tauhadvis candidate.
 % \footnote{Impact parameter based association with the
 %   primary vertex. $|d_0| < \SI{2.5}{mm}$ with respect to beamline and
 %   $|(\Delta z_0) \sin\theta| < \SI{3}{mm}$. $\Delta z_0$ is the longitudinal
@@ -71,15 +80,15 @@ is associated to the tau candidate.
 
 % TauAxisSetter:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauAxisSetter.cxx
-After the primary vertex is found, the visible four-momentum of the tau
-candidate is calculated.
+After the primary vertex is found, the preliminary four-momentum of the
+\tauhadvis candidate is calculated.
 % Assuming constituents have zero mass.
 For this the barycentre of cluster energy at LC scale in the jet is determined.
 The four-momentum of each jet constituent in the coordinate system of the
 associated vertex, falling within a cone of~$\Delta R < 0.2$ with respect to the
 barycentre, is summed. This defines the visible tau momentum at LC scale and the
-tau axis. The visible tau momentum at LC scale is used as a baseline for further
-energy calibrations.
+tau axis. The \tauhadvis \pt at LC scale is used as a baseline for further
+energy calibrations. \todo{Move this somewhere else}
 
 \section{Track Selection and Classification}
 \label{sec:reco_track_sel_classif}
@@ -88,8 +97,9 @@ energy calibrations.
 %
 % TauTrackClassifier:
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/Root/TauTrackClassifier.cxx
-Tracks reconstructed in the inner detector are associated with a tau candidate
-if they are within a cone of size~$\Delta R < 0.4$ with respect to the tau axis.
+Tracks reconstructed in the inner detector are associated with a \tauhadvis
+candidate if they are in a cone of size~$\Delta R < 0.4$ with respect to the tau
+axis.
 % The tracks are classified into core, wide, and other tracks: If the tracks
 % fail track selection (pt > 1GeV, IPd0Max = 1mm, IPz0Max = 1.5mm, nHitPix >= 2,
 % nHitSi >= 7) they are classified as 'other'.
@@ -108,7 +118,7 @@ if they are within a cone of size~$\Delta R < 0.4$ with respect to the tau axis.
 % Dirk's talk in TauCP:
 % https://indico.cern.ch/event/615208/contributions/2481630/attachments/1415563/2167141/TauCP_TrackClassificationTaskforce_20170220.pdf
 For each track a multi-class classification is performed categorising them into
-one of four track-categories: \emph{charged}, \emph{conversion},
+one of four track categories: \emph{charged}, \emph{conversion},
 \emph{isolation} and \emph{fake}. Tracks classified as \emph{charged} are tracks
 originating from charged pions of the tau decay. \emph{Conversion} tracks are
 created by long-lived secondary particles from converted photons or hadronic
@@ -117,28 +127,30 @@ from the tau decay and \emph{fake} tracks from combinations of unrelated space
 points in the inner detector.
 
 The multi-class classification is performed by using three boosted decision
-trees~(BDT) organised into two layers. In the first layer a single BDT performs
+trees~(BDT) organised into two stages. In the first stage a single BDT performs
 binary classification of tracks into one of two preliminary categories:
-charged/conversion and isolation/fake. The second layer uses two BDTs to
-separate the preliminary categories into the four final track-categories. The
+charged/conversion and isolation/fake. The second stage uses two BDTs to
+separate the preliminary categories into the four final track categories. The
 BDTs employ information on track momentum, impact parameters, number of hits in
-the ID, high-threshold hits in the TRT, etc.
+the ID, high-threshold hits in the TRT, etc. \todo{Schematic of BDT setup -- ben}
 
 The track classification is used to reconstruct the charge of the tau by summing
 the charge of all \emph{charged} tracks. The number of \emph{charged} tracks
-also defines whether the reconstructed tau is a 1- or 3-prong decay. This
-algorithm is optimised to reconstruct taus with the correct number of
-\emph{charged} tracks, such that the reconstruction efficiency is maximised.
-Analyses often require reconstructed taus to have one or three \emph{charged}
-tracks leading to a significant reduction in tau candidates originating from
-multijet events due to their large track multiplicity. Using the \emph{charged}
-classification a derived track-category is defined to calculate isolation
-variables. The \emph{modified isolation} category consists of tracks not
-classified as \emph{charged} and passing track selection criteria:
+also defines whether a \tauhadvis candidate is from a 1- or 3-prong decay. The
+classification algorithm is optimised to reconstruct \tauhadvis with the correct
+number of \emph{charged} tracks, such that the reconstruction efficiency, which
+is the fraction of hadronic tau decays that are reconstructed as a 1- or 3-prong
+\tauhadvis candidate, is maximised. Analyses often require \tauhadvis to have
+one or three \emph{charged} tracks leading to a significant reduction in
+candidates from quark or gluon initiated jets, which typically have a larger
+track multiplicity. Using the \emph{charged} classification a derived track
+category is defined to calculate isolation variables. The \emph{modified
+  isolation} category consists of tracks not classified as \emph{charged} and
+passing track selection criteria:\todo{Why not use isolation tracks?}
 \begin{align*}
   &p_\text{T} > \SI{1}{\GeV} & &d_0^\text{PV} < \SI{1}{mm} & &|z_0^\text{PV} \sin\theta| < \SI{1.5}{mm} \\
-  &N_\text{Pixel} \geq 2 & &N_\text{Si} \geq 7 \eqcomma
-\end{align*}
+  &N_\text{pixel} \geq 2 & &N_\text{Si} \geq 7 \eqcomma
+\end{align*} \todo{define silicon hits}
 where $d_0^\text{PV}$ ($z_0^\text{PV}$) is the transverse (longitudinal) impact
 parameter with respect to the associated primary vertex and $N_\text{Pixel}$
 ($N_\text{Si}$) the number of pixel (silicon) hits including dead sensors on the
@@ -203,18 +215,19 @@ energy contributions due to pile-up, energy depositions outside of the
 $\Delta R < 0.2$ cone and detector responses in different regions need to be
 taken into account. Therefore, an energy calibration is applied to the
 reconstructed object to reduce bias and improve the resolution of the energy
-measurement.
+measurement. \todo{Why $E \to \pt$}
 
 The visible transverse momentum at LC scale~$p_\text{T}^\text{LC}$ increases
-linearly with the number of reconstructed primary vertices~$N_\text{PV}$.
-Therefore, the pile-up contribution to the transverse momentum is estimated
-by~\cite{atlas:taurec:run2, calo_tes}
+linearly with the number of reconstructed primary vertices~$N_\text{PV}$
+\todo{Plot?}. Therefore, the pile-up contribution to the transverse momentum is
+estimated by~\cite{atlas:taurec:run2, calo_tes}
 \begin{align*}
   p_\text{T}^\text{pileup}(N_\text{PV}, |\eta|, n_\text{p}) &= A(|\eta|, n_\text{p}) \times N_\text{PV} \eqcomma
 \end{align*}
 where $A$ is the average pile-up contribution per reconstructed vertex,
 parametrised in bins of~$|\eta|$ and separately for 1- and multi-prong
-decays~$n_\text{p}$.
+decays~$n_\text{p}$. The pile-up correction is of the order of~\SI{0.1}{\GeV}
+per vertex.
 % A is roughly of the order of 0.1 GeV per vertex
 Subsequently, the momentum is corrected for the detector response to obtain the
 visible transverse momentum at the tau energy scale~\cite{atlas:taurec:run2,
@@ -223,27 +236,28 @@ visible transverse momentum at the tau energy scale~\cite{atlas:taurec:run2,
   p_\text{T}^\text{TES} &= \frac{p_\text{T}^\text{LC} - p_\text{T}^\text{pileup}}
                           {\mathcal{R}\left(p_\text{T}^\text{LC} - p_\text{T}^\text{pileup}, |\eta|, n_\text{p}\right)} \eqcomma
 \end{align*}
-with the detector response~$\mathcal{R}$, which is a function of the transverse
-momentum after pile-up subtraction. The detector response is computed using a
-fit of an empirical function to Gaussian means of
+with the detector response~$\mathcal{R}$ \todo{Plot?}. The detector response is
+computed using a fit of an empirical function to Gaussian means of
 the~\mbox{$(p_\text{T}^\text{LC} - p_\text{T}^\text{pileup}) / p_\text{T,
     vis}^\text{true}$} distribution in different
 $p_\text{T}^\text{LC} - p_\text{T}^\text{pileup}$ bins. The response
 function~$\mathcal{R}$ is determined in five bins of $|\eta|$ and separately for
-1- and multi-prong decays. More sophisticated energy calibrations for hadronic
-tau decays exist, further improving the energy resolution. They are not
-discussed here, as only LC- and TES-calibrated taus are used in this thesis.
+1- and multi-prong decays. It varies between \num{0.9} to \num{1.2} for 1-prong
+and \num{0.8} to \num{1.0} for multi-prong decays. More sophisticated energy
+calibrations for hadronic tau decays exist, further improving the energy
+resolution. They are not discussed here, as only LC- and TES-calibrated taus are
+used in this thesis. \todo{Plot of energy resolution}
 
 \section{Shot Reconstruction}
 \label{sec:shot_reco}
 
 Reconstructing individual photons originating from neutral pions in hadronic tau
-decays can be useful for various applications like classification of the
-hadronic decay mode. The photons from the $\pi^0$-decay are highly collimated
-and therefore often deposit their energy in a single \emph{TopoCluster}. The
-fine $\eta$-segmentation of the strip layer EM1 allows individual photons to be
-detected using local maxima of cell energy. The reconstructed objects are called
-\emph{shots}.
+decays can be useful for various applications like the classification of the tau
+decay mode. The photons from the $\pi^0$-decays are highly collimated and
+therefore often deposit their energy in a single \emph{TopoCluster}. The fine
+$\eta$-segmentation of the strip layer allows individual photons to be detected
+using local maxima of cell energy~\cite{yuen, atlas:taurec:decaymodes}. The
+reconstructed objects are called \emph{shots}.
 
 % TauShotFinder
 % https://gitlab.cern.ch/atlas/athena/blob/master/Reconstruction/tauRecTools/src/TauShotFinder.cxx

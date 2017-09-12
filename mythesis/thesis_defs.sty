@@ -42,9 +42,12 @@
 % \mathcode`,="8000   % , im Math-Mode aktiv ("8000) machen
 % {\catcode`\,=\active
 %  \gdef ,{\obeyspaces\futurelet\next\CommaCheck}}
-% \def\CommaCheck{\if\space\next\CommaPunct\else\CommaOrdinary\fi}
+%  \def\CommaCheck{\if\space\next\CommaPunct\else\CommaOrdinary\fi}
+
+\newcommand*{\pt}{\ensuremath{p_\text{T}}\xspace}
+\newcommand*{\tauhad}{\ensuremath{\tau_\text{had}}\xspace}
+\newcommand*{\tauhadvis}{\ensuremath{\tau_\text{had-vis}}\xspace}
 
 \newcommand{\eqdot}{\, .}
 \newcommand{\eqcomma}{\, ,}
-%\newcommand{\todo}[1]{{\textcolor{Green}{[TODO: #1]}}}
 \newcommand{\mytodo}[1]{{\textcolor{Green}{[TODO: #1]}}}
