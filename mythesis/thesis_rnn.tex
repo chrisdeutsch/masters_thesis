@@ -88,7 +88,7 @@ Thus far approaches of tau identification use high-level variables that
 summarise properties of reconstructed objects in the detector. This has the
 advantage that identification can be understood and investigations into
 systematic errors are simplified. However, discriminative power can be lost when
-transitioning from low- to high-level variables. Therefore, an approach is
+transitioning from low- to high-level variables. Therefore an approach is
 presented capturing low-level information by employing sequence classification
 techniques. A general description of the method is given and subsequently
 applied to reconstructed tracks and clusters in the calorimeter.
@@ -137,15 +137,15 @@ well-defined and physically motivated ordering scheme. For the RNN using track
 information a descending~$p_\text{T}^\text{track}$ ordering is used. In practice
 the maximum sequence length is limited by truncation.
 
-The tracks and the values of their input variables are passed in order to a
-dense layer with shared weights. This layer applies a transformation on the
-variables of each individual track, where the parameters of this transformation
-are shared between each element in the sequence. It creates a sequence of
-intermediate representations of the tracks, which are then passed to the
-recurrent layer employing the LSTM architecture. The output of the final time
-step of the RNN, consisting of a vector of activations, is passed to a dense
-layer with one neuron and logistic sigmoid activation. The activation of the
-output neuron can then be used to classify the tau candidate as signal or
+The tracks and the values of their input variables are passed in the predefined
+order to a dense layer with shared weights. This layer applies a transformation
+on the variables of each individual track, where the parameters of this
+transformation are shared between each element in the sequence. It creates a
+sequence of intermediate representations of the tracks, which are then passed to
+the recurrent layer employing the LSTM architecture. The output of the final
+time step of the RNN, consisting of a vector of activations, is passed to a
+dense layer with one neuron and logistic sigmoid activation. The activation of
+the output neuron can then be used to classify the tau candidate as signal or
 background.
 
 \subsection{Track-RNN}
@@ -153,10 +153,10 @@ background.
 \todo[inline]{Better name for this section.}
 
 The implementation of the RNN employing track information, hereafter abbreviated
-as Track-RNN, uses tracks associated with a reconstructed tau (i.e.\ tracks in a
-$\Delta R < 0.4$ cone around the tau axis) passing a transverse momentum
-threshold of \SI{400}{\MeV} from track reconstruction. The variables attached to
-each track are summarised in the following:
+as Track-RNN, uses tracks associated with a reconstructed tau, which are tracks
+in the $\Delta R < 0.4$ cone passing a transverse momentum threshold of
+\SI{400}{\MeV} from track reconstruction. The variables attached to each track
+are summarised in the following:
 \begin{description}
 \item[Transverse momentum of track and jet] The transverse momentum of the
   track~$p_\text{T}^\text{track}$ as measured in the tracking system is used.
@@ -249,9 +249,9 @@ tracks. Figure~\ref{fig:ntracks_loss} shows the classification power for
 different number of tracks used in the model. The leading six tracks show a
 significant impact on the discriminative power of the model. After ten tracks no
 further improvement is observed. Therefore, the model will use tracks truncated
-after the ten leading tracks in track momentum.
+after the ten leading tracks in transverse track momentum.
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/roc.pdf}
@@ -268,8 +268,34 @@ after the ten leading tracks in track momentum.
   \label{fig:track_rnn_roc_ratios}
 \end{figure}
 
+A comparison of the ROC-curves for the BDT- and RNN-based tau identification is
+depicted in Figure~\ref{fig:track_rnn_roc_ratios}. Both the 1- and 3-prong
+Track-RNN show a performance similar to the optimised BDT. The 1-prong Track-RNN
+shows a small improvement in rejection of \num{10} to \SI{20}{\percent} over the
+BDT depending on the signal efficiency. In contrast to this the 3-prong RNN
+cannot exceed the performance of the optimised BDT, only capturing \num{80} to
+\SI{90}{\percent} of rejection. These results indicate that the available
+information in tracks is not fully exploited in the current BDT-based
+identification.
 
-- ROC Curve
+\begin{table}[ht]
+  \centering
+  {\small\input{./tables/track_rnn_var_importance.tex}}
+  \caption{Variable importance table (1-prong)}
+  \label{tab:var_importance_track_rnn}
+\end{table}
+
+\todo[inline]{Ultimately these networks cannot be fully understood.}
+
+In Table~\ref{tab:var_importance_track_rnn} the importance of the input
+variables is estimated by removing groups of variables and retraining the model.
+The increase in validation loss then used to estimate the importance of the
+input variables. The impact parameters and transverse momentum have a large
+impact on the validation loss. They are essential, as the
+
+
+Both impact parameters and pt are essential, as they need to be used to identify
+tracks originating from the tau vertex and reject low momentum tracks from pileup etc.
 
 - Variable importance
 
@@ -282,11 +308,6 @@ after the ten leading tracks in track momentum.
 - What else has been tested? (Bidirectional, stacked)
 
 
-\begin{table}[ht]
-  \centering
-  {\small\input{./tables/track_rnn_var_importance.tex}}
-  \caption{Variable importance table (1-prong)}
-\end{table}
 
 \begin{figure}[ht]
   \centering
