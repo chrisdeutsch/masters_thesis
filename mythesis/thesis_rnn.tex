@@ -148,7 +148,7 @@ dense layer with one neuron and logistic sigmoid activation. The activation of
 the output neuron can then be used to classify the tau candidate as signal or
 background.
 
-\subsection{Track-RNN}
+\subsection{Network using Reconstructed Tracks}
 \label{sec:rnn_tracks}
 \todo[inline]{Better name for this section.}
 
@@ -217,7 +217,9 @@ Figure~\ref{fig:track_rnn_schematic} is optimised by observing the validation
 loss while varying the number of units in different layers. A configuration
 using 32 units in the shared dense layer and 32 units in the LSTM layer shows
 decent classification performance, while still being trainable in a reasonable
-amount of time.
+amount of time. Alternative architectures using bidirectional LSTM and multiple
+consecutive LSTM layers were investigated and show only marginal improvements
+over the simpler model.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -310,12 +312,14 @@ probability~$p_\text{HT}$ shows only a marginal importance in the Track-RNN.
     \centering
     \includegraphics{./figures/rnn/track/pt_corr.pdf}
     \subcaption{Transverse momentum of the track~$p_\text{T}^\text{track}$.}
+    \label{fig:track_rnn_corr_pt}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/z0_corr.pdf}
-    \subcaption{Distance of closest approach to the tau vertex in the
+    \subcaption{Distance of closest approach to the primary vertex in the
       $\rho z$-plane~$|z_0 \sin\theta|$.}
+    \label{fig:track_rnn_corr_z0}
   \end{subfigure}
   \caption{Linear correlation coefficient between input variables and signal
     probability~$p_\text{RNN}$ estimated by the model. The coefficient is
@@ -325,41 +329,32 @@ probability~$p_\text{HT}$ shows only a marginal importance in the Track-RNN.
 \end{figure}
 
 In Figure~\ref{fig:track_rnn_correlations} the correlations of the input
-variables for each track in the sequence with the output of the
-Track-RNN~$p_\text{RNN}$ is depicted.
+variables for each track in the sequence with the signal
+probability~$p_\text{RNN}$ estimated by the Track-RNN is depicted. In hadronic
+tau lepton decays the leading tracks in transverse momentum often correspond the
+to the charged decay products. This can be seen in the significant change in
+correlation after the first or first three tracks for 1- and 3-prong candidates,
+respectively. The correlation of the transverse track
+momentum~$p_\text{T}^\text{track}$ in Figure~\ref{fig:track_rnn_corr_pt} shows a
+positive coefficient for the leading tracks. The positive correlation implies
+that candidates with leading tracks with high transverse momentum are more
+likely to get assigned a large signal probability~$p_\text{RNN}$ by the model.
+In contrast to this, subleading tracks with large transverse momentum tend to
+reduce the signal probability, thus are more likely associated with background
+tau candidates. Similarly, the distance of closest approach to the primary
+vertex in the $\rho z$-plane~$|z_0 \sin\theta|$ in
+Figure~\ref{fig:track_rnn_corr_z0} shows that signal events are more likely to
+have leading tracks close to the primary vertex, while subleading tracks exhibit
+larger distances to the vertex. The same behaviour is observed for the
+transverse impact parameter~$|d_0|$ and the $\Delta R$-distance to the tau axis,
+which can be calculated using the signed angular distances~$\Delta \eta$ and
+$\Delta \varphi$.
 
-- Typically the leading or three leading tracks are tracks originating from the tau decay
+\todo[inline]{Write transition paragraph? Working points deferred to later.}
 
-- Compared to dijet events the leading or leading three tracks of signal show a significant increase in transverse momentum
-
-- High pt tracks after the leading / three leading tracks are more likely associated with background events
-
-- Similarly leading tracks close to the primary vertex. Increasing distance leads to a smaller signal probability.
-
-- $|d_0|$ same behaviour
-
-- A larger distance of the subleading tracks results in higher signal
-probabilities.
-
-- The angular distances $\Delta \eta$ $\Delta \varphi$ similar to~$z_0$
-
-
-
-
-
-
-- Working points deferred to later
-
-- What else has been tested? (Bidirectional, stacked)
-
-
-\todo[inline]{Check whether the missing tau hits in the ID are a problem at
-  high-pt.}
-
-\subsection{Cluster-RNN}
+\subsection{Network using TopoClusters}
 \label{sec:rnn_clusters}
 
-\todo[inline]{ROC-Curves}
 
 \todo{Idea is to use cluster moments as a proxy for cell-based variables}
 
@@ -375,14 +370,17 @@ Variable evolution:
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/ncls_1p.pdf}
-    \subcaption{NCluster for 1-prong taus}
+    \subcaption{Number of clusters associated with the anti-$k_\text{t}$ jet
+      used to seed the 1-prong tau candidates.}
   \end{subfigure}%
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/nscan/cluster_1p_3p.pdf}
-    \subcaption{Val.\ loss vs.\ nCluster}
+    \subcaption{Validation loss as a function of the number of clusters used in
+      the model.}
   \end{subfigure}
-  \caption{Clusters associated with a tau}
+  \caption{Number of clusters associated to a tau candidate and their impact on
+    the discriminative power of the Cluster-RNN.}
   \label{fig:rnn_nclusters}
 \end{figure}
 
@@ -545,6 +543,11 @@ high-$p_\text{t}$.
 \end{figure}
 
 \todo[inline]{Does this improve light quark jet rejection?}
+
+\todo[inline]{Have at least an exemplary RNN score in the appendix.}
+
+\todo[inline]{Check whether the missing tau hits in the ID are a problem at
+  high-pt.}
 
 
 %%% Local Variables:
