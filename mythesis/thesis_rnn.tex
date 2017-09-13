@@ -3,44 +3,44 @@
 \label{sec:rnn}
 
 This chapter investigates the application of neural networks for tau
-identification. First it will be shown that a multi-layer perceptron (MLP) can
+identification. First it is shown that a multi-layer perceptron (MLP) can
 achieve a classification performance comparable to the optimised BDT from the
 previous chapter. Subsequently, novel sequence learning techniques are employed
 to create classifiers operating on sequences of reconstructed objects. For this
-the recurrent neural networks based on the LSTM architecture are used to create
-classifiers operating on tracks in the inner detector and clusters in the
-calorimeter. In this context a tau identification algorithm using purely
-calorimetric information is developed and its potential application for reducing
-the trigger-rate of a di-tau trigger at the \emph{High Luminosity LHC} (HL-LHC)
-is presented. Finally, a model combining the multi-layer perceptron and the
-recurrent networks operating on track- and cluster-information is developed.
+recurrent neural networks based on the LSTM architecture are used on sequences
+of tracks in the ID and clusters of energy in the calorimeter system. In this
+context a tau identification algorithm using purely calorimetric information is
+developed and its potential application for reducing the trigger-rate of a
+di-tau trigger at the \emph{High Luminosity LHC} (HL-LHC) is presented. Finally,
+a model combining the multi-layer perceptron and the recurrent networks
+operating on track and cluster information is developed.
 
 \section{Identification using Feedforward Neural Networks}
 \label{sec:ffnn_id}
 
-Before proceeding to sequence classification techniques the viability of neural
+Before proceeding to sequence classification techniques, the viability of neural
 networks to perform tau identification using simple network architectures is
-shown. This will aid as a introduction to important concepts when training
+shown. This will aid as an introduction to important concepts when training
 neural networks. Moreover, the resulting network will be used as a building
 block in the final model.
 
-The optimised BDT from Chapter~\ref{sec:bdt} will be used as a reference for the
-investigations in this chapter. Therefore the models will be trained and
+The optimised BDT from Chapter~\ref{sec:bdt} is used as a reference for the
+investigations in this chapter. Therefore the models are be trained and
 evaluated using the same event samples, preselection and reweighting scheme
-presented in Section~\ref{sec:bdt_eventsim}. In contrast to hold-out validation
-used in the previous chapter, the full event sample is now randomly split into a
-training, validation and testing sample. The samples have a relative size of
-\SI{40}{\percent}, \SI{10}{\percent} and \SI{50}{\percent}, respectively. The
-purpose of the training and testing sample is the same as before, however the
-validation sample is monitored during the training process and used to perform
-model selection and early stopping. A separate sample, as opposed to the testing
-sample, is used to avoid introducing biases in the performance measurement on
-the testing sample. This approach will be used for the remainder of this
-chapter.
+presented in Section~\ref{sec:bdt_eventsim}. In contrast to the hold-out
+validation used in the previous chapter, the full event sample is randomly split
+into training, validation and testing samples. The samples have a relative size
+of \SI{40}{\percent}, \SI{10}{\percent} and \SI{50}{\percent}, respectively. The
+purpose of the training and testing sample is the same as before. The validation
+sample is monitored during the training process and used to perform model
+selection and early stopping of the training. A separate sample, as opposed to
+the testing sample, is used to avoid introducing biases in the performance
+measurement on the testing sample. This approach will be used for the remainder
+of this and the following chapter.
 
 To reproduce the performance of the BDT-based tau identification a multi-layer
 perceptron (MLP) with two hidden layers~(cf.\ Section~\ref{sec:nn_feedforward})
-is used. The MLP uses the same input variables used for the optimised BDT.
+is used. The MLP uses the same input variables used in the optimised BDT.
 Moreover, the input variables are standardised by subtracting the mean and
 dividing by the standard deviation derived from the distributions in the
 training sample. This preprocessing step is important as the gradient descent
@@ -49,9 +49,9 @@ input layer of the MLP consists of 9 (10) neurons corresponding to the input
 variables for the 1-prong (3-prong) identification. Both hidden layers of the
 MLP have a size of 128 units, which are activated by rectified linear units
 (ReLU). A single output neuron using the logistic sigmoid as its activation
-function, therefore returning probabilities of an event being signal-like. The
-binary cross-entropy loss function is used and minimised by the \emph{Adam}
-optimiser.
+function, therefore returning probabilities of a \tauhadvis candidate being
+signal. The binary cross-entropy loss function is used and minimised by the
+\emph{Adam} optimiser.
 
 In Figure~\ref{fig:roc_mlp_bdt_comparison} the ratio of rejection of the MLP and
 the optimised BDT is depicted as a function of the signal efficiency. The
@@ -97,34 +97,33 @@ applied to reconstructed tracks and clusters in the calorimeter.
 \label{sec:rnn_descr}
 
 The variable importance of the BDT-based tau identification in
-Section~\ref{sec:bdt_var_importance} showed that a large fraction of the
+Section~\ref{sec:bdt_var_importance} shows that a large fraction of the
 background rejection can be attributed to variables derived from tracking
 information. Examples are the variables sensitive to the decay length of the tau
-lepton~$|S_\text{leadtrack}|$ and $S_\text{T}^\text{flight}$ as well as the
+lepton~$|S_\text{leadtrack}|$ and~$S_\text{T}^\text{flight}$ as well as the
 transverse momentum fraction of isolation tracks~$f_\text{iso}^\text{track}$ and
-the mass of the track system~$m_\text{track}$. Moreover, during the preparation
-of the tau identification for the ATLAS reconstruction release to be used for
-the remainder of Run-II, it was observed that tracks classified as
-\emph{isolation}, i.e.\ primary particle tracks not originating from the tau
-decay, offer discriminative power against tau candidates from multijet events.
-However, instabilities of the \emph{isolation} track category lead to the
-necessity to decouple tau identification and the track classification by
-introducing the \emph{modified isolation} category. This lead to an average
-rejection loss of the order of \SI{20}{\percent} for the 1-prong identification,
-while the 3-prong identification was not significantly affected. Therefore, the
-aim is to improve the use of isolation information in reconstructed tracks of a
-hadronic tau decay.
+the invariant mass of the track system~$m_\text{track}$. Moreover, during the
+preparation of the tau identification for the ATLAS reconstruction release to be
+used for the remainder of Run-II, it was observed that tracks classified as
+\emph{isolation} offer discriminative power against \tauhadvis candidates from
+multijet events. However, instabilities of the \emph{isolation} track category
+lead to the necessity to decouple tau identification and the track
+classification by introducing the \emph{modified isolation} category. This lead
+to an average rejection loss of the order of \SI{20}{\percent} for the 1-prong
+identification, while the 3-prong identification was not significantly affected.
+Therefore, the aim is to improve the use of isolation information in
+reconstructed tracks of \tauhadvis candidates.
 
 For this purpose recurrent neural networks using the LSTM architecture are used
 to classify a sequence of objects reconstructed in the detector. The following
 will focus on describing the method using tracks in the ID but the use of other
 physics objects is analogous. Figure~\ref{fig:track_rnn_schematic} describes the
-architecture used in this chapter. Reconstructed hadronic tau decays have a
-number of associated tracks, which can be interpreted as elements in a sequence.
-Each track in the sequence has variables related to the properties of the track,
+architecture used in this chapter. Reconstructed \tauhadvis have a number of
+associated tracks, which can be interpreted as elements in a sequence. Each
+track in the sequence has variables related to the properties of the track,
 e.g.\ the transverse momentum of the track. Moreover, the elements can also be
-assigned global information about the tau decay, e.g.\ the visible transverse
-momentum of the tau. The sequence of tracks is sorted according to a
+assigned global information about the \tauhadvis candidate like its visible
+transverse momentum. The sequence of tracks is sorted according to a
 well-defined and physically motivated ordering scheme. For the RNN using track
 information a descending~$p_\text{T}^\text{track}$ ordering is used. In practice
 the maximum sequence length is limited by truncation.
@@ -141,51 +140,51 @@ The tracks and the values of their input variables are passed in the predefined
 order to a dense layer with shared weights. This layer applies a transformation
 on the variables of each individual track, where the parameters of this
 transformation are shared between each element in the sequence. It creates a
-sequence of intermediate representations of the tracks, which are then passed to
-the recurrent layer employing the LSTM architecture. The output of the final
-time step of the RNN, consisting of a vector of activations, is passed to a
-dense layer with one neuron and logistic sigmoid activation. The activation of
-the output neuron can then be used to classify the tau candidate as signal or
-background.
+sequence of intermediate track representations, which are then passed to the
+recurrent layer employing the LSTM architecture. The output of the final time
+step of the RNN, consisting of a vector of activations, is passed to a dense
+layer with one neuron and logistic sigmoid activation. The activation of the
+output neuron can then be used to classify the \tauhadvis candidate as signal or
+background. \todo{$\tanh$ activation for shared dense and LSTM.}
 
-\subsection{Network using Reconstructed Tracks}
+\subsection{Network using Reconstructed Tracks in the Inner Detector}
 \label{sec:rnn_tracks}
-\todo[inline]{Better name for this section.}
 
 The implementation of the RNN employing track information, hereafter abbreviated
-as Track--RNN, uses tracks associated with a reconstructed tau, which are tracks
-in the $\Delta R < 0.4$ cone passing a transverse momentum threshold of
-\SI{400}{\MeV} from track reconstruction. The variables attached to each track
-are summarised in the following:
+as Track--RNN, uses tracks associated with a \tauhadvis, which are tracks in
+the~$\Delta R < 0.4$ cone with respect to the tau axis passing a transverse
+momentum threshold of \SI{400}{\MeV} from track reconstruction. The variables
+attached to each track are summarised in the following:
 \begin{description}
 \item[Transverse momentum of track and jet] The transverse momentum of the
   track~$p_\text{T}^\text{track}$ as measured in the tracking system is used.
   The inclusion of the track momentum is crucial as it allows the network to
   discriminate between tracks originating from the hard scattering and soft
   processes. Additionally, the transverse momentum of the anti-$k_\text{t}$ jet
-  used to seed the tau candidate~$p_\text{T}^\text{jet}$ is appended to the
-  input variables of each track.
+  used to seed the \tauhadvis candidate~$p_\text{T}^\text{jet}$ is appended to
+  the input variables of each track.
+
   \todo[inline]{Why jet seed instead of tau at LC scale?}
 
 \item[Impact parameters w.r.t.\ the tau vertex] The transverse~$d_0$ and
   longitudinal impact parameters~$z_0 \sin\theta$ (distance of closest approach
-  in the $\rho z$-plane) with respect to the associated primary vertex of the tau
-  decay is used. The longitudinal impact parameter is multiplied
-  by~$\sin\theta$, where~$\theta$ is the azimuthal angle of the track
-  parametrisation, to account for larger errors of~$z_0$ for tracks in the
-  forward region. Impact parameter information is important to determine whether
-  a given track originated from the tau vertex. It allows to discriminate
-  between tracks from the tau decay or jet and tracks from other interactions
+  in the $\rho z$-plane) with respect to the associated primary vertex is used.
+  The longitudinal impact parameter is multiplied by~$\sin\theta$,
+  where~$\theta$ is the azimuthal angle of the track parametrisation, to account
+  for larger errors of~$z_0$ for tracks in the forward region. Impact parameter
+  information is important to determine whether a given track originated from
+  the tau production vertex. It allows to discriminate between tracks from the
+  \tauhad or quark-/gluon-initiated jets and tracks from other interactions
   during the same bunch crossing.
 
 \item[Angular distance to the tau axis] The signed angular distance of the track
   to the tau axis in the longitudinal~$\Delta \eta$ and transverse
   plane~$\Delta \varphi$. The angular distances allow probing the spacial
-  isolation of the tracks in a tau decay.
+  isolation of the tracks in a \tauhadvis candidate.
 
 \item[Track quality criteria] The Track--RNN includes basic track quality
   criteria to allow to reject tracks of low reconstruction quality. Therefore,
-  the number of hits in the pixel layers~$N_\text{Pixel}$ and semiconductor
+  the number of hits in the pixel layers~$N_\text{pixel}$ and semiconductor
   tracker~$N_\text{SCT}$ are used.
   % IBL TOO!
 
@@ -199,7 +198,7 @@ investigated leading to a small improvement in discrimination power. It is not
 included in favour of decoupling the tau identification from track
 classification.
 
-Basic transformations are applied to the input variables to make them mroe
+Basic transformations are applied to the input variables to make them more
 appropriate for the use in neural networks. Therefore, the transverse
 momenta~$p_\text{T}^\text{track}$ and $p_\text{T}^\text{jet}$ are
 log-transformed. Moreover, only the absolute value of the impact parameters is
@@ -352,7 +351,7 @@ $\Delta \varphi$.
 
 \todo[inline]{Write transition paragraph? Working points deferred to later.}
 
-\subsection{Network using TopoClusters}
+\subsection{Network using Clusters in the Calorimeter System}
 \label{sec:rnn_clusters}
 
 The BDT-based tau identification makes extensive use of calorimetric information
