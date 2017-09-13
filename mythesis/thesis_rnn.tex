@@ -220,14 +220,14 @@ amount of time. Alternative architectures using bidirectional LSTM and multiple
 consecutive LSTM layers were investigated and show only marginal improvements
 over the simpler model.
 
-In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given tau
-candidate is depicted. The number of associated tracks can be large especially
-for candidates from background events. For practical purposes the sequence of
-tracks is truncated to reduce the memory footprint as well as training and
-evaluation time of the network. As the tracks are sorted using a descending
-$p_\text{T}^\text{track}$-ordering, truncation will only discard low momentum
-tracks. Figure~\ref{fig:ntracks_loss} shows the classification power for
-different number of tracks used in the model. The leading six tracks show a
+In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given
+\tauhadvis candidate is depicted. The number of associated tracks can be large
+especially for candidates from background events. For practical purposes the
+sequence of tracks is truncated to reduce the memory footprint as well as
+training and evaluation time of the network. As the tracks are sorted using a
+descending $p_\text{T}^\text{track}$-ordering, truncation will only discard low
+momentum tracks. Figure~\ref{fig:ntracks_loss} shows the classification power
+for different number of tracks used in the model. The leading six tracks show a
 significant impact on the discriminative power of the model. After ten tracks no
 further improvement is observed. Therefore, the model will use tracks truncated
 after the ten leading tracks in transverse track momentum.
@@ -247,8 +247,8 @@ after the ten leading tracks in transverse track momentum.
       the model.}
     \label{fig:ntracks_loss}
   \end{subfigure}
-  \caption{Number of tracks associated to a tau candidate and their impact on
-    the discriminative power of the Track--RNN.}
+  \caption{Number of tracks associated to a \tauhadvis candidate and their
+    impact on the discriminative power of the Track--RNN.}
   \label{fig:rnn_ntracks}
 \end{figure}
 
@@ -318,11 +318,11 @@ that candidates with leading tracks with high transverse momentum are more
 likely to get assigned a large signal probability~$p_\text{RNN}$ by the model.
 In contrast to this, subleading tracks with large transverse momentum tend to
 reduce the signal probability, thus are more likely associated with background
-tau candidates. Similarly, the distance of closest approach to the primary
-vertex in the $\rho z$-plane~$|z_0 \sin\theta|$ in
-Figure~\ref{fig:track_rnn_corr_z0} shows that signal events are more likely to
-have leading tracks close to the primary vertex, while subleading tracks exhibit
-larger distances to the vertex. The same behaviour is observed for the
+\tauhadvis candidates. Similarly, the distance of closest approach to the
+primary vertex in the $\rho z$-plane~$|z_0 \sin\theta|$ in
+Figure~\ref{fig:track_rnn_corr_z0} shows that signal candidates are more likely
+to have leading tracks close to the primary vertex, while subleading tracks
+exhibit larger distances to the vertex. The same behaviour is observed for the
 transverse impact parameter~$|d_0|$ and the $\Delta R$-distance to the tau axis,
 which can be calculated using the signed angular distances~$\Delta \eta$ and
 $\Delta \varphi$.
@@ -355,65 +355,83 @@ $\Delta \varphi$.
 \label{sec:rnn_clusters}
 
 The BDT-based tau identification makes extensive use of calorimetric information
-using TopoClusters and collection of cells in the calorimeter. Therefore a
+using cluster of calorimeter cells created by the TopoCluster algorithm and
+other quantities calculated from cells in the calorimeter system. Therefore, a
 separate network is developed employing TopoClusters associated with the jet
-seeding a tau candidate, hereafter called the Cluster--RNN. The variable
+seeding a \tauhadvis candidate, hereafter called the Cluster--RNN. The variable
 selection is given in the following:
 \begin{description}
-\item[Transverse energy/momentum] Transverse energy of the
-  cluster~$E_\text{T}$, transverse momentum of the jet
-  seed~$p_\text{T}^\text{jet}$.
-\item[Angular distance to the tau axis] $\Delta \eta$, $\Delta \varphi$
-\item[Cluster and signal moments] Used as a proxy to cell-level variables like
-  $f_\text{cent}$ as cell information unavailable at this step of the analysis
-  chain.
+\item[Transverse energy/momentum] The transverse energy of the
+  cluster~$E_\text{T}$ and the transverse momentum of the jet seeding the
+  \tauhadvis candidate~$p_\text{T}^\text{jet}$ is used. The motivation for
+  including these variables is analogous to the Track--RNN.
 
-  Lateral shower width~$\langle R^2 \rangle$,
-  Longitudinal shower width~$\langle \lambda^2 \rangle$,
-  Depth of the shower centre~$\lambda_\text{centre}$,
-  Mean energy density~$\langle \rho \rangle$,
-  Energy fraction of the most energetic cell~$f_\text{max}$~\cite{atlas_topoclustering}
+\item[Angular distance to the tau axis] The signed angular distance of the
+  cluster barycentre to the tau axis in the longitudinal~$\Delta \eta$ and
+  transverse plane~$\Delta \varphi$.
+
+\item[Cluster and signal moments] Identification variables like the central
+  energy fraction~$f_\text{cent}$ use quantities calculated from individual
+  cells in the calorimeter. Cell-level information is not available in the
+  samples used for this study. Therefore, cluster and signal moments of the
+  TopoClusters are used to obtain information on cluster shape and energy
+  density.
+
+  The moments used for the Cluster--RNN are summarised in the following. The
+  lateral shower width~$\langle R^2 \rangle$ given by the second moment of the
+  radial distance~$R$ between cluster cells and shower axis. The longitudinal
+  shower width~$\langle \lambda^2 \rangle$ with the distance~$\lambda$ of cells
+  from the barycentre of shower energy measured along the shower axis. The depth
+  of the shower centre~$\lambda_\text{centre}$ measured from the face of the
+  calorimeter. Finally, the mean energy density~$\langle \rho \rangle$ and
+  energy fraction of the most energetic cell~$f_\text{max}$ is used. These
+  cluster and signal moments are implemented in the TopoCluster
+  algorithm~\cite{atlas_topoclustering}.
 \end{description}
-Has been tested energy fractions in PS, EM1, EM2, EM3
+Additionally, energy fractions of clusters in the different samplings of the
+electromagnetic calorimeter and the probability of a cluster originating from an
+electromagnetic
+shower~$\mathcal{P}_\text{clus}^\text{EM}$~\cite{atlas_topoclustering} used to
+apply the local hadronic calibration are investigated. These variables are not
+found to improve the classification power of the cluster-based identification.
 
-% cluster_vars = [
-%     ("TauClusters/et_log", et_log, partial(scale, per_obj=False)),
-%     ("TauClusters/pt_jetseed_log",
-%      partial(Pt_jet_log, var="TauClusters/et", ptvar="TauJets/ptJetSeed"),
-%      partial(scale, per_obj=False)),
-%     ("TauClusters/dEta", cluster_dEta, partial(constant_scale, scale=0.4)),
-%     ("TauClusters/dPhi", cluster_dPhi, partial(constant_scale, scale=0.4)),
-%     ("TauClusters/SECOND_R", SECOND_R_log, partial(scale, per_obj=False)),
-%     ("TauClusters/SECOND_LAMBDA", SECOND_LAMBDA_log,
-%      partial(scale, per_obj=False)),
-%     ("TauClusters/FIRST_ENG_DENS", FIRST_ENG_DENS_log,
-%      partial(scale, per_obj=False)),
-%     ("TauClusters/CENTER_LAMBDA", CENTER_LAMBDA_log,
-%      partial(scale, per_obj=False)),
-%     ("TauClusters/ENG_FRAC_MAX", None, None)
-% ]
+The input variables are transformed and standardised similar to the track-based
+identification. The cluster moments are log-transformed and standardised by
+subtracting an offset and dividing by a scale factor. The signal
+moment~$f_\text{max}$ does not require preprocessing. The remaining variables
+are processed in analogy to the Track--RNN.
 
-\begin{figure}[ht]
+The architecture used for the Cluster--RNN is identical to the one used for the
+Track-RNN. However, the number of units in the LSTM layer is reduced to 24 (from
+32), while the shared dense layer remains at 32 units. Clusters are passed in
+ascending $E_\text{T}$-ordering to the network. Figure~\ref{fig:rnn_nclusters}
+shows the number of clusters in the jet used to seed the \tauhadvis candidate
+and the impact of truncating the cluster sequence on the validation loss. The
+cluster-based identification shows no improvement in classification power after
+the six leading clusters in~$E_\text{T}$. Therefore, only the six leading
+clusters of the jet seed are used for tau identification using the Cluster--RNN.
+
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/ncls_1p.pdf}
-    \subcaption{Number of clusters associated with the anti-$k_\text{t}$ jet
-      used to seed the 1-prong tau candidates.}
-  \end{subfigure}%
+    \subcaption{Number of clusters in the anti-$k_\text{t}$ jet used to seed the
+      1-prong \tauhadvis candidates.}
+  \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/nscan/cluster_1p_3p.pdf}
     \subcaption{Validation loss as a function of the number of clusters used in
       the model.}
   \end{subfigure}
-  \caption{Number of clusters associated to a tau candidate and their impact on
-    the discriminative power of the Cluster--RNN.}
+  \caption{Number of clusters associated to a \tauhadvis candidate and their
+    impact on the discriminative power of the Cluster--RNN.}
   \label{fig:rnn_nclusters}
 \end{figure}
 
-\todo{Use 6 clusters}
+The comparison of the ROC-curves in Figure~\ref{fig:cluster_rnn_roc_ratios}.
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/cluster/roc.pdf}
@@ -459,9 +477,9 @@ samples of~$\text{Z} / \text{DY} \to \tau \tau$ and dijets at HL-LHC conditions
 with centre-of-mass energy~$\sqrt{s}=\SI{14}{\TeV}$ and average interactions per
 bunch crossing~$\mu = 200$ (cf.\ Appendix~\ref{app:upgrade_samples}).
 
-The cluster-based RNN identification is retrained on individual tau candidates
-in the HL-LHC upgrade samples using the same preselection used for the BDT
-identification in Chapter~\ref{sec:bdt} with the exception of any
+The cluster-based RNN identification is retrained on individual \tauhadvis
+candidates in the HL-LHC upgrade samples using the same preselection used for
+the BDT identification in Chapter~\ref{sec:bdt} with the exception of any
 tracking-related requirements. The leading and subleading tau with respect to
 the reconstructed transverse momentum (using Run-II calibrations) are selected
 in a given event, while additionally requiring truth-matched hadronic tau decays
