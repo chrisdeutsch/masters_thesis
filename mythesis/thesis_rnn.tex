@@ -623,7 +623,27 @@ simplify the model without incurring a large loss in discriminative power.
   \label{fig:roc_combined}
 \end{figure}
 
-Figure~\ref{fig:combined_working_points}
+Figure~\ref{fig:combined_working_points} shows the rejection of the tight
+working point as a function of the \tauhadvis \pt.
+
+
+The improvements in background rejection allow to loosen the working points,
+thus increasing the signal efficiency, while still maintaining a rejection
+comparable to the optimised BDT. For example the signal efficiency of the tight
+working point for the 1-prong identification can be increased from
+\SI{60}{\percent} to \SI{70}{\percent}. In doing this the rejection of fake
+\tauhadvis candidates with transverse momentum of \SI{20}{\GeV} matches the
+rejection of the BDT using the working point with the nominal efficiency. For
+larger transverse momenta the rejection of the RNN at the loosened working point
+still exceeds the BDT-based identification. Analogously, the signal efficiency
+of the 3-prong tight working point can be increased from \SI{45}{\percent} to
+\SI{50}{\percent}.
+
+For $H \to \tauhad \tauhad$ analyses requiring two tight \tauhadvis this would
+result in an relative increase of 1-prong signal events of \SI{36}{\percent} and
+3-prong signal events of \SI{23}{\percent}, assuming uncorrelated
+
+
 
 - 1-prong: Increase tight working point efficiency from 60 to 70 percent
 - roughly same rejection at low pt
@@ -632,6 +652,16 @@ Figure~\ref{fig:combined_working_points}
 - 3-prong: Increase in tight working point efficiency from 45 to 50 percent
 - roughly same rejection at low pt
 - still better at high pt
+
+% 1-prong
+% 0.6 * 0.6 = 0.36
+% 0.7 * 0.7 = 0.49
+% 0.49 / 0.36 = 1.3611111111 -> 36 % relative increase in signal for $H \to \tauhad \tauhad$
+
+pp% 3-prong
+% 0.45 * 0.45 = 0.2025
+% 0.5 * 0.5 = 0.25
+% 0.25 / 0.2025 = 1.234567901234568 -> 23 % relative increase in signal for $H \to \tauhad \tauhad$
 
 - Multiplicity increase of dijets at high transverse momentum could lead to
 better rejection \cite{jet_multiplicity}
@@ -671,6 +701,8 @@ better rejection \cite{jet_multiplicity}
 \todo[inline]{Pile-up dependency of RNN vs BDT-ID}
 
 \todo[inline]{Regained lost rejection from modified isolation category.}
+
+\todo[inline]{Some standard plots: Efficiency vs pt vs eta vs mu (same with rejection?)}
 
 %%% Local Variables:
 %%% mode: latex
