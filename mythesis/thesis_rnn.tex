@@ -272,7 +272,8 @@ BDT-based identification.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/ratios.pdf}
-    \subcaption{Ratio of rejection of the Track--RNN and the optimised BDT.}
+    \subcaption{Ratio of rejection of the Track--RNN and the optimised BDT. The
+      band indicates the $1\sigma$-interval.}
   \end{subfigure}
   \caption{Classification performance of the Track--RNN compared to the
     optimised BDT for tau identification.}
@@ -429,7 +430,15 @@ clusters of the jet seed are used for tau identification using the Cluster--RNN.
   \label{fig:rnn_nclusters}
 \end{figure}
 
-The comparison of the ROC-curves in Figure~\ref{fig:cluster_rnn_roc_ratios}.
+The classification performance after training the model for 1- and 3-prong
+\tauhadvis candidates separately is shown in
+Figure~\ref{fig:cluster_rnn_roc_ratios}. The 1- and 3-prong Cluster--RNN show
+similar performance characteristics. However, the purely cluster-based
+identification cannot reach performances comparable to the tau identification
+using the optimised BDT. For the identification of 1-prong \tauhadvis the
+rejection \num{10} to \SI{40}{\percent} depending on the signal efficiency. Due
+to the large rejection of the 3-prong BDT-based identification the Cluster--RNN
+can only reach \num{2} to \SI{10}{\percent} of the full rejection.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -443,12 +452,25 @@ The comparison of the ROC-curves in Figure~\ref{fig:cluster_rnn_roc_ratios}.
     \includegraphics{./figures/rnn/cluster/ratios.pdf}
     \subcaption{Ratio of rejection of the Cluster--RNN and the optimised BDT.}
   \end{subfigure}
-  \caption{Classification performance of the Cluster--RNN compared to the optimised
-    BDT for tau identification.}
+  \caption{Classification performance of the Cluster--RNN compared to the
+    optimised BDT for tau identification.}
   \label{fig:cluster_rnn_roc_ratios}
 \end{figure}
 
-\subsubsection{Di-Tau Identification at the High Luminosity LHC}
+The most important variables for the operation of the Cluster--RNN are the
+angular distances~$\Delta \eta$ and~$\Delta \varphi$ followed by the
+$E_\text{T}$ of the cluster and the transverse momentum of the jet
+seed~$p_\text{T}^\text{jet}$. The cluster and signal moments, while still
+contributing significantly to the discriminative power, are the least important.
+This variable ranking indicates that a significant part of the discriminative
+power is obtained by requiring isolated showers close to the tau axis.
+
+Due to the small rejection, the standalone operation of the Cluster--RNN is not
+of interest to the offline reconstruction of \tauhadvis. However, it can
+potentially be used for \tauhadvis identification at trigger-level, where track
+and vertex reconstruction is infeasible due to time constraints.
+
+\subsubsection{Online Di-Tau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}
 
 The Phase-II upgrade of the LHC called the High Luminosity LHC (HL-LHC) is
@@ -468,19 +490,19 @@ interest~\cite{phase_2_scoping}. This aims to improve the identification of
 physics objects at trigger-level to cope with increasing trigger rates due to
 pile-up. Due to the availability of full calorimeter granularity, offline
 reconstructed \tauhadvis can be used to give prospects of the potential
-performance of a di-tau trigger in the HL-LHC environment.
+performance of triggers for \tauhadvis in the HL-LHC environment.
 
-A prospective study on the usage of the cluster-based RNN for identification of
-taus in a di-tau trigger is given. Offline reconstructed \tauhadvis are used as
-an approximation to the objects at the trigger after the Phase-II upgrades. The
-study uses simulated samples of~$\text{Z} / \text{DY} \to \tau \tau$ and dijets
-at HL-LHC conditions with centre-of-mass energy~$\sqrt{s}=\SI{14}{\TeV}$ and
-average interactions per bunch crossing~$\mu = 200$ (cf.\
-Appendix~\ref{app:upgrade_samples}).
+A prospective study focusing on the usage of the cluster-based RNN for
+identification of \tauhadvis in a di-tau trigger is given. Offline \tauhadvis
+are used as an approximation to reconstructed taus at trigger-level after the
+Phase-II upgrade. The study uses simulated samples
+of~$\text{Z} / \text{DY} \to \tau \tau$ and dijets at HL-LHC conditions with
+centre-of-mass energy~$\sqrt{s}=\SI{14}{\TeV}$ and average interactions per
+bunch crossing~$\mu = 200$ (cf.\ Appendix~\ref{app:upgrade_samples}).
 
-The cluster-based RNN identification is retrained on individual \tauhadvis
-candidates in the HL-LHC upgrade samples using the same preselection used for
-the BDT identification in Chapter~\ref{sec:bdt} with the exception of any
+The cluster-based RNN identification is retrained on \tauhadvis candidates of
+the HL-LHC upgrade samples using the same preselection used for the BDT
+identification in Chapter~\ref{sec:bdt} with the exception of any
 tracking-related requirements. The leading and subleading \tauhadvis with
 respect to the reconstructed transverse momentum (using Run-II calibrations) are
 selected in a given event, while additionally requiring a truth-matched hadronic
@@ -581,6 +603,10 @@ high-$p_\text{T}$.
     RNN-based identification.}
   \label{fig:combined_working_points}
 \end{figure}
+
+\todo[inline]{Still improving when including calorimeter information.}
+
+\todo[inline]{Whats with Track-RNN + Cluster-RNN?}
 
 \todo[inline]{Does this improve light quark jet rejection?}
 
