@@ -566,10 +566,46 @@ identification. The decision threshold could be loosened with increasing
 transverse momentum to ensure a quicker turn-on and full efficiency at
 high-$p_\text{T}$.
 
-\subsection{Combined-RNN}
+\subsection{Combined Network}
 \label{sec:rnn_combined}
 
-\todo[inline]{Describe architecture -- figure}
+After introducing the MLP using the high-level identification variables, the
+track-based RNN and the cluster-based RNN, a network combining these models is
+trained. An improvement in rejection is expected when combining the models,
+although a large fraction of information will be redundant.
+
+The architecture of the combined model builds on the previously developed MLP,
+Track--RNN and Cluster--RNN architectures. A schematic description of the
+architecture is given in Figure~\ref{fig:schematic_combined}. The combined model
+contains three distinct branches. The branches using track and cluster inputs
+are inherited from the Track-- and Cluster-RNN, respectively. The sizes of the
+shared dense and LSTM layers are unchanged. The third branch is derived from the
+MLP using high-level identification variables. While the first two layers of the
+MLP are unchanged, a third dense layers with 16 units is added. The three
+branches are combined into a single output by merging their outputs in a final
+dense layer.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics{./figures/rnn/combined_architecture.pdf}
+  \caption{Architecture of the combined model operating on high-level
+    identification variables and sequences of tracks and clusters. The
+    activation function is denoted after each layer. Layers operating on
+    sequential inputs are highlighted in blue.}
+  \label{fig:schematic_combined}
+\end{figure}
+
+Figure~\ref{fig:roc_combined} compares the ROC-curves of the combined model and
+the optimised BDT of Chapter~\ref{sec:bdt}. A model combining MLP and Track--RNN
+without including the Cluster--RNN is also shown. The combined model shows a
+significant improvement on the BDT-based tau identification. The background
+rejection is increased by a factor of two for 1-prong and approximately
+\SI{50}{\percent} for 3-prong candidates. The contribution of the cluster
+information to the rejection is small with an improvement of approximately
+\SI{10}{\percent} over a model omitting the cluster branch. This allows to
+simplify the model without incurring a large loss in discriminative power.
+
+\todo[inline]{Write sth.\ about Track+Cluster}
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -586,6 +622,21 @@ high-$p_\text{T}$.
     optimised BDT for tau identification.}
   \label{fig:roc_combined}
 \end{figure}
+
+Figure~\ref{fig:combined_working_points}
+
+- 1-prong: Increase tight working point efficiency from 60 to 70 percent
+- roughly same rejection at low pt
+- still better at high pt
+
+- 3-prong: Increase in tight working point efficiency from 45 to 50 percent
+- roughly same rejection at low pt
+- still better at high pt
+
+- Multiplicity increase of dijets at high transverse momentum could lead to
+better rejection \cite{jet_multiplicity}
+
+- Ellis, Stirling, Webber: QCD and Collider Physics
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -612,10 +663,14 @@ high-$p_\text{T}$.
 
 \todo[inline]{Have at least an exemplary RNN score in the appendix.}
 
-\todo[inline]{Check whether the missing tau hits in the ID are a problem at
-  high-pt.}
+\todo[inline]{Missing hits for taus decaying after pixel layers. Questionable
+  modelling of impact parameters. Also number of hits is directly used. Should
+  not affect low momentum taus. $p_\text{T} = \SI{200}{\GeV}$ taus -- less than
+  \SI{5}{\percent} decay after the IBL.}
 
 \todo[inline]{Pile-up dependency of RNN vs BDT-ID}
+
+\todo[inline]{Regained lost rejection from modified isolation category.}
 
 %%% Local Variables:
 %%% mode: latex
