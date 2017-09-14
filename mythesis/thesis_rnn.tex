@@ -386,15 +386,16 @@ selection is given in the following:
   of the shower centre~$\lambda_\text{centre}$ measured from the face of the
   calorimeter. Finally, the mean energy density~$\langle \rho \rangle$ and
   energy fraction of the most energetic cell~$f_\text{max}$ is used. These
-  cluster and signal moments are implemented in the TopoCluster
+  cluster and signal moments are calculated by the TopoCluster
   algorithm~\cite{atlas_topoclustering}.
 \end{description}
 Additionally, energy fractions of clusters in the different samplings of the
 electromagnetic calorimeter and the probability of a cluster originating from an
 electromagnetic
-shower~$\mathcal{P}_\text{clus}^\text{EM}$~\cite{atlas_topoclustering} used to
-apply the local hadronic calibration are investigated. These variables are not
-found to improve the classification power of the cluster-based identification.
+shower~$\mathcal{P}_\text{clus}^\text{EM}$~\cite{atlas_topoclustering}, which is
+used in the local hadronic calibration, are investigated. These variables are
+not found to improve the classification power of the cluster-based
+identification.
 
 The input variables are transformed and standardised similar to the track-based
 identification. The cluster moments are log-transformed and standardised by
@@ -626,6 +627,9 @@ simplify the model without incurring a large loss in discriminative power.
 Figure~\ref{fig:combined_working_points} shows the rejection of the tight
 working point as a function of the \tauhadvis \pt.
 
+\todo[inline]{Other Working points show the same relative increase in rejection?
+  see appendix}
+
 
 The improvements in background rejection allow to loosen the working points,
 thus increasing the signal efficiency, while still maintaining a rejection
@@ -684,8 +688,6 @@ better rejection \cite{jet_multiplicity}
     RNN-based identification.}
   \label{fig:combined_working_points}
 \end{figure}
-
-\todo[inline]{Still improving when including calorimeter information.}
 
 \todo[inline]{Whats with Track-RNN + Cluster-RNN?}
 
