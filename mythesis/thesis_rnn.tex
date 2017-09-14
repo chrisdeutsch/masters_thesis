@@ -201,33 +201,33 @@ attached to each track are summarised in the following:
 \end{description}
 Including the track category from the multivariate track classification was also
 investigated leading to a small improvement in discrimination power. It is not
-included in favour of decoupling the tau identification from track
+included to keep the tau identification largely independent of track
 classification.
 
-Basic transformations are applied to the input variables to make them more
-appropriate for the use in neural networks. Therefore, the transverse
-momenta~$p_\text{T}^\text{track}$ and $p_\text{T}^\text{jet}$ are
-log-transformed. Moreover, only the absolute value of the impact parameters is
-used, which is also log-transformed. Similar to the MLP the input variables have
-to be standardised. For transverse momenta and impact parameters this is done by
+Basic transformations are applied to the input variables to make them suitable
+for use in neural networks. Therefore, a logarithm is applied to transverse
+momenta~$p_\text{T}^\text{track}$, $p_\text{T}^\text{jet}$ and to the absolute
+values of the impact parameters. Similar to the MLP, the input variables have to
+be standardised. For transverse momenta and impact parameters this is done by
 subtracting an offset and dividing by a scale factor. The offset is the mean of
 the corresponding quantity in tracks of the training sample and the scale factor
-the corresponding standard deviation. Angular distances are scaled into the
-$[-1, 1]$-interval and similarly the number of hits in the inner detector
-into~$[0, 1]$. The training process is analogous the the MLP and not repeated
-here.
+the standard deviation. Signed angular distances are scaled into the
+$[-1, 1]$-interval and similarly the number of hits in the ID into~$[0, 1]$. The
+training process is analogous the the MLP and not repeated here.
 
-The size of the layers in the architecture depicted in
-Figure~\ref{fig:track_rnn_schematic} is optimised by observing the validation
+The layer sizes in the architecture depicted in
+Figure~\ref{fig:track_rnn_schematic} are optimised by observing the validation
 loss while varying the number of units in different layers. A configuration
 using 32 units in the shared dense layer and 32 units in the LSTM layer shows
-decent classification performance, while still being trainable in a reasonable
+good classification performance, while still being trainable in a moderate
 amount of time. Alternative architectures using bidirectional LSTM and multiple
 consecutive LSTM layers were investigated and show only marginal improvements
 over the simpler model.
 
+\todo[inline]{Continue}
+
 In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given
-\tauhadvis candidate is depicted. The number of associated tracks can be large
+\tauhadvis candidate is depicted. The number of associated tracks can be large,
 especially for candidates from background events. For practical purposes the
 sequence of tracks is truncated to reduce the memory footprint as well as
 training and evaluation time of the network. As the tracks are sorted using a
