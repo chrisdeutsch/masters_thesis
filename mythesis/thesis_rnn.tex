@@ -605,8 +605,7 @@ rejection is increased by a factor of two for 1-prong and approximately
 information to the rejection is small with an improvement of approximately
 \SI{10}{\percent} over a model omitting the cluster branch. This allows to
 simplify the model without incurring a large loss in discriminative power.
-
-\todo[inline]{Write sth.\ about Track+Cluster}
+\todo{Write sth.\ about Track+Cluster}
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -624,53 +623,23 @@ simplify the model without incurring a large loss in discriminative power.
   \label{fig:roc_combined}
 \end{figure}
 
-Figure~\ref{fig:combined_working_points} shows the rejection of the tight
-working point as a function of the \tauhadvis \pt.
-
-\todo[inline]{Other Working points show the same relative increase in rejection?
-  see appendix}
-
-
-The improvements in background rejection allow to loosen the working points,
-thus increasing the signal efficiency, while still maintaining a rejection
-comparable to the optimised BDT. For example the signal efficiency of the tight
-working point for the 1-prong identification can be increased from
-\SI{60}{\percent} to \SI{70}{\percent}. In doing this the rejection of fake
-\tauhadvis candidates with transverse momentum of \SI{20}{\GeV} matches the
-rejection of the BDT using the working point with the nominal efficiency. For
-larger transverse momenta the rejection of the RNN at the loosened working point
-still exceeds the BDT-based identification. Analogously, the signal efficiency
-of the 3-prong tight working point can be increased from \SI{45}{\percent} to
-\SI{50}{\percent}.
-
-For $H \to \tauhad \tauhad$ analyses requiring two tight \tauhadvis this would
-result in an relative increase of 1-prong signal events of \SI{36}{\percent} and
-3-prong signal events of \SI{23}{\percent}, assuming uncorrelated
-
-
-
-- 1-prong: Increase tight working point efficiency from 60 to 70 percent
-- roughly same rejection at low pt
-- still better at high pt
-
-- 3-prong: Increase in tight working point efficiency from 45 to 50 percent
-- roughly same rejection at low pt
-- still better at high pt
-
-% 1-prong
-% 0.6 * 0.6 = 0.36
-% 0.7 * 0.7 = 0.49
-% 0.49 / 0.36 = 1.3611111111 -> 36 % relative increase in signal for $H \to \tauhad \tauhad$
-
-pp% 3-prong
-% 0.45 * 0.45 = 0.2025
-% 0.5 * 0.5 = 0.25
-% 0.25 / 0.2025 = 1.234567901234568 -> 23 % relative increase in signal for $H \to \tauhad \tauhad$
-
-- Multiplicity increase of dijets at high transverse momentum could lead to
-better rejection \cite{jet_multiplicity}
-
-- Ellis, Stirling, Webber: QCD and Collider Physics
+The background rejection of the tight working point for the 1- and 3-prong tau
+identification using the RNN is shown in
+Figure~\ref{fig:combined_working_points} and compared with the BDT-based
+identification from Chapter~\ref{sec:bdt}. The combined model shows a relative
+increase in rejection of the tight working point ranging from \SI{70}{\percent}
+to \SI{150}{\percent} for 1-prong and \SI{40}{\percent} to \SI{100}{\percent}
+for 3-prong tau identification over the optimised BDT-based model. In both cases
+an increase in background rejection with increasing \tauhadvis \pt is observed.
+A possible explanation for this behaviour is an enhanced capability of the RNN
+to identify tracks originating from quark- or gluon-initiated jets. Ultimately,
+this is because the track classification is optimised to reconstruct \tauhadvis
+originating from hadronic tau decays with the correct number of tracks, whereas
+it does not claim to reconstruct \tauhadvis from quark- or gluon-initiated jets
+with the correct charged-particle multiplicity. The increasing charged-particle
+multiplicity for high-\pt jets could therefore lead to an improved background
+rejection. The medium and loose working points show similar improvements (cf.\
+Appendix~\ref{app:rnn_wp}).
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -689,9 +658,49 @@ better rejection \cite{jet_multiplicity}
   \label{fig:combined_working_points}
 \end{figure}
 
-\todo[inline]{Whats with Track-RNN + Cluster-RNN?}
+The improvements in background rejection allow to loosen the working points,
+thus increasing the signal efficiency, while still maintaining a rejection
+comparable to the nominal working point of the BDT-based identification. An
+example is the efficiency of the tight working point for the 1-prong
+identification, which can be increased from \SI{60}{\percent} to
+\SI{70}{\percent}. In doing this the rejection of fake \tauhadvis candidates
+with transverse momentum of \SI{20}{\GeV} matches the rejection of the BDT using
+the nominal tight working point. For larger \tauhadvis \pt the rejection of the
+RNN at the loosened working point still exceeds the BDT-based identification.
+Analogously, the signal efficiency of the 3-prong tight working point can be
+increased from \SI{45}{\percent} to \SI{50}{\percent}. A detailed comparison of
+the background rejection of the loosened and nominal working point as a function
+of \tauhadvis \pt is omitted for brevity and can be found in
+Appendix~\ref{app:loosened_wp}.
 
-\todo[inline]{Does this improve light quark jet rejection?}
+Analyses requiring two \tauhadvis with tight identification in the reconstructed
+final state, e.g.\ measurements in the~\mbox{$H \to \tauhad \tauhad$} channel,
+can benefit from introducing working points with increased signal efficiency.
+Assuming the identification scores of the \tauhadvis in the final state are
+uncorrelated, a 1-prong working point with \SI{70}{\percent} signal efficiency
+increases the number of signal events by \SI{36}{\percent} compared to the
+nominal working point. Moreover, a 3-prong working point with \SI{50}{\percent}
+signal efficiency improves the signal yield by \SI{23}{\percent}. The RNN-based
+identification can achieve these working point efficiencies, while offering
+rejection rates matching or exceeding the nominal working points of the
+optimised BDT depending on the \tauhadvis momentum. For searches of additional
+heavy neutral Higgs and gauge bosons~\cite{mssm_higgs_zprime}, where the
+reconstructed final state is expected to contain \tauhadvis with high transverse
+momenta, the working point efficiencies could be increased even further.
+% 1-prong
+% 0.6 * 0.6 = 0.36
+% 0.7 * 0.7 = 0.49
+% 0.49 / 0.36 = 1.3611111111 -> 36 % relative increase in signal
+%
+% 3-prong
+% 0.45 * 0.45 = 0.2025
+% 0.5 * 0.5 = 0.25
+% 0.25 / 0.2025 = 1.234567901234568 -> 23 % relative increase in signal
+
+Small conclusion.
+
+
+\todo[inline]{Whats with Track-RNN + Cluster-RNN?}
 
 \todo[inline]{Have at least an exemplary RNN score in the appendix.}
 
@@ -705,6 +714,8 @@ better rejection \cite{jet_multiplicity}
 \todo[inline]{Regained lost rejection from modified isolation category.}
 
 \todo[inline]{Some standard plots: Efficiency vs pt vs eta vs mu (same with rejection?)}
+
+\todo[inline]{High pt rejection in appendix}
 
 %%% Local Variables:
 %%% mode: latex
