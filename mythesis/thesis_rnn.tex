@@ -80,10 +80,9 @@ small improvement at high efficiencies.
 \end{figure}
 
 Both the 1- and 3-prong MLP achieve similar performance characteristics as the
-optimised BDT from Chapter~\ref{sec:bdt}. The models required little
-hyperparameter optimisation to reach the given performances. This indicates that
-neural networks might be advantageous for the current tau identification method,
-offering a viable alternative to BDTs.
+optimised BDT from Chapter~\ref{sec:bdt}, while requiring little optimisation of
+the model hyperparameters. Therefore, neural networks are shown to be a viable
+method of performing tau identification.
 
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
@@ -101,9 +100,9 @@ applied to reconstructed tracks and clusters in the calorimeter.
 \label{sec:rnn_descr}
 
 The variable importance of the BDT-based tau identification in
-Section~\ref{sec:bdt_var_importance} shows that a large fraction of the
-background rejection can be attributed to variables derived from tracking
-information. Examples are the variables sensitive to the decay length of the tau
+Section~\ref{sec:bdt_var_importance} shows that a large fraction of background
+rejection can be attributed to variables derived from tracking information.
+Examples are the variables sensitive to the decay length of the tau
 lepton~$|S_\text{leadtrack}|$ and~$S_\text{T}^\text{flight}$ as well as the
 transverse momentum fraction of isolation tracks~$f_\text{iso}^\text{track}$ and
 the invariant mass of the track system~$m_\text{track}$. Moreover, during the
@@ -140,16 +139,16 @@ the maximum sequence length is limited by truncation.
   \label{fig:track_rnn_schematic}
 \end{figure}
 
-The tracks and the values of their input variables are passed in the predefined
-order to a dense layer with shared weights. This layer applies a transformation
-on the variables of each individual track, where the parameters of this
-transformation are shared between each element in the sequence. It creates a
-sequence of intermediate track representations, which are then passed to the
-recurrent layer employing the LSTM architecture. The output of the final time
-step of the RNN, consisting of a vector of activations, is passed to a dense
-layer with one neuron and logistic sigmoid activation. The activation of the
-output neuron can then be used to classify the \tauhadvis candidate as signal or
-background. \todo{$\tanh$ activation for shared dense and LSTM.}
+The tracks are passed in the predefined order to a dense layer with shared
+weights. This layer applies a transformation on the input variables of each
+individual track, where the trainable parameters of this transformation are
+shared between each element in the sequence. It creates a sequence of
+intermediate track representations, which are then passed to the recurrent layer
+employing the LSTM architecture. The output of the final time step of the RNN,
+consisting of a vector of activations, is passed to a dense layer with one
+neuron and logistic sigmoid activation. The activation of the output neuron can
+then be used to classify the \tauhadvis candidate as signal or background. The
+intermediate layers use the hyperbolic tangent activation function.
 
 \subsection{Network using Reconstructed Tracks in the Inner Detector}
 \label{sec:rnn_tracks}
