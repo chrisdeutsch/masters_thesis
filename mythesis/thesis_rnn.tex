@@ -168,32 +168,36 @@ attached to each track are summarised in the following:
   the input variables of each track. This allows tracks to be processed
   differently depending on the transverse momentum of the jet seed.
 
-\item[Impact parameters w.r.t.\ the tau vertex] The transverse~$d_0$ and
-  longitudinal impact parameters~$z_0 \sin\theta$ (distance of closest approach
-  in the $\rho z$-plane) with respect to the associated primary vertex is used.
-  The longitudinal impact parameter is multiplied by~$\sin\theta$,
-  where~$\theta$ is the azimuthal angle of the track parametrisation, to account
-  for larger errors of~$z_0$ for tracks in the forward region. Impact parameter
-  information is important to determine whether a given track originated from
-  the tau production vertex. It allows to discriminate between tracks from the
-  \tauhad or quark-/gluon-initiated jets and tracks from other interactions
-  during the same bunch crossing.
+\item[Impact parameters] Information on the impact parameters of the track with
+  respect to the associated primary vertex is included. The transverse impact
+  parameter~$d_0$ is used directly, while the longitudinal impact parameter is
+  included as~$z_0 \sin\theta$, where~$\theta$ is the polar angle of the track
+  parametrisation.
+  % This form accounts for larger errors of~$z_0$ for tracks in the forward
+  % region.
+  Impact parameter information is important to determine whether a given track
+  originated from the tau production vertex. It allows to discriminate between
+  tracks from the \tauhad or quark-/gluon-initiated jets and tracks from other
+  interactions during the same bunch crossing.
 
 \item[Angular distance to the tau axis] The signed angular distance of the track
-  to the tau axis in the longitudinal~$\Delta \eta$ and transverse
-  plane~$\Delta \varphi$. The angular distances allow probing the spacial
-  isolation of the tracks in a \tauhadvis candidate.
+  to the tau axis in the transverse~$\Delta \varphi$ and longitudinal
+  direction~$\Delta \eta \coloneqq \eta_\text{track} - \eta_\tau$. The transverse
+  angular distance~$\Delta \varphi$ is defined analogously to the longitudinal
+  case but also accounting for the periodicity in the azimuthal angle~$\varphi$.
+  The angular distances allow probing the spacial isolation of the tracks in a
+  \tauhadvis candidate.
 
 \item[Track quality criteria] The Track--RNN includes basic track quality
-  criteria to allow to reject tracks of low reconstruction quality. Therefore,
-  the number of hits in the pixel layers~$N_\text{pixel}$ and semiconductor
+  criteria to allow to reject tracks of low reconstruction quality. For this the
+  number of hits in the pixel layers~$N_\text{pixel}$ and semiconductor
   tracker~$N_\text{SCT}$ are used.
   % IBL TOO!
 
 \item[Electron probability] The probability of the track originating from an
   electron estimated by a likelihood-based discriminant using high-threshold hit
   information in the TRT~$p_\text{HT}$. It is used to identify tracks
-  originating from photon conversion.
+  originating from electrons created in photon conversion.
 \end{description}
 Including the track category from the multivariate track classification was also
 investigated leading to a small improvement in discrimination power. It is not
