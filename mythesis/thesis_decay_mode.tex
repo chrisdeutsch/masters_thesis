@@ -123,9 +123,10 @@ activations of both branches are merged and passed to a network consisting of
 three dense layers. The final dense layer has five units equal to the number of
 decay modes to classify. Application of the Softmax activation function on the
 final layer ensures that the output activations can be interpreted as mode
-probabilities \todo{define. score of 0.8 -- roughly \SI{80}{\percent} correctly
-  classified. see sklearn probability calibration. Should be probably in ML
-  chap}
+probabilities\footnote{Formally the posterior
+  probability~$p(\mathcal{C}_i \mid \mathbf{x})$ of an event being of
+  class~$\mathcal{C}_i$ with $i \in \{1, \dots, 5 \}$ given the input
+  variables~$\mathbf{x}$.}.
 
 \begin{figure}[htb]
   \centering
@@ -135,7 +136,6 @@ probabilities \todo{define. score of 0.8 -- roughly \SI{80}{\percent} correctly
     Chapter~\ref{sec:ml}). Layers operating on sequential inputs are highlighted
     in blue.}
   \label{fig:pfo_rnn_baseline_arch}
-  \todo[inline]{Ref.\ to RNN section?}
 \end{figure}
 
 \subsection{Baseline Model}
