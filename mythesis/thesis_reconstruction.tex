@@ -88,7 +88,7 @@ The four-momentum of each jet constituent in the coordinate system of the
 associated vertex, falling within a cone of~$\Delta R < 0.2$ with respect to the
 barycentre, is summed. This defines the visible tau momentum at LC scale and the
 tau axis. The \tauhadvis \pt at LC scale is used as a baseline for further
-energy calibrations. \todo{Move this somewhere else}
+energy calibrations.
 
 \section{Track Selection and Classification}
 \label{sec:reco_track_sel_classif}
@@ -117,15 +117,14 @@ axis.
 %
 % Dirk's talk in TauCP:
 % https://indico.cern.ch/event/615208/contributions/2481630/attachments/1415563/2167141/TauCP_TrackClassificationTaskforce_20170220.pdf
-For each track a multi-class classification is performed categorising them into
-one of four track categories: \emph{charged}, \emph{conversion},
-\emph{isolation} and \emph{fake} \todo{Sounds like generator level
-  classification}. Tracks classified as \emph{charged} are tracks originating
-from charged pions of the tau decay. \emph{Conversion} tracks are created by
-long-lived secondary particles from converted photons or hadronic interactions.
-\emph{Isolation} tracks are from primary particles not originating from the tau
-decay and \emph{fake} tracks from combinations of unrelated space points in the
-inner detector.
+For each reconstructed track a multi-class classification is performed
+categorising them into one of four track categories: \emph{charged},
+\emph{conversion}, \emph{isolation} and \emph{fake}. The \emph{charged} category
+captures tracks likely originating from charged pions of the tau decay.
+\emph{Conversion} tracks are created by long-lived secondary particles from
+converted photons or hadronic interactions. \emph{Isolation} tracks are from
+primary particles not originating from the tau decay and \emph{fake} tracks from
+combinations of unrelated space points in the inner detector.
 
 The multi-class classification is performed by using three boosted decision
 trees~(BDT) organised into two stages. In the first stage a single BDT performs
@@ -135,25 +134,26 @@ separate the preliminary categories into the four final track categories. The
 BDTs employ information on track momentum, impact parameters, number of hits in
 the ID, high-threshold hits in the TRT, etc. \todo{Schematic of BDT setup -- ben}
 
-The track classification is used to reconstruct the charge of the tau by summing
-the charge of all \emph{charged} tracks. The number of \emph{charged} tracks
-also defines whether a \tauhadvis candidate is from a 1- or 3-prong decay. The
-classification algorithm is optimised to reconstruct \tauhadvis with the correct
-number of \emph{charged} tracks, such that the reconstruction efficiency, which
-is the fraction of hadronic tau decays that are reconstructed as a 1- or 3-prong
-\tauhadvis candidate, is maximised. Analyses often require \tauhadvis to have
-one or three \emph{charged} tracks leading to a significant reduction in
-candidates from quark or gluon initiated jets, which typically have a larger
-track multiplicity. Using the \emph{charged} classification a derived track
-category is defined to calculate isolation variables. The \emph{modified
-  isolation} category consists of tracks not classified as \emph{charged} and
-passing track selection criteria:\todo{Why not use isolation tracks?}
+The track classification is used to reconstruct the charge of the \tauhadvis by
+summing the charge of all \emph{charged} tracks. The number of \emph{charged}
+tracks also defines whether a \tauhadvis candidate is from a 1- or 3-prong
+decay. The classification algorithm is optimised to reconstruct \tauhadvis with
+the correct number of \emph{charged} tracks, such that the reconstruction
+efficiency, which is the fraction of hadronic tau decays that are reconstructed
+as a 1- or 3-prong \tauhadvis candidate, is maximised. Analyses often require
+\tauhadvis to have one or three \emph{charged} tracks leading to a significant
+reduction in candidates from quark- or gluon-initiated jets, which typically
+have a larger track multiplicity. Using the \emph{charged} classification a
+derived track category is defined to calculate isolation variables. The
+\emph{modified isolation} category consists of tracks not classified as
+\emph{charged} and passing track selection criteria:\todo{Why not use isolation
+  tracks?}
 \begin{align*}
   &p_\text{T} > \SI{1}{\GeV} & &d_0^\text{PV} < \SI{1}{mm} & &|z_0^\text{PV} \sin\theta| < \SI{1.5}{mm} \\
   &N_\text{pixel} \geq 2 & &N_\text{Si} \geq 7 \eqcomma
 \end{align*} \todo{define silicon hits}
 where $d_0^\text{PV}$ ($z_0^\text{PV}$) is the transverse (longitudinal) impact
-parameter with respect to the associated primary vertex and $N_\text{Pixel}$
+parameter with respect to the associated primary vertex and $N_\text{pixel}$
 ($N_\text{Si}$) the number of pixel (silicon) hits including dead sensors on the
 trajectory. Tracks in the \emph{modified isolation} category are used to
 calculate discriminants, e.g.\ the momentum fraction of isolation tracks, for
