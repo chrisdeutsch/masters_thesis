@@ -164,10 +164,9 @@ attached to each track are summarised in the following:
   The inclusion of the track momentum is crucial as it allows the network to
   discriminate between tracks originating from the hard scattering and soft
   processes. Additionally, the transverse momentum of the anti-$k_\text{t}$ jet
-  used to seed the \tauhadvis candidate~$p_\text{T}^\text{jet}$ is appended to
-  the input variables of each track.
-
-  \todo[inline]{Why jet seed instead of tau at LC scale?}
+  used to seed the \tauhadvis candidate~$p_\text{T}^\text{jet}$ is included in
+  the input variables of each track. This allows tracks to be processed
+  differently depending on the transverse momentum of the jet seed.
 
 \item[Impact parameters w.r.t.\ the tau vertex] The transverse~$d_0$ and
   longitudinal impact parameters~$z_0 \sin\theta$ (distance of closest approach
