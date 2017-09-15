@@ -578,19 +578,21 @@ transverse momentum~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading
   \label{fig:rnn_ditau_trigger}
 \end{figure}
 
-Ref.~\cite{phase_2_scoping} outlines a di-tau trigger with offline
-$p_\text{T}$-threshold on the leading and subleading tau of \SI{40}{\GeV} and
-\SI{30}{\GeV}, respectively. The approach using the cluster-based RNN
-identification achieves the target rate at a reduced $p_\text{T}$-threshold
-of~\SI{25}{\GeV}. The efficiency of the selection shows opportunities for
-further enhancements by employing a proper tau energy calibration for HL-LHC
-conditions and using a more advanced decision threshold for the di-tau
-identification. The decision threshold could be loosened with increasing
-transverse momentum to ensure a quicker turn-on and full efficiency at
-high-$p_\text{T}$.
+First scoping studies of the ATLAS upgrade~\cite{phase_2_scoping} conceive a
+di-tau trigger with offline \tauhadvis \pt-threshold on the leading and
+subleading tau of \SI{40}{\GeV} and \SI{30}{\GeV}, respectively. The approach of
+using the Cluster--RNN for tau identification achieves the target rate at a
+reduced \tauhadvis \pt-threshold of~\SI{25}{\GeV}. The efficiency of the
+selection shows opportunities for further enhancements by employing a proper tau
+energy calibrations for HL-LHC conditions and using a more advanced decision
+threshold for the di-tau identification. The decision threshold could be
+loosened with increasing transverse momentum to ensure a quicker turn-on and
+full efficiency at high-\pt.
 
-\subsection{Combined Network}
+\subsection{Combining Recurrent Neural Networks and MLP}
 \label{sec:rnn_combined}
+
+\todo[inline]{Continue}
 
 After introducing the MLP using the high-level identification variables, the
 track-based RNN and the cluster-based RNN, a network combining these models is
