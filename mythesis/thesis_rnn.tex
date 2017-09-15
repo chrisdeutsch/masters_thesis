@@ -11,7 +11,7 @@ recurrent neural networks based on the LSTM architecture are used on sequences
 of tracks in the ID and clusters of energy in the calorimeter system. In this
 context a tau identification algorithm using purely calorimetric information is
 developed and its potential application for reducing the trigger rate of a
-di-tau trigger at the \emph{High Luminosity LHC} (HL-LHC) is presented. Finally,
+ditau trigger at the \emph{High Luminosity LHC} (HL-LHC) is presented. Finally,
 a model combining the multi-layer perceptron and the recurrent networks
 operating on track and cluster information is developed.
 
@@ -492,7 +492,7 @@ Cluster--RNN is not of interest to the offline reconstruction of \tauhadvis.
 However, it can potentially be used for tau identification at trigger-level,
 where track and vertex reconstruction is infeasible due to time constraints.
 
-\subsubsection{Online Di-Tau Identification at the High Luminosity LHC}
+\subsubsection{Online Ditau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}
 
 The Phase-II upgrade of the LHC called the High Luminosity LHC (HL-LHC) is
@@ -515,7 +515,7 @@ reconstructed \tauhadvis can be used to give prospects of the potential
 performance of triggers for \tauhadvis in the HL-LHC environment.
 
 A prospective study focusing on the usage of the cluster-based RNN for
-identification of \tauhadvis in a di-tau trigger is given. Offline \tauhadvis
+identification of \tauhadvis in a ditau trigger is given. Offline \tauhadvis
 are used as an approximation to reconstructed taus at trigger-level after the
 Phase-II upgrade. The study uses simulated samples
 of~$\text{Z} / \text{DY} \to \tau \tau$ and dijets at HL-LHC conditions with
@@ -531,27 +531,27 @@ selected in a given event, while additionally requiring two truth-matched
 hadronic tau decays for the signal sample. The RNN identification is applied to
 each \tauhadvis individually resulting in two identification scores per event.
 The leading and subleading \tauhadvis~$p_\text{T}$ and identification scores are
-combined in a logistic regression to assign a single di-tau identification score
+combined in a logistic regression to assign a single ditau identification score
 to each event.
 
 The \SI{200}{\kilo\hertz} accept rate of the subsequent trigger
-level~\cite{phase_2_scoping} limits the maximum rate of the di-tau trigger.
+level~\cite{phase_2_scoping} limits the maximum rate of the ditau trigger.
 Achieving this rate requires $p_\text{T}$-thresholds on leading and subleading
-\tauhadvis as well as application of the di-tau identification. The thresholds
+\tauhadvis as well as application of the ditau identification. The thresholds
 should be kept low to ensure high signal acceptance for physics analyses. For
 the purposes of this study a fixed cut on the identification score \todo{plot
-  with cut?} is used to identify di-tau events.
+  with cut?} is used to identify ditau events.
 
 Due to the large dijet production cross section it is assumed, that the dijet
 events in the simulated sample correspond to a trigger rate equal to the average
 bunch crossing rate of~\SI{31.6}{\mega\hertz}. In
 Figure~\ref{fig:rate_vs_thresholds} the trigger rate is shown as a function of
 the leading and subleading \tauhadvis $p_\text{T}$-thresholds after applying
-di-tau identification. The target rate can be achieved with an offline
+ditau identification. The target rate can be achieved with an offline
 $p_\text{T}$-threshold of \SI{25}{\GeV} on both \tauhadvis candidates.
 Figure~\ref{fig:ditau_trigger_eff} shows the efficiency of the identification
 using the specified thresholds with respect to events containing truth-matched
-\tauhadvis pairs. The di-tau efficiency starts to plateau at true visible
+\tauhadvis pairs. The ditau efficiency starts to plateau at true visible
 transverse momentum~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading
 \tauhadvis with an efficiency of approximately~\SI{90}{\percent}.
 
@@ -573,42 +573,41 @@ transverse momentum~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading
       fulfilling~$p_\text{T, vis}^\text{true} > \SI{25}{\GeV}$.}
     \label{fig:ditau_trigger_eff}
   \end{subfigure}
-  \caption{Feasibility of using TopoClusters for a di-tau trigger at the
+  \caption{Feasibility of using TopoClusters for a ditau trigger at the
     HL-LHC.}
   \label{fig:rnn_ditau_trigger}
 \end{figure}
 
 First scoping studies of the ATLAS upgrade~\cite{phase_2_scoping} conceive a
-di-tau trigger with offline \tauhadvis \pt-threshold on the leading and
+ditau trigger with offline \tauhadvis \pt-threshold on the leading and
 subleading tau of \SI{40}{\GeV} and \SI{30}{\GeV}, respectively. The approach of
 using the Cluster--RNN for tau identification achieves the target rate at a
 reduced \tauhadvis \pt-threshold of~\SI{25}{\GeV}. The efficiency of the
 selection shows opportunities for further enhancements by employing a proper tau
 energy calibrations for HL-LHC conditions and using a more advanced decision
-threshold for the di-tau identification. The decision threshold could be
+threshold for the ditau identification. The decision threshold could be
 loosened with increasing transverse momentum to ensure a quicker turn-on and
 full efficiency at high-\pt.
 
 \subsection{Combining Recurrent Neural Networks and MLP}
 \label{sec:rnn_combined}
+After introducing the MLP using high-level identification variables as well as
+the track- and cluster-based RNNs, a network combining these models is trained.
+Although the models carry redundant information, an improvement in background
+rejection can be expected.
 
-\todo[inline]{Continue}
-
-After introducing the MLP using the high-level identification variables, the
-track-based RNN and the cluster-based RNN, a network combining these models is
-trained. An improvement in rejection is expected when combining the models,
-although a large fraction of information will be redundant.
-
-The architecture of the combined model builds on the previously developed MLP,
-Track--RNN and Cluster--RNN architectures. A schematic description of the
-architecture is given in Figure~\ref{fig:schematic_combined}. The combined model
-contains three distinct branches. The branches using track and cluster inputs
-are inherited from the Track-- and Cluster-RNN, respectively. The sizes of the
-shared dense and LSTM layers are unchanged. The third branch is derived from the
-MLP using high-level identification variables. While the first two layers of the
-MLP are unchanged, a third dense layers with 16 units is added. The three
-branches are combined into a single output by merging their outputs in a final
-dense layer.
+The combined model builds on the architectures of the previously developed MLP,
+Track-- and Cluster--RNN. A schematic description of the model is given in
+Figure~\ref{fig:schematic_combined}. The combined model contains three distinct
+branches. The branches using track and cluster inputs are inherited from the
+Track-- and Cluster-RNN, respectively. The sizes of the shared dense and LSTM
+layers remain unchanged. The third branch is derived from the MLP using
+high-level identification variables. While the first two layers are unchanged, a
+third dense layers with 16 units is added. The three branches are merged by
+concatenating their outputs and subsequently reduced to a single output neuron
+in a final dense layer using the logistic sigmoid activation function. The input
+variables of each branch are transformed and standardised as given in the
+respective section.
 
 \begin{figure}[htb]
   \centering
@@ -620,16 +619,16 @@ dense layer.
   \label{fig:schematic_combined}
 \end{figure}
 
-Figure~\ref{fig:roc_combined} compares the ROC-curves of the combined model and
-the optimised BDT of Chapter~\ref{sec:bdt}. A model combining MLP and Track--RNN
-without including the Cluster--RNN is also shown. The combined model shows a
-significant improvement on the BDT-based tau identification. The background
-rejection is increased by a factor of two for 1-prong and approximately
-\SI{50}{\percent} for 3-prong candidates. The contribution of the cluster
-information to the rejection is small with an improvement of approximately
-\SI{10}{\percent} over a model omitting the cluster branch. This allows to
-simplify the model without incurring a large loss in discriminative power.
-\todo{Write sth.\ about Track+Cluster}
+Figure~\ref{fig:roc_combined} compares the ROC-curves of the combined model with
+the optimised BDTs from Chapter~\ref{sec:bdt}. A model combining MLP and
+Track--RNN without including the Cluster--RNN is also shown. The combined model
+shows a significant improvement on the BDT-based tau identification. The
+background rejection is increased by a factor of two for 1-prong and
+approximately \SI{50}{\percent} for 3-prong candidates. The contribution of the
+cluster information to the rejection is small, with an improvement of
+approximately \SI{10}{\percent} over a model omitting the cluster branch. This
+would allow to simplify the model without incurring a large loss in
+discriminative power. \todo{Write sth.\ about Track+Cluster}
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -647,23 +646,21 @@ simplify the model without incurring a large loss in discriminative power.
   \label{fig:roc_combined}
 \end{figure}
 
-The background rejection of the tight working point for the 1- and 3-prong tau
-identification using the RNN is shown in
-Figure~\ref{fig:combined_working_points} and compared with the BDT-based
-identification from Chapter~\ref{sec:bdt}. The combined model shows a relative
-increase in rejection of the tight working point ranging from \SI{70}{\percent}
-to \SI{150}{\percent} for 1-prong and \SI{40}{\percent} to \SI{100}{\percent}
-for 3-prong tau identification over the optimised BDT-based model. In both cases
-an increase in background rejection with increasing \tauhadvis \pt is observed.
-A possible explanation for this behaviour is an enhanced capability of the RNN
-to identify tracks originating from quark- or gluon-initiated jets. Ultimately,
-this is because the track classification is optimised to reconstruct \tauhadvis
-originating from hadronic tau decays with the correct number of tracks, whereas
-it does not claim to reconstruct \tauhadvis from quark- or gluon-initiated jets
-with the correct charged-particle multiplicity. The increasing charged-particle
-multiplicity for high-\pt jets could therefore lead to an improved background
-rejection. The medium and loose working points show similar improvements (cf.\
-Appendix~\ref{app:rnn_wp}).
+The background rejection of the 1- and 3-prong tight working points using the
+RNN is shown in Figure~\ref{fig:combined_working_points} and compared with the
+BDT-based identification. The combined model shows a relative increase in
+rejection at the tight working point ranging from \num{70} to \SI{150}{\percent}
+for 1-prong and \num{40} to \SI{100}{\percent} for 3-prong tau identification
+over the optimised BDT-based model. In both cases an improvement in background
+rejection with increasing \tauhadvis \pt is observed. A possible explanation for
+this behaviour is the enhanced use of isolation information in the RNN leading
+to an improved background rejection due to the increasing charged-particle
+multiplicity of quark- or gluon-initiated jets at high transverse momenta. In
+contrast to the RNN, the selection of \tauhadvis with one or three tracks
+classified as \emph{charged} is not optimised to reject jet background,
+therefore allowing the dedicated algorithm to further improve the
+classification. The medium and loose working points show similar improvements
+(cf.\ Appendix~\ref{app:rnn_wp}).
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -677,25 +674,22 @@ Appendix~\ref{app:rnn_wp}).
     \subcaption{3-prong}
   \end{subfigure}
   \caption{Background rejection at the tight working point as a function of the
-    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
-    RNN-based identification.}
+    \tauhadvis $p_\text{T}$ at tau energy scale for the BDT- and RNN-based
+    identification.}
   \label{fig:combined_working_points}
 \end{figure}
 
-The improvements in background rejection allow to loosen the working points,
-thus increasing the signal efficiency, while still maintaining a rejection
-comparable to the nominal working point of the BDT-based identification. An
-example is the efficiency of the tight working point for the 1-prong
-identification, which can be increased from \SI{60}{\percent} to
-\SI{70}{\percent}. In doing this the rejection of fake \tauhadvis candidates
-with transverse momentum of \SI{20}{\GeV} matches the rejection of the BDT using
-the nominal tight working point. For larger \tauhadvis \pt the rejection of the
-RNN at the loosened working point still exceeds the BDT-based identification.
-Analogously, the signal efficiency of the 3-prong tight working point can be
-increased from \SI{45}{\percent} to \SI{50}{\percent}. A detailed comparison of
-the background rejection of the loosened and nominal working point as a function
-of \tauhadvis \pt is omitted for brevity and can be found in
-Appendix~\ref{app:loosened_wp}.
+The improved background rejection allows to increase the signal efficiency of
+the working points, while still maintaining a rejection comparable to the
+nominal working point of the BDT-based identification. An example is the
+efficiency of the tight working point for the 1-prong identification, which can
+be increased from \num{60} to \SI{70}{\percent}. In doing this the rejection of
+fake \tauhadvis candidates with transverse momentum of \SI{20}{\GeV} matches the
+rejection of the BDT using the nominal tight working point. For larger
+\tauhadvis \pt the rejection of the RNN at the loosened working point still
+exceeds the BDT-based identification. Analogously, the signal efficiency of the
+3-prong tight working point can be increased from \SI{45}{\percent} to
+\SI{50}{\percent}. A comparison is shown in Figure~\ref{fig:loosened_wp}.
 
 Analyses requiring two \tauhadvis with tight identification in the reconstructed
 final state, e.g.\ measurements in the~\mbox{$H \to \tauhad \tauhad$} channel,
@@ -703,14 +697,14 @@ can benefit from introducing working points with increased signal efficiency.
 Assuming the identification scores of the \tauhadvis in the final state are
 uncorrelated, a 1-prong working point with \SI{70}{\percent} signal efficiency
 increases the number of signal events by \SI{36}{\percent} compared to the
-nominal working point. Moreover, a 3-prong working point with \SI{50}{\percent}
-signal efficiency improves the signal yield by \SI{23}{\percent}. The RNN-based
-identification can achieve these working point efficiencies, while offering
-rejection rates matching or exceeding the nominal working points of the
-optimised BDT depending on the \tauhadvis momentum. For searches of additional
-heavy neutral Higgs and gauge bosons~\cite{mssm_higgs_zprime}, where the
-reconstructed final state is expected to contain \tauhadvis with high transverse
-momenta, the working point efficiencies could be increased even further.
+nominal working point. For a 3-prong working point with \SI{50}{\percent} signal
+efficiency the signal yield would be increased by \SI{23}{\percent}. The
+RNN-based identification can achieve these working point efficiencies, while
+offering rejection rates matching or exceeding the nominal working points of the
+optimised BDT. For searches of additional heavy neutral Higgs and gauge
+bosons~\cite{mssm_higgs_zprime}, where the reconstructed final state is expected
+to contain \tauhadvis with high transverse momenta, the working point
+efficiencies could be increased even further.
 % 1-prong
 % 0.6 * 0.6 = 0.36
 % 0.7 * 0.7 = 0.49
@@ -721,7 +715,28 @@ momenta, the working point efficiencies could be increased even further.
 % 0.5 * 0.5 = 0.25
 % 0.25 / 0.2025 = 1.234567901234568 -> 23 % relative increase in signal
 
-This concludes the studies related to tau identification...
+\begin{figure}[htbp]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/rnn_loosened_tight_1p.pdf}
+    \subcaption{1-prong}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/rnn_loosened_tight_3p.pdf}
+    \subcaption{3-prong}
+  \end{subfigure}
+  \caption{Comparison of the background rejection of the RNN-based
+    identification at a working point (WP) with increased signal efficiency with
+    the nominal tight working point of the BDT.}
+  \label{fig:loosened_wp}
+\end{figure}
+
+The models developed in this chapter present an novel approach of performing tau
+identification. They show a promising performance over the tau identification
+strategy currently employed in the ATLAS experiment. Thus far the results are
+based on simulated data and still require validation using data taken with the
+detector.
 
 \todo[inline]{Whats with Track-RNN + Cluster-RNN? Definitely should have that --
   see if we can skip on the high-level info.}
