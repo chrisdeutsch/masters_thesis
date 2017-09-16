@@ -445,22 +445,22 @@ evaluating multivariate algorithms for the reconstruction of hadronic tau lepton
 decays in the ATLAS experiment.
 
 The neural network based studies in chapters~\ref{sec:rnn}
-and~\ref{sec:decaymode} use the \texttt{keras} framework~\cite{keras} which
+and~\ref{sec:decaymode} use the \textsc{keras} framework~\cite{keras} which
 offers implementations of commonly used layers (i.e.\ the rules to compute the
 forward pass as well as the symbolic derivatives for backpropagation), loss
 functions and optimisers. Moreover, it takes care of the necessary bookkeeping
-when building neural networks. The \texttt{theano} backend~\cite{theano} is used
-in \texttt{keras} performing fast computation of mathematical expressions for
+when building neural networks. The \textsc{theano} backend~\cite{theano} is used
+in \textsc{keras} performing fast computation of mathematical expressions for
 training and evaluation of the networks. For the preprocessing of the data, the
-\texttt{numpy} \cite{numpy} and \texttt{scipy} \cite{scipy} packages are used.
-The training of the neural networks uses the \emph{Adam} optimiser~\cite{adam}
+\textsc{numpy} \cite{numpy} and \textsc{scipy} \cite{scipy} packages are used.
+The training of the neural networks uses the \textsc{Adam} optimiser~\cite{adam}
 which is a stochastic gradient descent algorithm with adaptive learning rates
 offering quick convergence with little parameter tuning. The layers used in this
-thesis are (using the \texttt{keras} naming convention):
-\emph{Dense}~(densely-connected layer), \emph{LSTM}, \emph{Merge}~(concatenates
-outputs from multiple layers), and \emph{Masking}~(skips inputs in recurrent
-networks filled with a predefined default value). The \emph{Dense} and
-\emph{LSTM} layers use biases which were omitted in this chapter for brevity.
+thesis are (using the \textsc{keras} naming convention):
+Dense~(densely-connected layer), LSTM, Merge~(concatenates outputs from multiple
+layers), and Masking~(skips inputs in recurrent networks filled with a
+predefined default value). The dense and LSTM layers use biases which were
+previously omitted.
 
 %%% Local Variables:
 %%% mode: latex

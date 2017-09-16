@@ -198,62 +198,62 @@ boosting algorithm with a learning rate~$\beta = 0.2$. Individual decision trees
 return estimated class probabilities instead of the majority class and no
 \emph{pruning} of statistically insignificant nodes is applied. This
 configuration is used as a starting point for further optimisations. The full
-configuration of the TMVA-BDTs are summarised in Appendix~\ref{app:tmva_config}.
+configurations of the TMVA-BDTs are summarised in
+Appendix~\ref{app:tmva_config}.
 
 \section{Event Simulation, Preselection and Reweighting}
 \label{sec:bdt_eventsim}
 
-For training and performance evaluation of the models simulated data at a centre
-of mass energy of~$\sqrt{s} = \SI{13}{\TeV}$ and an average number of
-interactions per bunch crossing of~$\mu = \num{30}$ is used. The signal samples
-are created by the process~$\gamma^* \to \tauhad \tauhad$, where at
-generator-level leptonic decays of the tau are disabled. Moreover, interference
-and on-/ off-shell production of the $\text{Z}^0$~boson is disabled. The reason
-for not using a sample employing the Drell--Yan process including interference
-and on- / off-shell production is that the tau polarisation changes for di-tau
-invariant masses close to the $\text{Z}^0$ mass whereas unpolarised taus are
-desired. Moreover, the di-tau mass spectrum is smooth and decreasing without an
-increased number of events close to the $\text{Z}^0$ mass, making it convenient
-for performance studies. Simulated dijet events are used as the background
-contribution, suppyling tau candidates with transverse momenta of up to
-approximately~\SI{1800}{\GeV}. The quark-gluon fraction of jets in the
-background sample is approximately \SI{60}{\percent}, strongly affecting the
-performance of the identification algorithms. A complete summary of the event
-samples can be found in appendix~\ref{app:samples}. Both the signal and the
-background samples are generated using \textsc{Pythia}~8 with the A14
-tune~\cite{a14_tune} and the NNPDF23LO PDF set~\cite{NNPDF}.
-% \textsc{EvtGen} is used for b fragmentation.
+For training and performance evaluation of the tau identification, simulated
+events at a centre-of-mass energy of~$\sqrt{s} = \SI{13}{\TeV}$ and an average
+number of interactions per bunch crossing of~$\mu = \num{30}$ is used. The
+signal samples use the process~$\gamma^* \to \tauhad \tauhad$, where at
+generator-level leptonic decays of the tau lepton are disabled. In contrast to
+the Drell--Yan process, no on- and off-shell production and interference with
+the $Z$~boson is included. The reason is to create a sample with unpolarised tau
+leptons, i.e. having the same number of positive and negative helicity tau
+leptons, over a large range of ditau invariant masses. Polarisation biases the
+angular distribution of the daughter particles in a tau decay and therefore the
+kinematics, which is not desired when training general purpose algorithms.
+Additionally, the ditau invariant mass spectrum is smooth and decreasing without
+a large number of events close to the $Z$~mass, making it convenient for
+performance studies. The background samples consist of simulated dijet events,
+supplying fake \tauhadvis with transverse momenta of up to \SI{1800}{\GeV} at
+tau energy scale. Both the signal and background samples are generated using
+\textsc{Pythia}~8 with the A14 tune~\cite{a14_tune} and the NNPDF23LO PDF
+set~\cite{NNPDF}. A complete summary of the simulated samples can be found in
+Appendix~\ref{app:samples}.
 
-A preselection is applied to the event samples to match typical selections
-applied at analysis-level. Therefore the identification studies focus on
-candidates with visible transverse
-momenta~$p_\text{T} > \SI{20}{\giga\electronvolt}$. Reconstructed taus are
-required to fall into the acceptance region of the tracking
-system~$|\eta| < 2.5$, while rejecting candidates in the transition region
-between barrel and end-cap of the calorimeter~\mbox{$1.37 < |\eta| < 1.52$}. The
-number of reconstructed \emph{charged} tracks must be one or three. Candidates
-in the signal samples are truth-matched to taus at generator-level and the same
-selections, i.e.\ transverse momentum, pseudorapidity, number of charged hadrons
-in the decay, are applied at truth-level. The number of tau candidates in the
-signal and background sample after the baseline selection is summarised in
+A preselection is applied to reconstructed \tauhadvis in the event samples to
+match typical selections applied at analysis level. Therefore, the tau
+identification studies focus on candidates with visible transverse
+momenta~$\pt > \SI{20}{\GeV}$. Reconstructed \tauhadvis are required to fall in
+the acceptance range of the tracking system~$|\eta| < 2.5$, while rejecting
+candidates in the transition region between barrel and end-cap of the
+calorimeter~\mbox{$1.37 < |\eta| < 1.52$}. The number of reconstructed
+\emph{charged} tracks must be either one or three. Additionally, \tauhadvis
+candidates in the signal samples are matched to true taus at generator-level and
+the same selections, i.e.\ transverse momentum, pseudorapidity, number of
+charged hadrons in the decay, are applied at truth level. The number of tau
+candidates in the samples after preselection is summarised in
 Table~\ref{tab:sample_size}.
 
 \begin{table}[htb]
   \centering
   {\small\input{./tables/sample_size.tex}}
-  \caption{Number of tau candidates after the baseline selection.}
+  \caption{Number of \tauhadvis candidates after preselection.}
   \label{tab:sample_size}
 \end{table}
 
 In Figure~\ref{fig:pt_mu} the pile-up profile of the simulation and the
-distribution of visible transverse momenta~$p_\text{T}$ of tau candidates in the
+distribution of visible transverse momenta of \tauhadvis candidates in the
 signal and background samples is shown. Since the samples are created using
-different processes, the $p_\text{T}$-spectra differ for both samples. When
-training the identification algorithms it is important to avoid distinguishing
-signal and background by the momentum spectrum. Therefore weights are applied to
-each tau candidates in the background sample such that the weighted signal and
-background samples are indistinguishable in the reconstructed transverse
-momentum.
+different processes, their $p_\text{T}$-spectra differ. When training
+identification algorithms it is important to avoid distinguishing signal and
+background candidates by their transverse momentum. Therefore, weights are
+applied to \tauhadvis candidates in the background sample such that the weighted
+background sample is indistinguishable from the signal sample in the
+reconstructed transverse momentum.
 
 \begin{figure}[htb]
   \centering
@@ -265,8 +265,8 @@ momentum.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/pt_mu_samples/pt.pdf}
-    \subcaption{Transverse momentum spectrum of reconstructed tau candidates
-      after baseline selection.}
+    \subcaption{Transverse momentum distribution of \tauhadvis at tau energy
+      scale after preselection.}
   \end{subfigure}
   \caption{Properties of the simulated signal and background samples.}
   \label{fig:pt_mu}
