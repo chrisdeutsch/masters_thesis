@@ -4,39 +4,46 @@
 \label{sec:bdt}
 The reconstruction of hadronic tau lepton decays described in
 Chapter~\ref{sec:reconstruction} is based on jets reconstructed using the
-anti-$k_\text{T}$ jet algorithm operating on clusters of calorimeter cells. Jets
+anti-$k_\text{t}$ jet algorithm operating on clusters of calorimeter cells. Jets
 originating from quarks or gluons, which are more abundant than tau leptons due
 to the large multijet production cross section at the LHC, are often
 reconstructed as candidates for hadronic tau lepton decays and represent a
 significant background in many analyses. The reconstruction itself offers little
-rejection of multijet events with the exception of the track classification when
-requiring 1- or 3-track decays. In the ATLAS experiment an identification
-algorithm based on multivariate methods utilising track and shower shape
-variables is used to discriminate hadronic tau decays from multijet events.
+rejection of \tauhadvis candidates from quark- or gluon-initiated jets with the
+exception of the track classification when requiring 1- or 3-track decays. In
+the ATLAS experiment an identification algorithm based on multivariate methods
+utilising track and shower shape variables is used to discriminate hadronic tau
+decays from \tauhadvis reconstructed in multijet events.
 
 This chapter will start with a description of the tau identification procedure
 including definitions of the discriminating variables and the configuration of
-the BDTs used for distinguishing hadronic tau decays (hereafter called signal)
-and tau candidates from multijet events (hereafter called background). The
-simulated samples used for training and performance evaluation of the models,
-the kinematic reweighting and the preselection are described in
-Section~\ref{sec:bdt_eventsim}. In Section~\ref{sec:bdt_hyperparam} a systematic
-optimisation of the BDT configuration is performed to improve the overall
-rejection of the identification. Subsequently, the variable selection is
-investigated to improve the background rejection by adding new variables and
-removing variables only contributing little to the overall identification
-performance. The chapter is concluded by evaluating the performance of the
+the BDTs used for distinguishing \tauhadvis from hadronic tau decays (signal
+candidates) and \tauhadvis originating from quark- or gluon-initiated jets
+(background candidates). The simulated event samples used for training and
+performance evaluation of the models, the kinematic reweighting and the
+preselection will be described. Subsequently, a systematic optimisation of the
+BDT is performed to improve the discriminative power of the tau identification.
+For this the configuration of the BDT and the variable selection is
+investigated. The chapter is concluded by evaluation the performance of the
 optimised BDTs.
 
-In the following the signal efficiency, i.e.\ the fraction of reconstructed tau
-candidates originating from hadronic tau decays passing a selection, will be
-referred as the \emph{efficiency}. The \emph{rejection} refers to the inverse
-background efficiency, i.e.\ the inverse fraction of tau candidates from
-multijet events and pile-up passing a selection. Therefore the efficiencies and
-rejection rates given in this chapter will not account for reconstruction
-efficiency. The aim of this chapter is to improve the rejection of multijet
-events at a fixed signal efficiency such that analyses using tau identification
-observe larger signal-to-background ratios.
+In the following two figures of merit will be used to describe the performance
+of the tau identification. They are based on the definition of the efficiency of
+a selection given by:
+\begin{align*}
+  \text{Efficiency} = \frac{\text{Number of reconstructed \tauhadvis passing a selection}}{\text{Total number of reconstructed \tauhadvis}} \eqdot
+\end{align*}
+Notably the efficiencies given in this chapter will not account for
+inefficiencies in the reconstruction. The signal efficiency is the efficiency of
+selecting \tauhadvis candidates in a signal sample with candidates originating
+from hadronic tau lepton decays. The background rejection is the inverse
+efficiency of selecting \tauhadvis in a background sample containing fake
+\tauhadvis candidates. Hereafter, the signal efficiency and background rejection
+will be referred to as efficiency and rejection, respectively. The aim of this
+chapter is to improve the rejection of \tauhadvis originating from quark- or
+gluon-initiated jets at a fixed signal efficiency such that analyses using tau
+identification observe higher signal significances due to a larger
+signal-to-background ratio.
 
 \section{Description of the Tau Identification Procedure}
 \label{sec:bdt_tauid}
