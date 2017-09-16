@@ -281,18 +281,17 @@ reconstructed transverse momentum.
 \section{Hyperparameter Optimisation}
 \label{sec:bdt_hyperparam}
 
-Machine learning algorithms have parameters that define the complexity of the
-model. They cannot be determined as part of the training process and are
-therefore called hyperparameters. Often these parameters need problem specific
-tuning to obtain the best discriminative power for a given algorithm. In the
-following the BDTs of the 1- and 3-prong tau identification are optimised
-separately with respect to the boosting algorithm and the most important
-hyperparameters.
+Machine learning algorithms typically have parameters defining the complexity of
+the model. They cannot be determined as part of the training process and are
+therefore called hyperparameters. Often these parameters need tuning to obtain
+the best discriminative power for the underlying problem. In the following the
+BDTs of the 1- and 3-prong tau identification are optimised separately with
+respect to the boosting algorithm and the most important hyperparameters.
 
 Many input variables for the identification have skewed or long-tailed
 distributions leading to suboptimal decision trees as TMVA uses equidistant
 sampling points for finding the best possible split on a given variable.
-Therefore transformations are applied to the variables to improve the split
+Therefore, transformations are applied to the variables to improve the split
 finding. For this highly skewed distributions are log-transformed, while
 long-tailed distributions and outliers due to detector resolution effects are
 clamped to fall into a specified range of values. The exact transformations can
@@ -300,11 +299,11 @@ be found in Appendix~\ref{app:variable_transforms}.
 
 Hold-out validation is used to measure how well the model generalises to data
 that was not used to train the model. This is done by splitting the signal and
-background samples into two equally sized samples called \emph{training} and
-\emph{testing sample}. The \emph{training sample} is used to train the model and
-the \emph{testing sample} is exclusively used to determine the performance
-characteristics of the model. Unless otherwise noted, the metrics and figures
-given in the following sections are evaluated on the \emph{testing sample}.
+background samples into two equally sized samples called training and testing
+sample. The training sample is used to train the model and the testing sample is
+used to determine the performance characteristics of the model. Unless otherwise
+noted, the metrics and figures given in the following sections are evaluated
+using the testing sample.
 
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
@@ -313,21 +312,22 @@ In Chapter~\ref{sec:ml_boosting} the two boosting algorithms \emph{AdaBoost} and
 \emph{Gradient Boosting} were introduced. The performance of both algorithms for
 tau identification is compared by training BDTs and varying a boosting-specific
 parameter called the learning rate. The learning rate for \emph{AdaBoost} is
-typically denoted by~$\beta$, while for the case of gradient boosting it is
-called \emph{shrinkage}~$\eta$. Reducing the learning rate artificially slows
-down the boosting process by decreasing the impact of additional trees on the
+typically denoted by~$\beta$, while for gradient boosting it is called the
+shrinkage~$\eta$. Reducing the learning rate artificially slows down the
+boosting process by decreasing the influence of additional trees on the
 ensemble. Empirically it has been found that small learning rates often lead to
 improvements in test error~\cite{esl}.
 
 The 1-prong tau identification BDT with the input variables and configuration
-summarised in Section~\ref{sec:bdt_tauid} is trained on tau candidates from the
-signal and background samples. The learning rates for both boosting algorithms
-are varied between 0.05 and 1.0. At each setting the background rejection is
-calculated at a fixed signal efficiency of~\SI{60}{\percent}. For this a single
-cut on the output score of the BDT is determined such that~\SI{60}{\percent} of
-tau candidates in the signal sample pass this selection. This is an
-approximation of the \emph{tight}~working point of the tau identification used
-in the ATLAS experiment.
+summarised in Section~\ref{sec:bdt_tauid} is trained on \tauhadvis candidates
+from the signal and background samples. The learning rates for both boosting
+algorithms are varied between 0.05 and 1.0. At each setting the background
+rejection is calculated at a fixed signal efficiency of~\SI{60}{\percent}. For
+this a single cut on the output score of the BDT is determined such
+that~\SI{60}{\percent} of \tauhadvis candidates in the signal sample pass this
+selection. This is an approximation of the tight working point of the tau
+identification used in the ATLAS experiment. The working points will be formally
+introduced at a later point.
 
 In Figure~\ref{fig:bdt_boosting_alg} the rejection is shown as a function of the
 learning rate for both algorithms. An improvement in rejection of approximately
@@ -337,47 +337,49 @@ used in the \emph{Gradient Boosting} implementation of TMVA. The loss functions
 are depicted in Figure~\ref{fig:boosting_loss} showing that the \emph{Gradient
   Boosting} implementation puts less emphasis on misclassified events
 ($y f(x) < 0$) compared to the exponential loss of \emph{AdaBoost}. This makes
-\emph{Gradient Boosting} more robust choice for problems where signal and
-background are inseparable in certain regions of phase space. For tau
-identification this is often the case for jets initiated by light quarks, which
-more closely resemble hadronic decays of tau leptons. Due to the significant
-increase in rejection when using \emph{Gradient Boosting}, it is used for the
-further optimisation steps.
+\emph{Gradient Boosting} a robust choice for problems where signal and
+background are inseparable in certain regions of the input variable space. For
+tau identification this can be the case for jets initiated by light quarks,
+which more closely resemble hadronic decays of tau leptons. A similar
+improvement is observed for the 3-prong identification, therefore \emph{Gradient
+  Boosting} will be used for further optimisation steps.
 
 \begin{figure}[htb]
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/boosting.pdf}
-    \subcaption{Rejection of 1-prong tau candidates from dijet events using BDTs
-      trained with different boosting algorithms.}
+    \subcaption{Rejection of 1-prong \tauhadvis candidates from dijet events
+      using BDTs trained with different boosting algorithms.}
     \label{fig:bdt_boosting_alg}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
-    \centering \includegraphics{./figures/theory/boosting_loss.pdf}
+    \centering
+    \includegraphics{./figures/theory/boosting_loss.pdf}
     \subcaption{Classification losses as a function of the margin~$y f(x)$ with
-      the true class~$y \in \{-1, 1\}$ and the BDT response~$f(x) \in [-1, 1]$.}
+      the true class~$y \in \{-1, 1\}$ and the BDT response~$f(x) \in [-1, 1]$.
+      Adapted from Ref.~\cite{esl}.}
     \label{fig:boosting_loss}
   \end{subfigure}
-  \caption{Optimisation of the boosting algorithm for tau identification.}
+  \caption{Optimisation of the boosting algorithm used for tau identification.}
 \end{figure}
 
 \subsection{Grid Search in Hyperparameter Space}
 \label{sec:bdt_grid_search}
 
-Aside from the boosting algorithm, BDTs have important hyperparameters that need
-to be optimised to obtain the best possible performance. These are the number of
-trees~ $N_\text{trees}$ in the ensemble and the learning rate~$\eta$. Both
-parameters are boosting-specific and related as small learning rates require a
-large number of trees to converge and vice versa. Additionally, the maximum tree
-depth~$d_\text{tree}$ and the fraction of events required for node
+Aside from the boosting algorithm, BDTs have other important hyperparameters
+that need to be optimised to obtain the best possible performance. These are the
+number of trees~ $N_\text{trees}$ in the ensemble and the learning rate~$\eta$.
+Both parameters are boosting-specific and related as small learning rates
+require a large number of trees to converge and vice versa. Additionally, the
+maximum tree depth~$d_\text{tree}$ and the fraction of events required for node
 splitting~$f_\text{node}^\text{min}$ are important parameters related to
 individual decision trees in the ensemble. Both parameters limit the depth of a
 tree and therefore the allowed order of variable interactions (e.g.\
 $d_\text{tree} = 2$ allows interactions of up to two variables). The final
 parameter that is investigated is \emph{bagged boosting} where each tree is
 grown using a random sample of training events drawn with replacement from the
-full training sample. This method aims to reduce overfitting, i.e.\ models
+full training sample. This method aims to reduce overfitting, which is models
 learning statistical fluctuations in the training sample and thus reducing
 generalisation performance. The corresponding hyperparameter is the fraction of
 events~$f_\text{bag}$ in the random sample.
@@ -393,7 +395,7 @@ following hyperparameter values
 resulting in a total of 720 grid points each for the 1- and 3-prong BDT. The
 rejection is, analogously to the previous section, calculated using a single cut
 on the output score to obtain a signal efficiency comparable to the tight
-working points used in ATLAS.
+working point.
 
 In Figure~\ref{fig:hyperparameter_scan_1p} the background rejection of the
 1-prong tau identification BDT is shown as a function of the hyperparameters of
@@ -436,6 +438,8 @@ background rejection are discussed in the following.
   \label{fig:hyperparameter_scan_1p}
 \end{figure}
 
+\todo[inline]{Continue}
+
 The interaction of the number of trees in the ensemble~$N_\text{trees}$ with the
 maximum tree depth~$d_\text{tree}$ and learning rate~$\eta$ is shown in
 Figures~\ref{fig:gridscan_maxdepth_ntrees} and
@@ -451,7 +455,7 @@ depth of 16 can significantly overfit if the learning rate is set too large. The
 importance of choosing an appropriate minimum node
 size~$f_\text{node}^\text{min}$ is shown in
 Figure~\ref{fig:gridscan_minnodesize_maxdepth}. If it is chosen too large the
-model does not properly fit the data. However, a small minimum node size can
+model does not fully capture the data. However, a small minimum node size can
 quickly lead to overfitting for decision trees with a large maximum depth. This
 is due to the interplay of~$d_\text{tree}$ and~$f_\text{node}^\text{min}$, when
 constraining the depth of the decision trees. The optimisation of the 3-prong
