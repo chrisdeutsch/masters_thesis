@@ -602,7 +602,7 @@ Figure~\ref{fig:pt_mu}).
     \includegraphics{./figures/bdt_perf/working_points/grid_3p0327_wp.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Decision thresholds for the tight working point of \mbox{BDT B}.}
+  \caption{Decision thresholds for the tight working point using \mbox{BDT B}.}
   \label{fig:working_point_cutmap}
 \end{figure}
 
@@ -622,12 +622,12 @@ cannot significantly alter the signature of the highly energetic tau decay.
 
 After optimising the hyperparameter configuration and defining the working
 points to be used by analyses, an investigation of the input variable selection
-for the BDTs is performed. First the set of variables is extended to improve the
-rejection of tau candidates from multijet events. Subsequently, input variables
-with an insignificant impact on the discriminative power are removed to simplify
-the model.
+is performed. First the set of variables is extended to improve the rejection of
+\tauhadvis candidates quark- or gluon-initiated jets. Subsequently, input
+variables with an insignificant impact on the discriminative power are removed
+to simplify the model.
 
-\subsection{Transverse Momentum Dependency of Input Variables}
+\subsection{Transverse Momentum Dependency of the Input Variables}
 \label{sec:bdt_incl_pt}
 
 % Do I need these plots?
@@ -647,9 +647,9 @@ the model.
 % \end{figure}
 
 The distributions of the variables used for tau identification change depending
-on the reconstructed transverse momentum of the tau candidates. This impacts the
-identification algorithm as the separation of signal and background in a given
-variable often varies as a function of~$p_\text{T}$.
+on the reconstructed transverse momentum of the \tauhadvis candidates. This
+impacts the identification algorithm as the separation of signal and background
+in a given variable often varies as a function of~$p_\text{T}$.
 
 Variables that are affected by this are the track radius~$R_\text{track}$ and
 the maximum track~$\Delta R$. At large transverse momentum \emph{charged} tracks
@@ -658,9 +658,10 @@ thus reducing the separation in these variables. Similarly, the central energy
 fraction~$f_\text{cent}$ of background candidates increases at high transverse
 momentum making them more tau-like. In contrast to this, the variables based on
 invariant masses~$m_\text{track}$ and~$m_\text{EM+track}$ show a larger
-separation at high momentum. This is because the mass of signal candidates is
-bounded by the mass of the tau lepton, while for candidates from multijet events
-the invariant mass increases with increasing transverse momentum. \todo{Plots?}
+separation at high transverse momentum. This is because the mass of signal
+candidates is bounded by the mass of the tau lepton, while for candidates from
+quark- or gluon-initiated jets the invariant mass tends to increase with
+increasing transverse momentum of the \tauhadvis candidate. \todo{Plots?}
 
 To take advantage of the varying signal/background separation of variables in
 different $p_\text{T}$-regions the reconstructed transverse momentum is included
