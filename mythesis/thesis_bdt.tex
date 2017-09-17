@@ -659,10 +659,10 @@ fraction~$f_\text{cent}$ of background candidates increases at high transverse
 momentum making them more tau-like. In contrast to this, the variables based on
 invariant masses~$m_\text{track}$ and~$m_\text{EM+track}$ show a larger
 separation at high transverse momentum. This is because the mass of signal
-candidates is bounded by the mass of the tau lepton, while for candidates from
+candidates is bounded by the mass of the tau lepton , while for candidates from
 quark- or gluon-initiated jets the invariant mass tends to increase with
 increasing transverse momentum of the \tauhadvis candidate. \todo{Plots?
-  Actually not true...}
+  Actually not true for mEflowApprox}
 
 To take advantage of the varying signal/background separation in different
 $p_\text{T}$-regions, the \tauhadvis transverse momentum is included as an input
@@ -831,32 +831,16 @@ configurations (BDT B) and the revised variable selection.
 Figure~\ref{fig:rejection_comparison} shows the background rejection of the 1-
 and 3-prong BDT at the tight working point. After optimisation the 1-prong BDT
 shows an improvement in background rejection of \num{10} to \SI{30}{\percent}
-depending on the transverse momentum of the \tauhadvis candidate. \todo{Why
-  large rejection at \SI{20}{\GeV}}
-
-
-Similarly, the rejection at the tight working point of the 3-prong BDT also
-improves on the reference by \num{10} to \SI{30}{\percent} depending on the
-transverse momentum.
-
-The medium working point shows a similar behaviour with a small improvement at
-low transverse momentum.
-
-However, the loose working point shows significant improvements exceeding
-\SI{30}{\percent} with respect to the reference at
-low~$p_\text{T} < \SI{25}{\GeV}$ and high transverse
-momentum~$p_\text{T} > \SI{80}{\GeV}$.
-
-In the intermediate momentum range the improvements range from \num{15} to
-\SI{25}{\percent}.
-
-
-
-
-For
-completeness the rejection of the loose and medium working points are summarised
-in Appendix~\ref{app:bdt_working_point_rejection} but show no difference
-compared to the tight working point.
+depending on the transverse momentum of the \tauhadvis candidate. The large
+rejection of fake \tauhadvis with transverse momentum close to \SI{20}{\GeV} is
+due to an increased rejection of \tauhadvis originating from gluon-initiated
+jets (cf.\ Appendix~\ref{app:bdt_parton}). \todo{Better explanation} Similarly,
+the improvements for the 3-prong BDT also range from \num{10} to
+\SI{30}{\percent}. The performance of the loose and medium working points is
+summarised in Appendix~\ref{app:bdt_working_point_rejection} for completeness.
+The other working points show similar improvements as the tight working point
+with the exception of the 3-prong loose working point exceeding the reference by
+\SI{30}{\percent} for \tauhadvis \pt larger than \SI{80}{\GeV}.
 
 \begin{figure}[htbp]
   \centering
@@ -875,8 +859,36 @@ compared to the tight working point.
   \label{fig:rejection_comparison}
 \end{figure}
 
+In Figure~\ref{fig:rejection_highpt} the background rejection is shown over an
+extended transverse momentum range.
 
-\todo[inline]{Conclusion}
+The remaining working points are also
+summarised in Appendix~\ref{app:bdt_working_point_rejection}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/post_optimisation/1p_highpt/rejection_tight_ratio_highpt.pdf}
+    \subcaption{1-prong}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/post_optimisation/3p_highpt/rejection_tight_ratio_highpt.pdf}
+    \subcaption{3-prong}
+  \end{subfigure}
+  \caption{Background rejection of the tight working point as a function of
+    \tauhadvis~\pt at tau energy scale over an extended momentum range.}
+  \label{fig:rejection_highpt}
+\end{figure}
+
+Without large changes in the approach of the current ATLAS tau identification
+strategy, a significant improvement in background rejection could be achieved.
+By optimising the hyperparameters of the models and revising the variable
+selection, an improvement in background rejection of the order of \num{10} to
+\SI{30}{\percent} depending on the transverse momentum of the fake \tauhadvis
+candidates. The next chapter will be concerned with introducing a novel method
+of performing tau identification.
 
 % 1-prong: Gluon dominated at low pt -- 20 percent quark to gluon ratio sub 25 GeV
 % 3-prong:
