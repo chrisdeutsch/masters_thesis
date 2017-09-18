@@ -659,10 +659,10 @@ fraction~$f_\text{cent}$ of background candidates increases at high transverse
 momentum making them more tau-like. In contrast to this, the variables based on
 invariant masses~$m_\text{track}$ and~$m_\text{EM+track}$ show a larger
 separation at high transverse momentum. This is because the mass of signal
-candidates is bounded by the mass of the tau lepton , while for candidates from
-quark- or gluon-initiated jets the invariant mass tends to increase with
-increasing transverse momentum of the \tauhadvis candidate. \todo{Plots?
-  Actually not true for mEflowApprox}
+candidates is bounded by the mass of the tau lepton (neglecting detector
+resolution effects), while for candidates from quark- or gluon-initiated jets
+the invariant mass tends to increase with increasing transverse momentum of the
+\tauhadvis candidate. \todo{Plots? Actually not true for mEflowApprox}
 
 To take advantage of the varying signal/background separation in different
 $p_\text{T}$-regions, the \tauhadvis transverse momentum is included as an input
@@ -862,8 +862,16 @@ with the exception of the 3-prong loose working point exceeding the reference by
 In Figure~\ref{fig:rejection_highpt} the background rejection is shown over an
 extended transverse momentum range.
 
-The remaining working points are also
-summarised in Appendix~\ref{app:bdt_working_point_rejection}.
+- Rejection increases with pt: larger decay length, increasing invariant mass separation, more isolation tracks due to increasing jet multiplicity
+- 1-prong: Improvement exceeding 50\% starting at approximately \SI{300}{\GeV}
+= 1-prong medium, loose: improvements not as large
+- 3-prong: Small improvement for high-pt, barely statistically significant due to large rejection
+- 3-prong loose, medium: high pt performance improves significantly \SI{200}{\GeV}
+
+- Problem with samples: tau does not create hits in the ID could lead to mismodelling at high momenta. \SI{200}{\GeV} \SI{5}{\percent} of taus decay after the IBL
+
+The rejection over the extended momentum range for the remaining working points
+is also summarised in Appendix~\ref{app:bdt_working_point_rejection}.
 
 \begin{figure}[htbp]
   \centering
