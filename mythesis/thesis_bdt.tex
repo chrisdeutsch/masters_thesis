@@ -562,7 +562,8 @@ For the use of tau identification in analyses, four working points with fixed
 signal efficiencies are defined. The efficiencies of the working points are
 given in Table~\ref{tab:wp_eff}. Due to the abundance of 3-track \tauhadvis
 candidates originating from multijet events, a tighter selection is applied to
-the 3-prong tau identification.
+the 3-prong tau identification. \todo{Very loose:analyses with low background or
+  fake factor estimation}
 
 \begin{table}[htb]
   \centering
@@ -860,18 +861,19 @@ with the exception of the 3-prong loose working point exceeding the reference by
 \end{figure}
 
 In Figure~\ref{fig:rejection_highpt} the background rejection is shown over an
-extended transverse momentum range.
-
-- Rejection increases with pt: larger decay length, increasing invariant mass separation, more isolation tracks due to increasing jet multiplicity
-- 1-prong: Improvement exceeding 50\% starting at approximately \SI{300}{\GeV}
-= 1-prong medium, loose: improvements not as large
-- 3-prong: Small improvement for high-pt, barely statistically significant due to large rejection
-- 3-prong loose, medium: high pt performance improves significantly \SI{200}{\GeV}
-
-- Problem with samples: tau does not create hits in the ID could lead to mismodelling at high momenta. \SI{200}{\GeV} \SI{5}{\percent} of taus decay after the IBL
-
-The rejection over the extended momentum range for the remaining working points
-is also summarised in Appendix~\ref{app:bdt_working_point_rejection}.
+extended transverse momentum range. The rejection tends to improve with
+increasing \tauhadvis \pt, especially for the 3-prong identification, where
+highly boosted taus improve the separation in the transverse flight path
+significance and in the track system invariant mass. The 1-prong BDT shows an
+improvement exceeding \SI{50}{\percent} at approximately \SI{300}{\GeV}. The
+loose and medium working points show a smaller improvement at high transverse
+momenta. Due to the large rejection of the 3-prong identification, the tight
+working point shows improvements of small significance at high transverse
+momenta. However, the loose working point shows relative improvements of
+\num{50} to more than \SI{100}{\percent} above \SI{200}{\GeV}. For completeness
+the rejection over the extended momentum range of the loose and medium working
+points is also summarised in Appendix~\ref{app:bdt_working_point_rejection}.
+\todo{Write something about missing pixel hits from late tau decay}
 
 \begin{figure}[htbp]
   \centering
@@ -894,9 +896,11 @@ Without large changes in the approach of the current ATLAS tau identification
 strategy, a significant improvement in background rejection could be achieved.
 By optimising the hyperparameters of the models and revising the variable
 selection, an improvement in background rejection of the order of \num{10} to
-\SI{30}{\percent} depending on the transverse momentum of the fake \tauhadvis
-candidates. The next chapter will be concerned with introducing a novel method
-of performing tau identification.
+\SI{30}{\percent} for \tauhadvis candidates with transverse momenta below
+\SI{200}{\GeV}. The rejection of \tauhadvis with $\pt > \SI{200}{\GeV}$ could
+also be improved significantly for the 1-prong working points and the 3-prong
+loose and medium working points. The next chapter will be concerned with
+introducing a novel method of performing tau identification.
 
 % 1-prong: Gluon dominated at low pt -- 20 percent quark to gluon ratio sub 25 GeV
 % 3-prong:
