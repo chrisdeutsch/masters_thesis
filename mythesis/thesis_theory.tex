@@ -52,7 +52,8 @@ charge allowing $qqg$-vertices as well as gluon self-coupling in triple and
 quartic gluon vertices. Experimentally, free quarks are not observed but only
 color-neutral bound states called hadrons. This is known as colour confinement
 and leads to the formation of collimated jets of hadrons in processes creating
-high-energy quarks or gluons.
+high-energy quarks or gluons.\todo{Ben -- write sth.\ about the hadronisation
+  process}
 
 The electromagnetic interaction between particles carrying electric charge is
 described by quantum electrodynamics. The mediating gauge boson is the massless
@@ -147,7 +148,7 @@ Theories.
 
 \section{Tau Leptons}
 
-The tau lepton was discovered in 1975 by Martin Lewis Perl \textit{et al.} using
+The tau lepton was discovered in 1975 by Martin Lewis Perl \textit{et al.} with
 the LBL detector at the SPEAR electron--position collider at SLAC~\cite{perl}.
 With a mass of~\SI{1776.86 +- 0.12}{\MeV} it is the heaviest lepton in the
 Standard Model and has a mean lifetime of \SI{290.3 +-
@@ -162,17 +163,24 @@ particles. Tau decays with $N$ charged daughter particles are called $N$-prong
 decays. With a branching fraction of more than \SI{99}{\percent}, the vast
 majority of tau decays are 1- or 3-prong. The tau lepton is more than twelve
 times heavier than pions and therefore can decay leptonically as well as
-hadronically. The leptonic modes~$\tau^- \to e^- \overline{\nu}_e \nu_\tau$
-and~$\tau^- \to \mu^- \overline{\nu}_\mu \nu_\tau$ make up about
-\SI{35}{\percent} of tau decays (cf.\ Figure~\ref{fig:tau_branching_ratios}),
-with almost equal branching fractions to $e^- \overline{\nu}_e \nu_\tau$ and
-$\mu^- \overline{\nu}_\mu \nu_\tau$. A large fraction of decays proceed via
-hadronic decay modes producing charged and neutral mesons and a tau neutrino.
-The production of strangeness is suppressed by at least a factor
+hadronically. The leptonic modes~$\tau^- \to e^- \bar{\nu}_e \nu_\tau$
+and~$\tau^- \to \mu^- \bar{\nu}_\mu \nu_\tau$ make up about \SI{35}{\percent} of
+tau decays (cf.\ Figure~\ref{fig:tau_branching_ratios}), with almost equal
+branching fractions to $e^- \bar{\nu}_e \nu_\tau$ and
+$\mu^- \bar{\nu}_\mu \nu_\tau$. A large fraction of decays proceed via hadronic
+decay modes producing charged and neutral mesons and a tau neutrino. Mostly
+pions are created in hadronic tau decays, as the production of strange quarks is
+suppressed by a factor
 of~$\sin^2\theta_\text{c} / \cos^2\theta_\text{c} \approx \frac{1}{20}$
-(ignoring phase space considerations), where $\theta_\text{c}$ is the Cabibbo
-angle, thus kaons are rarely produced in hadronic tau decays.
+(neglecting phase space difference), where $\theta_\text{c}$ is the Cabibbo
+angle. Therefore, kaons are rarely produced in hadronic tau decays.
 
+Charged pions are stable
+
+Neutral pions immediately decay into two photons with a branching ratio of
+\SI{}{\percent}~\cite{pdg}
+
+Focus on hadronic decays. Why?
 
 
 - Possible decays and intermediate resonances:
@@ -180,10 +188,25 @@ angle, thus kaons are rarely produced in hadronic tau decays.
 Two or three pion modes mainly through intermediate $\rho$ or $a_1$
   resonances
 
-
 - Introduce \tauhad
 
 - Define what 'visible' means (Missing tau neutrino) and \tauhadvis
+
+
+The tau lepton is the heaviest lepton in the Standard Model and an important
+probe of physics at high energy scales, such as Higgs physics and physics beyond
+the Standard Model. Hadronic decays make up approximately two-thirds of the
+total branching ratio of tau decays and play an important part in the physics
+programme of the ATLAS experiment.
+
+
+\begin{itemize}
+\item Charged pion 'stable' and showers in the HCAL
+\item Neutral pion decays immediately into two photons which shower in the ECAL.
+  Created photons often convert into an electron positron pair in the presence
+  of material
+\end{itemize}
+
 
 
 
@@ -215,7 +238,6 @@ Two or three pion modes mainly through intermediate $\rho$ or $a_1$
 \end{figure}
 
 
-Focus on hadronic decays.
 
 
       % Feynman Diagram. Strangeness production is Cabibbo suppressed by a factor
@@ -225,19 +247,6 @@ Focus on hadronic decays.
       % electron or muon and corresponding antineutrino or into a down anti-up
       % quark pair (3 colours).
 
-The tau lepton is the heaviest lepton in the Standard Model and an important
-probe of physics at high energy scales, such as Higgs physics and physics beyond
-the Standard Model. Hadronic decays make up approximately two-thirds of the
-total branching ratio of tau decays and play an important part in the physics
-programme of the ATLAS experiment.
-
-
-\begin{itemize}
-\item Charged pion 'stable' and showers in the HCAL
-\item Neutral pion decays immediately into two photons which shower in the ECAL.
-  Created photons often convert into an electron positron pair in the presence
-  of material
-\end{itemize}
 
 
 \subsection{Features of Hadronically Decaying Tau Leptons}
@@ -287,15 +296,21 @@ cross-section (qq \textrightarrow qq, qq \textrightarrow gg, gg \textrightarrow
 qq, qg \textrightarrow gq, gg \textrightarrow gg, etc.). Dijet cross-section
 peaked at low $p_{\text{T}}$.
 
-\subsection{Collider Physics with Tau Leptons}
+\subsection{Tau Lepton Physics at the LHC}
 
-Focus on $H \to \tauhad \tauhad$ and $Z^\prime$ analyses.
+Focus on $H \to \tauhad \tauhad$ (Also mention $\mathcal{CP}$ measurement) and
+$Z^\prime$ analyses.
+
+Zprime conf note
+https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2017-050/
+
+
 
 To investigate mass generation mechanism for fermions as implemented in the
 Standard Model, it is of prime importance to demonstrate direct coupling of the
 Higgs boson to fermions and the proportionality of its strength to mass.
 
-Only channel $H \to \tau \tau$ and $h \to b \overline{b}$ but $b \overline{b}$
+Only channel $H \to \tau \tau$ and $h \to b \bar{b}$ but $b \bar{b}$
 difficult due to high background. $\tau\tau$ favourable sensitivity.
 
 \begin{figure}[htb]
@@ -306,21 +321,50 @@ difficult due to high background. $\tau\tau$ favourable sensitivity.
   \label{fig:higgstautau_mass}
 \end{figure}
 
+
+\begin{figure}[htbp]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{./figures/theory/htautau_mass.pdf}
+    \subcaption{$H \to \tau\tau$}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{./figures/theory/zprime_mttot.pdf}
+    \subcaption{$A / H / Z^\prime \to \tau\tau$}
+  \end{subfigure}
+  \caption{Comparison of the background rejection of the RNN-based
+    identification at a working point (WP) with increased signal efficiency with
+    the nominal tight working point of the BDT.}
+  \label{fig:loosened_wp}
+\end{figure}
+
+
+
+Fakes contain fake taus and fake leptons. Where fake taus originate from jets
+originating from quarks- or gluons in multijet, $Z+\text{jets}$, $W+\text{jets}$
+
 \begin{itemize}
-  \item $\mathrm{Z} \rightarrow \tau \tau$ (background for H$\tau \tau$ and
+  \item $Z \rightarrow \tau \tau$ (background for H$\tau \tau$ and
     useful for performance measurements using tag-and-probe -- semileptonic
     decays)
 
-  \item $\mathrm{H} \rightarrow \tau \tau$ (one of two channels to measure
+  \item $Z \to \tau\tau$ or $H \to \tau\tau$ polarisation measurements
+
+  \item $H \rightarrow \tau \tau$ (one of two channels to measure
     the fermionic coupling -- $b \bar{b}$ plagued by multijet background,
     Higgs CP)
 
+  \item $t\bar{t}H$ with $H \to \tau \tau$: $H \to b \bar{b}$ large backgrounds.
+    Associative production with top quarks to measure Yukawa coupling between
+    top and higgs.
+
   \item MSSM Higgs (potentially high branching fraction to $\tau$-leptons)
 
-  \item $\mathrm{Z}^\prime$ could preferentially decay into third-generation
+  \item $Z^\prime$ could preferentially decay into third-generation
     fermions (lepton universality not required).
 
-  \item $\mathrm{W}^\prime$ models with preferential coupling to third-gen.
+  \item $W^\prime$ models with preferential coupling to third-gen.
 
   \item SUSY with $\tau$ \textrightarrow long decay chains (Desch)
 
