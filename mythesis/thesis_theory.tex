@@ -147,8 +147,83 @@ Theories.
 
 \section{Tau Leptons}
 
+The tau lepton was discovered in 1975 by Martin Lewis Perl \textit{et al.} using
+the LBL detector at the SPEAR electron--position collider at SLAC~\cite{perl}.
+With a mass of~\SI{1776.86 +- 0.12}{\MeV} it is the heaviest lepton in the
+Standard Model and has a mean lifetime of \SI{290.3 +-
+  0.5}{\femto\second}~\cite{pdg}.
 
-\todo[inline]{Define 1-prong, 3-prong and multi-prong.}
+\subsection{Tau Decay}
+
+The tau lepton decays via the weak charged-current interaction shown in
+Figure~\ref{fig:tau_feynman}. Due to the unit charge of the tau lepton, the
+decay products of a tau decay always contains an odd number of charged
+particles. Tau decays with $N$ charged daughter particles are called $N$-prong
+decays. With a branching fraction of more than \SI{99}{\percent}, the vast
+majority of tau decays are 1- or 3-prong. The tau lepton is more than twelve
+times heavier than pions and therefore can decay leptonically as well as
+hadronically. The leptonic modes~$\tau^- \to e^- \overline{\nu}_e \nu_\tau$
+and~$\tau^- \to \mu^- \overline{\nu}_\mu \nu_\tau$ make up about
+\SI{35}{\percent} of tau decays (cf.\ Figure~\ref{fig:tau_branching_ratios}),
+with almost equal branching fractions to $e^- \overline{\nu}_e \nu_\tau$ and
+$\mu^- \overline{\nu}_\mu \nu_\tau$. A large fraction of decays proceed via
+hadronic decay modes producing charged and neutral mesons and a tau neutrino.
+The production of strangeness is suppressed by at least a factor
+of~$\sin^2\theta_\text{c} / \cos^2\theta_\text{c} \approx \frac{1}{20}$
+(ignoring phase space considerations), where $\theta_\text{c}$ is the Cabibbo
+angle, thus kaons are rarely produced in hadronic tau decays.
+
+
+
+- Possible decays and intermediate resonances:
+
+Two or three pion modes mainly through intermediate $\rho$ or $a_1$
+  resonances
+
+
+- Introduce \tauhad
+
+- Define what 'visible' means (Missing tau neutrino) and \tauhadvis
+
+
+
+\begin{figure}[htb]
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \includegraphics{./figures/theory/tau_decay_feynman.pdf}
+    \vspace*{2em}
+    \caption{Feynman diagram of the tau decay via the weak interaction. The
+      $d^\prime$ is the weak eigenstate mixing the mass eigenstates of the $d$
+      and $s$ quark.}
+    \label{fig:tau_feynman}
+  \end{subfigure}\hfill
+  \begin{subfigure}[b]{0.47\textwidth}
+    \centering
+    \begin{overpic}[scale=0.9]{./figures/theory/tau_branching_pie_chart.pdf}
+      \put (33.5, 83) {$\pi^- \nu_\tau$}
+      \put (-2, 45) {$\pi^- \pi^0 \nu_\tau$}
+      \put (19, 7.5) {$\pi^- 2 \pi^0 \nu_\tau$}
+      \put (44, 2) {$2 \pi^- \pi^+ \nu_\tau$}
+      \put (69, 6) {$2 \pi^- \pi^+ \pi^0 \nu_\tau$}
+      \put (80, 15) {other}
+    \end{overpic}
+    \caption{Tau lepton branching ratios~\cite{pdg}. Adapted from
+      Ref.~\cite{ikai_trigger}.}
+    \label{fig:tau_branching_ratios}
+  \end{subfigure}
+  \caption{Weak decay and branching ratios of the tau lepton.}
+\end{figure}
+
+
+Focus on hadronic decays.
+
+
+      % Feynman Diagram. Strangeness production is Cabibbo suppressed by a factor
+      % of
+      % $\sin^2\theta_\mathrm{c} / \cos^2\theta_\mathrm{c} \approx \frac{1}{20}$.
+      % Ignoring phase space considerations the tau decays to $\frac{1}{5}$ into
+      % electron or muon and corresponding antineutrino or into a down anti-up
+      % quark pair (3 colours).
 
 The tau lepton is the heaviest lepton in the Standard Model and an important
 probe of physics at high energy scales, such as Higgs physics and physics beyond
@@ -156,55 +231,14 @@ the Standard Model. Hadronic decays make up approximately two-thirds of the
 total branching ratio of tau decays and play an important part in the physics
 programme of the ATLAS experiment.
 
-\begin{figure}[ht]
-  \begin{subfigure}[b]{0.47\textwidth}
-    \centering
-    \begin{overpic}{./figures/theory/tau_branching_pie_chart.pdf}
-      \put (34, 83) {$\pi^- \nu_\tau$}
-      \put (-1, 45) {$\pi^- \pi^0 \nu_\tau$}
-      \put (19, 8) {$\pi^- 2 \pi^0 \nu_\tau$}
-      \put (44.5, 2) {$2 \pi^- \pi^+ \nu_\tau$}
-      \put (69, 6) {$2 \pi^- \pi^+ \pi^0 \nu_\tau$}
-      \put (80, 15) {other}
-    \end{overpic}
-    \caption{Tau branching ratios \cite{pdg}. Adapted from
-      Ref.~\cite{ikai_trigger}.}
-    \todo[inline]{Fix wonky percentages for hadronic modes}
-    \label{fig:tau_branching_ratios}
-  \end{subfigure}\hfill
-  \begin{subfigure}[b]{0.47\textwidth}
-    \centering
-    \includegraphics{./figures/theory/tau_decay_feynman.pdf}
-    \caption{Feynman Diagram. Strangeness production is Cabibbo suppressed by a
-      factor of $\sin^2\theta_\mathrm{c} / \cos^2\theta_\mathrm{c} \approx
-      \frac{1}{20}$. Ignoring phase space considerations the tau decays to
-      $\frac{1}{5}$ into electron or muon and corresponding antineutrino or into
-      a down anti-up quark pair (3 colours).}
-  \end{subfigure}
-  \caption{Weak decay of the tau-lepton}
-\end{figure}
 
 \begin{itemize}
-\item Discovery at SPEAR in 1975 [Check Citation]\cite{perl}
-\item $m_\tau = \SI{1776.86 +- 0.12}{\mega\electronvolt}$ \cite{pdg}
-\item Tau more than twelve times heavier than pions \textrightarrow can decay
-  into quark-antiquark pairs (strangeness production cabbibo suppressed)
-\item 5 possible weak decay modes: electron (20\%), muon (20\%), ud (3 times
-  20\% due to 3 color charges) -- ignoring phase space
-\item unit charge \textrightarrow decays into odd number of charged particles
-  (prong definition)
-\item Two or three pion modes mainly through intermediate $\rho$ or $a_1$
-  resonances
 \item Charged pion 'stable' and showers in the HCAL
 \item Neutral pion decays immediately into two photons which shower in the ECAL.
   Created photons often convert into an electron positron pair in the presence
   of material
-\item Properties (mass \textrightarrow lep \& had, mean life time
-  \textrightarrow no direct detection)
-\item Intermediate resonances
 \end{itemize}
 
-\todo[inline]{Introduce \tauhad and \tauhadvis notation}
 
 \subsection{Features of Hadronically Decaying Tau Leptons}
 \label{sec:features_tau_decay}
@@ -220,7 +254,6 @@ programme of the ATLAS experiment.
   tracks and thus the discrimination from \tauhadvis is less effective than for
   gluon-like jets. Due to higher effective colour charge for gluons.}
 
-\todo[inline]{Define what 'visible' means}
 
 Features of hadronically decaying $\tau$-leptons vs. Quark/Gluon initiated jets:
 \begin{itemize}
@@ -255,6 +288,23 @@ qq, qg \textrightarrow gq, gg \textrightarrow gg, etc.). Dijet cross-section
 peaked at low $p_{\text{T}}$.
 
 \subsection{Collider Physics with Tau Leptons}
+
+Focus on $H \to \tauhad \tauhad$ and $Z^\prime$ analyses.
+
+To investigate mass generation mechanism for fermions as implemented in the
+Standard Model, it is of prime importance to demonstrate direct coupling of the
+Higgs boson to fermions and the proportionality of its strength to mass.
+
+Only channel $H \to \tau \tau$ and $h \to b \overline{b}$ but $b \overline{b}$
+difficult due to high background. $\tau\tau$ favourable sensitivity.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics{./figures/theory/htautau_mass.pdf}
+  \caption{$H \to \tau \tau$ reconstructed invariant mass calculated with a
+    missing mass calculator (MMC).}
+  \label{fig:higgstautau_mass}
+\end{figure}
 
 \begin{itemize}
   \item $\mathrm{Z} \rightarrow \tau \tau$ (background for H$\tau \tau$ and
