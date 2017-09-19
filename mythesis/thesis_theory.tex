@@ -154,60 +154,28 @@ With a mass of~\SI{1776.86 +- 0.12}{\MeV} it is the heaviest lepton in the
 Standard Model and has a mean lifetime of \SI{290.3 +-
   0.5}{\femto\second}~\cite{pdg}.
 
-\subsection{Tau Decay}
+\subsection{Decay of the Tau Lepton}
 
 The tau lepton decays via the weak charged-current interaction shown in
-Figure~\ref{fig:tau_feynman}. Due to the unit charge of the tau lepton, the
-decay products of a tau decay always contains an odd number of charged
-particles. Tau decays with $N$ charged daughter particles are called $N$-prong
-decays. With a branching fraction of more than \SI{99}{\percent}, the vast
-majority of tau decays are 1- or 3-prong. The tau lepton is more than twelve
-times heavier than pions and therefore can decay leptonically as well as
-hadronically. The main decay modes are summarised in
-Figure~\ref{fig:tau_branching_ratios}. The leptonic
-modes~$\tau^- \to e^- \bar{\nu}_e \nu_\tau$
-and~$\tau^- \to \mu^- \bar{\nu}_\mu \nu_\tau$ make up about \SI{35}{\percent} of
-tau decays, with almost equal branching fractions to $e^- \bar{\nu}_e \nu_\tau$
-and $\mu^- \bar{\nu}_\mu \nu_\tau$. A large fraction of decays proceed via
-hadronic decay modes producing charged and neutral mesons and a tau neutrino.
-Mostly pions are created in hadronic tau decays, as the production of strange
-quarks is suppressed by a factor
-of~$\sin^2\theta_\text{c} / \cos^2\theta_\text{c} \approx \frac{1}{20}$
-(neglecting phase space difference), where $\theta_\text{c}$ is the Cabibbo
-angle. Therefore, kaons are rarely produced in hadronic tau decays.
-
-Charged pions are stable (in terms of detector length scale)
-
-Neutral pions immediately decay into two photons with a branching ratio of
-\SI{98.823 +- 0.034}{\percent}~\cite{pdg}.
-
-Focus on hadronic decays. Why?
-
-
-- Possible decays and intermediate resonances:
-
-Two or three pion modes mainly through intermediate $\rho$ or $a_1$
-  resonances
-
-- Introduce \tauhad
-
-- Define what 'visible' means (Missing tau neutrino) and \tauhadvis
-
-
-The tau lepton is the heaviest lepton in the Standard Model and an important
-probe of physics at high energy scales, such as Higgs physics and physics beyond
-the Standard Model. Hadronic decays make up approximately two-thirds of the
-total branching ratio of tau decays and play an important part in the physics
-programme of the ATLAS experiment.
-
-
-\begin{itemize}
-\item Charged pion 'stable' and showers in the HCAL
-\item Neutral pion decays immediately into two photons which shower in the ECAL.
-  Created photons often convert into an electron positron pair in the presence
-  of material
-\end{itemize}
-
+Figure~\ref{fig:tau_feynman}. It is more than twelve times heaver than pions and
+therefore is the only known lepton in the Standard Model that can decay
+leptonically and hadronically. The main decay modes of the tau lepton are
+summarised in Figure~\ref{fig:tau_branching_ratios}. The leptonic
+modes~\mbox{$\tau^- \to e^- \bar{\nu}_e \nu_\tau$}
+and~\mbox{$\tau^- \to \mu^- \bar{\nu}_\mu \nu_\tau$} make up approximately
+\SI{35}{\percent} of tau decays, with almost equal branching fractions
+to~$e^- \bar{\nu}_e \nu_\tau$ and~$\mu^- \bar{\nu}_\mu \nu_\tau$. The majority
+of tau decays proceed via hadronic decay modes producing charged and neutral
+mesons along with a tau neutrino. The production of strange quarks is suppressed
+by a factor of~$|V_{us}|^2 / |V_{ud}|^2 \approx \frac{1}{18}$ with elements~$V$
+of the CKM matrix and neglecting any phase space differences. As a result the
+final state after hadronisation consists typically of charged and neutral pions,
+while kaons are rarely produced. Due to the unit charge of the tau lepton, the
+decay products of a tau lepton always contain an odd number of charged
+particles. Tau decays with $n$ charged daughter particles are called $n$-prong
+decays. With a branching fraction of more than \SI{99}{\percent}~\cite{pdg}, the
+vast majority of taus decays are 1- or 3-prong. \todo{intermediate resonances?
+  $\rho$, $a_1$}
 
 \begin{figure}[htb]
   \begin{subfigure}[b]{0.47\textwidth}
@@ -239,27 +207,31 @@ programme of the ATLAS experiment.
   \caption{Weak decay and branching ratios of the tau lepton.}
 \end{figure}
 
+The following focuses on hadronic decays and their detector signature. Due to
+the short lifetime of the tau lepton, a tau lepton with a momentum of
+\SI{20}{\GeV} has a mean decay length of~$\mathcal{O}(\SI{1}{\milli\metre})$.
+Therefore, it typically decays before entering tracking systems of particle
+detectors. As a result the tau lepton is not observed directly but its decay
+products. The boost of tau leptons produced in collider experiments results in
+highly collimated decay products. The charged pions and kaons produced in the
+decay are considered stable over typical length scales of general-purpose
+detectors at hadron colliders. They create hits in the tracking system and
+deposit most their energy in the hadronic calorimeters. In contrast to this, the
+neutral pions decay almost immediately via the electromagnetic interaction in
+the process~\mbox{$\pi^0 \to \gamma\gamma$} with a branching ratio of~\SI{98.823
+  +- 0.034}{\percent}~\cite{pdg}. The two photons, which are also highly
+collimated, deposit their energy in the electromagnetic calorimeter without
+leaving a track in the tracking system. The tau neutrino is not observed
+directly and can only be inferred from missing transverse energy in the event.
+As a result one defines the visible part of hadronic tau decays as \tauhadvis
+and the decay including the neutrino as \tauhad.
 
-
-
-      % Feynman Diagram. Strangeness production is Cabibbo suppressed by a factor
-      % of
-      % $\sin^2\theta_\mathrm{c} / \cos^2\theta_\mathrm{c} \approx \frac{1}{20}$.
-      % Ignoring phase space considerations the tau decays to $\frac{1}{5}$ into
-      % electron or muon and corresponding antineutrino or into a down anti-up
-      % quark pair (3 colours).
-
-
-
-\subsection{Features of Hadronically Decaying Tau Leptons}
+\subsection{Identification of Hadronic Tau Decays}
 \label{sec:features_tau_decay}
 
 \todo[inline]{Ignore non 1- and 3-prong modes.}
 
 \todo[inline]{Signature of the decay modes}
-
-\todo[inline]{Leptonic decays of the tau are identified using the electron/muon
-  identification.}
 
 \todo[inline]{Quark-like jets are on average more collimated and have fewer
   tracks and thus the discrimination from \tauhadvis is less effective than for
