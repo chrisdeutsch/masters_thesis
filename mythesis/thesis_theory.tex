@@ -301,48 +301,68 @@ gluon-initiated jets and hadronic tau decays for identification~\cite{cms_tauid,
 
 \subsection{Tau Lepton Physics at the LHC}
 
-Tau leptons are important for the physics programme of the ATLAS and CMS
-experiments at the LHC.
+The tau lepton is an important probe of physics at high energy scales, such as
+Higgs physics and physics beyond the Standard Model. Hadronic decays make up
+approximately two-thirds of the total branching ratio of tau decays and
+represent a major contribution to final states involving tau leptons. In the
+following the importance of hadronic tau lepton decays for the physics programme
+at the LHC is motivated.
 
-\subsubsection{Standard Model Higgs in the Ditau Channel}
-Focus on $H \to \tauhad \tauhad$ (Also mention $\mathcal{CP}$ measurement) and
-$Z^\prime$ analyses.
+\subsubsection{Standard Model Higgs Boson in the \tauhad\tauhad Channel}
 
-Zprime conf note
-\url{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2017-050/}
+To investigate the Higgs mechanism of the Standard Model it is important to
+measure the Yukawa coupling of the Higgs boson to fermions and show that the
+coupling strength is proportional to the mass of the fermion. Due to the
+branching ratios of the Standard Model Higgs boson with a mass of about
+\SI{125}{\GeV}, the decay modes~$H \to b \bar{b}$ and~$H \to \tau \tau$ are the
+most promising. At the LHC the measurement of $H \to b\bar{b}$ is difficult due
+to the large background from multijet production, therefore requiring associated
+production of the Higgs with a vector boson to limit the background
+contribution~\cite{higgs_bb}. This reduces the signal yield due to the smaller
+cross section of associated production of the Higgs boson compared to gluon
+fusion.
 
+The $H \to \tau\tau$ decay mode offers a promising alternative to measure the
+fermionic coupling. In the measurement of this mode in Ref.~\cite{higgs_tautau},
+the analysis is split into three channels~$\taulep\taulep$, $\taulep\tauhad$
+and~$\tauhad\tauhad$, depending on whether the taus decay leptonically or
+hadronically. Due to the branching fraction of the tau lepton,
+the~$\tauhad\tauhad$ channel comprises of more than \SI{40}{\percent}
+of~$H \to \tau\tau$ decays, which is only marginally exceeded
+by~$\taulep\tauhad$. The~\tauhad are susceptible to being faked by jets
+originating from quark- or gluon-jets. As a result, a performant tau
+identification algorithm is required to reduce the backgrounds of the
+$\tauhad\tauhad$ channel due to multijet production, $W{+}\text{jets}$ and
+$t\bar{t}$.
 
-$H \to \tau\tau$ channel:
-
-To investigate mass generation mechanism for fermions as implemented in the
-Standard Model, it is of prime importance to demonstrate direct coupling of the
-Higgs boson to fermions and the proportionality of its strength to mass.
-
-Only channel $H \to \tau \tau$ and $h \to b \bar{b}$ but $b \bar{b}$ difficult
-due to high background (requires associated production of the higgs with vector
-boson drastically limiting the rate but still large backgrounds). $\tau\tau$
-favourable sensitivity.
-
-Two categories: VBF (presence of two jets with high distance in pseudorapidity) and Boosted (Large transverse momentum higgs -- gluon fusion with additional radiated gluons)
-
-Three channels: leplep, lephad, hadhad
-
-Focus hadhad:
-
-Requiring two identified \tauhad candidates. Additional cuts to reduce multijet background.
-
+Discriminating variable $m_{\tau\tau}^\text{MMC}$~\cite{mmc}
 Ditau invariant mass $m_{\tau\tau}^\text{MMC}$ Missing Mass Calculator (MMC)
 uses constraints from the measured transverse components of the missing
 transverse energy and the visible mass of both tau leptons to determine the
 likely invariant mass of the Higgs
 
-Significant background: $Z \to \tau\tau$, multijet, $W+\text{jets}$, $t\bar{t}$
-(small)
 
-ditau invariant mass is the discriminating variable
 
+In Figure~\ref{fig:mtautau_mmc}
+
+- One of to categories: VBF mostly production using vector boson fusion
+(presence of two jets with high distance in pseudorapidity)
+
+- Requiring two identified \tauhad and additional isolation cuts to reduce multijet background
+
+Aside from large $Z \to \tau\tau$ background, still significant fake \tauhad
+background exceeding the signal contribution.
+
+
+
+
+Higgs $\mathcal{CP}$ hadronisation washes out polarisation.
 
 \subsubsection{Search for New Heavy Neutral Higgs and Gauge Bosons}
+
+Zprime conf note
+\url{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2017-050/}
+
 
 $A/H/Z^\prime \to \tau\tau$:
 
@@ -352,14 +372,15 @@ $A/H/Z^\prime \to \tau\tau$:
     \centering
     \includegraphics[width=0.98\textwidth]{./figures/theory/htautau_mass_2.pdf}
     \subcaption{$H \to \tau\tau$~\cite{higgs_tautau}}
+    \label{fig:mtautau_mmc}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics[width=1.0\textwidth]{./figures/theory/zprime_mttot.pdf}
     \subcaption{$A / H / Z^\prime \to \tau\tau$~\cite{zprime}}
+    \label{fig:mttot_mssm}
   \end{subfigure}
   \caption{}
-  \label{fig:loosened_wp}
 \end{figure}
 
 
