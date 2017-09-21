@@ -329,16 +329,16 @@ cross section of associated production of the Higgs boson compared to gluon
 fusion.
 
 The $h \to \tau\tau$ decay mode offers a promising alternative to measure the
-fermionic coupling. In the measurement of this mode in Ref.~\cite{higgs_tautau},
-the analysis is split into three channels~$\taulep\taulep$, $\taulep\tauhad$
-and~$\tauhad\tauhad$, depending on whether the taus decay leptonically or
-hadronically. Due to the branching fraction of the tau lepton,
-the~$\tauhad\tauhad$ channel comprises of more than \SI{40}{\percent}
-of~$h \to \tau\tau$ decays, which is only marginally exceeded by
-the~$\taulep\tauhad$ channel. The~\tauhad are susceptible to being faked by jets
-originating from quark- or gluon-jets. As a result, a performant tau
-identification algorithm is required to reduce the backgrounds of the
-$\tauhad\tauhad$ channel due to multijet production, $W{+}\text{jets}$ and
+fermionic coupling. In the $h\tau\tau$ coupling measurement of the ATLAS
+experiment~\cite{higgs_tautau}, the analysis is split into three
+channels~$\taulep\taulep$, $\taulep\tauhad$ and~$\tauhad\tauhad$, depending on
+whether the taus decay leptonically or hadronically. Due to the branching
+fraction of the tau lepton, the~$\tauhad\tauhad$ channel comprises of more than
+\SI{40}{\percent} of~$h \to \tau\tau$ decays, which is only marginally exceeded
+by the~$\taulep\tauhad$ channel. The~\tauhad are susceptible to being faked by
+jets originating from quark- or gluon-jets. As a result, a performant tau
+identification algorithm is required to reduce the background contributions in
+the $\tauhad\tauhad$ channel due to multijet production, $W{+}\text{jets}$ and
 $t\bar{t}$.
 
 An important discriminating variable used in the~$h \to \tau\tau$
@@ -356,8 +356,7 @@ analysis requires two identified tau leptons with additional isolation cuts, a
 significant background from fake \tauhad originating from quark- and gluon-jets
 is present. As the expected signal contribution of the Higgs boson is smaller
 than the background from fake \tauhad, an improvement in the tau identification
-algorithm could lead to an improvement of the signal significance in this
-measurement.
+algorithm could lead to a higher signal significance in this measurement.
 
 In addition to measuring the $h\tau\tau$ Yukawa coupling,
 the~$h \to \tauhad\tauhad$ channel is promising to determine the \cp nature of
@@ -369,8 +368,8 @@ the pseudoscalar admixture is directly encoded in the polarisation of the tau
 leptons created in the decay, which can be measured in the angular distributions
 of the charged and neutral decay products of the hadronic tau decay including
 the neutrino~\cite{harnik, Berge2014}. Inferring the tau polarisation requires a
-well-performing reconstruction of the decay products including classifying the
-tau decay mode.
+well-performing tau reconstruction including classifying the decay mode and
+reconstructing individual decay products.
 
 \subsubsection{Search for Additional Heavy Neutral Higgs Bosons}
 
@@ -383,6 +382,30 @@ to down-type fermions (i.e.\ fermions with weak isospin~$T_3 = -1/2$), if the
 ratio of vacuum expectation values of both Higgs doublets, $\tan\beta$, is
 large~\cite{susy}. Therefore, the~$H / A \to \tauhad\tauhad$ channel is
 promising to search for additional neutral Higgs bosons.
+
+\begin{figure}[htb]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=0.98\textwidth]{./figures/theory/htautau_mass_2.pdf}
+    \subcaption{Invariant mass of the ditau system reconstructed with the
+      missing mass calculator in the~\mbox{$h \to \tauhad\tauhad$} VBF channel
+      of the ATLAS $h\tau\tau$ coupling measurement~\cite{higgs_tautau}. The
+      scaled contribution of the Standard Model Higgs boson is superimposed.}
+    \label{fig:mtautau_mmc}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=1.0\textwidth]{./figures/theory/zprime_mttot.pdf}
+    \subcaption{$m_\text{T}^\text{tot}$ distribution in the $b$-veto category of
+      the $\tauhad\tauhad$ channel in the ATLAS search for additional neutral
+      Higgs bosons~\cite{zprime}. The signal contribution of $A$ and $H$ bosons
+      with different masses and~$\tan\beta = 15$ in the hMSSM model~\cite{hmssm}
+      is superimposed.}
+    \label{fig:mttot_mssm}
+  \end{subfigure}
+  \caption{Examples for the use of hadronic tau lepton decays in collider
+    experiments at the LHC.}
+\end{figure}
 
 To separate signal and background contribution in the ATLAS search for heavy
 neutral Higgs bosons~\cite{zprime} the total transverse mass,
@@ -401,30 +424,6 @@ fake~$\tauhad$ originating from quark- and gluon-initiated jets in multijet
 events. Improvements in the tau identification algorithm to further reduce the
 multijet background could lead to more stringent mass limits on additional
 neutral Higgs bosons.
-
-\begin{figure}[htb]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=0.98\textwidth]{./figures/theory/htautau_mass_2.pdf}
-    \subcaption{Invariant mass of the ditau system reconstructed with the
-      missing mass calculator in the~\mbox{$h \to \tauhad\tauhad$} VBF channel
-      of the ATLAS $h\tau\tau$ coupling measurement~\cite{higgs_tautau}. The
-      scaled contribution of the Standard Model Higgs boson is superimposed.}
-    \label{fig:mtautau_mmc}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics[width=1.0\textwidth]{./figures/theory/zprime_mttot.pdf}
-    \subcaption{$m_\text{T}^\text{tot}$ distribution in the $b$-veto category of
-      the $\tauhad\tauhad$ channel in the ATLAS search for neutral Higgs
-      bosons~\cite{zprime}. The signal contribution of $A$ and $H$ bosons with
-      different masses and~$\tan\beta = 15$ in the hMSSM model~\cite{hmssm} is
-      superimposed.}
-    \label{fig:mttot_mssm}
-  \end{subfigure}
-  \caption{Examples for the use of hadronic tau lepton decays in collider
-    experiments at the LHC.}
-\end{figure}
 
 \subsubsection{Other Areas of Research Interest}
 
@@ -456,8 +455,8 @@ further areas of interest is given in the following:
   and gluinos are produced in pairs and decay via cascades of Standard Model
   particles until the stable and lightest supersymmetric particle is
   produced~\cite{susy_pheno}. Certain models lead to an enhanced production of
-  tau leptons in the decay cascade, making tau leptons important to constrain
-  the allowed parameter space of Supersymmetry models.
+  tau leptons in the decay cascade, making tau leptons an important probe to
+  constrain the allowed parameter space of Supersymmetry models.
 \end{itemize}
 
 %%% Local Variables:
