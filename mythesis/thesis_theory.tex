@@ -186,7 +186,7 @@ vast majority of taus decays are 1- or 3-prong. \todo{intermediate meson
     \vspace*{3em}
     \caption{Feynman diagram of the tau decay via the weak interaction. The
       $d^\prime$ is the weak eigenstate mixing the mass eigenstates of the $d$
-      and $s$ quark.}
+      and $s$-quark.}
     \label{fig:tau_feynman}
   \end{subfigure}\hfill
   \begin{subfigure}[b]{0.47\textwidth}
@@ -206,7 +206,8 @@ vast majority of taus decays are 1- or 3-prong. \todo{intermediate meson
       Ref.~\cite{ikai_trigger}.}
     \label{fig:tau_branching_ratios}
   \end{subfigure}
-  \caption{Weak decay and branching ratios of the tau lepton.}
+  \caption{Weak decay and branching ratios of the tau lepton. Charge-conjugate
+    decay modes are omitted.}
 \end{figure}
 
 The following focuses on hadronic decays and their detector signature. Due to
@@ -363,108 +364,96 @@ explain the observed matter--antimatter asymmetry in the Universe. The size of
 the pseudoscalar admixture is directly encoded in the polarisation of the tau
 leptons created in the decay, which can be measured in the angular distributions
 of the charged and neutral decay products of the hadronic tau decay including
-the neutrino~\cite{harnik, Berge2014}. Inferring the tau polarisation requires
-excellent reconstruction of the decay products including the classification of
-the tau decay mode.
+the neutrino~\cite{harnik, Berge2014}. Inferring the tau polarisation requires a
+well-performing reconstruction of the decay products including classifying the
+tau decay mode.
 
-\subsubsection{Search for Additional Heavy Neutral Higgs and Gauge Bosons}
+\subsubsection{Search for Additional Heavy Neutral Higgs Bosons}
 
-The search of new heavy bosons
+The minimal extension of the Standard Model to include Supersymmetry is called
+the Minimal Supersymmetric Standard Model (MSSM). It it introduces an additional
+Higgs doublet leading to an extended Higgs sector with two \cp-even neutral
+Higgs bosons~$h$ and $H$, a \cp-odd~$A$ boson and two charged~$H^\pm$
+bosons~\cite{susy}. The heavy neutral Higgs bosons~$H$ and~$A$ couple preferably
+to down-type fermions (i.e.\ fermions with weak isospin~$T_3 = -1/2$), if the
+ratio of vacuum expectation values of both Higgs doublets, $\tan\beta$, is
+large~\cite{susy}. Therefore, the~$H / A \to \tauhad\tauhad$ channel is
+promising to search for additional neutral Higgs bosons.
 
-MSSM introduces an extended Higgs sector with two \CP-even $h, H$ and one
-\CP-odd $A$ Higgs bosons as well as two charged $H^\pm$ Higgs~\cite{susy}.
-
-Parameters: $m_A$, $\tan\beta$ (ratio of vev's of both higgs doublets)
-
-Large $\tan\beta$ enhance the coupling of the $A$ and one of the $h$ or $H$ to
-down-type fermions (weak isospin $-\frac{1}{2}$) and suppress up-type fermions
-\cite{susy}. Therefore, could have preferred coupling to $\tau\tau$ and
-$b\bar{b}$.
-
-Sequential Standard Model heavy $Z^\prime$ with same couplings as $Z$.
-Some models also predict enhanced couplings to the third gen.
-
-Strong Flavour Model
-
-
-
-Search for neutral Higgs boson of the Minimal Supersymmetric Standard Model
-(MSSM) and heavy neutral $Z^\prime$.
-
-
-
-
-
-\cite{zprimeana}
-
-Zprime conf note
-\url{https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2017-050/}
-
-
-$A/H/Z^\prime \to \tau\tau$:
-
+To separate signal and background contribution in the ATLAS search for heavy
+neutral Higgs bosons~\cite{zprime} the total transverse mass,
+$m_\text{T}^\text{tot}$, is used. It is defined as
+\begin{align*}
+  m_\text{T}^\text{tot} = \sqrt{\left(p_\text{T}^{\tau_1} + p_\text{T}^{\tau_2} + E_\text{T}^\text{miss}\right)^2 - \left(\bm{p}_\text{T}^{\tau_1} + \bm{p}_\text{T}^{\tau_2} + \bm{E}_\text{T}^\text{miss}\right)^2}\eqcomma
+\end{align*}
+where~$\bm{p}_\text{T}^{\tau_1}$ and~$\bm{p}_\text{T}^{\tau_2}$ are the visible
+transverse momenta of the tau leptons and~$\bm{E}_\text{T}^\text{miss}$ the
+missing transverse momentum in the event. In Figure~\ref{fig:mttot_mssm} the
+$m_\text{T}^\text{tot}$ distribution in the $\tauhad\tauhad$ channel without
+associated-production of $b$-quarks is shown. Similar to the~$h\tau\tau$
+coupling analysis, the hadronically decaying tau leptons are required to be
+identified. Nevertheless, one of the major backgrounds in this analysis are
+fake~$\tauhad$ originating from quark- and gluon-initiated jets in multijet
+events. Improvements in the tau identification algorithm to further reduce the
+multijet background could lead to more stringent mass limits on additional
+neutral Higgs bosons.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics[width=0.98\textwidth]{./figures/theory/htautau_mass_2.pdf}
     \subcaption{Invariant mass of the ditau system reconstructed with the
-      missing mass calculator in the~\mbox{$h \to \tauhad\tauhad$} VBF channel.
-      Adapted from Ref.~\cite{higgs_tautau}.}
+      missing mass calculator in the~\mbox{$h \to \tauhad\tauhad$} VBF channel
+      of the ATLAS $h\tau\tau$ coupling measurement~\cite{higgs_tautau}. The
+      scaled contribution of the Standard Model Higgs boson is superimposed.}
     \label{fig:mtautau_mmc}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics[width=1.0\textwidth]{./figures/theory/zprime_mttot.pdf}
-    \subcaption{$A / H / Z^\prime \to \tau\tau$~\cite{zprime}}
+    \subcaption{$m_\text{T}^\text{tot}$ distribution in the $b$-veto category of
+      the $\tauhad\tauhad$ channel in the ATLAS search for neutral Higgs
+      bosons~\cite{zprime}. The signal contribution of $A$ and $H$ bosons with
+      different masses and~$\tan\beta = 15$ in the hMSSM model~\cite{hmssm} is
+      superimposed.}
     \label{fig:mttot_mssm}
   \end{subfigure}
-  \caption{}
+  \caption{Examples for the use of hadronic tau lepton decays in collider
+    experiments at the LHC.}
 \end{figure}
 
+\subsubsection{Other Areas of Research Interest}
 
-\subsubsection{Other Channels}
-
-Fakes contain fake taus and fake leptons. Where fake taus originate from jets
-originating from quarks- or gluons in multijet, $Z+\text{jets}$, $W+\text{jets}$
-
-\begin{description}
-\item[Performance measurements and tag-and-probe] Semileptonic $Z \to \tau\tau$
-\item[Polarisation measurements] $Z \to \tau\tau$ or $h \to \tau\tau$
-\item[SUSY] With long decay chains
-\item[Leptoquarks] Similar to SUSY
-\item[$W^\prime$]
-\item[$t\bar{t}h$] Measuring Yukawa coupling between top and higgs.
-\end{description}
-
-
-
+The two examples for analyses involving hadronic tau lepton decays are only a
+small part of the tau physics programme at the LHC. An incomprehensive list of
+further areas of interest is given in the following:
 \begin{itemize}
-  \item $Z \rightarrow \tau \tau$ (background for h$\tau \tau$ and
-    useful for performance measurements using tag-and-probe -- semileptonic
-    decays)
+\item Performance measurements of reconstruction algorithms for hadronic tau
+  decays using tag-and-probe in~$Z \to \tau\tau$. Additionally, the
+  major~$Z \to \tauhad\tauhad$ background present in many analysis, e.g.\ the
+  $h\tau\tau$ coupling analysis or MSSM neutral Higgs boson searches presented
+  previously, can be measured.
 
-  \item $Z \to \tau\tau$ or $h \to \tau\tau$ polarisation measurements
+\item Polarisation measurements of~$Z \to \tau\tau$ and~$h \to \tau\tau$ by
+  using the tau decay as a spin-analyser. The tau polarisation could be
+  exploited to reduce the~$Z \to \tau\tau$ background in measurements and
+  searches of neutral spin-0 resonances in the ditau channel.
 
-  \item $h \rightarrow \tau \tau$ (one of two channels to measure
-    the fermionic coupling -- $b \bar{b}$ plagued by multijet background,
-    Higgs CP)
+\item Theoretical models extending the Standard Model with additional heavy
+  gauge bosons~$W^\prime$ and $Z^\prime$ exist that couple preferably to
+  fermions of the third generation~\cite{NUGIM, zprimephysics} leading to an
+  enhanced production of tau leptons.
 
-  \item $t\bar{t}H$ with $h \to \tau \tau$: $H \to b \bar{b}$ large backgrounds.
-    Associative production with top quarks to measure Yukawa coupling between
-    top and higgs.
-
-  \item MSSM Higgs (potentially high branching fraction to $\tau$-leptons)
-
-  \item $Z^\prime$ could preferentially decay into third-generation
-    fermions (lepton universality not required).
-
-  \item $W^\prime$ models with preferential coupling to third-gen.
-
-  \item SUSY with $\tau$ \textrightarrow long decay chains (Desch)
-
-  \item Beyond the Standard Model (SUSY -- preferred coupling to down-type
-    fermions for large $\tan\beta$ \textrightarrow $\tau$-leptons)
+\item In addition to searches of additional bosons in the Higgs sector of the
+  MSSM, Supersymmetry can be probed via the direct production of other
+  supersymmetric particles. An example is the strong production of the
+  superpartners of quarks and gluons, the squarks and gluinos. In the R-parity
+  conserving MSSM model, squarks and gluinos are produced in pairs and decay via
+  cascades of Standard Model particles until the stable and lightest
+  supersymmetric particle is produced~\cite{squarks_gluinos}. Certain model
+  configurations lead to an enhanced production of tau leptons in the decay
+  cascade, making tau leptons important to constrain the allowed parameter space
+  of Supersymmetry models.
 \end{itemize}
 
 %%% Local Variables:
