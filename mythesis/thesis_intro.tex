@@ -5,10 +5,10 @@
 
 The Large Hadron Collider (LHC) is currently the largest collider experiment for
 fundamental physics research. With its first data taking run, called Run 1,
-spanning a time period from 2010 to 2013 at a center-of-mass energy
+spanning a time period from 2010 to 2013 at a $pp$ center-of-mass energy
 of~\num{7}\,--\,\SI{8}{\TeV} it allowed the four major experiments ATLAS, CMS,
-ALICE and LHCb to probe the frontier of particle physics in proton--proton (and
-heavy ion) collisions, enabling tests of the Standard Model on a previously
+ALICE and LHCb to probe the frontier of particle physics in proton--proton and
+heavy ion collisions, enabling tests of the Standard Model on a previously
 unreachable energy scale. The first run lead to major achievements, such as the
 discovery of a new scalar boson consistent with the Standard Model Higgs
 boson~\cite{higgs_atlas, higgs_cms}, evidence and discovery of the rare flavour
@@ -26,35 +26,36 @@ boson. Moreover, an enhanced tau lepton production is predicted in several
 theories of physics beyond the Standard Model (BSM). Therefore, the tau lepton
 is essential to constrain the parameter space of BSM models. While leptonic
 decays of the tau lepton into electrons or muons offer a clean signature in the
-detector, the largest fraction of tau decays produces hadrons forming a
-collimated jet of particles. Jets originating from quarks and gluons, which are
-more abundant than tau leptons due to the large multijet production cross
-section at the LHC, can fake hadronic tau decays. Therefore, the ATLAS
-experiment uses a dedicated identification algorithm~\cite{atlas:taurec:run1,
-  atlas:taurec:run2} based on multivariate methods utilising track and shower
-shape variables to discriminate hadronically decaying taus from jets. A
-well-performing identification algorithm is crucial to reduce backgrounds for
-numerous analyses involving hadronic tau decays. A future measurement of a
-potential pseudoscalar admixture in the Higgs boson via spin correlations in
-$h \to \tau\tau$ decays~\cite{desch_higgs_cp, harnik, Berge2014} requires
-selecting hadronic decay modes of the tau lepton with high purity. In the ATLAS
-experiment an algorithm to reconstruct the substructure of hadronic tau decays
-is employed, which allows to classify the decay mode and improve the mass
-reconstruction of ditau resonances~\cite{atlas:taurec:decaymodes}.
+detector, the largest fraction of tau decays produces hadrons forming collimated
+jets of particles. Jets originating from quarks and gluons, which are more
+abundant than tau leptons due to the large multijet production cross section at
+the LHC, can fake hadronic tau decays. Therefore, the ATLAS experiment uses a
+dedicated identification algorithm~\cite{atlas:taurec:run1, atlas:taurec:run2}
+based on multivariate methods utilising track and shower shape variables to
+discriminate hadronically decaying taus from jets. A well-performing
+identification algorithm is crucial to reduce backgrounds for numerous analyses
+involving hadronic tau decays. A future measurement of a potential pseudoscalar
+admixture in the Higgs boson via spin correlations in $h \to \tau\tau$
+decays~\cite{desch_higgs_cp, harnik, Berge2014} requires selecting hadronic
+decay modes of the tau lepton with high purity. In the ATLAS experiment an
+algorithm to reconstruct the substructure of hadronic tau decays is employed,
+which allows to classify the decay mode and improve the mass reconstruction of
+ditau resonances~\cite{atlas:taurec:decaymodes}. The pure selection of the
+hadronic decay channels of the tau needed for this measurement, requires an
+accurate decay mode classification algorithm.
 
 This thesis is concerned with the optimisation of the tau identification and
 decay mode classification algorithms used in the ATLAS experiment for Run 2 of
 the LHC. First the existing identification strategy is improved by revising the
-variable selection and optimising the configurations of the multivariate
-techniques used in the ATLAS experiment. The recent advances in artificial
-neural networks and the availability of computing resources, facilitate the
-creation of highly complex predictive models in domains outside of machine
-learning research. As a result, a novel approach of performing tau
-identification based on sequence learning techniques is presented. Recurrent
-neural networks employing sequences of physics objects reconstructed with the
-ATLAS detector are used to discriminate hadronic tau decays from jets. The
-techniques developed for tau identification are subsequently applied to the
-problem of decay mode classification.
+variable selection and optimising the configuration of the multivariate
+techniques used. The recent advances in artificial neural networks and the
+availability of computing resources, facilitate the creation of highly complex
+predictive models in domains outside of machine learning research. As a result,
+a novel approach of performing tau identification based on sequence learning
+techniques is presented. Recurrent neural networks employing sequences of
+physics objects reconstructed with the ATLAS detector are used to discriminate
+hadronic tau decays from jets. The techniques developed for tau identification
+are subsequently applied to the problem of decay mode classification.
 
 The structure of this thesis is given in the following. The theoretical
 background and motivation is presented in Chapter~\ref{sec:theory}. A
