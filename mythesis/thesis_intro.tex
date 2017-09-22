@@ -3,6 +3,56 @@
 \addcontentsline{toc}{chapter}{Introduction}
 \label{sec:intro}
 
+The Large Hadron Collider (LHC) is currently the largest collider experiment for
+fundamental physics research. With its first data taking run, called Run 1,
+spanning a time period from 2010 to 2013 at a center-of-mass energy
+of~\num{7}\,--\,\SI{8}{\TeV} it allowed the four major experiments ATLAS, CMS,
+ALICE and LHCb to probe the frontier of particle physics in proton--proton (and
+heavy ion) collisions, enabling tests of the Standard Model on a previously
+unreachable energy scale. The first run lead to major achievements, such as the
+discovery of a new scalar boson consistent with the Standard Model Higgs
+boson~\cite{higgs_atlas, higgs_cms}, evidence and discovery of the rare flavour
+changing neutral current decay~$B_s^0 \to \mu \mu$~\cite{lhcb_bs_mumu,
+  cms_bs_mumu} and the continued study of hot and dense strongly interacting
+matter in heavy ion collisions at unmatched energy densities. In 2015 data
+taking was resumed in Run 2 at a $pp$ center-of-mass energy of \SI{13}{\TeV} at
+an increased instantaneous luminosity further improving the physics reach. The
+Run 2 data taking period ends in 2018 with the Long~Shutdown~2 in preparation of
+Run 3 and the High Luminosity LHC.
+
+The tau lepton is an important part of the physics programme at the LHC. Its
+large mass makes it an effective probe of the fermionic coupling of the Higgs
+boson. Moreover, an enhanced tau lepton production is predicted in several
+theories of physics beyond the Standard Model (BSM). Therefore, the tau lepton
+is essential to constrain the parameter space of BSM models. While leptonic
+decays of the tau lepton into electrons or muons offer a clean signature in the
+detector, the largest fraction of tau decays produces hadrons forming a
+collimated jet of particles. Jets originating from quarks and gluons, which are
+more abundant than tau leptons due to the large multijet production cross
+section at the LHC, can fake hadronic tau decays. Therefore, the ATLAS
+experiment uses a dedicated identification algorithm based on multivariate
+methods utilising track and shower shape variables to discriminate hadronically
+decaying taus from jets. A well-performing identification algorithm is crucial
+to reduce backgrounds for numerous analyses involving hadronic tau decays.
+
+This thesis
+
+mention: Run 2, center-of-mass energy, identification, classification
+
+Tau decays before entering the active detector volume -- allows measuring the polarisation
+Measurements of tau polarisation in ditau resonances require reconstruction of four momentum of constituents of the tau decay
+Requires to classify the decay mode of the tau
+
+- Whats done in this thesis
+Update of the BDT based Tau-ID
+The developments in the field of neural networks and the increasing computing power allow to easily create highly complex models
+Using novel machine learning techniques based on recurrent neural networks to improve identification
+Applying this to decay mode classification.
+
+
+- Small preview for each chapter
+
+
 Final states containing hadronic tau-lepton decays play important role in ATLAS
 physics programme (due to high branching fraction of hadronic modes). Examples:
 SM measurements, Higgs boson searches, BSM (extended higgs sector, SUSY),
@@ -10,6 +60,9 @@ exotics (heavy gauge bosons), leptoquarks. Also Fermionic Coupling of Higgs,
 Higgs CP. These analyses heavily depend on robust reconstruction of the hadronic
 decay and particle identification suppressing backgrounds from QCD jets,
 electrons and muons faking hadronic tau decays.
+
+The abundance of quark- and gluon-initiated jets due to the large multijet
+production cross section at the Large Hadron Collider (LHC).
 
 Paragraph about jets faking taus (why are identification algorithms necessary).
 
@@ -27,40 +80,6 @@ Classification.
 Focus more on whats the content of this thesis. (Should give a good overview of
 whats going on if only Introduction \& Conclusion is read by the reader)
 
-\begin{itemize}
-\item LHC \& Experiments
-  \begin{itemize}
-  \item Discoveries / Measurements
-
-  \item Past: Run-I, Present: Run-II, Future: HL-LHC \& Challenges
-  \end{itemize}
-
-\item $\tau$-Leptons
-  \begin{itemize}
-  \item Importance (Fermionic coupling of Higgs, Higgs CP, Exotics $Z^\prime$,
-    $W^\prime$, Heavy Higgs / SUSY)
-  \item $\tau$-decay (hadronic branching fraction, decay modes)
-  \item Jets faking taus (necessity of identification algorithms)
-  \item Classification of $\tau$ decay modes (motivation)
-  \end{itemize}
-
-\item Overview of the thesis structure (one bullet point per chapter).
-\end{itemize}
-
-\todo[inline]{Chapter vs.\ Section???}
-
-\todo[inline]{Train-Test Split and Validation. State that all given metrics are
-  always either on the validation or the testing sample.}
-
-\todo[inline]{Consistent usage of tau pt -- visible reconstructed transverse
-  momentum?}
-
-\todo[inline]{Introduce tau-identification}
-
-\todo[inline]{Properly define efficiency and rejection?}
-
-\todo[inline]{Short captions}
-
 
 The theoretical background is described in Chapter~\ref{sec:theory}
 
@@ -77,7 +96,7 @@ RNN based studies in Chapter~\ref{sec:rnn}
 
 Decay mode classification~\ref{sec:decaymode}
 
-
+\todo[inline]{Short captions}
 
 
 %%% Local Variables:
