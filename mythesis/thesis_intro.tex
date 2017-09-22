@@ -30,41 +30,44 @@ detector, the largest fraction of tau decays produces hadrons forming a
 collimated jet of particles. Jets originating from quarks and gluons, which are
 more abundant than tau leptons due to the large multijet production cross
 section at the LHC, can fake hadronic tau decays. Therefore, the ATLAS
-experiment uses a dedicated identification algorithm based on multivariate
-methods utilising track and shower shape variables to discriminate hadronically
-decaying taus from jets. A well-performing identification algorithm is crucial
-to reduce backgrounds for numerous analyses involving hadronic tau decays.
+experiment uses a dedicated identification algorithm~\cite{atlas:taurec:run1,
+  atlas:taurec:run2} based on multivariate methods utilising track and shower
+shape variables to discriminate hadronically decaying taus from jets. A
+well-performing identification algorithm is crucial to reduce backgrounds for
+numerous analyses involving hadronic tau decays. A future measurement of a
+potential pseudoscalar admixture in the Higgs boson via spin correlations in
+$h \to \tau\tau$ decays~\cite{desch_higgs_cp, harnik, Berge2014} requires
+selecting hadronic decay modes of the tau lepton with high purity. In the ATLAS
+experiment an algorithm to reconstruct the substructure of hadronic tau decays
+is employed, which allows to classify the decay mode and improve the mass
+reconstruction of ditau resonances~\cite{atlas:taurec:decaymodes}.
 
-This thesis
+This thesis is concerned with the optimisation of the tau identification and
+decay mode classification algorithms used in the ATLAS experiment for Run 2 of
+the LHC. First the existing identification strategy is improved by revising the
+variable selection and optimising the configurations of the multivariate
+techniques used in the ATLAS experiment. The recent advances in artificial
+neural networks and the availability of computing resources  the creation
+of highly complex predictive models even for domains outside of machine learning
+research.
 
-mention: Run 2, center-of-mass energy, identification, classification
 
-Tau decays before entering the active detector volume -- allows measuring the polarisation
-Measurements of tau polarisation in ditau resonances require reconstruction of four momentum of constituents of the tau decay
-Requires to classify the decay mode of the tau
+A novel approach of performing tau identification based on sequence learning
+techniques is presented.
 
-- Whats done in this thesis
-Update of the BDT based Tau-ID
-The developments in the field of neural networks and the increasing computing power allow to easily create highly complex models
-Using novel machine learning techniques based on recurrent neural networks to improve identification
-Applying this to decay mode classification.
+Mention recurrent neural networks
+
+The techniques developed for the tau identification are applied
+
+
+- Whats done in this thesis Update of the BDT based Tau-ID The developments in
+the field of neural networks and the increasing computing power allow to easily
+create highly complex models Using novel machine learning techniques based on
+recurrent neural networks to improve identification Applying this to decay mode
+classification.
 
 
 - Small preview for each chapter
-
-
-Final states containing hadronic tau-lepton decays play important role in ATLAS
-physics programme (due to high branching fraction of hadronic modes). Examples:
-SM measurements, Higgs boson searches, BSM (extended higgs sector, SUSY),
-exotics (heavy gauge bosons), leptoquarks. Also Fermionic Coupling of Higgs,
-Higgs CP. These analyses heavily depend on robust reconstruction of the hadronic
-decay and particle identification suppressing backgrounds from QCD jets,
-electrons and muons faking hadronic tau decays.
-
-The abundance of quark- and gluon-initiated jets due to the large multijet
-production cross section at the Large Hadron Collider (LHC).
-
-Paragraph about jets faking taus (why are identification algorithms necessary).
 
 This thesis summarises the improvements of the algorithm currently used for
 tau-identification at the ATLAS experiment. Moreover a novel approach to
