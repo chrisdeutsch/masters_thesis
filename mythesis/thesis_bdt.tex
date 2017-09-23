@@ -56,26 +56,26 @@ BDTs for the 1- and 3-prong identification with different sets of input
 variables. Classification with BDTs return a score measuring the confidence of
 the binary decision. This allows a trade-off between signal efficiency and
 background rejection by choosing different decision thresholds. In the ATLAS
-experiment these thresholds are parametrised as functions of the reconstructed
-visible transverse momentum~$p_\text{T}$ of the \tauhadvis at tau energy scale
-and the average number of interactions per bunch crossing~$\mu$ such that the
-signal efficiency is constant in different momentum and pile-up regimes.
+experiment these thresholds are derived in bins of the reconstructed visible
+transverse momentum~$p_\text{T}$ of the \tauhadvis at tau energy scale and the
+average number of interactions per bunch crossing~$\mu$ such that the signal
+efficiency is constant in different momentum and pile-up regimes.
 
 \subsection{Discriminating Variables}
 \label{sec:bdt_features}
 
-Photons originating from neutral pions in hadronic tau lepton decays typically
-deposit their energy in the Presampler and first two layers of the
-electromagnetic calorimeter and energy depositions in EM3 generally originate
-from charged hadrons produced in the tau decay. Therefore, the third layer of
-the electromagnetic calorimeter is considered to be part of the hadronic
-calorimeter when defining the identification variables.
-
 The variables defined in Ref.~\cite{atlas:taurec:run2} are updated to contain
 the latest changes in the reconstruction, the largest being the introduction of
 the multivariate track classification algorithm. They target the features of
-hadronic tau decays discussed in Section~\ref{sec:features_tau_decay}. The
-definitions are:
+hadronic tau decays discussed in Section~\ref{sec:features_tau_decay}.
+
+Photons originating from neutral pions in hadronic tau lepton decays typically
+deposit their energy in the presampler and first two layers of the
+electromagnetic calorimeter and energy depositions in EM3 mostly originate from
+charged hadrons produced in the tau decay. Therefore, the third layer of the
+electromagnetic calorimeter is considered to be part of the hadronic calorimeter
+when defining the identification variables. The variables are defined as
+follows~\cite{atlas:taurec:run2}:
 \begin{description}
 \item[Central energy fraction ($f_\text{cent}$):] Fraction of transverse energy
   at EM scale deposited in calorimeter cells with a barycentre in a cone of
@@ -88,7 +88,7 @@ definitions are:
 
 \item[Inverse momentum fraction of the leading track
   ($f_\text{leadtrack}^{-1}$):] Fraction of transverse energy at EM scale
-  deposited in calorimeter cells (as part of \emph{TopoClusters}) with a
+  deposited in calorimeter cells (as part of TopoClusters) with a
   barycentre in a cone of radius~$\Delta R < 0.2$ with respect to the tau axis
   and the transverse momentum of the highest transverse momentum track
   classified as \emph{charged} according to the track classification.
@@ -102,61 +102,63 @@ definitions are:
   the tau axis. Equivalent to $R_\text{track}$ for 1-track \tauhadvis.
 
 \item[Transverse impact parameter significance of the leading track
-  ($| S_\text{leadtrack} |$):] Absolute value of the transverse impact
-  parameter~$d_0$ of the leading \emph{charged} track with respect to the
-  reconstructed primary vertex divided by its uncertainty estimate from the
-  track and vertex fit.
+  ($| S_\text{leadtrack} |$):] Absolute value of the transverse impact parameter
+  of the leading \emph{charged} track with respect to the reconstructed primary
+  vertex divided by its uncertainty estimate from the track and vertex fit.
 
 \item[Transverse flight path significance ($S_\text{T}^\text{flight}$):]
   Distance between the secondary vertex reconstructed using tracks classified as
   \emph{charged} and primary vertex in the transverse plane divided by the
-  estimated uncertainty from the secondary vertex fit.
+  estimated uncertainty from the secondary vertex fit. Defined only for
+  multi-track \tauhadvis.
 
 \item[Momentum fraction of isolation tracks ($f_\text{iso}^\text{track}$):] Sum
-  of transverse momenta of \emph{modified isolation} tracks divided by the sum
-  of transverse momenta of \emph{modified isolation} and \emph{charged} tracks.
+  of transverse momenta of \emph{modified isolation} tracks (cf.\
+  Section~\ref{sec:reco_track_sel_classif}) divided by the sum of transverse
+  momenta of \emph{modified isolation} and \emph{charged} tracks.
 
 \item[EM energy fraction of charged pions ($f_\text{EM}^\text{track-HAD}$):]
   Energy deposited by charged pions in the electromagnetic part of the
   calorimeter estimated by subtracting the energy contained in the hadronic part
-  of \emph{TopoClusters} from the energy of the track system, consisting of
-  tracks classified as \emph{charged}, estimated by the scalar sum of track
-  momenta. This energy is divided by the energy contained in the electromagnetic
-  part of clusters associated with the jet seeding the \tauhadvis. All cluster
-  energies are calibrated at LC scale.
+  of the calorimeter (in TopoClusters) from the energy of the track
+  system, consisting of tracks classified as \emph{charged}, estimated by the
+  scalar sum of track momenta (assuming zero mass). This energy is divided by
+  the energy contained in the electromagnetic part of clusters associated with
+  the jet seeding the \tauhadvis. All cluster energies are calibrated at LC
+  scale.
 
 \item[Ratio of EM energy and track momentum ($f_\text{track}^\text{EM}$):]
-  Energy deposited as part of \emph{TopoClusters} of the reconstructed jet in
+  Energy deposited as part of TopoClusters of the reconstructed jet in
   the electromagnetic part of the calorimeter calibrated at LC scale, divided by
   the scalar momentum sum of tracks classified as \emph{charged}.
 
 \item[Fraction of track-plus-EM-system $p_\text{T}$
   ($p_\text{T}^\text{EM+track} / p_\text{T}$):] Transverse momentum of the
   visible tau decay estimated from the four-momentum sum of \emph{charged}
-  tracks (assuming $\pi^\pm$ mass) and up to two of the most-energetic clusters
-  (assuming zero mass) in the electromagnetic part of the calorimeter, divided
-  by the visible transverse momentum of the \tauhadvis at LC scale.
+  tracks (assuming $\pi^\pm$ mass) and the two most-energetic clusters (assuming
+  zero mass) in the electromagnetic part of the calorimeter, divided by the
+  visible transverse momentum of the \tauhadvis at LC scale.
 
 \item[Mass of the track-plus-EM-system ($m_\text{EM+track}$):] Invariant mass of
   the visible tau decay estimated from the four-momentum sum of \emph{charged}
-  tracks (assuming $\pi^\pm$ mass) and up to two of the most-energetic clusters
-  (assuming zero mass) in the electromagnetic part of the calorimeter.
+  tracks (assuming $\pi^\pm$ mass) and the two most-energetic clusters (assuming
+  zero mass) in the electromagnetic part of the calorimeter.
 
 \item[Mass of the track system ($m_\text{track}$):] Invariant mass of the system
   consisting of tracks classified as \emph{charged} using a $\pi^\pm$ mass
   hypothesis.
 \end{description}
-An example of two important variables for identifying hadronic tau lepton decays
-is depicted in Figure~\ref{fig:bdt_discriminants}. The remaining variables are
-omitted for brevity and can be found in Appendix~\ref{app:tauid_vars}. The
-momentum fraction of isolation tracks~\smash{$f_\text{iso}^\text{track}$} in
-1-prong \tauhadvis candidates shows that isolation tracks often carry a large
-momentum fraction for background candidates, while signal candidates often do
-not have reconstructed isolation tracks. Moreover, the invariant mass of the
-track system for 3-prong \tauhadvis candidates shows a peak for signal
-candidates below the mass of the tau lepton, while background candidates can
-have large invariant masses. Table~\ref{tab:baseline_variables} summarises the
-variable selection for the 1- and 3-prong BDTs.
+The distributions of two important variables for identifying hadronic tau lepton
+decays are depicted in Figure~\ref{fig:bdt_discriminants}. The remaining
+variables can be found in Appendix~\ref{app:tauid_vars}. The momentum fraction
+of isolation tracks~\smash{$f_\text{iso}^\text{track}$} in 1-prong \tauhadvis
+candidates shows that isolation tracks often carry a large momentum fraction for
+background candidates, while signal candidates often do not have reconstructed
+isolation tracks. Moreover, the invariant mass of the track system for 3-prong
+\tauhadvis candidates shows a peak for signal candidates below the mass of the
+tau lepton, while background candidates can have large invariant masses.
+Table~\ref{tab:baseline_variables} summarises the variable selection for the 1-
+and 3-prong BDTs.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -181,15 +183,15 @@ variable selection for the 1- and 3-prong BDTs.
   \centering
   {\def\arraystretch{1.35}\small\input{./tables/baseline_variables.tex}}
   \caption{Variables used for tau identification of \tauhadvis candidates with
-    one or three reconstructed \emph{charged} tracks.}
+    one or three reconstructed \emph{charged} tracks~\cite{atlas:taurec:run2}.}
   \label{tab:baseline_variables}
 \end{table}
 
 \subsection{BDT Configuration for Tau Identification}
-In the following the initial BDT configurations employed by the tau
-identification in the ATLAS reconstruction framework is summarised. At the time
-of writing, the improvements presented in this chapter have been partially
-implemented in the latest reconstruction release.
+In the following the preceding BDT configuration employed by the tau
+identification in ATLAS is summarised. At the time of writing, the improvements
+presented in this chapter have been partially implemented in the latest
+reconstruction release.
 
 The training and evaluation of the tau identification BDTs is performed using
 TMVA~\cite{tmva}. The initial configuration uses decision trees limited to a
@@ -201,7 +203,7 @@ boosting algorithm with a learning rate~$\beta = 0.2$. Individual decision trees
 return estimated class probabilities instead of the majority class and no
 \emph{pruning} of statistically insignificant nodes is applied. This
 configuration is used as a starting point for further optimisations. The full
-configurations of the TMVA-BDTs are summarised in
+configuration of the TMVA-BDTs used in this thesis are summarised in
 Appendix~\ref{app:tmva_config}.
 
 \section{Event Simulation, Preselection and Reweighting}
@@ -209,37 +211,34 @@ Appendix~\ref{app:tmva_config}.
 
 For training and performance evaluation of the tau identification, simulated
 events at a centre-of-mass energy of~$\sqrt{s} = \SI{13}{\TeV}$ and an average
-number of interactions per bunch crossing of~$\mu = \num{30}$ is used. The
-signal samples use the process~$\gamma^* \to \tauhad \tauhad$, where at
-generator-level leptonic decays of the tau lepton are disabled. In contrast to
-the Drell--Yan process, no on- and off-shell production and interference with
-the $Z$~boson is included. The reason is to create a sample with unpolarised tau
-leptons, i.e. having the same number of positive and negative helicity tau
-leptons, over a large range of ditau invariant masses. Polarisation biases the
-angular distribution of the daughter particles in a tau decay and therefore the
-kinematics, which is not desired when training general purpose algorithms.
-Additionally, the ditau invariant mass spectrum is smooth and decreasing without
-a large number of events close to the $Z$~mass, making it convenient for
-performance studies. The background samples consist of simulated dijet events,
-supplying fake \tauhadvis with transverse momenta of up to \SI{1800}{\GeV} at
-tau energy scale. Both the signal and background samples are generated using
-\textsc{Pythia}~8 with the A14 tune~\cite{a14_tune} and the NNPDF23LO PDF
-set~\cite{NNPDF}. A complete summary of the simulated samples can be found in
-Appendix~\ref{app:samples}.
+number of interactions per bunch crossing of~$\langle\mu\rangle = \num{30}$ are
+used. The signal samples contain~$\gamma^* \to \tauhad \tauhad$ events, where
+leptonic tau decays are disabled at generator-level. In contrast to the
+Drell--Yan process, no on- and off-shell production and interference with the
+$Z$~boson is included. This way a sample of unpolarised tau leptons is created,
+which has the same number of positive and negative helicity tau leptons over a
+large range of ditau invariant masses. Polarisation biases the angular
+distribution of the daughter particles in tau decays, which is not desired when
+training general purpose algorithms. Additionally, the ditau invariant mass
+spectrum is smooth and decreasing without a large number of events close to the
+$Z$~mass, making it convenient for performance studies. The background samples
+consist of simulated dijet events, supplying fake \tauhadvis with transverse
+momenta of up to \SI{1800}{\GeV}. Both the signal and background samples are
+generated using \textsc{Pythia}~8~\cite{pythia82} with the A14
+tune~\cite{a14_tune} and the NNPDF23LO PDF set~\cite{NNPDF}. A complete summary
+of the simulated samples can be found in Appendix~\ref{app:samples}.
 
 A preselection is applied to reconstructed \tauhadvis in the event samples to
-match typical selections applied at analysis level. Therefore, the tau
-identification studies focus on candidates with visible transverse
-momenta~$\pt > \SI{20}{\GeV}$. Reconstructed \tauhadvis are required to fall in
-the acceptance range of the tracking system~$|\eta| < 2.5$, while rejecting
-candidates in the transition region between barrel and end-cap of the
-calorimeter~\mbox{$1.37 < |\eta| < 1.52$}. The number of reconstructed
-\emph{charged} tracks must be either one or three. Additionally, \tauhadvis
-candidates in the signal samples are matched to true taus at generator-level and
-the same selections, i.e.\ transverse momentum, pseudorapidity, number of
-charged hadrons in the decay, are applied at truth level. The number of tau
-candidates in the samples after preselection is summarised in
-Table~\ref{tab:sample_size}.
+match typical selections applied in analyses. Tau candidates with \tauhadvis
+$\pt > \SI{20}{\GeV}$ at tau energy scale, falling in the acceptance range of
+the tracking system~$|\eta| < 2.5$, while rejecting \tauhadvis in the transition
+region between barrel and end-cap of the
+calorimeter~\mbox{$1.37 < |\eta| < 1.52$} and having one or three \emph{charged}
+tracks are selected. Additionally, \tauhadvis candidates in the signal samples
+are matched to taus at generator-level and the same selections, i.e.\ transverse
+momentum, pseudorapidity, number of charged hadrons in the decay, are applied at
+truth level \todo{why. potential bias}. The number of tau candidates in the
+samples after preselection is summarised in Table~\ref{tab:sample_size}.
 
 \begin{table}[htb]
   \centering
@@ -291,28 +290,29 @@ the best discriminative power for the underlying problem. In the following the
 BDTs of the 1- and 3-prong tau identification are optimised separately with
 respect to the boosting algorithm and the most important hyperparameters.
 
-Many input variables for the identification have skewed or long-tailed
-distributions leading to suboptimal decision trees as TMVA uses equidistant
-sampling points for finding the best possible split on a given variable.
-Therefore, transformations are applied to the variables to improve the split
-finding. For this highly skewed distributions are log-transformed, while
-long-tailed distributions and outliers due to detector resolution effects are
-clamped to fall into a specified range of values. The exact transformations can
-be found in Appendix~\ref{app:variable_transforms}.
+Many input variables have skewed or long-tailed distributions leading to
+suboptimal decision trees as TMVA uses equidistant sampling points for finding
+the best possible split on a given variable. Therefore, transformations are
+applied to the variables to improve the split finding. For this highly skewed
+distributions are log-transformed, while long-tailed distributions and outliers
+due to detector resolution effects are clamped to fall into a specified range of
+values, meaning values outside of a specified range are set to the lower or
+upper limit, respectively. The exact transformations can be found in
+Appendix~\ref{app:variable_transforms}.
 
-Hold-out validation is used to measure how well the model generalises to data
-that was not used to train the model. This is done by splitting the signal and
-background samples into two equally sized samples called training and testing
-sample. The training sample is used to train the model and the testing sample is
-used to determine the performance characteristics of the model. Unless otherwise
-noted, the metrics and figures given in the following sections are evaluated
-using the testing sample.
+A so called hold-out validation is used to measure how well the model
+generalises to data that was not used to train the model. For this the signal
+and background samples are split into two equally sized samples called training
+and testing samples. The training sample is used to train the model and the
+testing sample is used to determine the performance characteristics of the
+model. Unless otherwise noted, the metrics and figures given in the following
+sections are evaluated using the testing sample.
 
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
 
 In Chapter~\ref{sec:ml_boosting} the two boosting algorithms \emph{AdaBoost} and
-\emph{Gradient Boosting} were introduced. The performance of both algorithms for
+\emph{Gradient Boosting} are introduced. The performance of both algorithms for
 tau identification is compared by training BDTs and varying a boosting-specific
 parameter called the learning rate. The learning rate for \emph{AdaBoost} is
 typically denoted by~$\beta$, while for gradient boosting it is called the
@@ -321,10 +321,10 @@ boosting process by decreasing the influence of additional trees on the
 ensemble. Empirically it has been found that small learning rates often lead to
 improvements in test error~\cite{esl}.
 
-The 1-prong tau identification BDT with the input variables and configuration
-summarised in Section~\ref{sec:bdt_tauid} is trained on \tauhadvis candidates
-from the signal and background samples. The learning rates for both boosting
-algorithms are varied between 0.05 and 1.0. At each setting the background
+The 1-prong tau identification BDT with the input variables and configuration as
+summarised in Section~\ref{sec:bdt_tauid} is trained on signal and background
+\tauhadvis candidates. The learning rates for both boosting algorithms are
+varied between 0.05 and 1.00 in steps of 0.05. At each setting the background
 rejection is calculated at a fixed signal efficiency of~\SI{60}{\percent}. For
 this a single cut on the output score of the BDT is determined such
 that~\SI{60}{\percent} of \tauhadvis candidates in the signal sample pass this
@@ -334,18 +334,19 @@ introduced at a later point.
 
 In Figure~\ref{fig:bdt_boosting_alg} the rejection is shown as a function of the
 learning rate for both algorithms. An improvement in rejection of approximately
-\SI{10}{\percent} is observed when using \emph{Gradient Boosting}. The reason
-for this improvement is the robust loss function (binomial log-likelihood loss)
-used in the \emph{Gradient Boosting} implementation of TMVA. The loss functions
-are depicted in Figure~\ref{fig:boosting_loss} showing that the \emph{Gradient
-  Boosting} implementation puts less emphasis on misclassified events
-($y f(x) < 0$) compared to the exponential loss of \emph{AdaBoost}. This makes
-\emph{Gradient Boosting} a robust choice for problems where signal and
-background are inseparable in certain regions of the input variable space. For
-tau identification this can be the case for jets initiated by light quarks,
-which more closely resemble hadronic decays of tau leptons. A similar
-improvement is observed for the 3-prong identification, therefore \emph{Gradient
-  Boosting} will be used for further optimisation steps.
+\SI{10}{\percent} is observed when using \emph{Gradient Boosting}. The likely
+reason for this improvement is the more robust loss function (binomial
+log-likelihood loss) used in the \emph{Gradient Boosting} implementation of
+TMVA~\cite{tmva}. The loss functions are depicted in
+Figure~\ref{fig:boosting_loss} showing that the \emph{Gradient Boosting}
+implementation puts less emphasis on misclassified events ($y f(x) < 0$)
+compared to the exponential loss of \emph{AdaBoost}. This makes \emph{Gradient
+  Boosting} a more robust choice for problems where signal and background are
+inseparable in certain regions of the input variable space. For tau
+identification this can be the case for jets initiated by light quarks, which
+more closely resemble hadronic decays of tau leptons. A similar improvement is
+observed for the 3-prong identification, therefore \emph{Gradient Boosting} will
+be used for further optimisation steps.
 
 \begin{figure}[htb]
   \centering
