@@ -530,12 +530,13 @@ rejection. Figure~\ref{fig:bdt_rocs} shows the performance characteristics as
 the classification threshold is varied and is called the receiver operating
 characteristic curve (ROC-curve). Comparing \mbox{BDT A} and \mbox{BDT B} for
 the 1- and 3-prong identification, the decrease in rejection of the conservative
-model is less than \SI{5}{\percent} over the relevant efficiency range.
-Moreover, the rejection of the conservative \mbox{BDT B} improves on the
-reference by \num{10} to \SI{16}{\percent}. The rejection of the 3-prong BDT is
-approximately one order of magnitude larger than for the 1-prong case. This can
-largely be attributed to the availablility of invariant mass and secondary
-vertex information.
+model is less than \SI{5}{\percent} for signal efficiencies as low as
+\SI{45}{\percent}. Moreover, the rejection of the conservative \mbox{BDT B}
+improves on the reference by \num{10} to \SI{16}{\percent}. The rejection of the
+3-prong BDT is approximately one order of magnitude larger than for the 1-prong
+case. This can largely be attributed to the availablility of invariant mass and
+secondary vertex information. Optimising the BDTs for different signal
+efficiencies results in similar configurations.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -560,11 +561,10 @@ vertex information.
 \label{sec:bdt_working_points}
 
 For the use of tau identification in analyses, four working points with fixed
-signal efficiencies are defined. The efficiencies of the working points are
-given in Table~\ref{tab:wp_eff}. Due to the abundance of 3-track \tauhadvis
-candidates originating from multijet events, a tighter selection is applied to
-the 3-prong tau identification. \todo{Very loose:analyses with low background or
-  fake factor estimation}
+signal efficiencies are defined as shown in Table~\ref{tab:wp_eff}. Due to the
+abundance of 3-track \tauhadvis candidates originating from multijet events, a
+tighter selection is applied in the 3-prong tau identification. \todo{Very
+  loose:analyses with low background or fake factor estimation}
 
 \begin{table}[htb]
   \centering
@@ -573,18 +573,18 @@ the 3-prong tau identification. \todo{Very loose:analyses with low background or
   \label{tab:wp_eff}
 \end{table}
 
-The decision threshold of the BDT is parametrised as a function of the
-reconstructed transverse momentum of the \tauhadvis candidate at the tau energy
-scale and the average number of interactions per bunch crossing~$\mu$. This is
-done to ensure a constant signal efficiency over a wide transverse momentum
-range and in different pile-up scenarios. The average number of interactions per
-bunch crossing is used instead of the number of reconstructed primary vertices
-to ensure compatibility with the identification at the tau trigger, where track
-and vertex information is unavailable due time constraints.
+The decision threshold of the BDT is given in bins of the reconstructed
+transverse momentum of the \tauhadvis candidate at the tau energy scale and the
+average number of interactions per bunch crossing~$\mu$. This is done to ensure
+a constant signal efficiency over a wide transverse momentum range and in
+different pile-up scenarios. The average number of interactions per bunch
+crossing is used instead of the number of reconstructed primary vertices to
+ensure compatibility with tau identification at trigger-level, where track and
+vertex information is unavailable due time constraints.
 
-The thresholds on the BDT score are calculated in bins
-of~\tauhadvis~$p_\text{T}$ and~$\mu$, such that the signal efficiency in each
-bin reaches the target efficiency of the working point. In
+The BDT score thresholds are calculated in bins of~\tauhadvis~$p_\text{T}$
+and~$\mu$, such that the signal efficiency in each bin reaches the target
+efficiency of the respective working point. In
 Figure~\ref{fig:working_point_cutmap} the threshold maps are depicted for the
 tight working point of the 1- and 3-prong identification using the conservative
 \mbox{BDT B}. The binning is chosen such that the derived thresholds are not
@@ -608,16 +608,16 @@ Figure~\ref{fig:pt_mu}).
   \label{fig:working_point_cutmap}
 \end{figure}
 
-The behaviour of the thresholds with respect to the visible transverse momentum
-of \tauhadvis and the average number of interactions per bunch crossing is
-similar for the 1- and 3-prong identification. The thresholds tend to get larger
-(tighter) with increasing transverse momentum. This is due to the boost of the
-tau lepton leading to larger decay lengths and more collimated daughter
-particles, thus making the decay more tau-like. At low transverse momenta and
-high pile-up the thresholds are looser due to pile-up widening the signature of
-the decay in the calorimeter. Finally, the dependency of the thresholds on the
+The dependence of the thresholds on \tauhadvis \pt and $\mu$ is similar for the
+1- and 3-prong identification. The thresholds tend to get larger (tighter) with
+increasing transverse momentum. This is due to the boost of the tau lepton
+leading to larger decay lengths and more collimated daughter particles, thus
+making the \tauhadvis candidate more tau-like. At low transverse momenta and
+high pile-up the thresholds are looser due to pile-up widening of the decay
+signature in the calorimeter. Finally, the dependency of the thresholds on the
 amount of pile-up decreases for large transverse momenta, as the soft pile-up
-cannot significantly alter the signature of the highly energetic tau decay.
+does not significantly alter the signature of decays of highly energetic tau
+leptons.
 
 \section{Variable Selection}
 \label{sec:bdt_variable_selection}
@@ -651,26 +651,26 @@ to simplify the model.
 The distributions of the variables used for tau identification change depending
 on the reconstructed transverse momentum of the \tauhadvis candidates. This
 impacts the identification algorithm as the separation of signal and background
-in a given variable varies as a function of~$p_\text{T}$.
+in a given variable may vary as a function of~$p_\text{T}$.
 
-Variables that are affected by this are the track radius~$R_\text{track}$ and
-the maximum track~$\Delta R$. At large transverse momentum \emph{charged} tracks
-tend to be closer to the tau axis for both signal and background candidates,
-thus reducing the separation in these variables. Similarly, the central energy
-fraction~$f_\text{cent}$ of background candidates increases at high transverse
-momentum making them more tau-like. In contrast to this, the variables based on
-invariant masses~$m_\text{track}$ and~$m_\text{EM+track}$ show a larger
-separation at high transverse momentum. This is because the mass of signal
-candidates is bounded by the mass of the tau lepton (neglecting detector
-resolution effects), while for candidates from quark- or gluon-initiated jets
-the invariant mass tends to increase with increasing transverse momentum of the
-\tauhadvis candidate. \todo{Plots? Actually not true for mEflowApprox}
+Variables that are strongly affected by this are~$R_\text{track}$ and
+$\Delta R_\text{max}$. At large transverse momenta \emph{charged} tracks tend to
+be closer to the tau axis for both signal and background candidates, thus
+reducing the separation in these variables. Similarly, the central energy
+fraction, $f_\text{cent}$, of background candidates increases at high transverse
+momentum making them more tau-like. In contrast, the variables based on
+invariant masses, $m_\text{track}$ and~$m_\text{EM+track}$, show a larger
+separation at high transverse momenta. This is because the mass of signal
+candidates is bounded by the mass of the tau lepton when neglecting resolution
+effects, while for candidates from quark- or gluon-initiated jets the invariant
+mass tends to increase with increasing transverse momentum of the \tauhadvis
+candidate. \todo{Plots? Actually not true for mEflowApprox}
 
 To take advantage of the varying signal/background separation in different
 $p_\text{T}$-regions, the \tauhadvis transverse momentum is included as an input
-to the BDT. Correlations between the remaining input variables and \tauhadvis
-\pt can then be used to distinguish signal and background candidates. The
-kinematic reweighting (cf.\ Section~\ref{sec:bdt_eventsim}) ensures that the
+to the BDT. Correlations between the remaining input variables and \pt can then
+be used to distinguish signal and background candidates. The kinematic
+reweighting (cf.\ Section~\ref{sec:bdt_eventsim}) ensures that the
 classification only uses correlations of the transverse momentum with the
 remaining inputs and not the distinct $p_\text{T}$-spectra of the signal and
 background samples.
@@ -679,33 +679,33 @@ For the use of tau identification in analyses, the working point efficiencies in
 data must be determined in a tag-and-probe measurement. Due to the limited
 number of \tauhadvis with transverse momenta greater than \SI{100}{\GeV}, the
 efficiency measurement needs to extrapolate to higher $p_\text{T}$-regions.
-Therefore, it should be avoided to introduce an explicit $p_\text{T}$-dependence
-for transverse momenta larger than \SI{100}{\GeV} into the BDTs. This is
-realised by \emph{clamping} the transverse momentum
+Therefore, explicit $p_\text{T}$-dependences for transverse momenta larger than
+\SI{100}{\GeV} should be avoided. This is realised by clamping the transverse
+momentum
 \begin{align*}
   p_\text{T}^\text{clamp} = \min(p_\text{T}, \SI{100}{\giga\electronvolt})
 \end{align*}
-for the use in the BDT. An implicit dependency cannot be avoided due to the
+for the use in the BDT. Implicit dependencies cannot be avoided due to the
 correlations of the remaining identification variables with the reconstructed
-transverse momentum.
+transverse momentum and contribute to the extrapolation uncertainty.
 
-The \emph{clamped} transverse momentum at LC scale is included as an input
-variable into the BDT. No tau-specific energy calibration is used to avoid
-introducing systematic errors due to the calibration. Moreover, the
-discriminative power of the identification does not benefit from using the tau
-energy scale calibration. In Table~\ref{tab:bdt_new_variables} the relative
-rejection gain is summarised after including the transverse momentum. Including
-the clamped momentum~\smash{$p_\text{T}^\text{clamp}$} increases the average
-rejection by up to \SI{4.9 +- 0.2}{\percent} for the 1-prong loose, and \SI{3.6
-  +- 0.5}{\percent} for the 3-prong medium working point. The comparison of the
+The transverse momentum included in the BDTs is calculated at LC scale. No
+tau-specific energy calibration is used to avoid introducing systematic errors
+due to the calibration. Moreover, the discriminative power of the identification
+does not benefit from using the tau energy scale calibration. In
+Table~\ref{tab:bdt_new_variables} the relative rejection gain is summarised
+after including the transverse momentum. Including the clamped
+momentum~\smash{$p_\text{T}^\text{clamp}$} increases the average rejection by up
+to \SI{4.9 +- 0.2}{\percent} for the 1-prong loose, and \SI{3.6 +-
+  0.5}{\percent} for the 3-prong medium working point. The comparison of the
 relative rejection gain after including the unclamped momentum~$p_\text{T}$ and
 the clamped momentum~\smash{$p_\text{T}^\text{clamp}$} show that the majority of
-rejection is retained after clamping.
+rejection is retained after clamping. \todo{Most stat is below 200 GeV}
 
 Also shown in the table is the rejection after including the momentum fraction
 of isolation tracks~$f_\text{iso}^\text{track}$ into the 3-prong BDT, where it
 was previously not used. It shows a significant improvement in rejection
-especially at the loose and medium working points.
+especially for the loose and medium working points.
 
 \begin{table}[htb]
   \centering
@@ -715,21 +715,21 @@ especially at the loose and medium working points.
   \label{tab:bdt_new_variables}
 \end{table}
 
+\todo[inline]{What else has been tested?}
+
 \subsection{Variable Importance}
 \label{sec:bdt_var_importance}
 
-After including the transverse momentum~\smash{$p_\text{T}^\text{clamp}$} and
-the momentum fraction of isolation tracks~\smash{$f_\text{iso}^\text{track}$} as
-inputs to the model, a systematic evaluation of the variable importance is
-performed. The aim is to simplify the model by removing variables with small
-contributions to the classification power.
-
-The importance of individual variables is determined by training a model without
-including the variable and calculating the rejection loss with respect to the
-baseline model using the full variable set. Doing this for all input variables
-allows to rank their importance for discriminating signal and background
-\tauhadvis candidates. This method is used, as opposed to the built-in methods
-of TMVA, as it properly treats correlated variables.
+After including~\smash{$p_\text{T}^\text{clamp}$}
+and~\smash{$f_\text{iso}^\text{track}$} as inputs to the model, a systematic
+evaluation of the variable importances is performed. The aim is to simplify the
+model by removing variables with small contributions to the overall
+classification power. The importance of individual variables is determined by
+training a model without including the variable and calculating the rejection
+loss with respect to the baseline model using the full variable set. Doing this
+for all input variables allows to rank their importance for discriminating
+signal and background \tauhadvis candidates. This method is used, as opposed to
+the built-in methods of TMVA, as it properly treats correlated variables.
 
 Figure~\ref{fig:variable_importance} depicts the variable importance for the 1-
 and 3-prong BDT. The rejection loss is calculated at the tight working point for
@@ -758,35 +758,34 @@ leading to less stable rankings.
 \end{figure}
 
 The ranking shows that variables sensitive to the decay length of the tau
-lepton, i.e.\ the transverse impact parameter
-significance~$|S_\text{leadtrack}|$ and transverse flight path
-significance~$S_\text{T}^\text{flight}$, have a large impact on the
-classification performance. Moreover, the momentum fraction of isolation
-tracks~$f_\text{iso}^\text{track}$ accounts for the majority of the background
-rejection in the 1-prong identification. In the 3-prong BDT the mass of the
-track system~$m_\text{track}$ contributes substantially.
+lepton, i.e.\ $|S_\text{leadtrack}|$ and $S_\text{T}^\text{flight}$, have a
+large impact on the classification performance. Moreover,
+$f_\text{iso}^\text{track}$ accounts for the majority of the background
+rejection in the 1-prong identification. Aside from $S_\text{T}^\text{flight}$
+being essential for the 3-prong identification, the invariant
+mass~$m_\text{track}$ contributes substantially to the rejection.
 
 The variable importance ranking identifies several weak variables used in the
-BDTs. The EM energy fraction of charged
-pions~\smash{$f_\text{EM}^\text{track-HAD}$} shows a small significance with a
-rejection loss of~\SI{0.7 +- 0.3}{\percent} after removing it from the 1-prong
-BDT. This is due to its high correlation
+BDTs such as \smash{$f_\text{EM}^\text{track-HAD}$} in the 1-prong BDT. This is
+due to its high correlation
 with~\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$} with a linear correlation
 coefficient of approximately \SI{70}{\percent} for both signal and background
-\tauhadvis candidates. Similarly, the track radius~$R_\text{track}$ in the
-3-prong BDT is highly correlated with the maximum track~$\Delta R$ and therefore
-removing this variable does not result in a significant decrease in background
-rejection.
+\tauhadvis candidates. The variable is removed from the BDT and the variable
+importance is reevaluated to account for correlations. After
+removing~\smash{$f_\text{EM}^\text{track-HAD}$}, the weakest variable
+is~$R_\text{track}$ with a rejection loss with respect to the model using the
+full variable set of \SI{3.2 +- 0.4}{\percent} when removing it from the BDT.
+The variable is kept as the rejection loss deviates by more than three standard
+deviations from zero.
 
-After removing the first variable from each BDT the variable importance is
-reevaluated to account for correlations between variables. After
-removing~\smash{$f_\text{EM}^\text{track-HAD}$} from the 1-prong BDT, the
-weakest variable is the track radius~$R_\text{track}$. Removing~$R_\text{track}$
-leads to a rejection loss of \SI{3.2 +- 0.4}{\percent} with respect to the model
-using the full variable set and is therefore kept. Following the same procedure
-for the 3-prong BDT shows that~\smash{$f_\text{EM}^\text{track-HAD}$}
-contributes little to the discriminative power with a rejection loss of \SI{1.2
-  +- 0.6}{\percent} after removing the variable.
+Following the same procedure for the 3-prong BDT shows that
+removing~$R_\text{track}$, which is highly correlated
+with~$\Delta R_\text{max}$, is within one standard deviation of zero rejection
+loss and therefore removed from the BDT. Reevaluating the variable importances
+identifies~\smash{$f_\text{EM}^\text{track-HAD}$} as the weakest variable with a
+rejection loss of \SI{1.2 +- 0.6}{\percent} and is subsequently removed. The
+rejection loss incurred in the next iteration exceeds the three standard
+deviation threshold, terminating the removal procedure.
 
 The set of variables and their importance after removing weak variables is
 summarised in Figure~\ref{fig:variable_importance_final}. The change in input
@@ -831,18 +830,19 @@ before optimisation. The optimisations include the conservative BDT
 configurations (BDT B) and the revised variable selection.
 
 Figure~\ref{fig:rejection_comparison} shows the background rejection of the 1-
-and 3-prong BDT at the tight working point. After optimisation the 1-prong BDT
+and 3-prong BDT at the tight working point. After optimisation, the 1-prong BDT
 shows an improvement in background rejection of \num{10} to \SI{30}{\percent}
 depending on the transverse momentum of the \tauhadvis candidate. The large
 rejection of fake \tauhadvis with transverse momentum close to \SI{20}{\GeV} is
-due to an increased rejection of \tauhadvis originating from gluon-initiated
-jets (cf.\ Appendix~\ref{app:bdt_parton}). \todo{Better explanation} Similarly,
-the improvements for the 3-prong BDT also range from \num{10} to
-\SI{30}{\percent}. The performance of the loose and medium working points is
-summarised in Appendix~\ref{app:bdt_working_point_rejection} for completeness.
-The other working points show similar improvements as the tight working point
-with the exception of the 3-prong loose working point exceeding the reference by
-\SI{30}{\percent} for \tauhadvis \pt larger than \SI{80}{\GeV}.
+due to an increased rejection of \tauhadvis candidates originating from
+gluon-initiated jets (cf.\ Appendix~\ref{app:bdt_parton}). \todo{Better
+  explanation} Similarly, the improvements for the 3-prong BDT also range from
+\num{10} to \SI{30}{\percent}. The other working points show similar
+improvements as the tight working point with the exception of the 3-prong loose
+working point exceeding the reference by \SI{30}{\percent} for \tauhadvis \pt
+larger than \SI{80}{\GeV}. The performance of the loose and medium working
+points is summarised in Appendix~\ref{app:bdt_working_point_rejection} for
+completeness.
 
 \begin{figure}[htbp]
   \centering
@@ -867,7 +867,7 @@ increasing \tauhadvis \pt, especially for the 3-prong identification, where
 highly boosted taus improve the separation in the transverse flight path
 significance and in the track system invariant mass. The 1-prong BDT shows an
 improvement exceeding \SI{50}{\percent} at approximately \SI{300}{\GeV}. The
-loose and medium working points show a smaller improvement at high transverse
+loose and medium working points show smaller improvements at high transverse
 momenta. Due to the large rejection of the 3-prong identification, the tight
 working point shows improvements of small significance at high transverse
 momenta. However, the loose working point shows relative improvements of
@@ -894,14 +894,15 @@ points is also summarised in Appendix~\ref{app:bdt_working_point_rejection}.
 \end{figure}
 
 Without large changes in the approach of the current ATLAS tau identification
-strategy, a significant improvement in background rejection could be achieved.
-By optimising the hyperparameters of the models and revising the variable
+strategy, a significant improvement in background rejection can be achieved. By
+optimising the hyperparameters of the models and revising the variable
 selection, an improvement in background rejection of the order of \num{10} to
 \SI{30}{\percent} for \tauhadvis candidates with transverse momenta below
-\SI{200}{\GeV}. The rejection of \tauhadvis with $\pt > \SI{200}{\GeV}$ could
-also be improved significantly for the 1-prong working points and the 3-prong
-loose and medium working points. The next chapter will be concerned with
-introducing a novel method of performing tau identification.
+\SI{200}{\GeV} can be reached. The rejection of fake \tauhadvis candidates with
+$\pt > \SI{200}{\GeV}$ could also be improved significantly for the 1-prong
+working points and the 3-prong loose and medium working points. The next chapter
+will be concerned with introducing a novel method of performing tau
+identification.
 
 % 1-prong: Gluon dominated at low pt -- 20 percent quark to gluon ratio sub 25 GeV
 % 3-prong:
