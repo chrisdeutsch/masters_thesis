@@ -6,34 +6,37 @@ The reconstruction of hadronic tau lepton decays described in
 Chapter~\ref{sec:reconstruction} is based on jets reconstructed using the
 anti-$k_t$ jet algorithm operating on clusters of calorimeter cells. Jets
 originating from quarks or gluons, which are more abundant than tau leptons due
-to the large multijet production cross section at the LHC, are often
+to the large multijet production cross section at the LHC, are generally
 reconstructed as candidates for hadronic tau lepton decays and represent a
-significant background in many analyses. The reconstruction itself offers little
-rejection of \tauhadvis candidates from quark- or gluon-initiated jets with the
-exception of the track classification when requiring 1- or 3-track decays. In
-the ATLAS experiment an identification algorithm based on multivariate methods
-utilising track and shower shape variables is used to discriminate hadronic tau
-decays from \tauhadvis reconstructed in multijet events.
+significant background in many analyses. Other processes, e.g.\
+$W{+}\text{jets}$, exist that can fake \tauhadvis. The reconstruction itself
+offers little rejection of \tauhadvis candidates from quark- or gluon-initiated
+jets with the exception of the track classification when requiring 1- or 3-track
+decays. In the ATLAS experiment an identification algorithm based on
+multivariate methods utilising track and shower shape
+variables~\cite{atlas:taurec:run1, atlas:taurec:run2} is used to discriminate
+hadronic tau decays from \tauhadvis candidates originating from jets. The
+algorithm has been continuously developed since Run 1 of the LHC.
 
-This chapter will start with a description of the tau identification procedure
+This chapter starts with a description of the tau identification procedure
 including definitions of the discriminating variables and the configuration of
-the BDTs used for distinguishing \tauhadvis from hadronic tau decays (signal
-candidates) and \tauhadvis originating from quark- or gluon-initiated jets
-(background candidates). The simulated event samples used for training and
-performance evaluation of the models, the kinematic reweighting and the
-preselection will be described. Subsequently, a systematic optimisation of the
-BDT is performed to improve the discriminative power of the tau identification.
-For this the configuration of the BDT and the variable selection is
-investigated. The chapter is concluded by evaluation the performance of the
-optimised BDTs.
+the BDTs used for distinguishing real \tauhadvis candidates (signal candidates)
+and \tauhadvis candidates originating from quark- or gluon-initiated jets
+(background candidates). Samples used for optimisation and performance
+comparison, the kinematic reweighting and the preselection will be described.
+Subsequently, a systematic optimisation of the BDT is performed to improve the
+discriminative power of tau identification. For this the configuration of the
+BDT and the variable selection is investigated. The chapter is concluded by
+evaluating the performance of the optimised BDTs and comparing it to the
+preceding configuration.
 
-In the following two figures of merit will be used to describe the performance
-of the tau identification. They are based on the definition of the efficiency of
-a selection given by:
+The following figures of merit are used to describe the performance
+of the tau identification:
 \begin{align*}
-  \text{Efficiency} = \frac{\text{Number of reconstructed \tauhadvis passing a selection}}{\text{Total number of reconstructed \tauhadvis}} \eqdot
+  \text{Signal efficiency} &= \frac{\text{Number of reconstructed true \tauhadvis passing a selection}}{\text{Total number of reconstructed true \tauhadvis}} \eqcomma \\[0.3em]
+  \text{Background rejection} &= \frac{\text{Total number of reconstructed fake \tauhadvis}}{\text{Number of reconstructed fake \tauhadvis passing a selection}} \eqdot
 \end{align*}
-Notably the efficiencies given in this chapter will not account for
+Notably the efficiencies given in this chapter do not account for
 inefficiencies in the reconstruction. The signal efficiency is the efficiency of
 selecting \tauhadvis candidates in a signal sample with candidates originating
 from hadronic tau lepton decays. The background rejection is the inverse
