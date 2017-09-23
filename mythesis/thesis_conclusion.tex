@@ -2,7 +2,84 @@
 \chapter{Summary and Outlook}
 \label{sec:conclusion}
 
-A novel approach
+The performance of the reconstruction and identification algorithms for hadronic
+tau lepton decays are of large importance in the ATLAS experiment. They form the
+foundation for many physics analyses involving tau leptons. As a result,
+improving the performance of these algorithms can lead to significant benefits
+for numerous analyses.
+
+In this thesis the tau identification algorithm currently employed in the ATLAS
+experiment is optimised. The configuration of the BDT used for identification is
+systematically optimised and the variable selection revised. The background
+rejection is improved by \num{10} to \SI{30}{\percent} for \tauhadvis \pt below
+\SI{200}{\GeV} at the fixed signal efficiency working points. For fake
+\tauhadvis candidates with \pt above \SI{200}{\GeV} the rejection is improved by
+up to \SI{80}{\percent}.
+% No increase in inherent complexity?
+
+A method of performing tau identification based on neural networks is presented.
+For this the BDT-based identification is reproduced using a simple neural
+network. Subsequently, a novel approach employing sequence learning techniques
+to discriminate hadronic tau lepton decays from quark- and gluon-initiated jets
+is presented. Sequences of charged-particle tracks associated with a \tauhadvis
+candidate are combined in a recurrent neural network to reject fake \tauhadvis
+candidates. The model presented in this thesis shows performance characteristics
+similar to the optimised BDT-based identification using high-level variables,
+while almost exclusively using tracking information. The background rejection of
+this model exceeds (misses) the rejection of the optimised 1-prong (3-prong)
+identification by \num{10} to \SI{20}{\percent}, indicating that the current
+algorithm does not fully exploit the isolation information in the track system.
+
+Similarly, the approach is applied to reconstructed clusters of energy in the
+calorimeter system. The rejection of a purely cluster-based identification is
+insufficient for offline tau identification. A study is presented showing the
+benefits of using TopoClusters in the \emph{Global Trigger System} of the HL-LHC
+to reduce the trigger rates of a ditau trigger. The target rate of
+\SI{200}{\kilo\hertz} could be achieved with \tauhadvis \pt thresholds of
+\SI{25}{\GeV} and ditau efficiencies of approximately \SI{90}{\percent} on the
+plateau starting at true \tauhadvis \pt of \SI{40}{\GeV}.
+
+The tau identification studies are concluded with a model combining track,
+cluster and high-level variables. The model shows a significant increase in
+rejection of approximately \SI{50}{\percent} for fake \tauhadvis candidates at
+low \pt. The improvement in background rejection exceeds a factor of two
+starting at \tauhadvis \pt of \SI{60}{\GeV} (\SI{100}{\GeV}) for the 1-prong
+(3-prong) identification. Analyses with large backgrounds from quark- or
+gluon-initiated jets could directly benefit from the improved background
+rejection. In cases where the rejection of the current identification is
+sufficient, an identification working point with higher signal efficiency can be
+employed. In an exemplary analysis measuring a ditau resonance that requires two
+tight \tauhadvis, the signal yield of the $\tauhad\tauhad$ channel could be
+increased by approximately \SI{30}{\percent}.
+
+Finally, the sequence learning techniques developed in this thesis are applied
+to the problem of decay mode classification of hadronic tau decays. For this
+constituents of the decay reconstructed with the \emph{Tau Particle Flow}
+algorithm are combined in a recurrent neural network to classify the decay mode.
+The network is well-suited to perform multiclass classification showing an
+improvement in classification accuracy from \num{73.2} to \SI{78.0}{\percent},
+thus reducing the number of misclassified decays by almost \SI{20}{\percent}.
+The model is extended by including conversion track, shot and neutral PFO
+cluster information further improving the accuracy to \SI{81.0}{\percent} and
+reducing the misclassifications by approximately \SI{30}{\percent}. The
+improvement in classification accuracy could improve the energy calibrations
+used for hadronic tau decays, leading to more accurate mass reconstruction of
+tau resonances improving the signal extraction process in analyses. For future
+measurements of the \cp nature of the Higgs boson it allows to select hadronic
+decay modes more efficiently and with higher purity.
+
+Continued work on the algorithms presented in this thesis is planned. While the
+studies on the BDT-based identification are largely implemented in the ATLAS
+reconstruction framework, the models based on neural networks still allow for
+further optimisations. The network architectures allow for countless variations
+that could further improve the performance of the identification. The validation
+of the network performance on collision data is still pending. Potential
+differences in simulation and data could be resolved by training the tau
+identification using background samples collected with dijet triggers, which was
+done for the identification in Run 1. The infrastructure necessary to evaluate
+the models in the ATLAS reconstruction framework is actively being worked on,
+such that the models presented in this thesis could be available to analyses of
+Run~2 collision data.
 
 %%% Local Variables:
 %%% mode: latex
