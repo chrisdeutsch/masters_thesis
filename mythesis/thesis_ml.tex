@@ -6,36 +6,34 @@
 
 Machine learning is the study of algorithms that learn structure from data
 (called training data) and can subsequently be used to make predictions on
-unseen data. Examples for such algorithms are \emph{Boosted Decision Trees}
-(BDT) and \emph{Neural Networks} (NN) which are able to model nonlinear problems
-without the need to supply an explicitly derived rule-set or functional form.
-They often offer superior performance compared to linear models or simple
-cut-based approaches at the cost of interpretability. Machine learning
-techniques are widely used in particle physics e.g.\ for the reconstruction of
-hadronic tau decays in the ATLAS experiment. There they are used for tau
-identification, track classification, decay mode classification, and energy
-calibration.
+unseen data. Examples for such algorithms are Boosted Decision Trees and Neural
+Networks which are able to model nonlinear problems without the need to supply
+an explicitly derived rule-set or functional form. They often offer superior
+performance compared to linear models or simple cut-based approaches at the cost
+of interpretability. Machine learning techniques are widely used in particle
+physics, e.g.\ for the reconstruction of hadronic tau decays in the ATLAS
+experiment. There they are used for tau identification, track classification,
+decay mode classification, and energy calibration.
 
 The focus of this chapter lies on supervised learning, which is concerned with
-learning models from labelled data (each example consisting of explanatory
-variables and a dependent variable/label \todo{define and get rid of parens}).
-This domain includes regression for modelling a continuous response and
-classification for assigning class labels (e.g.\ signal or background) to an
-observation with associated input variables. This chapter gives an overview of
-the classification techniques used in this thesis starting with a brief
-description of \emph{Boosted Decision Trees} that are used in
-Chapter~\ref{sec:bdt} for rejection of tau candidates originating from dijet
-events \todo{defined?}. A comprehensive summary on \emph{Recurrent Neural
-  Networks} that are used for tau identification \todo{defined?} is given in
-Chapter~\ref{sec:rnn} and additionally for decay mode classification in
-Chapter~\ref{sec:decaymode}. The chapter is concluded with an overview of the
-software frameworks used in this thesis.
+learning models from labelled data, meaning the explanatory variables as well as
+the dependent variable or class is available during training. This domain
+includes regression for modelling a continuous response and classification for
+assigning class labels (e.g.\ signal or background) to an example with
+associated input variables. This chapter gives an overview of the classification
+techniques used in this thesis starting with a brief description of Boosted
+Decision Trees that are used in Chapter~\ref{sec:bdt} for rejection of tau
+candidates originating from quark- and gluon-initiated jets. A comprehensive
+summary on Recurrent Neural Networks, that are used for tau identification in
+Chapter~\ref{sec:rnn} and decay mode classification in
+Chapter~\ref{sec:decaymode}, is given. The chapter is concluded with an overview
+of the software frameworks used in this thesis.
 
 \section{Boosted Decision Trees}
 \label{sec:bdt}
 
-\emph{Boosted Decision Trees} consist of an ensemble of decision trees that is
-created by a meta-algorithm called \emph{boosting}. In
+Boosted Decision Trees consist of an ensemble of decision trees that is created
+by a meta-algorithm called \emph{boosting}. In
 Section~\ref{sec:ml_decision_trees} the decision tree algorithm is presented. A
 brief overview of \emph{boosting} algorithms is given in
 Section~\ref{sec:ml_boosting}. The description focuses on binary classification
@@ -262,22 +260,21 @@ log-likelihood of the network parameters given the observed subset of data and
 assuming the distribution of classes follows a (generalised) \textsc{Bernoulli}
 distribution \cite{bishop}.
 
-The task of finding the parameters of the model minimising the expected loss
-\todo{Maximising the likelihood} on a set of training data is solved using
-stochastic gradient descent. This requires information on the gradient of the
-loss~$\mathcal{L}(\bm{\theta})$ with respect to the model
-parameters~$\bm{\theta}$ while keeping the training examples fixed. Each layer
-in the computational graph making up the network has a well-defined derivative
-such that by repeatedly applying the chain rule for partial derivatives the
-gradient $\nabla_{\bm{\theta}} \mathcal{L}(\bm{\theta})$ can be calculated
-symbolically. This procedure is generally known as error backpropagation or
-\emph{BackProp} \cite{bishop, lecun-backprop}. Knowing the gradient of the loss
-an iterative optimisation method called mini-batch stochastic\footnote{The
-  gradient of the loss on the full training sample is approximated by the
-  gradient on a mini-batch.} gradient descent is employed. Initially the weights
-are randomised to small values and biases set to zero. The set of training
-examples is divided into subsets of fixed size called mini-batches. In an
-iterative procedure the parameters are updated according to
+The task of finding the parameters of the model minimising the expected loss on
+a set of training data is solved using stochastic gradient descent. This
+requires information on the gradient of the loss~$\mathcal{L}(\bm{\theta})$ with
+respect to the model parameters~$\bm{\theta}$ while keeping the training
+examples fixed. Each layer in the computational graph making up the network has
+a well-defined derivative such that by repeatedly applying the chain rule for
+partial derivatives the gradient $\nabla_{\bm{\theta}} \mathcal{L}(\bm{\theta})$
+can be calculated symbolically. This procedure is generally known as error
+backpropagation or \emph{BackProp} \cite{bishop, lecun-backprop}. Knowing the
+gradient of the loss an iterative optimisation method called mini-batch
+stochastic\footnote{The gradient of the loss on the full training sample is
+  approximated by the gradient on a mini-batch.} gradient descent is employed.
+Initially the weights are randomised to small values and biases set to zero. The
+set of training examples is divided into subsets of fixed size called
+mini-batches. In an iterative procedure the parameters are updated according to
 \begin{align*}
   \bm{\theta}_{t+1} = \bm{\theta}_t - \eta \, \nabla_{\bm{\theta}} \mathcal{L}(\bm{\theta}_t) \eqcomma
 \end{align*}
