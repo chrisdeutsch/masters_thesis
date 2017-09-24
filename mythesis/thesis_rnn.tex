@@ -9,57 +9,58 @@ previous chapter. Subsequently, novel sequence learning techniques are employed
 to create classifiers operating on sequences of reconstructed objects. For this
 recurrent neural networks based on the LSTM architecture are used on sequences
 of tracks in the ID and clusters of energy in the calorimeter system. In this
-context a tau identification algorithm using purely calorimetric information is
-developed and its potential application for reducing the trigger rate of a
-ditau trigger at the \emph{High Luminosity LHC} (HL-LHC) is presented. Finally,
-a model combining the multi-layer perceptron and the recurrent networks
-operating on track and cluster information is developed.
+context, a tau identification algorithm using purely calorimetric information is
+developed and a potential application for reducing the trigger rate of a ditau
+trigger at the High Luminosity LHC (HL-LHC) is presented. Finally, a model
+combining the multi-layer perceptron and the recurrent networks operating on
+track and cluster information is developed.
 
 \section{Identification using Feedforward Neural Networks}
 \label{sec:ffnn_id}
 
 Before proceeding to sequence classification techniques, the viability of neural
 networks to perform tau identification using simple network architectures is
-shown. This will aid as an introduction to important concepts when training
-neural networks. Moreover, the resulting network will be used as a building
-block in the final model.
+shown. This aids as an introduction to important concepts when training neural
+networks. Moreover, the resulting network is used as a building block in the
+final model.
 
 The optimised BDT from Chapter~\ref{sec:bdt} is used as a reference for the
-investigations in this chapter. Therefore the models are trained and evaluated
-using the same event samples, preselection and reweighting scheme presented in
-Section~\ref{sec:bdt_eventsim}. In contrast to the hold-out validation used in
+investigations in this chapter. Therefore, the models are trained and evaluated
+using the same event samples, preselection and reweighting scheme (cf.\
+Section~\ref{sec:bdt_eventsim}). In contrast to the hold-out validation used in
 the previous chapter, the full event sample is split randomly into training,
 validation and testing samples. The samples have a relative size of
 \SI{40}{\percent}, \SI{10}{\percent} and \SI{50}{\percent}, respectively. The
-purpose of the training and testing sample is the same as before. The validation
-sample is monitored during the training process and used to perform model
-selection and early stopping of the training. A separate sample, as opposed to
-the testing sample, is used to avoid introducing biases in the performance
-measurement on the testing sample. This approach will be used for the remainder
-of this and the following chapter.
+purpose of the training and testing samples is the same as before. The
+validation sample is monitored during the training process and used to perform
+model selection and early stopping of the training. A separate sample, as
+opposed to the testing sample, is used to avoid introducing biases in the
+performance measurement on the testing sample. This approach is used for the
+remainder of this and the following chapter.
 
-To reproduce the performance of the BDT-based tau identification a multi-layer
-perceptron (MLP) with two hidden layers~(cf.\ Section~\ref{sec:nn_feedforward})
-is used. The MLP uses the same input variables used in the optimised BDT.
-Moreover, the input variables are standardised by subtracting the mean and
-dividing by the standard deviation of the variable in the training sample. This
-preprocessing step is important as the gradient descent algorithm used for
-training is sensitive to variables on different scales. The input layer of the
-MLP consists of 9 (10) neurons corresponding to the input variables for the
-1-prong (3-prong) identification. Both hidden layers of the MLP have a size of
-128 units, which are activated by rectified linear units (ReLU). A single output
-neuron using the logistic sigmoid as its activation function, therefore
-returning probabilities of a \tauhadvis candidate being signal\footnote{Formally
-  the posterior probability~$p(\mathcal{S} \mid \mathbf{x})$ of a candidate
-  being signal~$\mathcal{S}$ given the input variables~$\mathbf{x}$.}. The
-binary cross-entropy loss function is used and minimised by the \emph{Adam}
-optimiser.
+To reproduce the performance of the BDT-based tau identification, an MLP with
+two hidden layers~(cf.\ Section~\ref{sec:nn_feedforward}) is used. The MLP uses
+the same input variables as the optimised BDT. The input variables are
+standardised by subtracting the mean and dividing by the standard deviation of
+the variable in the training sample. This preprocessing step is important as the
+gradient descent algorithm used for training is sensitive to variables on
+different scales. The input layer of the MLP consists of 9 (10) neurons
+corresponding to the input variables for the 1-prong (3-prong) identification.
+Both hidden layers of the MLP have a size of 128 units, which are activated by
+rectified linear units (ReLU). A single output neuron is used with the logistic
+sigmoid being used as its activation function, therefore returning probabilities
+of a \tauhadvis candidate being signal\footnote{Formally the posterior
+  probability~$p(\mathcal{S} \mid \mathbf{x})$ of a candidate being
+  signal~$\mathcal{S}$ given the input variables~$\mathbf{x}$.}. The binary
+cross-entropy loss function is used and minimised by the \textsc{Adam}
+optimiser~\cite{adam}. The \textsc{keras} deep learning library~\cite{keras} is
+used for building, training and evaluating the model.
 
 In Figure~\ref{fig:roc_mlp_bdt_comparison} the ratio of rejection of the MLP and
 the optimised BDT is depicted as a function of the signal efficiency. The
 1-prong MLP shows comparable performance above \SI{60}{\percent} signal
 efficiency, which approximately corresponds to the tight working point. Over the
-intermediate efficiency range the performance degrades slightly. The 3-prong MLP
+intermediate efficiency range the performance is slightly worse. The 3-prong MLP
 is consistent with the performance of the optimised BDT identification with a
 small improvement at high efficiencies.
 
@@ -79,10 +80,10 @@ small improvement at high efficiencies.
   \label{fig:roc_mlp_bdt_comparison}
 \end{figure}
 
-Both the 1- and 3-prong MLP achieve similar performance characteristics as the
-optimised BDT from Chapter~\ref{sec:bdt}, while requiring little optimisation of
-the model hyperparameters. Therefore, neural networks are shown to be a viable
-method of performing tau identification.
+Overall, both the 1- and 3-prong MLP achieve similar performance characteristics
+as the optimised BDT from Chapter~\ref{sec:bdt}, while requiring little
+optimisation of model hyperparameters. Therefore, neural networks are shown to
+be a viable method of performing tau identification.
 
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
@@ -102,35 +103,35 @@ applied to reconstructed tracks and clusters in the calorimeter.
 The variable importance of the BDT-based tau identification in
 Section~\ref{sec:bdt_var_importance} shows that a large fraction of background
 rejection can be attributed to variables derived from tracking information.
-Examples are the variables sensitive to the decay length of the tau
-lepton~$|S_\text{leadtrack}|$ and~$S_\text{T}^\text{flight}$ as well as the
-transverse momentum fraction of isolation tracks~$f_\text{iso}^\text{track}$ and
-the invariant mass of the track system~$m_\text{track}$. Moreover, during the
+Examples are the variables sensitive to the decay length of the tau lepton,
+$|S_\text{leadtrack}|$ and~$S_\text{T}^\text{flight}$, as well
+as~$f_\text{iso}^\text{track}$ and~$m_\text{track}$. Moreover, during the
 preparation of the tau identification for the ATLAS reconstruction release to be
-used for the remainder of Run 2, it was observed that tracks classified as
-\emph{isolation} offer discriminative power against \tauhadvis candidates from
-multijet events. However, instabilities of the \emph{isolation} track category
-lead to the necessity to decouple tau identification and the track
-classification by introducing the \emph{modified isolation} category. This lead
-to an average rejection loss of the order of \SI{20}{\percent} for the 1-prong
-identification, while the 3-prong identification was not significantly affected.
-Therefore, the aim is to improve the use of isolation information in
-reconstructed tracks of \tauhadvis candidates.
+used for the remainder of Run 2, it was observed that \emph{isolation} tracks
+offer discriminative power against \tauhadvis candidates from quark- and
+gluon-initiated jets. However, migrations between the \emph{isolation} track and
+\emph{fake} track categories lead to the necessity to decouple tau
+identification from the \emph{isolation} and \emph{fake} tracks by introducing
+the \emph{modified isolation} category (cf.\
+Section~\ref{sec:reco_track_sel_classif}). This lead to an average rejection
+loss of the order of \SI{20}{\percent} for the 1-prong identification, while the
+3-prong identification was not significantly affected. Therefore, the aim is to
+improve the use of isolation information in reconstructed tracks of \tauhadvis
+candidates.
 
 For this purpose recurrent neural networks using the LSTM architecture are used
 to classify a sequence of objects reconstructed in the detector. The following
-will focus on describing the method using tracks in the ID but the use of other
+focuses on describing the method utilising tracks in the ID but the use of other
 physics objects is analogous. Figure~\ref{fig:track_rnn_schematic} describes the
-architecture used in this chapter. Reconstructed \tauhadvis have a number of
+architecture employed in this chapter. Reconstructed \tauhadvis have a number of
 associated tracks, which can be interpreted as elements in a sequence. Each
-track in the sequence has variables related to the properties of the track,
-e.g.\ the transverse momentum of the track. Moreover, the elements can also be
-assigned global information about the \tauhadvis candidate like its visible
-transverse momentum. The sequence of tracks is sorted according to a
-well-defined and physically motivated ordering scheme. For the RNN using track
-information a descending~$p_\text{T}^\text{track}$ ordering is used. \todo{Why
-  this ordering?} In practice the maximum sequence length is limited by
-truncation.
+track in the sequence has variables related to its properties, e.g.\ its
+transverse momentum. Moreover, the elements can also be assigned global
+information about the \tauhadvis candidate like its visible transverse momentum.
+The sequence of tracks is sorted according to a well-defined and physically
+motivated ordering scheme. For the RNN using track information a
+descending~$p_\text{T}^\text{track}$ ordering is used. \todo{Why this ordering?}
+In practice the maximum sequence length is limited by truncation.
 
 \begin{figure}[htb]
   \centering
@@ -161,17 +162,18 @@ momentum threshold of \SI{400}{\MeV} from track reconstruction. The variables
 attached to each track are summarised in the following:
 \begin{description}
 \item[Transverse momentum of track and jet] The transverse momentum of the
-  track~$p_\text{T}^\text{track}$ as measured in the tracking system is used.
+  track, $p_\text{T}^\text{track}$, as measured in the tracking system is used.
   The inclusion of the track momentum is crucial as it allows the network to
   discriminate between tracks originating from the hard scattering and soft
-  processes. Additionally, the transverse momentum of the anti-$k_t$ jet
-  used to seed the \tauhadvis candidate~$p_\text{T}^\text{jet}$ is included in
-  the input variables of each track. This allows tracks to be processed
-  differently depending on the transverse momentum of the jet seed.
+  processes. Additionally, the transverse momentum of the anti-$k_t$ jet used to
+  seed the \tauhadvis candidate, $p_\text{T}^\text{jet}$, is included in the
+  input variables of each track. This allows tracks to be processed differently
+  depending on the transverse momentum of the jet seed.
 
 \item[Impact parameters] Information on the impact parameters of the track with
-  respect to the associated primary vertex is included. The transverse impact
-  parameter~$d_0$ is used directly, while the longitudinal impact parameter is
+  respect to the associated tau vertex (cf.\
+  Section~\ref{sec:reco_vertex_assoc}) is included. The transverse impact
+  parameter, $d_0$, is used directly, while the longitudinal impact parameter is
   included as~$z_0 \sin\theta$, where~$\theta$ is the polar angle of the track
   parametrisation.
   % This form accounts for larger errors of~$z_0$ for tracks in the forward
@@ -190,20 +192,20 @@ attached to each track are summarised in the following:
   \tauhadvis candidate.
 
 \item[Track quality criteria] The Track--RNN includes basic track quality
-  criteria to allow to reject tracks of low reconstruction quality. For this the
-  number of hits in the pixel layers~$N_\text{pixel}$ and semiconductor
+  criteria to allow to reject tracks of low reconstruction quality. For this,
+  the number of hits in the pixel layers~$N_\text{pixel}$ and semiconductor
   tracker~$N_\text{SCT}$ are used.
   % IBL TOO!
 
 \item[Electron probability] The probability of the track originating from an
   electron estimated by a likelihood-based discriminant using high-threshold hit
-  information in the TRT~$p_\text{HT}$. It is used to identify tracks
-  originating from electrons created in photon conversion.
+  information in the TRT, $p_\text{HT}$. It is used to identify tracks
+  originating from electrons, which may be created in photon conversions.
 \end{description}
-Including the track category from the multivariate track classification was also
-investigated leading to a small improvement in discrimination power. It is not
-included to keep the tau identification largely independent of track
-classification.
+Including the track category from the multivariate track classification is also
+investigated, leading to a small improvement in discrimination power. It is not
+included to keep the tau identification largely independent of the multivariate
+track classification.
 
 Basic transformations are applied to the input variables to make them suitable
 for use in neural networks. Therefore, a logarithm is applied to transverse
@@ -214,7 +216,7 @@ subtracting an offset and dividing by a scale factor. The offset is the mean of
 the corresponding quantity in tracks of the training sample and the scale factor
 the standard deviation. Signed angular distances are scaled into the
 $[-1, 1]$-interval and similarly the number of hits in the ID into~$[0, 1]$. The
-training process is analogous the the MLP and not repeated here.
+training process is analogous the MLP.
 
 The layer sizes in the architecture depicted in
 Figure~\ref{fig:track_rnn_schematic} are optimised by observing the validation
@@ -227,15 +229,15 @@ over the simpler model.
 
 In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given
 \tauhadvis candidate is depicted. The number of associated tracks can be large,
-especially for background candidates. For practical purposes the sequence of
+especially for background candidates. For practical purposes, the sequence of
 tracks is truncated to reduce the memory footprint as well as training and
-evaluation time of the network. As the tracks are sorted using a descending
-$p_\text{T}^\text{track}$-ordering, truncation will only discard low momentum
-tracks. Figure~\ref{fig:ntracks_loss} shows the validation loss (binary
-cross-entropy) for different numbers of tracks used in the model. The first six
-tracks show a significant decrease in validation loss, therefore improving the
-discriminative power of the model. No further improvement is observed after ten
-tracks. Therefore, the model will only use the ten leading tracks
+evaluation time of the network \todo{modelling?}. As the tracks are sorted using
+a descending $p_\text{T}^\text{track}$-ordering, truncation will only discard
+low momentum tracks. Figure~\ref{fig:ntracks_loss} shows the validation loss for
+different numbers of tracks used in the model. The first six tracks show a
+significant decrease in validation loss, therefore improving the discriminative
+power of the model. Hardly any further improvement is observed after ten tracks.
+Therefore, the model only uses the ten leading tracks
 in~$p_\text{T}^\text{track}$.
 
 \begin{figure}[htb]
@@ -247,10 +249,9 @@ in~$p_\text{T}^\text{track}$.
     \label{fig:ntracks_tau}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/nscan/track_1p_3p.pdf}
-    \subcaption{Validation loss as a function of the number of tracks used in
-      the model.}
+    \centering \includegraphics{./figures/rnn/nscan/track_1p_3p.pdf}
+    \subcaption{Validation loss (binary cross-entropy) as a function of the
+      number of tracks used in the model.}
     \label{fig:ntracks_loss}
   \end{subfigure}
   \caption{Number of tracks associated to a \tauhadvis candidate and their
@@ -260,13 +261,14 @@ in~$p_\text{T}^\text{track}$.
 
 A comparison of the ROC-curves for the BDT- and RNN-based tau identification is
 depicted in Figure~\ref{fig:track_rnn_roc_ratios}. Both the 1- and 3-prong
-Track--RNN show performances similar to the optimised BDTs. The 1-prong
-Track--RNN shows a small improvement in rejection of \num{10} to
-\SI{20}{\percent} over the BDT depending on the signal efficiency. In contrast
-to this the 3-prong RNN cannot exceed the performance of the optimised BDT, only
-capturing \num{80} to \SI{90}{\percent} of rejection. These results indicate
-that the available information in tracks is not fully exploited in the current
-BDT-based identification.
+Track--RNN show performances similar to the optimised BDTs, despite using only
+tracking information and~$p_\text{T}^\text{jet}$. The 1-prong Track--RNN shows a
+small improvement in rejection of \num{10} to \SI{20}{\percent} over the BDT
+depending on the signal efficiency. In contrast to this the 3-prong RNN cannot
+exceed the performance of the optimised BDT, only capturing \num{80} to
+\SI{90}{\percent} of rejection. These results indicate that the available
+information in tracks is not fully exploited in the current BDT-based
+identification.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -287,7 +289,7 @@ BDT-based identification.
 \end{figure}
 
 Due to the complexity of the network, interpretation of the model based on the
-parameters learned during training is not possible. It must be viewed as a black
+weights learned during training is not possible. It must be viewed as a black
 box where only the input and the output can be accessed. Nevertheless, the
 variable importance and linear correlations of output and inputs can be
 evaluated to gain a better understanding of the model. In
@@ -299,11 +301,11 @@ impact on the validation loss. They are essential to identify tracks originating
 from the associated primary vertex as opposed to tracks from other hard
 interactions or pile-up. The angular distances~$\Delta \eta$
 and~$\Delta \varphi$ show an importance similar to the transverse momenta.
-Compared to tracks in \tauhadvis created by quark- or gluon-initiated jets,
-tracks from hadronic tau decays are expected to be close to the tau axis
-resulting in small angular distances. The number of hits in the ID and the
-electron probability~$p_\text{HT}$ show only a small importance in the
-Track--RNN.
+Compared to tracks in \tauhadvis candidates created by quark- or gluon-initiated
+jets, tracks from hadronic tau decays are expected to be close to the tau axis
+resulting in small angular distances. The number of hits in the ID
+and~$p_\text{HT}$ show only a small importance in the Track--RNN, with
+$p_\text{HT}$ being a candidate for removal.
 
 \begin{table}[htb]
   \centering
@@ -315,27 +317,24 @@ Track--RNN.
 
 In Figure~\ref{fig:track_rnn_correlations} the linear correlation coefficients
 between the input variables of each track in the sequence and the signal
-probability estimate~$p_\text{RNN}$ of the Track--RNN are depicted. In
+probability estimate~$p_\text{RNN}$ of the Track--RNN are depicted. In real
 \tauhadvis the leading tracks in transverse momentum typically correspond to the
 charged pions of the tau decay. This results in a change in sign of the
-correlation coefficient after the first or first three tracks for 1- and 3-prong
-candidates, respectively. The correlation of the transverse track
-momentum~$p_\text{T}^\text{track}$
+correlation coefficient after the first (first three) track(s) for 1-prong
+(3-prong) candidates. The correlation of~$p_\text{T}^\text{track}$
 % in Figure~\ref{fig:track_rnn_corr_pt}
 is positive for the leading tracks. Therefore, \tauhadvis candidates with
 leading tracks of high transverse momentum are more likely to have larger signal
 probabilities according to the model. In contrast to this, subleading tracks
 with large transverse momentum tend to reduce the signal probability, thus are
 more likely associated with background \tauhadvis candidates. Similarly, the
-correlation of the longitudinal impact parameter~$|z_0 \sin\theta|$ with the
-output
+correlation of~$|z_0 \sin\theta|$ with the output
 % in Figure~\ref{fig:track_rnn_corr_z0}
 shows that signal candidates are more likely to have leading tracks close to the
-primary vertex, while subleading tracks exhibit larger distances to the vertex.
-The same behaviour is observed for the transverse impact parameter~$|d_0|$ and
-the $\Delta R$-distance of tracks to the tau axis (cf.\
-Appendix~\ref{app:corr_dr}), which is related to the signed angular
-distances~$\Delta \eta$ and~$\Delta \varphi$ included in the model.
+associated primary vertex, while subleading tracks exhibit larger distances. The
+same behaviour is observed for~$|d_0|$ and the $\Delta R$-distance of tracks to
+the tau axis (cf.\ Appendix~\ref{app:corr_dr}), which is related to the signed
+angular distances~$\Delta \eta$ and~$\Delta \varphi$ included in the model.
 % Figure~\ref{fig:track_rnn_corr_z0} shows that signal candidates are more likely
 % to have leading tracks close to the primary vertex, while subleading tracks
 % exhibit larger distances to the vertex. The same behaviour is observed for the
@@ -354,7 +353,7 @@ distances~$\Delta \eta$ and~$\Delta \varphi$ included in the model.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/rnn/track/z0_corr.pdf}
-    \subcaption{Longitudinal impact parameter with respect to the primary
+    \subcaption{Longitudinal impact parameter with respect to the tau primary
       vertex~$|z_0 \sin\theta|$.}
     \label{fig:track_rnn_corr_z0}
   \end{subfigure}
@@ -365,12 +364,12 @@ distances~$\Delta \eta$ and~$\Delta \varphi$ included in the model.
   \label{fig:track_rnn_correlations}
 \end{figure}
 
-By using impact parameters to identify tracks originating from the primary
+By using impact parameters to identify tracks originating from the tau primary
 vertex, information on the expected transverse momentum distribution for
 individual tracks of a \tauhadvis and requiring spacial isolation, the
 Track--RNN performs comparably to the BDT-based identification. A detailed
-evaluation of the background rejection for the identification working points
-will be given at a later point.
+evaluation of the background rejection for the identification working points is
+given at a later point.
 
 \subsection{Network using Clusters in the Calorimeter System}
 \label{sec:rnn_clusters}
@@ -382,36 +381,38 @@ recurrent network is developed employing TopoClusters associated with the jet
 seeding a \tauhadvis candidate, hereafter called the Cluster--RNN. The variable
 selection is given in the following:
 \begin{description}
-\item[Transverse energy/momentum] The transverse energy of the
-  cluster~$E_\text{T}$ and the transverse momentum of the jet seeding the
-  \tauhadvis candidate~$p_\text{T}^\text{jet}$ is used. The motivation for
-  including these variables is analogous to the Track--RNN.
+\item[Transverse energy/momentum] The transverse energy of the cluster,
+  $E_\text{T}$, and the transverse momentum of the jet seeding the \tauhadvis
+  candidate, $p_\text{T}^\text{jet}$, are used. The motivation for including
+  these variables is analogous to the Track--RNN.
 
 \item[Angular distance to the tau axis] The signed angular distance of the
   cluster barycentre to the tau axis in the longitudinal~$\Delta \eta$ and
   transverse plane~$\Delta \varphi$.
 
 \item[Cluster and signal moments] Identification variables like the central
-  energy fraction~$f_\text{cent}$ use quantities calculated from individual
+  energy fraction, $f_\text{cent}$, use quantities calculated from individual
   cells in the calorimeter. Cell-level information is not available in the
   samples used for this study. Therefore, cluster and signal moments of
   TopoClusters are used to obtain information on cluster shape and energy
   density.
 
   The moments used for the Cluster--RNN are summarised in the following. The
-  lateral shower width~$\langle R^2 \rangle$ given by the second moment of the
-  radial distance~$R$ between cluster cells and shower axis. The longitudinal
-  shower width~$\langle \lambda^2 \rangle$ with the distance~$\lambda$ of cells
-  from the barycentre of shower energy measured along the shower axis. The depth
-  of the shower centre~$\lambda_\text{centre}$ measured from the face of the
-  calorimeter. Finally, the mean energy density~$\langle \rho \rangle$ and
-  energy fraction of the most energetic cell~$f_\text{max}$ is used. These
-  cluster and signal moments are calculated by the TopoCluster
-  algorithm~\cite{atlas_topoclustering}.
+  lateral shower width, $\langle R^2 \rangle$, given by the second moment of the
+  radial distance~$R$ between cluster cells and shower axis; the longitudinal
+  shower width, $\langle \lambda^2 \rangle$, with the distance~$\lambda$ of
+  cells from the barycentre of shower energy measured along the shower axis; the
+  mean energy density, $\langle \rho \rangle$; the energy fraction of the most
+  energetic cell, $f_\text{max}$; and the depth of the shower centre,
+  $\lambda_\text{centre}$, measured from the face of the
+  calorimeter\footnote{While $\lambda_\text{centre}$ itself is not a cluster
+    moment, it is derived from the first moments of the cartesian cell
+    coordinates.} are used. These cluster and signal moments are calculated by
+  the TopoCluster algorithm~\cite{atlas_topoclustering}.
 \end{description}
-Additionally, energy fractions of clusters in the different samplings of the
-electromagnetic calorimeter and the probability of a cluster originating from an
-electromagnetic
+Additionally, energy fractions of clusters in the individual samplings of the
+electromagnetic calorimeter and the probability of a cluster to originate from
+an electromagnetic
 shower~$\mathcal{P}_\text{clus}^\text{EM}$~\cite{atlas_topoclustering}, which is
 used in the local hadronic calibration, are investigated. These variables are
 not found to improve the classification power of the cluster-based
@@ -429,9 +430,9 @@ Track-RNN. However, the number of units in the LSTM layer is reduced to 24 (from
 descending~$E_\text{T}$-ordering to the network. Figure~\ref{fig:rnn_nclusters}
 shows the number of clusters in the jet used to seed the \tauhadvis candidate
 and the impact of truncating the cluster sequence on the validation loss. The
-cluster-based identification shows no improvement in classification power after
-the six leading clusters in~$E_\text{T}$. Therefore, the input sequence passed
-to the model is truncated after six clusters.
+cluster-based identification shows little improvement in classification power
+after the six leading clusters in~$E_\text{T}$. Therefore, the input sequence
+passed to the model is truncated after six clusters.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -459,8 +460,9 @@ identification cannot reach performances comparable to the tau identification
 using the optimised BDT. For the identification of 1-prong \tauhadvis a fraction
 of \num{10} to \SI{40}{\percent} of rejection is reached, depending on the
 signal efficiency. Due to the large rejection of the 3-prong BDT-based
-identification, the rejection of Cluster--RNN can only reach a fraction of
-\num{2} to \SI{10}{\percent}.
+identification and the missing track information, the rejection of the
+Cluster--RNN can only reach a fraction of \num{2} to \SI{10}{\percent} of the of
+the BDT performance.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -490,7 +492,7 @@ power is obtained by requiring isolated showers close to the tau axis.
 Due to the small background rejection, the standalone operation of the
 Cluster--RNN is not of interest to the offline reconstruction of \tauhadvis.
 However, it can potentially be used for tau identification at trigger-level,
-where track and vertex reconstruction is infeasible due to time constraints.
+where track and vertex reconstruction are infeasible due to time constraints.
 
 \subsubsection{Online Ditau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}
@@ -501,18 +503,19 @@ to~\num{5}\,--\,\SI{7.5e34}{\per\square\centi\metre\per\second} at a
 centre-of-mass energy
 of~$\sqrt{s} = \SI{14}{\TeV}$~\cite{hl_lhc_prelim_design_report}. This
 corresponds to a five- to sevenfold increase in luminosity with respect to the
-beginning of Run 2 and increases the average number of interactions per bunch
+beginning of Run~2 and increases the average number of interactions per bunch
 crossing to up to \num{200}. The increase in particle density poses a challenge
-to the trigger systems and reconstruction algorithms.
+to the trigger and reconstruction algorithms.
 
 An upgrade of the ATLAS trigger with a \emph{Global Trigger System} aims to
 provide access to the full calorimeter granularity with topoclustering and jet
 finding using iterative jet algorithms in regions of
 interest~\cite{phase_2_scoping}. This aims to improve the identification of
 physics objects at trigger-level to cope with increasing trigger rates due to
-pile-up. Due to the availability of full calorimeter granularity, offline
-reconstructed \tauhadvis can be used to give prospects of the potential
-performance of triggers for \tauhadvis in the HL-LHC environment.
+pile-up and other background processes. Due to the availability of full
+calorimeter granularity, offline reconstructed \tauhadvis can be used to give
+prospects of the potential performance of triggers for \tauhadvis in the HL-LHC
+environment.
 
 A prospective study focusing on the usage of the cluster-based RNN for
 identification of \tauhadvis in a ditau trigger is given. Offline \tauhadvis are
@@ -525,14 +528,14 @@ bunch crossing~$\mu = 200$ (cf.\ Appendix~\ref{app:upgrade_samples}).
 The cluster-based RNN identification is retrained on \tauhadvis candidates of
 the HL-LHC upgrade samples using the same preselection used for the BDT
 identification in Chapter~\ref{sec:bdt} with the exception of any
-tracking-related requirements. The leading and subleading \tauhadvis with
-respect to the reconstructed transverse momentum (using Run 2 calibrations) are
-selected in a given event, while additionally requiring two truth-matched
+tracking-related requirements. The leading and subleading \tauhadvis candidates
+with respect to the reconstructed transverse momentum (using Run 2 calibrations)
+are selected in a given event, while additionally requiring two truth-matched
 hadronic tau decays for the signal sample. The RNN identification is applied to
-each \tauhadvis individually resulting in two identification scores per event.
-The leading and subleading \tauhadvis~$p_\text{T}$ and identification scores are
-combined in a logistic regression to assign a single ditau identification score
-to each event.
+each \tauhadvis candidate individually resulting in two identification scores
+per event. The leading and subleading \tauhadvis~$p_\text{T}$ and identification
+scores are combined in a logistic regression to assign a single ditau
+identification score to each event.
 
 The \SI{200}{\kilo\hertz} accept rate of the subsequent trigger
 level~\cite{phase_2_scoping} limits the maximum rate of the ditau trigger.
@@ -542,18 +545,21 @@ should be kept low to ensure high signal acceptance for physics analyses. For
 the purposes of this study a fixed cut on the identification score \todo{plot
   with cut?} is used to identify ditau events.
 
-Due to the large dijet production cross section it is assumed, that the dijet
+Due to the large dijet production cross section, it is assumed that the dijet
 events in the simulated sample correspond to a trigger rate equal to the average
 bunch crossing rate of~\SI{31.6}{\mega\hertz}. In
 Figure~\ref{fig:rate_vs_thresholds} the trigger rate is shown as a function of
 the leading and subleading \tauhadvis $p_\text{T}$-thresholds after applying
 ditau identification. The target rate can be achieved with an offline
-$p_\text{T}$-threshold of \SI{25}{\GeV} on both \tauhadvis candidates.
-Figure~\ref{fig:ditau_trigger_eff} shows the efficiency of the identification
-using the specified thresholds with respect to events containing truth-matched
-\tauhadvis pairs. The ditau efficiency starts to plateau at true visible
-transverse momentum~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading
-\tauhadvis with an efficiency of approximately~\SI{90}{\percent}.
+$p_\text{T}$-threshold of \SI{25}{\GeV} on both \tauhadvis candidates. As a
+comparison, the primary ditau triggers used for the 2016 $pp$ data taking period
+used thresholds of \SI{35}{\GeV} and \SI{25}{\GeV}~\cite{tautrigger_run2}.
+Figure~\ref{fig:ditau_trigger_eff} \todo{rather plot subleading?} shows the
+efficiency of the identification using the specified thresholds with respect to
+events containing truth-matched \tauhadvis pairs. The ditau efficiency starts to
+plateau at true visible transverse momenta
+of~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading \tauhadvis with an
+efficiency of approximately~\SI{90}{\percent}.
 
 \begin{figure}[htb]
   \centering
@@ -573,21 +579,21 @@ transverse momentum~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading
       fulfilling~$p_\text{T, vis}^\text{true} > \SI{25}{\GeV}$.}
     \label{fig:ditau_trigger_eff}
   \end{subfigure}
-  \caption{Feasibility of using TopoClusters for a ditau trigger at the
-    HL-LHC.}
+  \caption{Performance of the TopoCluster-based ditau identification for use in
+    a ditau trigger at the HL-LHC.}
   \label{fig:rnn_ditau_trigger}
 \end{figure}
 
 First scoping studies of the ATLAS upgrade~\cite{phase_2_scoping} conceive a
 ditau trigger with offline \tauhadvis \pt-threshold on the leading and
 subleading tau of \SI{40}{\GeV} and \SI{30}{\GeV}, respectively. The approach of
-using the Cluster--RNN for tau identification achieves the target rate at a
-reduced \tauhadvis \pt-threshold of~\SI{25}{\GeV}. The efficiency of the
+using the Cluster--RNN for tau identification achieves the target rate at
+reduced \tauhadvis \pt-thresholds of~\SI{25}{\GeV}. The efficiency of the
 selection shows opportunities for further enhancements by employing a proper tau
 energy calibrations for HL-LHC conditions and using a more advanced decision
-threshold for the ditau identification. The decision threshold could be
-loosened with increasing transverse momentum to ensure a quicker turn-on and
-full efficiency at high-\pt.
+threshold for the ditau identification. The decision threshold could be loosened
+with increasing transverse momentum to ensure a quicker turn-on and full
+efficiency at high-\pt.
 
 \subsection{Combining Recurrent Neural Networks and MLP}
 \label{sec:rnn_combined}
@@ -603,7 +609,7 @@ branches. The branches using track and cluster inputs are inherited from the
 Track-- and Cluster-RNN, respectively. The sizes of the shared dense and LSTM
 layers remain unchanged. The third branch is derived from the MLP using
 high-level identification variables. While the first two layers are unchanged, a
-third dense layers with 16 units is added. The three branches are merged by
+third dense layer with 16 units is added. The three branches are merged by
 concatenating their outputs and subsequently reduced to a single output neuron
 in a final dense layer using the logistic sigmoid activation function. The input
 variables of each branch are transformed and standardised as given in the
@@ -624,11 +630,11 @@ the optimised BDTs from Chapter~\ref{sec:bdt}. A model combining MLP and
 Track--RNN without including the Cluster--RNN is also shown. The combined model
 shows a significant improvement on the BDT-based tau identification. The
 background rejection is increased by a factor of two for 1-prong and
-approximately \SI{50}{\percent} for 3-prong candidates. The contribution of the
+approximately \SI{50}{\percent} for 3-prong candidates. The contribution of
 cluster information to the rejection is small, with an improvement of
-approximately \SI{10}{\percent} over a model omitting the cluster branch. This
-would allow to simplify the model without incurring a large loss in
-discriminative power. \todo{Write sth.\ about Track+Cluster}
+approximately \SI{10}{\percent} in background rejection. Omitting the cluster
+branch would allow to simplify the model significantly without incurring a large
+loss in discriminative power. \todo{Write sth.\ about Track+Cluster}
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -646,21 +652,21 @@ discriminative power. \todo{Write sth.\ about Track+Cluster}
   \label{fig:roc_combined}
 \end{figure}
 
-The background rejection of the 1- and 3-prong tight working points using the
-RNN is shown in Figure~\ref{fig:combined_working_points} and compared with the
-BDT-based identification. The combined model shows a relative increase in
-rejection at the tight working point ranging from \num{70} to \SI{150}{\percent}
-for 1-prong and \num{40} to \SI{100}{\percent} for 3-prong tau identification
-over the optimised BDT-based model. In both cases an improvement in background
-rejection with increasing \tauhadvis \pt is observed. A possible explanation for
-this behaviour is the enhanced use of isolation information in the RNN leading
-to an improved background rejection due to the increasing charged-particle
-multiplicity of quark- or gluon-initiated jets at high transverse momenta. In
-contrast to the RNN, the selection of \tauhadvis with one or three tracks
-classified as \emph{charged} is not optimised to reject jet background,
-therefore allowing the dedicated algorithm to further improve the
-classification. The medium and loose working points show similar improvements
-(cf.\ Appendix~\ref{app:rnn_wp}).
+The \pt-dependence of the background rejection for the 1- and 3-prong tight
+working points using the RNN is shown in
+Figure~\ref{fig:combined_working_points} and compared with the BDT-based
+identification. The combined model shows a relative increase in rejection at the
+tight working point ranging from \num{70} to \SI{150}{\percent} for 1-prong and
+\num{40} to \SI{100}{\percent} for 3-prong tau identification over the optimised
+BDT-based model. In both cases an improvement in background rejection with
+increasing \tauhadvis \pt is observed. A possible explanation for this behaviour
+is the enhanced use of isolation information in the RNN leading to an improved
+background rejection due to the increasing charged-particle multiplicity of
+quark- or gluon-initiated jets at high transverse momenta. In contrast to the
+RNN, the selection of \tauhadvis with one or three tracks classified as
+\emph{charged} is not optimised to reject jet background, therefore allowing the
+dedicated algorithm to further improve the classification. The medium and loose
+working points show similar improvements (cf.\ Appendix~\ref{app:rnn_wp}).
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -735,8 +741,8 @@ increased even further.
 The models developed in this chapter present an novel approach of performing tau
 identification. They show a promising performance over the tau identification
 strategy currently employed in the ATLAS experiment. Thus far the results are
-based on simulated data and still require validation using data taken with the
-detector.
+based on simulated data and still require validation and performance
+measurements using collision data taken with the detector.
 
 \todo[inline]{Whats with Track-RNN + Cluster-RNN? Definitely should have that --
   see if we can skip on the high-level info.}
