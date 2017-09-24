@@ -73,10 +73,9 @@ decision tree. The root node of the tree contains the entire dataset which is
 subsequently split into two nodes by a condition on a single input variable. The
 terminal nodes contain disjoint subsamples of the dataset with input variables
 falling into the distinct regions of the variable space depicted in
-Figure~\ref{fig:decision_tree_partition}. Observations \todo{Better word --
-  item?} falling into a subregion are assigned the probability of being signal
-given by the fraction of signal events (i.e.\ the signal purity) of the training
-data in this region.
+Figure~\ref{fig:decision_tree_partition}. Events falling into a subregion are
+assigned the probability of being signal given by the fraction of signal events
+(i.e.\ the signal purity) of the training data in this region.
 % Each terminal node is assigned the
 % majority class of the subset of training data contained within it. An
 % alternative method to gauge the confidence of the decision is to assign the
