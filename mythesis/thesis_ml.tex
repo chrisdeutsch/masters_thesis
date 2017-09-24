@@ -2,8 +2,6 @@
 \chapter{Machine Learning}
 \label{sec:ml}
 
-\todo[inline]{Make consistent usage of: Observation, example, event, item, etc.}
-
 Machine learning is the study of algorithms that learn structure from data
 (called training data) and can subsequently be used to make predictions on
 unseen data. Examples for such algorithms are Boosted Decision Trees and Neural
@@ -33,12 +31,11 @@ of the software frameworks used in this thesis.
 \label{sec:bdt}
 
 Boosted Decision Trees consist of an ensemble of decision trees that is created
-by a meta-algorithm called \emph{boosting}. In
-Section~\ref{sec:ml_decision_trees} the decision tree algorithm is presented. A
-brief overview of \emph{boosting} algorithms is given in
-Section~\ref{sec:ml_boosting}. The description focuses on binary classification
-tasks aiming to discriminate between two distinct classes, hereafter called
-signal and background.
+by a meta-algorithm called Boosting. In Section~\ref{sec:ml_decision_trees} the
+decision tree algorithm is presented. A brief overview of Boosting algorithms is
+given in Section~\ref{sec:ml_boosting}. The description focuses on binary
+classification tasks aiming to discriminate between two distinct classes,
+hereafter called signal and background.
 
 \subsection{Decision Trees}
 \label{sec:ml_decision_trees}
@@ -87,14 +84,13 @@ assigned the probability of being signal given by the fraction of signal events
 A decision tree is grown using a greedy optimisation method, where each node is
 split on the variable and value that gives the largest improvement according to
 a chosen impurity measure. Commonly used for binary classification trees is the
-\emph{Gini impurity} given by
+Gini impurity given by
 \begin{align*}
   I_\text{G}(p) = 2 p (1 - p)
 \end{align*}
-where $p$ is the signal or background purity~\cite{esl} \todo{Define what
-  impurity measure does?}. The best split is chosen such that the mean of the
-Gini impurities of the resulting nodes, weighted by the sum of event weights in
-each node, is minimised.
+where $p$ is the signal or background purity~\cite{esl}. The best split is
+chosen such that the mean of the Gini impurities of the resulting nodes,
+weighted by the sum of event weights in each node, is minimised.
 % Gini index: Probability to assign the correct label to a randommly picked
 % observation when randomly assigning according to the distribution of labels in
 % the sample
@@ -103,38 +99,36 @@ each node, is minimised.
 \label{sec:ml_boosting}
 
 Boosting describes a family of machine learning meta-algorithms that are used to
-build ensembles of base learner aiming to improve the overall predictive power
-compared to a single model. The ensembles can be viewed as an additive expansion
-in a set of basis functions given by the base learner \cite{esl}. Boosting is
-commonly used in conjunction with Decision Trees giving rise to so called
-\emph{Boosted Decision Trees}.
+build ensembles of a base learner, aiming to improve the overall predictive
+power compared to a single model. The ensembles can be viewed as an additive
+expansion in a set of basis functions given by the base learner \cite{esl}.
+Boosting is commonly used in conjunction with decision trees giving rise to so
+called Boosted Decision Trees.
 
-Adaptive Boosting (\emph{AdaBoost}) is a boosting algorithm that forms a
-weighted sum of a base classifier, where each classifier is trained on data that
-is reweighted such that training examples \todo{consistent wording} that were
-previously incorrectly classified contribute with higher weight than examples
-\todo{consistent wording} that were correctly classified. A generalisation of
-this method is called \emph{gradient boosting} which minimises the expected
-value of an arbitrary differential loss function (i.e.\ a function penalising
-errors of the model) during boosting. Gradient boosting reproduces the
-\emph{AdaBoost} algorithm if the exponential loss function
+Adaptive Boosting (AdaBoost) is a boosting algorithm that forms a weighted sum
+of a base classifier, where each classifier is trained on data that is
+reweighted such that training examples that were previously incorrectly
+classified contribute with larger weight than examples that were correctly
+classified. A generalisation of this method is called Gradient Boosting which
+minimises the expected value of an arbitrary differential loss function, which
+is a function penalising errors of the model, during boosting. Gradient Boosting
+reproduces the AdaBoost algorithm if the exponential loss function
 \begin{align*}
   L\left(y, f(\mathbf{x})\right) = \exp\left(- y f(\mathbf{x})\right)
 \end{align*}
-with input variables~$\mathbf{x}$, true class~$y \in \{ -1, 1 \}$ and model
-response~$f(\mathbf{x}) \in [-1, 1]$ \todo{mapped into this interval} for a
-given event is used~\cite{esl}. For general loss functions no convenient methods
-for minimising the loss exist and a gradient descent algorithm is used. A full
-mathematical description of the algorithm is omitted for brevity and can be
-found in Ref.~\cite{friedman_gbm, esl}. In this thesis gradient boosting with
-the loss function
+with input variables $\mathbf{x}$ of the training example, the true class
+encoded as~$y \in \{ -1, 1 \}$ and the model
+response~$f(\mathbf{x}) \in [-1, 1]$, is used~\cite{esl}. For general loss
+functions no convenient methods for minimising the loss exist and a gradient
+descent algorithm is used. A full mathematical description of the algorithm is
+omitted and can be found in Refs.~\cite{friedman_gbm, esl}. In this thesis
+gradient boosting with the loss function
 \begin{align*}
-  L\left(y, f(\mathbf{x})\right) = \log\left( 1 + \exp(- 2 y f(\mathbf{x})) \right)
+  L\left(y, f(\mathbf{x})\right) = \log\left( 1 + \exp(- 2 y f(\mathbf{x})) \right)\eqcomma
 \end{align*}
-is used, which is empirically shown to be less susceptible to noise
-\todo{features originating from statistical fluctuations} and outliers (i.e.\
-examples with large negative margins~$y f(\mathbf{x})$) than \emph{AdaBoost}
-\cite{esl, schapire_boosting}.
+is used, which is empirically shown to be less susceptible to noise and
+outliers, i.e.\ examples with large negative margins~$y f(\mathbf{x})$, than
+\emph{AdaBoost} \cite{esl, schapire_boosting}.
 % The reason is that the
 % exponential loss applies a larger penalty to training examples with large
 % negative margins~$y f(x)$, e.g.\ outliers.
@@ -145,21 +139,21 @@ examples with large negative margins~$y f(\mathbf{x})$) than \emph{AdaBoost}
 \label{sec:nn}
 
 Artificial neural networks encompass a large set of models that can be used as
-approximations to a wide variety of nonlinear functions \cite{hornik}. They can
+approximations to a wide variety of nonlinear functions~\cite{hornik}. They can
 be thought of as rules to compute a
 mapping~\mbox{$\mathbb{R}^n \rightarrow \mathbb{R}^m$} between a set of
 $n$~input variables and $m$~desired responses. The central idea is to repeatedly
 compute intermediate representations of the inputs by applying transformations
 and combining the final representation in a linear or logistic regression model.
-Neural networks are typically organised into different \emph{layers} defining
-the transformation that is applied on the layer inputs. Multiple layers
-connected according to a computational graph form a network. This scheme allows
-for great flexibility in building different models making neural networks
-prevalent in many areas of machine learning research~\cite{goodfellow_dl}.
+Neural networks are typically organised into different layers defining the
+transformation that is applied on the layer inputs. Multiple layers connected
+according to a computational graph form a network. This scheme allows for great
+flexibility in building different models making neural networks prevalent in
+many areas of machine learning research~\cite{goodfellow_dl}.
 
 The following sections introduce concepts needed to understand the models used
 for the classification tasks in this thesis. Matrices are denoted using
-uppercase and vectors using lowercase bold symbols e.g.\ input
+uppercase and vectors using lowercase bold symbols, e.g.\ input
 variables~$\mathbf{x}$ and weight matrices~$\mathbf{W}$.
 
 \subsection{Feedforward Neural Networks}
@@ -167,11 +161,11 @@ variables~$\mathbf{x}$ and weight matrices~$\mathbf{W}$.
 Feedforward neural networks are networks in which information flows strictly in
 the forward direction, disallowing feedback loops between input and output of a
 single layer. An example of simple feedforward neural networks are the so called
-\emph{multi-layer perceptrons}. They consist of a number of input neurons
-$\mathbf{x}$, which are used to pass the discriminating variables to the
-network, and an output layer with neuron activations~$\mathbf{y}$ after applying
-a nonlinear activation function to the values of the neurons. The input and
-output layers are connected by one or more intermediate hidden layers.
+multi-layer perceptrons. They consist of a number of input neurons $\mathbf{x}$,
+which are used to pass the discriminating variables to the network, and an
+output layer with neuron activations~$\mathbf{y}$ after applying a nonlinear
+activation function to the values of the neurons. The input and output layers
+are connected by one or more intermediate hidden layers.
 \begin{figure}[htb]
   \centering
   \begin{minipage}[t]{0.55\textwidth}
@@ -204,27 +198,27 @@ determined by weight matrices~$\mathbf{W}$.
 %   &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqcomma
 % \end{align*}
 The number of neurons in the hidden layers as well as activation functions are
-hyperparameters (i.e.\ parameters that are set prior to training) of the model.
-The sizes of the input and output layers are constrained by the number of input
-variables and the number of desired outputs, respectively. Moreover the
-activation function of the output layer is constrained by the underlying task.
-For binary classification the logistic function
+hyperparameters, which are parameters that have to be set prior to training, of
+the model. The sizes of the input and output layers are constrained by the
+number of input variables and the number of desired outputs, respectively.
+Moreover, the activation function of the output layer is constrained by the
+underlying task. For binary classification the logistic function
 \begin{align*}
   \sigma(x) = \frac{1}{1 + e^{-x}}
 \end{align*}
-is applied to a single output neuron~$x$ giving the probability of an
-observation being of the positive class (e.g.\ signal). For multi-class
-classification the number of output neurons is chosen to equal the number of
-classes to be distinguished and the \emph{softmax} function \cite{esl, bishop}
+is applied to a single output neuron~$x$ giving the probability of an event
+being of the positive class (e.g.\ signal). For multi-class classification the
+number of output neurons is chosen to equal the number of classes to be
+distinguished and the softmax function \cite{esl, bishop}
 \begin{align*}
   \varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}
 \end{align*}
 is chosen as the activation function, where~$\varphi_i(\mathbf{x})$ is the
 activation of the $i$-th neuron and $x_i$ its value before activation. The
-\emph{softmax} function ensures that the sum of all activations in a layer
-equals to one, such that they can be interpreted as class probabilities.
-Activation functions that are commonly used for the intermediate layers are
-depicted in Figure~\ref{fig:activation_functions}.
+softmax function ensures that the sum of all activations in a layer equals to
+one, such that they can be interpreted as class probabilities. Activation
+functions that are commonly used for the intermediate layers are depicted in
+Figure~\ref{fig:activation_functions}.
 
 Thus far neural networks are viewed as nonlinear parametric functions mapping
 input variables~$\mathbf{x}$ to a response~$\mathbf{y}$ without regarding the
@@ -233,21 +227,21 @@ parameters are determined using gradient descent by minimising an objective
 function (training of the model). The objective function penalises errors in the
 predictions of the model and is commonly called the loss function. Categorical
 cross-entropy is generally used for multi-class classification differentiating
-between $K$~classes. For an observation belonging to a
-class~$k \in \{1, \dots, K\}$ it is defined as \cite{esl, bishop}
+between $K$~classes. For an event belonging to a class~$k \in \{1, \dots, K\}$
+it is defined as \cite{esl, bishop}
 \begin{align*}
   L\left(k, \mathbf{p}(\mathbf{x}) \right) = - \log\left( p_k(\mathbf{x}) \right) \eqcomma
 \end{align*}
 where~$\mathbf{p}(\mathbf{x}) = \mathbf{y}(\mathbf{x})$ is the probabilistic
-interpretation of the model with class probabilities~$p_k$ (after \emph{softmax}
-activation) and discriminating variables~$\mathbf{x}$. For binary classification
+interpretation of the model with class probabilities~$p_k$ after softmax
+activation and discriminating variables~$\mathbf{x}$. For binary classification
 it is sufficient to give the predicted probability~$p$ for the positive class
 such that the binary cross-entropy can be written as
 \begin{align*}
   L(t, p(\mathbf{x})) = -t \, \log(p(\mathbf{x})) - (1 - t) \, \log(1 - p(\mathbf{x})) \eqcomma
 \end{align*}
 with the binary indicator~$t$ encoding the true class (0 for the negative and 1
-for the positive class). For a subset of observations with weights~$w_i$ the
+for the positive class). For a subset of events with weights~$w_i$ the
 loss~$\mathcal{L}$ is defined as
 \begin{align*}
   &\mathcal{L} = \frac{\sum_i w_i L_i}{\sum_j w_j}
@@ -262,18 +256,18 @@ distribution \cite{bishop}.
 The task of finding the parameters of the model minimising the expected loss on
 a set of training data is solved using stochastic gradient descent. This
 requires information on the gradient of the loss~$\mathcal{L}(\bm{\theta})$ with
-respect to the model parameters~$\bm{\theta}$ while keeping the training
+respect to the model parameters~$\bm{\theta}$, while keeping the training
 examples fixed. Each layer in the computational graph making up the network has
 a well-defined derivative such that by repeatedly applying the chain rule for
 partial derivatives the gradient $\nabla_{\bm{\theta}} \mathcal{L}(\bm{\theta})$
 can be calculated symbolically. This procedure is generally known as error
-backpropagation or \emph{BackProp} \cite{bishop, lecun-backprop}. Knowing the
-gradient of the loss an iterative optimisation method called mini-batch
-stochastic\footnote{The gradient of the loss on the full training sample is
-  approximated by the gradient on a mini-batch.} gradient descent is employed.
-Initially the weights are randomised to small values and biases set to zero. The
-set of training examples is divided into subsets of fixed size called
-mini-batches. In an iterative procedure the parameters are updated according to
+backpropagation~\cite{bishop, lecun-backprop}. Knowing the gradient of the loss
+an iterative optimisation method called mini-batch stochastic\footnote{The
+  gradient of the loss on the full training sample is approximated by the
+  gradient on a mini-batch.} gradient descent is employed. Initially the weights
+are randomised to small values and biases set to zero. The set of training
+examples is divided into subsets of fixed size called mini-batches. In an
+iterative procedure the parameters are updated according to
 \begin{align*}
   \bm{\theta}_{t+1} = \bm{\theta}_t - \eta \, \nabla_{\bm{\theta}} \mathcal{L}(\bm{\theta}_t) \eqcomma
 \end{align*}
@@ -319,7 +313,7 @@ the following description as they can be absorbed into the weight matrices.
 
 Recurrent neural networks are able to map a sequence of input variables to a
 sequence of outputs. Both sequences can contain an arbitrary number of objects.
-An example of a \emph{Simple Recurrent Network} is the \textsc{Elman}
+An example of a Simple Recurrent Network is the \textsc{Elman}
 network~\cite{elman} depicted in Figure~\ref{fig:schematic_elman_rnn}. After
 unfolding the network in time it can be represented as a feedforward network
 with weights shared between time steps. The input
@@ -334,33 +328,33 @@ with weights~$\mathbf{W}$, recurrent weights~$\mathbf{U}$ and activation
 functions~$\bm{\varphi}$, while incrementing the time step~$t$~\cite{elman,
   graves}. The initial cell state is often set to $\mathbf{c}_0 = \mathbf{0}$
 but the particular choice can differ between implementations. All weights are
-shared between time steps which allows sequences of arbitrary length to be
+shared between time steps, which allows sequences of arbitrary length to be
 processed by the network. The cell state~$\mathbf{c}_t$ at each time step~$t$ is
 updated using the external input~$\mathbf{x}_t$ as well as the cell
-state~$\mathbf{c}_{t-1}$ of the previous time step forming the recurrent
+state~$\mathbf{c}_{t-1}$ of the previous time step, forming the recurrent
 connection. This allows a memory of previous inputs to persist in the internal
-state of the network thus enabling the output~$\mathbf{y}_t$ to depend on the
+state of the network, thus enabling the output~$\mathbf{y}_t$ to depend on the
 history of the sequence. As Simple Recurrent Networks process the input sequence
 in a predefined direction, only the past information can influence the output at
-a specific time step making the order of the input sequence important. An
+a specific time step, making the order of the input sequence important. An
 architecture allowing the context (past and future) to influence the output at a
 given time~$t$ are so called bidirectional RNNs.
 
 The evaluation of the gradient for the training process follows the same
 principles used for feedforward neural networks but now also considering that
-the chain rule has to be applied for each time step and one has to consider that
-the weights between time steps are shared (\emph{backpropagation through
-  time}~\cite{williams_zipser}). After unfolding the network in time the
-training is analogous to that of feedforward neural networks.
+the chain rule has to be applied for each time step and that the weights between
+time steps are shared (called backpropagation through
+time~\cite{williams_zipser}). After unfolding the network in time, the training
+is analogous to that of feedforward neural networks.
 
-In this thesis, RNNs are used for the classification of a sequence of
+In this thesis RNNs are used for the classification of a sequence of
 reconstructed objects in its entirety as opposed to classifying each element in
 the sequence. For this task the full output sequence of the recurrent network is
 not needed, such that only the output of the last time step is used. Simple
 Recurrent Networks like the \textsc{Elman} network show that the gradient signal
 decays with each time step making it difficult learn structure spanning over
-multiple time steps in the input sequence. This is known as the \emph{vanishing
-  gradient problem}~\cite{hochreiter, lecun_bengio_hinton_DL}. The following
+multiple time steps in the input sequence. This is known as the vanishing
+gradient problem~\cite{hochreiter, lecun_bengio_hinton_DL}. The following
 section will present an extension to this architecture enabling the network to
 learn long-term dependencies.
 % \todo{This is due to the repeated
@@ -371,15 +365,16 @@ learn long-term dependencies.
 \subsubsection{Long Short-Term Memory}
 \label{sec:lstm}
 The long short-term memory (LSTM) network developed in Ref.~\cite{lstm} solves
-the \emph{vanishing gradient problem} by introducing multiplicative gates
-\todo{define} that control the flow of information in the network. In
+the vanishing gradient problem by introducing multiplicative gates, which
+perform an element-wise multiplication of gate activations and inputs, thereby
+controlling the flow of information in the network. In
 Figure~\ref{fig:schematic_lstm} a schematic depiction of an unfolded LSTM at
 time~$t$ is shown.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
   \caption{LSTM-cell unfolded in time at a fixed time step~$t$. Nodes
-    with~$\times$ ($+$) multiply (add) their inputs element-wise while ones
+    with~$\times$ ($+$) multiply (add) their inputs element-wise, while ones
     containing a sigmoid shape apply a nonlinear activation function. The
     dependency of the gate vectors $\mathbf{i}_t$, $\mathbf{o}_t$ and
     $\mathbf{f}_t$ on input~$\mathbf{x}_t$ and output~$\mathbf{y}_{t-1}$ is
@@ -394,13 +389,13 @@ flow, are given by \cite{goodfellow_dl, graves}
   \mathbf{o}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{o}} \mathbf{x}_{t} + \mathbf{U}_{\text{o}} \mathbf{y}_{t-1} \right) &
   \mathbf{f}_{t} &= \bm{\sigma}\left( \mathbf{W}_{\text{f}} \mathbf{x}_{t} + \mathbf{U}_{\text{f}} \mathbf{y}_{t-1} \right)
 \end{align*}
-with separate weights~$W$ and recurrent weights~$U$ for each gate. The
+with separate weights~$\bm{W}$ and recurrent weights~$\bm{U}$ for each gate. The
 element-wise logistic function~$\bm{\sigma}$ is used to map the gate activations
-into the interval $[0, 1]$. Notably the gate activations depend on the
+into the interval $[0, 1]$. Notably, the gate activations depend on the
 input~$\mathbf{x}_t$ at time~$t$ as well as the output~$\mathbf{y}_{t-1}$ of the
-LSTM at the previous time step. To understand how the gating controls the flow
-of information in a LSTM one looks at the update of the cell state~$\mathbf{c}$
-with each time step \cite{graves, goodfellow_dl}
+LSTM at the previous time step. How the gating controls the flow of information
+in an LSTM can be understood by looking at the update of the cell
+state~$\mathbf{c}$ with each time step \cite{graves, goodfellow_dl}
 \begin{align*}
   \mathbf{c}_{t} &= \mathbf{f}_{t} \circ \mathbf{c}_{t-1}
                    + \mathbf{i}_{t} \circ \bm{\varphi}_{\text{c}}(
@@ -413,10 +408,10 @@ implementation \cite{keras} used in this thesis. Similar to the Simple Recurrent
 Networks the initial cell state $\mathbf{c}_0$ and output $\mathbf{y}_0$ are set
 to $\mathbf{0}$. The input gate controls how much information from the
 input~$\mathbf{x}_t$ and previous output~$\mathbf{y}_{t-1}$ is taken into the
-cell state thereby reducing the inclusion of irrelevant information. A main
+cell state, thereby reducing the inclusion of irrelevant information. A main
 feature of the LSTM architecture is the direct connection of cell states between
-two successive time steps via the forget gate which solves the \emph{vanishing
-  gradient problem} \cite{lstm, graves}. The forget gate enables the network to
+two successive time steps via the forget gate which solves the vanishing
+gradient problem~\cite{lstm, graves}. The forget gate enables the network to
 gradually reset its internal state once stored information has become
 irrelevant. Finally the output~$\mathbf{y}_t$ is calculated using \cite{graves,
   goodfellow_dl}
@@ -425,20 +420,19 @@ irrelevant. Finally the output~$\mathbf{y}_t$ is calculated using \cite{graves,
 \end{align*}
 where~$\bm{\varphi}_\text{y}$ is the hyperbolic tangent. The activation of the
 output gate determines how much of the cell state is presented at the output of
-the network. Overall the multiplicative gating of the LSTM allows information to
-persist in its internal state over a long period of time with gates resembling
-the write, read and reset gates of conventional memory cells. Alternative
-architectures to LSTMs exist (e.g.\ \emph{Gated Recurrent Units}) but were not
-investigated in this thesis.
+the network. Overall, the multiplicative gating of the LSTM allows information
+to persist in its internal state over a long period of time, with gates
+resembling the write, read and reset gates of conventional memory cells.
+Alternative architectures to LSTMs exist (e.g.\ Gated Recurrent Units) but were
+not investigated in this thesis.
 
 \section{Technical Setup}
 \label{sec:tech_setup}
 
-In this thesis the \emph{Toolkit for Multivariate Data
-  Analysis}~(TMVA)~\cite{tmva} is used for the BDT-based studies on tau
-identification in Chapter~\ref{sec:bdt}. This framework is extensively used for
-evaluating multivariate algorithms for the reconstruction of hadronic tau lepton
-decays in the ATLAS experiment.
+In this thesis the Toolkit for Multivariate Data Analysis~(TMVA)~\cite{tmva} is
+used for the BDT-based studies on tau identification in Chapter~\ref{sec:bdt}.
+This framework is extensively used for evaluating multivariate algorithms for
+the reconstruction of hadronic tau lepton decays in the ATLAS experiment.
 
 The neural network based studies in chapters~\ref{sec:rnn}
 and~\ref{sec:decaymode} use the \textsc{keras} framework~\cite{keras} which
@@ -452,11 +446,11 @@ training and evaluation of the networks. For the preprocessing of the data, the
 The training of the neural networks uses the \textsc{Adam} optimiser~\cite{adam}
 which is a stochastic gradient descent algorithm with adaptive learning rates
 offering quick convergence with little parameter tuning. The layers used in this
-thesis are (using the \textsc{keras} naming convention):
-Dense~(densely-connected layer), LSTM, Merge~(concatenates outputs from multiple
-layers), and Masking~(skips inputs in recurrent networks filled with a
-predefined default value). The dense and LSTM layers use biases which were
-previously omitted.
+thesis are (\textsc{keras} naming convention): \texttt{Dense} for
+densely-connected layers; \texttt{LSTM}; \texttt{Merge} for concatenating
+outputs from multiple layers and \texttt{Masking} to skip time steps in
+recurrent networks with a predefined default value. The Dense and LSTM layers
+use biases which were previously omitted.
 
 %%% Local Variables:
 %%% mode: latex
