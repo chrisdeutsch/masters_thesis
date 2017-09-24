@@ -380,13 +380,13 @@ after extending the model with additional information.
 
 \subsection{Additional Information}
 \label{sec:add_info}
-
-This section aims to increase the discrimination power of the RNN-based decay
-mode classification by including additional information into the network. The
-focus lies on the inclusion of conversion tracks, shots, and further properties
-of the neutral PFO clusters. The following describes the intention behind each
-source of additional information and how it is included into the network
-architecture.
+The information used in the network thus far is comparable to what is used by
+the \textsc{PanTau} algorithm. This section aims to increase the discrimination
+power of the RNN-based decay mode classification by including additional
+information into the network. The model is extended with conversion tracks,
+shots, and further properties of the neutral PFO clusters. The following
+describes the intention behind each source of additional information and how it
+is included into the network architecture.
 
 \subsubsection{Conversion Tracks}
 Often photons from the \smash{$\pi^0$}-decay convert in the material of the
@@ -398,7 +398,7 @@ clusters originating from individual electrons, affecting the
 cases the algorithm can fail to reconstruct neutral PFOs, thus the presence of
 conversion tracks can be an indicator of decay modes containing neutral pions.
 The inclusion of conversion tracks in the classification aims to reduce
-migrations to decay modes with fewer neutrals.
+migrations to decay modes with the incorrect number of neutrals.
 
 The architecture of the baseline model (cf.\
 Figure~\ref{fig:pfo_rnn_baseline_arch}) is extended by a third branch taking a
@@ -416,8 +416,9 @@ track contain the transverse momentum of the track~$p_\text{T}^\text{track}$,
 the angular direction of the tau axis~$(\varphi_\tau, \eta_\tau)$ and the
 angular distance~$(\Delta\varphi, \Delta\eta)$ between track and tau axis. The
 angular distances are calculated using track parameters at the perigee with
-respect to the beamspot and alternatively using the position of the extrapolated
-track hit on the face of EM1.
+respect to the beamspot. Using the angular distance between tau axis and the
+position of the extrapolated track hit on the face of EM1 is investigated as an
+alternative.
 
 \subsubsection{Shots}
 
@@ -440,7 +441,7 @@ more photons~$N_\text{photons} > 0$ are considered (cf.\
 Section~\ref{sec:shot_reco}). This selection applies a lower threshold on the
 transverse momentum~\smash{$p_\text{T}^\text{shot}$} to suppress shots
 originating from noise or fluctuations of the photon
-shower~\cite{atlas:taurec:decaymodes}.
+shower~\cite{atlas:taurec:decaymodes} and potential modelling problems.
 % Shots from the transition region of the calorimeter~$1.37 < |\eta| < 1.52$ are
 % not used.
 The set of input variables is defined in analogy to charged PFOs and conversion
@@ -505,11 +506,11 @@ in network architecture.
 \subsubsection{Performance Evaluation}
 
 Table~\ref{tab:pfo_add_experiments} summarises the diagonal efficiency of the
-RNN-based classification for the different experiments. In addition to the
-previously described inputs, the performance after including hadronic PFOs,
-i.e.\ objects created from energy in the hadronic part of TopoClusters in the
-core region~$\Delta R < 0.2$ of the reconstructed tau, is evaluated. It is not
-found to significantly improve the performance considering the increase in model
+RNN-based classification for the different setups. In addition to the previously
+described inputs, the performance after including hadronic PFOs, i.e.\ objects
+created from energy in the hadronic part of TopoClusters in the core
+region~$\Delta R < 0.2$ of the reconstructed tau, is evaluated. It is not found
+to significantly improve the performance considering the increase in model
 complexity. Moreover, a model using an ascending $\pi^0$-identification score
 ordering for the neutral PFOs shows no significant improvement over the
 transverse momentum ordering.
@@ -518,7 +519,8 @@ transverse momentum ordering.
   \centering
   {\small\input{./tables/pfo_add_info.tex}}
   \caption{Decay mode classification performance after extending the RNN. The
-    metrics are evaluated on the validation sample.}
+    metrics are evaluated on the validation sample. The validation loss is given
+    by the categorical cross-entropy.}
   \label{tab:pfo_add_experiments}
 \end{table}
 
@@ -534,14 +536,13 @@ parameters at the perigee with respect to the beamspot.
 % Appendix~\ref{sec:app_decay_mode_exp} \todo{Remove from appendix -- not
 % interesting?}.
 
-A significant improvement in classification accuracy of \SI{1.12 +-
-  0.07}{\percent} is observed, when extending the neutral PFO variable set with
-additional cluster properties. Furthermore, the fraction of transverse momentum
-subtracted from the cluster~$f_\text{sub}$ significantly improves the
-classification power at a minimal complexity cost. A possible future extension
-of the network would be to include the $\pi^0$-identification variables in each
-neutral PFO, thus allowing the network to learn a $\pi^0$-identification
-specialised for decay mode classification.
+A significant improvement in classification accuracy is observed, when extending
+the neutral PFO variable set with additional cluster properties. Furthermore,
+the fraction of transverse momentum subtracted from the cluster~$f_\text{sub}$
+significantly improves the classification power at a minimal complexity cost. A
+possible future extension of the network would be to include the
+$\pi^0$-identification variables in each neutral PFO, thus allowing the network
+to learn a $\pi^0$-identification specialised for decay mode classification.
 
 Finally, alternative architectures including bidirectional LSTM and multiple
 consecutive LSTM layers are tested, only showing marginal improvements in the
@@ -614,8 +615,9 @@ momentum of the tau. In contrast to this, the 1-prong mode with more than one
 and the 3-prong mode with neutral pions show a significant increase in
 efficiency over the \num{20} to \SI{40}{\GeV} transverse momentum range. A
 possible explanation is that the classifier misses increasingly soft neutral
-pions for low momentum tau decays. Therefore, migrations are reduced at higher
-transverse momenta leading to an increase in purity in all five decay modes.
+pions for low momentum tau decays, partially due to the \pt-threshold applied to
+the neutral PFOs. Therefore, migrations are reduced at higher transverse momenta
+leading to an increase in purity in all five decay modes.
 
 \begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
@@ -638,8 +640,8 @@ transverse momenta leading to an increase in purity in all five decay modes.
 
 The efficiency and purity profiles in Figure~\ref{fig:mode_efficiency_purity}
 indicate that the RNN-based classification algorithm could be used beyond the
-$\SI{\sim 100}{\GeV}$ design limit of the particle flow algorithm, as the
-efficiencies and purities remain flat at large transverse momenta.
+20\,--\,\SI{100}{\GeV} region of primary interest, as the efficiencies and
+purities remain flat at large transverse momenta.
 Figure~\ref{fig:mode_efficiency_purity_highpt} shows the profiles after
 retraining the model on data without applying an upper limit on the
 reconstructed transverse momentum of the tau. The mode efficiencies and purities
@@ -679,26 +681,26 @@ In the ATLAS experiment two alternative energy calibrations for reconstructed
 hadronic tau decays are available. These use the reconstructed decay mode to
 increase the resolution of the visible transverse momentum measurement. The
 improvement in classification accuracy when using the RNN can therefore lead to
-a better energy resolution, when one of these calibrations is used.
+an increased energy resolution, when one of these calibrations is used.
 
 A different application of the RNN-based decay mode classification would be for
-the determination of the \cp nature of the Higgs boson, which can
-measured using various decay modes of the tau lepton in~$H \to \tau + \tau$
-events~\cite{Berge2014}. An example is the
-double~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$ decay,
-corresponding to the $h^\pm \pi^0$ mode. The \cp measurement requires
-the neutral pions in the final state to be reconstructed and identified.
-However, the RNN-based classification does not provide a direct causal
-relationship between a neutral PFO and the decay mode decision. Therefore, an
-additional algorithm would be required to identify and reconstruct neutral pions
-in an event of a given decay mode. For the \cp measurement in the
-$\rho\nu$ mode using the extended model an absolute improvement in mode
-efficiency of~\SI{7.2}{\percent} and purity of~\SI{8.2}{\percent} is expected
-for a single tau. Depending on the effectiveness of reconstructing the neutral
-pions this could lead to a significant improvement in the signal to background
-ratio for Higgs-\cp analyses. The remaining modes show similar
-improvements in efficiency and purity with respect to the algorithm currently in
-use at the ATLAS experiment.
+the determination of the \cp nature of the Higgs boson, which can measured using
+various decay modes of tau leptons in the~$h \to \tau \tau$
+channel~\cite{desch_higgs_cp, harnik, Berge2014}. An example is the decay of tau
+leptons via the intermediate $\rho$ meson
+resonance~$\tau \to \rho + \nu_\tau \to \pi + \pi^0 + \nu_\tau$, corresponding
+to the $h^\pm \pi^0$ mode. The \cp measurement requires the neutral pions in the
+final state to be reconstructed and identified. However, the RNN-based
+classification does not provide a direct causal relationship between a neutral
+PFO and the decay mode decision. Therefore, an additional algorithm would be
+required to identify and reconstruct neutral pions in an event of a given decay
+mode. For the \cp measurement in the $\rho\nu$ mode using the extended model an
+absolute improvement in mode efficiency of~\SI{7.2}{\percent} and purity
+of~\SI{8.2}{\percent} is expected for a single tau. Depending on the
+effectiveness of reconstructing the neutral pions this could lead to a
+significant improvement in the signal to background ratio for Higgs-\cp
+analyses. The remaining modes show similar improvements in efficiency and purity
+with respect to the algorithm currently in use at the ATLAS experiment.
 
 %%% Local Variables:
 %%% mode: latex
