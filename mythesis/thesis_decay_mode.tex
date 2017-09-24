@@ -6,10 +6,10 @@ In this chapter the sequence learning techniques developed for tau
 identification are applied to the problem of decay mode classification of
 hadronic tau lepton decays. The following the decay modes
 \begin{align*}
-  &\tau \to h^\pm \nu_\tau  & &\tau \to h^\pm \pi^0 \nu_\tau & &\tau \to h^\pm \, {\geq} 2\pi^0 \, \nu_\tau & &\tau \to 3 h^\pm \, \nu_\tau & &\tau \to 3 h^\pm \, {\geq} 1 \pi^0 \, \nu_\tau\eqcomma
+  &\tau^- \to h^- \nu_\tau  & &\tau^- \to h^- \pi^0 \nu_\tau & &\tau^- \to h^- \, {\geq} 2\pi^0 \, \nu_\tau & &\tau^- \to h^- h^+ h^- \, \nu_\tau & &\tau^- \to h^- h^+ h^-\, {\geq} 1 \pi^0 \, \nu_\tau
 \end{align*}
-shall be discriminated, where the hadron~\hpm includes charged pions and kaons
-while decays containing intermediate~$K^0$ are omitted. The modes will be
+shall be discriminated, where the hadron~\hpm includes charged pions and kaons,
+while decays containing intermediate~$K^0$ are omitted. The modes are
 abbreviated as \hpm, \hpmpi, \hpmpipi, \hhhpm and \hhhpmpi, respectively.
 % In the following the decay modes containing one charged hadron~\smash{$h^\pm$}
 % with one~\smash{$h^\pm \pi^0$} or more than one neutral
@@ -25,28 +25,26 @@ Neural networks naturally extend from binary to multi-class classification
 problems making them well-suited for the discrimination of the hadronic decay
 modes.
 
-At first a brief overview of the \emph{Tau Particle Flow} algorithm is given,
-which is used to reconstruct neutral and charged decay
-products~\cite{atlas:taurec:decaymodes}. Subsequently, a neural network is
-developed that uses the reconstructed decay products to classify the decay mode
-into one of five categories. Finally, the network is extended by including
-additional information from conversion tracks, cluster properties and shots.
+At first a brief overview of the Tau Particle Flow algorithm is given, which is
+used to reconstruct neutral and charged decay products~\cite{bwinter,
+  atlas:taurec:decaymodes}. Subsequently, a neural network is developed that
+uses the reconstructed decay products to classify the decay mode into one of
+five categories. Finally, the network is extended by including additional
+information from conversion tracks, cluster properties and shots.
 
 \section{Tau Particle Flow}
 \label{sec:tau_pflow}
 
-\todo[inline]{Rename to 'Neutral Pion Reconstruction' or say something about
-  PanTau. Generally TPF refers to cellbased + PanTau. Cite ben~\cite{bwinter}}
-
-The \emph{Tau Particle Flow} algorithm is a specialised particle flow algorithm
-for the reconstruction of charged and neutral constituents in hadronic tau
-decays and is primarily optimised for \tauhadvis with visible transverse momenta
-of up to \SI{100}{\giga\electronvolt}. It allows the reconstruction of
-individual particles by optimally combining the information in several
-subdetector-systems. The reconstructed objects, called charged or neutral
-\emph{particle flow objects}~(PFOs), can be used to classify the hadronic decay
-modes. The following description of the algorithm is based on
-Ref.~\cite{atlas:taurec:decaymodes} including recent changes to the
+The Tau Particle Flow algorithm~\cite{bwinter, atlas:taurec:decaymodes} is a
+specialised particle flow algorithm for the reconstruction of charged and
+neutral constituents in hadronic tau decays and is primarily optimised for
+\tauhadvis with visible transverse momenta of up to
+\SI{100}{\giga\electronvolt}. It allows the reconstruction of individual
+particles by optimally combining the information in several subdetector-systems.
+The reconstructed objects, called charged or neutral particle flow
+objects~(PFOs), can be used to classify the hadronic decay modes~\cite{climbach,
+  atlas:taurec:decaymodes}. The following description of the algorithm is based
+on Ref.~\cite{atlas:taurec:decaymodes} including recent changes to the
 reconstruction.
 
 Charged PFOs are reconstructed from the tracks classified as \emph{charged}
@@ -89,30 +87,30 @@ from charged hadrons and compact showers from photons of the $\pi^0$-decay using
 multivariate methods~\cite{atlas:taurec:decaymodes}.
 
 The number of identified neutral pions can be used for a preliminary
-classification of the decay mode. The following sections will be concerned with
+classification of the decay mode. The following sections are concerned with
 combining reconstructed PFOs in neural networks to achieve larger classification
-power. Decay mode classification employing the \emph{Tau Particle
-  Flow}-algorithm is optimised for operation in the low-momentum regime due to
-the decreasing momentum resolution in the tracking system at high transverse
-momenta as well as the additional boost of the tau decay products leading to
-merging of $\pi^0$-clusters. Therefore, the main focus lies on the
-classification of hadronic tau lepton decays with visible transverse
+power. Decay mode classification employing the Tau Particle Flow algorithm is
+optimised for operation in the low-momentum regime due to the decreasing
+momentum resolution in the tracking system at high transverse momenta, the
+additional boost of the tau decay products leading to merging of
+$\pi^0$-clusters and the intended use for measurements of~$Z$ and~$h$ decays.
+Therefore, the main focus lies on the classification of hadronic tau lepton
+decays with visible transverse
 momenta~$p_\text{T} < \SI{100}{\giga\electronvolt}$ but prospects of applying
-the algorithm on an extended momentum range are also given. \todo{Also because H
-  and Z decays are in that region}
+the algorithm on an extended momentum range are also given.
 
 \section{Classification with Tau Particle Flow and Recurrent Neural Networks}
 \label{sec:pfo_general}
 
-The charged and neutral PFOs reconstructed with the \emph{Tau Particle
-  Flow}-algorithm contain information about daughter particles of the tau decay
-and can be used for decay mode classification. Properties of charged and neutral
-PFOs are combined in recurrent neural networks to perform multi-class
-classification. Mainly kinematic information, e.g.\ the transverse momentum and
-angular deviation from the tau axis, is used to describe each PFO. Moreover, the
-$\pi^0$-likeness in form of the neutral pion identification score is included in
-the classification to be able to discriminate between neutral PFOs originating
-from a neutral pion and remnants of the subtraction or pile-up.
+The charged and neutral PFOs reconstructed with the Tau Particle Flow algorithm
+contain information about daughter particles of the tau decay and can be used
+for decay mode classification. Properties of charged and neutral PFOs are
+combined in recurrent neural networks to perform multi-class classification.
+Kinematic information, e.g.\ the transverse momentum and angular deviation from
+the tau axis, is used to describe each PFO. Moreover, the $\pi^0$-likeness in
+form of the neutral pion identification score is included in the classification
+to be able to discriminate between neutral PFOs originating from a neutral pion
+and remnants of the subtraction or pile-up.
 
 The network architecture used for the decay mode classification is shown in
 Figure~\ref{fig:pfo_rnn_baseline_arch} and is similar to the networks used for
@@ -142,10 +140,11 @@ probabilities\footnote{Formally the posterior
 \label{sec:pfo_baseline}
 
 For training and evaluation of the model a sample of the
-process~$\gamma^* \rightarrow \tau \tau \, \text{(hadr.)}$ is used (cf.\
-Section~\ref{sec:bdt_eventsim}). Compared to the dataset used for the
-tau identification studies, it features an updated tuning of the default decay
-mode classification and an increase in the number of simulated events by
+process~$\gamma^* \rightarrow \tauhad \tauhad$ is used (cf.\
+Section~\ref{sec:bdt_eventsim}). Compared to the dataset used for the tau
+identification studies, it features an updated tuning of the default decay mode
+classification algorithm \textsc{PanTau}~\cite{climbach,
+  atlas:taurec:decaymodes} and an increase in the number of simulated events by
 \SI{50}{\percent}. The sample is given in Appendix~\ref{app:mc16a_taus}.
 
 In addition to the baseline tau selection given in
@@ -160,16 +159,16 @@ after applying this preselection is summarised in Table~\ref{tab:mode_reco_eff}.
 \begin{table}[htb]
   \centering
   {\small\input{./tables/decay_mode_reco.tex}}
-  \caption{Mode fractions of reconstructed \tauhadvis after the
-    preselection~$f_\text{reco}$ and the expected mode fraction of a fully
-    efficient reconstruction~$f_\text{BR}$ according to the branching
-    ratio~$\mathcal{B}$.}
+  \caption{True decay mode fractions, $f_\text{reco}$, in the sample of
+    reconstructed \tauhadvis after preselection and the expected mode fraction
+    in the sample, $f_\text{BR}$, for a fully efficient reconstruction according
+    to the branching ratio $\mathcal{B}$~\cite{pdg}. The statistical uncertainty
+    on $f_\text{reco}$ is negligible.}
   \label{tab:mode_reco_eff}
-  \todo[inline]{Better definitions for $f_\text{BR}$ and $f_\text{reco}$.}
 \end{table}
 
 The discrimination of the decay modes utilises kinematic quantities of the
-reconstructed tau decay as well as the charged and neutral particle flow
+reconstructed tau decay as well as of the charged and neutral particle flow
 objects. The variables attached to each neutral and charged PFO passed to the
 network are summarised in the following:
 \begin{description}
@@ -218,7 +217,7 @@ subsequently standardised. For the neutral PFO specific
 variables~\smash{$S_\text{BDT}^{\pi^0}$} and
 \smash{$N_\text{photons}^\text{tot}$} no preprocessing is required. The
 remaining kinematic variables, i.e.\ angular direction of the tau axis and
-angular deviation of the PFO are scaled into the~$[-1, 1]$-interval.
+angular deviation of the PFOs are scaled into the~$[-1, 1]$-interval.
 
 Charged and neutral PFOs are passed in ascending transverse momentum ordering
 \todo{why this ordering} to shared dense layers with 24 units each. A maximum of
@@ -234,11 +233,11 @@ probability estimate according to the model. A different scheme for determining
 the decay mode would be to require the largest mode probability to exceed the
 second largest by a predefined margin. This would increase the purity of the
 classified modes at the expense of reducing the efficiency. As this scheme
-depends on the requirements of the particular analysis, the following will focus
-on classification according to the highest probability.
+depends on the requirements of the particular analysis, the following focuses on
+classification according to the highest probability.
 
 In contrast to the decay mode classification algorithm currently in use at the
-ATLAS experiment, no discrimination of 1- and 3-prong modes according to the
+ATLAS experiment, no pre-classification of 1- and 3-prong modes according to the
 number of reconstructed tracks that are classified as \emph{charged} is made.
 However, as each charged PFO is associated with a \emph{charged} track the
 number of tracks is indirectly available to the network. The network is not
@@ -248,18 +247,18 @@ behaviour is not desired then the decay mode can be classified as the mode with
 the highest probability that is compatible with the number of reconstructed
 tracks. For the following studies these migrations are allowed. The loss in
 classification power is small when constraining the model (a comparison is given
-in Appendix~\ref{app:mode_classification_track_constraint}). \todo{see ben}
+in Appendix~\ref{app:mode_classification_track_constraint}).
 
 Neutral PFOs with small transverse momenta often do not originate from neutral
 pions but from other sources. Moreover, it has not been studied how well they
 are modelled in the simulation. Therefore, neutral PFOs passed to the network
 (at training and evaluation time) are required to exceed a predefined
 $p_\text{T}$-threshold. The diagonal efficiency, i.e.\ the fraction of correctly
-classified modes in an independent sample, is summarised in
-Table~\ref{tab:neut_ptcut} for four different $p_\text{T}$-thresholds. The
-classification power does not degrade when no $p_\text{T}$-cut is applied,
-indicating that the model is insensitive to low momentum PFOs from sources other
-than a \smash{$\pi^0$}-decay. This is expected as the network has access to the
+classified modes in a sample, is summarised in Table~\ref{tab:neut_ptcut} for
+four different $p_\text{T}$-thresholds. The classification power does not
+degrade when no $p_\text{T}$-cut is applied, indicating that the model is
+insensitive to low momentum PFOs from sources other than a
+\smash{$\pi^0$}-decay. This is expected as the network has access to the
 \smash{$\pi^0$}-identification score and transverse momentum. Additionally, only
 a slow decrease in diagonal efficiency is observed when increasing the
 threshold. The studies in this thesis use the \SI{1.5}{\giga\electronvolt}
@@ -276,18 +275,16 @@ to prove the necessity of this cut.
 \end{table}
 
 Figure~\ref{fig:mode_proba_ptcut} depicts two examples of mode probability
-estimates on the testing sample. A complete set of probabilities for all five
-decay modes is omitted for brevity and can be found in
-Appendix~\ref{app:baseline_probabilities}. The $h^\pm$~mode probability in
-Figure~\ref{fig:1p0n_proba} shows that the estimated probabilities for generated
-modes containing one or more neutral pions are frequently small. Nevertheless,
-when no neutral PFOs are reconstructed they can be as large as
-\SI{90}{\percent}, causing decays to be falsely classified. The same feature can
-be observed in Figure~\ref{fig:1p1n_proba}, where the $h^\pm \pi^0$ mode
-probabilities are small. Additionally, generated 1-prong decays with more than
-one neutral pion often exceed $h^\pm \pi^0$ probabilities of \SI{50}{\percent}
-leading to significant migrations of true $h^\pm \, {\geq} 2 \pi^0$ to the
-$h^\pm \pi^0$ decay mode.
+estimates in the testing sample. A complete set of probabilities for all five
+decay modes can be found in Appendix~\ref{app:baseline_probabilities}. The
+estimated $h^\pm$~mode probabilities for generated decays with one or more
+neutral pions are frequently small. Nevertheless, when no neutral PFOs are
+reconstructed they can be as large as \SI{90}{\percent}, causing decays to be
+falsely classified. The same feature can be observed for the $h^\pm \pi^0$~mode
+probabilities, where true $h^\pm \pi^0$ decays can have small probabilities.
+Additionally, generated 1-prong decays with more than one neutral pion often
+exceed $h^\pm \pi^0$ probabilities of \SI{50}{\percent} leading to significant
+migrations of true $h^\pm \, {\geq} 2 \pi^0$ to the $h^\pm \pi^0$ decay mode.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -302,33 +299,34 @@ $h^\pm \pi^0$ decay mode.
     \vspace*{-1.6em}
     \label{fig:1p1n_proba}
   \end{subfigure}
-  \caption{Mode probabilities for the $h^\pm$ and $h^\pm \pi^0$ modes estimated
-    by the RNN for a given true decay mode. Modes with three charged hadrons
-    have small $h^\pm$ and $h^\pm \pi^0$ probabilities and are omitted for
-    clarity.}
+  \caption{Mode probabilities for the $h^\pm$ (left) and $h^\pm \pi^0$ (right)
+    modes estimated by the RNN for a given true decay mode. Modes with three
+    charged hadrons have small $h^\pm$ and $h^\pm \pi^0$ probabilities and are
+    omitted for clarity.}
   \label{fig:mode_proba_ptcut}
 \end{figure}
 
-The migration probability of generated decay modes to a given reconstructed mode
-can be summarised in the so called \emph{migration matrix}.
+The migration probabilities of generated decay modes to a given reconstructed
+mode can be summarised in the so called migration matrix.
 Figure~\ref{fig:migmat_comparison_baseline_15cut} shows migration matrices of
-the ATLAS default algorithm~\cite{atlas:taurec:decaymodes} and the RNN-based
-decay mode classification. The diagonal entries give the efficiencies to
-correctly reconstruct the corresponding decay mode, while the off-diagonal
-measures the migration probability between modes. The diagonal efficiency can
-also be interpreted as the mean of the diagonal entries of this matrix weighted
-by the mode fractions (cf.\ Table~\ref{tab:mode_reco_eff}). The individual
-efficiencies and migration probabilities in the matrix can vary between
-different trainings of the network as a decrease in efficiency in one mode can
-be compensated by an improvement in another. Nevertheless, the diagonal
-efficiency is a stable metric between different trainings and is used as a
-figure of merit for subsequent investigations.
+the ATLAS default algorithm~\textsc{PanTau}~\cite{climbach,
+  atlas:taurec:decaymodes} and the RNN-based decay mode classification. The
+diagonal entries give the efficiencies to correctly reconstruct the
+corresponding decay mode, while the off-diagonal measures the migration
+probability between modes. The diagonal efficiency can also be interpreted as
+the mean of the diagonal entries of this matrix weighted by the mode fractions
+(cf.\ Table~\ref{tab:mode_reco_eff}). The individual efficiencies and migration
+probabilities in the matrix can vary between different trainings of the network
+as a decrease in efficiency in one mode can be compensated by an improvement in
+another. Nevertheless, the diagonal efficiency is a stable metric between
+different trainings and is used as a figure of merit for subsequent
+investigations.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/mig_mat_pantau.pdf}
-    \subcaption{ATLAS default algorithm: \emph{PanTau}}
+    \subcaption{ATLAS default algorithm: \textsc{PanTau}}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -354,18 +352,18 @@ magnitude for both algorithms.
 
 Due to the reduction of migrations between different modes an overall
 improvement in purity of the reconstructed modes is expected. This is shown in
-the so called \emph{purity matrix} in
+the so called purity matrix in
 Figure~\ref{fig:puritymat_comparison_baseline_15cut}, where each row gives the
 fractional composition of the reconstructed decay modes in terms of the
 generated mode. The comparison shows the expected improvement in purity of all
-five reconstructed modes. A more detailed discussion of the results will be
-given after extending the model with additional information.
+five reconstructed modes. A more detailed discussion of the results is given
+after extending the model with additional information.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/comp_mat_pantau.pdf}
-    \subcaption{ATLAS default algorithm: \emph{PanTau}}
+    \subcaption{ATLAS default algorithm: \textsc{PanTau}}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
@@ -509,11 +507,11 @@ in network architecture.
 Table~\ref{tab:pfo_add_experiments} summarises the diagonal efficiency of the
 RNN-based classification for the different experiments. In addition to the
 previously described inputs, the performance after including hadronic PFOs,
-i.e.\ objects created from energy in the hadronic part of \emph{TopoClusters} in
-the core region~$\Delta R < 0.2$ of the reconstructed tau, is evaluated. It is
-not found to significantly improve the performance considering the increase in
-model complexity. Moreover, a model using an ascending $\pi^0$-identification
-score ordering for the neutral PFOs shows no significant improvement over the
+i.e.\ objects created from energy in the hadronic part of TopoClusters in the
+core region~$\Delta R < 0.2$ of the reconstructed tau, is evaluated. It is not
+found to significantly improve the performance considering the increase in model
+complexity. Moreover, a model using an ascending $\pi^0$-identification score
+ordering for the neutral PFOs shows no significant improvement over the
 transverse momentum ordering.
 
 \begin{table}[htb]
