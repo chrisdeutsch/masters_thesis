@@ -198,7 +198,7 @@ determined by weight matrices~$\mathbf{W}$.
 %   &\mathbf{y} = \bm{\varphi}_{\text{y}}(\mathbf{W}_{\text{yh}} \mathbf{h} + \mathbf{b}_{\text{y}}) \eqcomma
 % \end{align*}
 The number of neurons in the hidden layers as well as activation functions are
-hyperparameters, which are parameters that have to be set prior to training, of
+hyperparameters, which are parameters that have to be set prior to training of
 the model. The sizes of the input and output layers are constrained by the
 number of input variables and the number of desired outputs, respectively.
 Moreover, the activation function of the output layer is constrained by the
@@ -220,7 +220,7 @@ one, such that they can be interpreted as class probabilities. Activation
 functions that are commonly used for the intermediate layers are depicted in
 Figure~\ref{fig:activation_functions}.
 
-Thus far neural networks are viewed as nonlinear parametric functions mapping
+Thus far, neural networks are viewed as nonlinear parametric functions mapping
 input variables~$\mathbf{x}$ to a response~$\mathbf{y}$ without regarding the
 choice of parameters (i.e.\ weights and biases of each layer). The model
 parameters are determined using gradient descent by minimising an objective
@@ -352,7 +352,7 @@ reconstructed objects in its entirety as opposed to classifying each element in
 the sequence. For this task the full output sequence of the recurrent network is
 not needed, such that only the output of the last time step is used. Simple
 Recurrent Networks like the \textsc{Elman} network show that the gradient signal
-decays with each time step making it difficult learn structure spanning over
+decays with each time step making it difficult to learn structure spanning over
 multiple time steps in the input sequence. This is known as the vanishing
 gradient problem~\cite{hochreiter, lecun_bengio_hinton_DL}. The following
 section will present an extension to this architecture enabling the network to

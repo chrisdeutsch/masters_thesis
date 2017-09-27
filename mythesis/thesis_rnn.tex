@@ -6,7 +6,7 @@ This chapter investigates the application of neural networks for tau
 identification. First it is shown that a multi-layer perceptron (MLP) can
 achieve a classification performance comparable to the optimised BDT from the
 previous chapter. Subsequently, novel sequence learning techniques are employed
-to create classifiers operating on sequences of reconstructed objects. For this
+to create classifiers operating on sequences of reconstructed objects. For this,
 recurrent neural networks based on the LSTM architecture are used on sequences
 of tracks in the ID and clusters of energy in the calorimeter system. In this
 context, a tau identification algorithm using purely calorimetric information is
@@ -88,11 +88,11 @@ be a viable method of performing tau identification.
 \section{Identification using Recurrent Neural Networks}
 \label{sec:rnn_id}
 
-Thus far approaches of tau identification use high-level variables that
-summarise properties of reconstructed objects in the detector. This has the
-advantage that identification can be understood and investigations into
-systematic errors are simplified. However, discriminative power can be lost when
-transitioning from low- to high-level variables. Therefore an approach is
+The approaches to tau identification used thus far, use high-level variables
+that summarise properties of reconstructed objects in the detector. This has the
+advantage that identification can be more easily understood and investigations
+into systematic errors are simplified. However, discriminative power can be lost
+when transitioning from low- to high-level variables. Therefore an approach is
 presented capturing low-level information by employing sequence classification
 techniques. A general description of the method is given and subsequently
 applied to reconstructed tracks and clusters in the calorimeter.
@@ -119,7 +119,7 @@ loss of the order of \SI{20}{\percent} for the 1-prong identification, while the
 improve the use of isolation information in reconstructed tracks of \tauhadvis
 candidates.
 
-For this purpose recurrent neural networks using the LSTM architecture are used
+For this purpose, recurrent neural networks using the LSTM architecture are used
 to classify a sequence of objects reconstructed in the detector. The following
 focuses on describing the method utilising tracks in the ID but the use of other
 physics objects is analogous. Figure~\ref{fig:track_rnn_schematic} describes the
@@ -216,7 +216,7 @@ subtracting an offset and dividing by a scale factor. The offset is the mean of
 the corresponding quantity in tracks of the training sample and the scale factor
 the standard deviation. Signed angular distances are scaled into the
 $[-1, 1]$-interval and similarly the number of hits in the ID into~$[0, 1]$. The
-training process is analogous the MLP.
+training process is analogous to that of the MLP.
 
 The layer sizes in the architecture depicted in
 Figure~\ref{fig:track_rnn_schematic} are optimised by observing the validation
@@ -491,8 +491,9 @@ power is obtained by requiring isolated showers close to the tau axis.
 
 Due to the small background rejection, the standalone operation of the
 Cluster--RNN is not of interest to the offline reconstruction of \tauhadvis.
-However, it can potentially be used for tau identification at trigger-level,
-where track and vertex reconstruction are infeasible due to time constraints.
+However, it can potentially be used for tau identification at early stages of
+the trigger, where track and vertex reconstruction are infeasible due to time
+constraints.
 
 \subsubsection{Online Ditau Identification at the High Luminosity LHC}
 \label{sec:hlt_rate_reduction}

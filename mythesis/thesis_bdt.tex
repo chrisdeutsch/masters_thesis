@@ -188,7 +188,7 @@ and 3-prong BDTs.
 \end{table}
 
 \subsection{BDT Configuration for Tau Identification}
-In the following the preceding BDT configuration employed by the tau
+In the following, the preceding BDT configuration employed by the tau
 identification in ATLAS is summarised. At the time of writing, the improvements
 presented in this chapter have been partially implemented in the latest
 reconstruction release.
@@ -293,7 +293,7 @@ respect to the boosting algorithm and the most important hyperparameters.
 Many input variables have skewed or long-tailed distributions leading to
 suboptimal decision trees as TMVA uses equidistant sampling points for finding
 the best possible split on a given variable. Therefore, transformations are
-applied to the variables to improve the split finding. For this highly skewed
+applied to the variables to improve the split finding. For this, highly skewed
 distributions are log-transformed, while long-tailed distributions and outliers
 due to detector resolution effects are clamped to fall into a specified range of
 values, meaning values outside of a specified range are set to the lower or
@@ -301,7 +301,7 @@ upper limit, respectively. The exact transformations can be found in
 Appendix~\ref{app:variable_transforms}.
 
 A so called hold-out validation is used to measure how well the model
-generalises to data that was not used to train the model. For this the signal
+generalises to data that was not used to train the model. For this, the signal
 and background samples are split into two equally sized samples called training
 and testing samples. The training sample is used to train the model and the
 testing sample is used to determine the performance characteristics of the
@@ -383,9 +383,9 @@ therefore the allowed order of variable interactions (e.g.\ $d_\text{tree} = 2$
 allows interactions of up to two variables). The final parameter that is
 investigated is \emph{bagged boosting} where each tree is grown using a random
 sample of training events drawn with replacement from the full training sample.
-This method aims to reduce overfitting, which is models learning statistical
-fluctuations in the training sample and thus reducing generalisation
-performance. The corresponding hyperparameter is the fraction of
+This method aims to reduce overfitting, which refers to cases where a model
+learns statistical fluctuations in the training sample, thus reducing
+generalisation performance. The corresponding hyperparameter is the fraction of
 events~$f_\text{bag}$ in the random sample.
 
 These hyperparameters are optimised by forming a grid in the hyperparameter

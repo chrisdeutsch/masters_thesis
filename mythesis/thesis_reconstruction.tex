@@ -44,7 +44,7 @@ acceptance range of the tracking system~$|\eta| < \num{2.5}$.
 % Tracking CP recommendations
 % \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/TrackingCPPreRecsSummer2017#Track_to_Vertex_Association}
 In events with multiple primary vertices the tau production vertex has to be
-identified. For this reconstructed charged-particle tracks that are matched to
+identified. For this, reconstructed charged-particle tracks that are matched to
 the jet via ghost-matching~\cite{ghost_matching} are used.
 % via ghost-matching\footnote{Tracks matched unambiguously to calorimeter jets
 % by adding the tracks with infinitesimal energy to the constituent list
@@ -125,13 +125,14 @@ converted photons or hadronic interactions. \emph{Isolation} tracks are from
 primary particles not originating from the tau decay and \emph{fake} tracks from
 combinations of unrelated space points in the inner detector.
 
-The multi-class classification is performed by using three Boosted Decision
+The multi-class classification is performed using three Boosted Decision
 Trees~(BDT) organised into two stages. In the first stage a single BDT performs
 binary classification of tracks into one of two preliminary categories:
 charged/conversion and isolation/fake. The second stage uses two BDTs to
 separate the preliminary categories into the four final track categories. The
 BDTs employ information on track momentum, impact parameters, number of hits in
-the ID, high-threshold hits in the TRT, etc. \todo{Schematic of BDT setup -- ben}
+the ID, high-threshold hits in the TRT, etc. \todo{Schematic of BDT setup --
+  ben}
 
 The track classification is used to reconstruct the charge of the \tauhadvis by
 summing the charge of all \emph{charged} tracks. The number of \emph{charged}
@@ -276,7 +277,7 @@ four-momentum is set to the four-momentum of the seed cell.
 
 The number of photons~$N_\text{photons}$ in a shot is determined by its
 transverse energy. If the transverse energy of the shot exceeds a detector
-region dependent threshold of \num{300} to \SI{430}{\GeV}, a single photon is
+region dependent threshold of \num{300} to \SI{430}{\MeV}, a single photon is
 counted. Otherwise, no photon is counted to reduce contributions of shots not
 originating from photons. For large transverse momenta of the neutral pion the
 strip layer cannot resolve individual photons, therefore shots exceeding
