@@ -7,48 +7,87 @@ collision events to four major experiments: ATLAS, CMS, ALICE and LHCb. In
 proton--proton operation, bunches of protons are crossed at the interaction
 points located inside of the experiments with a peak bunch crossing rate
 of~\SI{40}{\mega\hertz}~\cite{lhc}. With a proton beam energy of \SI{6.5}{\TeV}
-during Run 2 of the LHC, the collisions take place at a center-of-mass energy of
-\SI{13}{\TeV} with a peak instantaneous luminosity of
-\SI{1.4e34}{\per\square\centi\metre\per\second} reached during the 2016 $pp$
-data taking period~\cite{lhc_2016_report}.
+during Run~2 of the LHC, the proton--collisions take place at a center-of-mass
+energy of \SI{13}{\TeV}. During the 2016 data taking period, a peak
+instantaneous luminosity of~\SI{1.4e34}{\per\square\centi\metre\per\second} was
+reached~\cite{lhc_2016_report}, which was further increased for the 2017 period.
 
 \section{The ATLAS Detector}
 \label{sec:atlas}
 
 The ATLAS detector~\cite{atlas_detector} is a multipurpose particle detector
 experiment at the LHC. An overview of the detector is given in
-Figure~\ref{fig:atlas_detector}. Due to its cylindrical geometry, it provides
-almost $4\pi$~coverage of the interaction point and forward-backward symmetry.
-Specialised detector systems are arranged in concentric layers around the beam
-axis, enabling to measure and reconstruct a multitude of physics objects, e.g.\
-photons, muons, taus and .
+Figure~\ref{fig:atlas_detector}. Its cylindrical geometry provides almost
+$4\pi$~coverage of the nominal interaction point with a forward-backward
+symmetry. Specialised detector subsystems are arranged in concentric layers
+around the beam axis, enabling the reconstruction of photons, electrons, muons,
+taus and jets. Moreover, the detector coverage allows to reconstruct missing
+transverse energy from weakly and non-interacting particles.
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{./figures/atlas/overview.jpg}
-  \caption{Overview of the ATLAS detector~\cite{atlas_detector}.}
+  \caption{Overview of the ATLAS detector~\cite{atlas_detector}. Shown is the
+    inner detector consisting of pixel, microstrip (SCT), transition radiation
+    tracker (TRT) and solenoid; the calorimeter system consisting of LAr and
+    Tile sampling calorimeters and the muon spectrometer consisting of tracking
+    chambers and air-core toroids.}
   \label{fig:atlas_detector}
 \end{figure}
 
+In the ATLAS experiment a right-handed coordinate system is used to describe
+positions in the detector. The origin of the coordinate system is located at the
+nominal interaction point, with the $z$-axis pointing along the beam axis, the
+$x$-axis towards the centre of the LHC ring and the $y$-axis upwards. The $x$-
+and $y$-axes span the transverse plane. Spherical
+coordinates~$(\rho, \varphi, \theta)$ are commonly used, with the azimuthal
+angle~$\varphi$ being measured in the transverse plane and the polar
+angle~$\theta$ with respect to the beam axis.
 
+Due to the unknown longitudinal momentum of colliding partons in the
+proton--proton collisions, the momentum of final state particles only balances
+in the transverse plane. Therefore, transverse quantities for momentum and
+energy are defined as
+\begin{align*}
+  p_\text{T} &= |\mathbf{p}| \sin\theta & E_\text{T} &= E \sin\theta \eqdot
+\end{align*}
+In addition, the unknown boost along the $z$-axis motivates the definition of
+the pseudorapidity
+\begin{align*}
+  \eta &= -\ln\left[ \tan\left( \frac{\theta}{2} \right) \right] \eqcomma
+\end{align*}
+such that differences in~$\eta$ are Lorentz-invariant in the massless limit, and
+the angular distance
+\begin{align*}
+  \Delta R &= \sqrt{\left(\Delta\eta\right)^2 + \left(\Delta\varphi\right)^2} \eqcomma
+\end{align*}
+where $\Delta \eta$ and $\Delta \varphi$ are the differences in pseudorapidity
+and azimuthal angle, respectively.
+
+In the following a brief description of the detector subsystems is given. In
+increasing radial distance, the systems are:
 \begin{description}
-\item[Inner Detector] The Inner Detector (ID) consists of several layers of
-  pixel detectors, silicon microstrip detectors and straw tubes of the
-  Transition Radiation Tracker (TRT). It allows to reconstruct space points of
-  charged particles at different radii, which are used to reconstruct tracks and
-  to measure the transverse momenta from the curvature in the \SI{2}{\tesla}
-  axial magnetic field. The TRT offers electron identification via
-  high-threshold hits originating from transition radiation created by electrons
-  crossing the straw tube material.
+\item[Inner Detector] The inner detector (ID) consists of several layers of
+  pixel detectors, silicon microstrip detectors and straw chambers. The ID is
+  submerged in a \SI{2}{\tesla} axial magnetic field, bending the trajectories
+  of charged particles in the transverse plane and allowing transverse momentum
+  measurements. Hits of charged tracks in the active layers of the ID are
+  reconstructed as space points, which are used to perform tracking and
+  vertexing. The straw tubes of the Transition Radiation Tracker (TRT) offer
+  large radius tracking as well as electron identification via high-threshold
+  hits originating from transition radiation of electrons crossing the tube
+  material.
 
-\item[Calorimeter] The calorimeter system allows the energy measurement of
-  electrons, photon and hadrons. It consists of an electromagnetic calorimeter
-  with high granularity to measure energy depositions of electrons and photons
-  and a hadronic calorimeter for measuring hadrons.
+\item[Calorimeter] The sampling calorimeters used in the ATLAS detector allow to
+  measure the energies of photons, electrons and hadrons. The calorimeter system
+  consists of an electromagnetic calorimeter with high granularity, designed to
+  reconstruct energy depositions of photons and electrons, and the coarser
+  hadronic calorimeter to reconstruct jets of hadrons.
 
-\item[Muon Spectrometer] Three layers of tracking chambers in the magnetic field
-  of an air-core toroid outside of the calorimeter system, are used to measure
-  the momentum of muons.
+\item[Muon Spectrometer] Muons passing the calorimeter are measured in
+  high-precision tracking chambers in the magnetic field of an air-core toroid.
+  The spectrometer allows to identify muons and measure their momentum from the
+  curvature of reconstructed tracks in the muon system.
 
 \item[Trigger System] The peak event rate of \SI{40}{\mega\hertz}, mostly
   consisting of events not of immediate interest for physics research, needs to
@@ -59,41 +98,7 @@ photons, muons, taus and .
   filter allows moving the events to permanent storage for later analysis.
 \end{description}
 
-
-\section{Coordinate System}
-\label{sec:atlas_coord_sys}
-
-In the ATLAS experiment a right-handed coordinate system is used to describe
-positions in the detector. The origin of the coordinate system is located at the
-nominal interaction point, with the $z$-axis pointing in beam direction, the
-$x$-axis pointing towards the center of the LHC ring and the $y$-axis pointing
-upwards. The $x$ and $y$ axes span the transverse plane. Cylindrical
-coordinates~$(r, \varphi, z)$ with the azimuthal angle $\varphi$ or spherical
-coordinates $(r, \varphi, \theta)$ with the polar angle~$\theta$ with respect to
-the beam pipe are commonly used.
-
-Due to the unknown longitudinal momentum of colliding partons in longitudinal
-direction, the momentum of final state particles only balances in the transverse
-plane. Therefore, transverse quantities for momentum and energy are defined as
-\begin{align*}
-  p_\text{T} &= |\vec{p}| \sin\theta & E_\text{T} &= E \sin{\theta} \eqcomma
-\end{align*}
-where ABC. Moreover, the unknown boost along the $z$-axis leads to the definition of
-the pseudorapidity
-\begin{align*}
-  \eta &= -\ln\left[\tan\left( \frac{\theta}{2} \right) \right] \eqcomma
-\end{align*}
-such that differences in pseudorapidity are Lorentz-invariant in the massless
-limit. As a result, the Lorentz-invariant angular distance between two
-reconstructed objects is given by
-\begin{align*}
-  \Delta R &= \sqrt{(\Delta\eta)^2 + (\Delta\varphi)^2} \eqcomma
-\end{align*}
-where $\Delta \eta$ and $\Delta \varphi$ are the differences in pseudorapidity
-and azimuthal angle, respectively.
-
-
-\subsection{Tracking System}
+\subsection{Inner Detector}
 \label{sec:atlas_tracking}
 
 \begin{figure}[ht]
