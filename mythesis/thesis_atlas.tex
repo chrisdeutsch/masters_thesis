@@ -2,48 +2,96 @@
 \chapter{The ATLAS Experiment at the Large Hadron Collider}
 \label{chap:atlas}
 
-\section{The Large Hadron Collider}
-\label{sec:lhc}
+The LHC at CERN is a symmetric proton--proton and heavy ion collider, supplying
+collision events to four major experiments: ATLAS, CMS, ALICE and LHCb. In
+proton--proton operation, bunches of protons are crossed at the interaction
+points located inside of the experiments with a peak bunch crossing rate
+of~\SI{40}{\mega\hertz}~\cite{lhc}. With a proton beam energy of \SI{6.5}{\TeV}
+during Run 2 of the LHC, the collisions take place at a center-of-mass energy of
+\SI{13}{\TeV} with a peak instantaneous luminosity of
+\SI{1.4e34}{\per\square\centi\metre\per\second} reached during the 2016 $pp$
+data taking period~\cite{lhc_2016_report}.
 
-\section{The ATLAS Experiment}
+\section{The ATLAS Detector}
 \label{sec:atlas}
 
-\begin{figure}[ht]
+The ATLAS detector~\cite{atlas_detector} is a multipurpose particle detector
+experiment at the LHC. An overview of the detector is given in
+Figure~\ref{fig:atlas_detector}. Due to its cylindrical geometry, it provides
+almost $4\pi$~coverage of the interaction point and forward-backward symmetry.
+Specialised detector systems are arranged in concentric layers around the beam
+axis, enabling to measure and reconstruct a multitude of physics objects, e.g.\
+photons, muons, taus and .
+
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\textwidth]{./figures/atlas/overview.jpg}
-  \caption{Overview of the ATLAS detector\cite{atlas_detector}}
-  \label{fig:atlas_indet}
+  \caption{Overview of the ATLAS detector~\cite{atlas_detector}.}
+  \label{fig:atlas_detector}
 \end{figure}
 
-\cite{atlas_detector}
 
-\subsection{Coordinate System}
+\begin{description}
+\item[Inner Detector] The Inner Detector (ID) consists of several layers of
+  pixel detectors, silicon microstrip detectors and straw tubes of the
+  Transition Radiation Tracker (TRT). It allows to reconstruct space points of
+  charged particles at different radii, which are used to reconstruct tracks and
+  to measure the transverse momenta from the curvature in the \SI{2}{\tesla}
+  axial magnetic field. The TRT offers electron identification via
+  high-threshold hits originating from transition radiation created by electrons
+  crossing the straw tube material.
+
+\item[Calorimeter] The calorimeter system allows the energy measurement of
+  electrons, photon and hadrons. It consists of an electromagnetic calorimeter
+  with high granularity to measure energy depositions of electrons and photons
+  and a hadronic calorimeter for measuring hadrons.
+
+\item[Muon Spectrometer] Three layers of tracking chambers in the magnetic field
+  of an air-core toroid outside of the calorimeter system, are used to measure
+  the momentum of muons.
+
+\item[Trigger System] The peak event rate of \SI{40}{\mega\hertz}, mostly
+  consisting of events not of immediate interest for physics research, needs to
+  be reduced in the trigger system to match the limited throughput of the data
+  acquisition systems. The trigger system is divided into three levels: L1, L2
+  and the event filter, which successively reduce the rate while having access
+  to detector information of increasing granularity. The rate after the event
+  filter allows moving the events to permanent storage for later analysis.
+\end{description}
+
+
+\section{Coordinate System}
 \label{sec:atlas_coord_sys}
 
-ATLAS right-handed coordinate system. Origin at IP, z-axis in beam direction.
-x-axis points to the centre of the ring. y-axis points upwards. $x$,$y$ span the
-transverse plane. Cylindrical coordinates can be used $(r, \phi, z)$ with the
-azimuthal angle $\phi$. Or spherical coordinates $(r, \phi, \theta)$ with the
-polar angle $\theta$ with respect to the beam direction $z$ is used.
+In the ATLAS experiment a right-handed coordinate system is used to describe
+positions in the detector. The origin of the coordinate system is located at the
+nominal interaction point, with the $z$-axis pointing in beam direction, the
+$x$-axis pointing towards the center of the LHC ring and the $y$-axis pointing
+upwards. The $x$ and $y$ axes span the transverse plane. Cylindrical
+coordinates~$(r, \varphi, z)$ with the azimuthal angle $\varphi$ or spherical
+coordinates $(r, \varphi, \theta)$ with the polar angle~$\theta$ with respect to
+the beam pipe are commonly used.
 
-Momentum conservation only in transverse plane due to unknown momentum in
-longitudinal direction leads to the 'definition' of $p_\text{T}$. Rapidity $y$
-and pseudorapidity $\eta$ differences Lorentz-invariant (only boost along the
-$z$-axis) in the massless limit.
-
+Due to the unknown longitudinal momentum of colliding partons in longitudinal
+direction, the momentum of final state particles only balances in the transverse
+plane. Therefore, transverse quantities for momentum and energy are defined as
 \begin{align*}
-  p_\text{T} &= | \vec{p} | \, \cos\theta \\
-  y &= \frac{1}{2} \ln\frac{E + p_z}{E - p_z} \\
-  \eta &= -\ln\tan\left( \frac{\theta}{2} \right) \\
-  \Delta R &= \sqrt{(\Delta\eta)^2 + (\Delta\phi)^2}
+  p_\text{T} &= |\vec{p}| \sin\theta & E_\text{T} &= E \sin{\theta} \eqcomma
 \end{align*}
+where ABC. Moreover, the unknown boost along the $z$-axis leads to the definition of
+the pseudorapidity
+\begin{align*}
+  \eta &= -\ln\left[\tan\left( \frac{\theta}{2} \right) \right] \eqcomma
+\end{align*}
+such that differences in pseudorapidity are Lorentz-invariant in the massless
+limit. As a result, the Lorentz-invariant angular distance between two
+reconstructed objects is given by
+\begin{align*}
+  \Delta R &= \sqrt{(\Delta\eta)^2 + (\Delta\varphi)^2} \eqcomma
+\end{align*}
+where $\Delta \eta$ and $\Delta \varphi$ are the differences in pseudorapidity
+and azimuthal angle, respectively.
 
-\begin{itemize}
-\item $\Delta R$: Lorentz-invariant in the massless particle limit (otherwise
-  the same definition but with rapidity instead of pseudorapidity is required)
-\item Transverse energy $E_\text{T}$
-\item Missing transverse energy $E_\text{T}^\text{miss}$
-\end{itemize}
 
 \subsection{Tracking System}
 \label{sec:atlas_tracking}
@@ -61,6 +109,8 @@ $z$-axis) in the massless limit.
 \todo[inline]{Define impact parameter: $d_0$ and $z_0$.}
 \todo[inline]{Define perigee}
 % See \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/InDetTrackingDC14#Impact_parameters_z0_d0_definiti}
+
+Coverage to $|\eta| < 2.5$
 
 \todo[inline]{Find primary sources on this stuff!}
 \begin{itemize}
@@ -100,6 +150,13 @@ $z$-axis) in the massless limit.
 \todo[inline]{EM and LC scale}
 \todo[inline]{Introduce nomenclature: strip layer, EM1, EM2, EM3, HAD}
 
+Coverage:
+
+EM LAr covers $|\eta|< 3.2$
+
+Scintillator-tile in~$|\eta| < 1.7$
+
+End-caps hadronic $|\eta| > 1.5$ also LAr coverage to $|\eta| = 4.9$
 
 \begin{figure}[ht]
   \centering
