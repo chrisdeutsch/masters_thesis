@@ -2,17 +2,18 @@
 \chapter{The ATLAS Experiment at the Large Hadron Collider}
 \label{chap:atlas}
 
-The LHC at CERN is a symmetric proton--proton and heavy ion collider, supplying
-collision events to four major experiments: ATLAS, CMS, ALICE and LHCb. In
-proton--proton operation, bunches of protons are crossed at the interaction
-points located inside of the experiments with a peak bunch crossing rate
-of~\SI{40}{\mega\hertz}~\cite{lhc}. With a proton beam energy of \SI{6.5}{\TeV}
-during Run~2 of the LHC, the proton--collisions take place at a center-of-mass
-energy of \SI{13}{\TeV}. During the 2016 data taking period, a peak
-instantaneous luminosity of~\SI{1.4e34}{\per\square\centi\metre\per\second} was
+The ATLAS experiment is located at the LHC at CERN, a symmetric proton--proton
+and heavy ion collider, supplying collision events to four major experiments:
+ATLAS, CMS, ALICE and LHCb. In proton--proton operation, bunches of protons are
+crossed at the interaction points located inside of the experiments with a peak
+bunch crossing rate of~\SI{40}{\mega\hertz}~\cite{lhc}. With a proton beam
+energy of \SI{6.5}{\TeV} during Run~2 of the LHC, the proton--collisions take
+place at a center-of-mass energy of \SI{13}{\TeV}. During the 2016 data taking
+period, a peak instantaneous luminosity
+of~\SI{1.4e34}{\per\square\centi\metre\per\second} was
 reached~\cite{lhc_2016_report}, which was further increased for the 2017 period.
 
-\section{The ATLAS Detector}
+\section{Overview of the ATLAS Detector}
 \label{sec:atlas}
 
 The ATLAS detector is a multipurpose particle detector experiment at the
@@ -105,7 +106,7 @@ For the reconstruction of hadronic tau decays, the tracking and calorimeter
 systems are of large importance. In the following they are described in more
 detail.
 
-\section{Inner Detector}
+\section{The Inner Detector}
 \label{sec:atlas_tracking}
 
 The inner detector of the ATLAS experiment provides track reconstruction in the
@@ -160,8 +161,8 @@ reconstruction.
       reference.}
     \label{fig:transverse_impact_param}
   \end{subfigure}
-  \caption{Definitions of the impact parameters at the perigee with respect to a
-    reference point (here at the origin).}
+  \caption{Definitions of the impact parameters at the perigee with respect to
+    the origin.}
   \label{fig:impact_params}
 \end{figure}
 
@@ -171,8 +172,8 @@ $r = \SI{299}{\milli\metre}$ to \SI{514}{mm}~\cite{atlas_detector}. In the
 endcaps the SCT consists of nine disks perpendicular to the beam axis. The
 intrinsic resolution of the SCT sensors is \SI{17}{\micro\metre} in $r\varphi$
 and in axial (radial) direction \SI{580}{\micro\metre} for barrel
-(disks)~\cite{atlas_detector}. The tracking detectors based on semiconductor
-technology provide a pseudorapidity coverage of approximately~$|\eta| < 2.5$.
+(disks)~\cite{atlas_detector}. The semiconductor tracking detectors provide a
+pseudorapidity coverage of approximately~$|\eta| < 2.5$.
 
 Track measurement at large radial ranges of $r = \SI{554}{\milli\metre}$ to
 \SI{1082}{\milli\metre} are provided by the TRT consisting of drift tubes with a
@@ -193,16 +194,59 @@ $d_0$ and $z_0$ (cf.\ Figure~\ref{fig:impact_params}), the azimuthal and polar
 angles of the track momentum at the perigee, $\varphi$ and $\theta$, as well as
 the ratio of charge and momentum of the track, $q / p$.
 
-
 % See \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/InDetTrackingDC14#Impact_parameters_z0_d0_definiti}
 
-
-\section{Calorimeter System}
+\section{The Calorimeter System}
 \label{sec:atlas_calo}
 
-\todo[inline]{Topoclustering}
-\todo[inline]{Define what a moment is}
-\todo[inline]{EM and LC scale}
+The ATLAS calorimeter system uses sampling calorimeters to measure the energy
+deposition of charged and neutral particles in the calorimeter material. The
+system provides a pseudorapidity coverage
+of~$|\eta| < 4.9$~\cite{atlas_detector}. It is divided into two parts, the
+electromagnetic (EM) and the hadronic calorimeter, which are futher subdivided
+into samplings of varying thickness and granularity. The EM calorimeter has a
+thickness of 22 to 24 radiation lengths\footnote{A radiation length~$X_0$ is the
+  mean distance an electron travels through matter, until it lost all
+  but~$e^{-1}$ of its initial energy due to bremsstrahlung.}, depending
+on~$|\eta|$, thus fully containing electromagnetic showers originating from
+electrons and photons. The hadronic calorimeter has a thickness of approximately
+10 interactions lengths\footnote{The interaction length~$\lambda$}, abc.
+
+
+
+
+
+
+
+
+The ATLAS calorimeter system provides a pseudorapidity coverage of
+$|\eta| < 4.9$~\cite{atlas_detector}, with calorimeter thickness sufficient to
+contain most electromagnetic and hadronic showers, thereby allowing to
+reconstruct the missing transverse momentum.
+
+An overview of the calorimeter system is shown in Figure~\ref{fig:atlas_calo}.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./figures/atlas/calorimeter.jpg}
+  \caption{Overview of the ATLAS calorimeter system~\cite{calo_fig}.}
+  \label{fig:atlas_calo}
+\end{figure}
+
+
+The EM calorimeter is a sampling calorimeter consisting of lead absorbers and
+using liquid argon (LAr) as the active material.
+
+
+
+
+
+EM calo >22 radlen (barrel)
+EM calo >24 radlen (endcap)
+
+9.7 interaction length lambda in barrel
+10 in endcap
+
 \todo[inline]{Introduce nomenclature: strip layer, EM1, EM2, EM3, HAD}
 
 Coverage:
@@ -213,46 +257,14 @@ Scintillator-tile in~$|\eta| < 1.7$
 
 End-caps hadronic $|\eta| > 1.5$ also LAr coverage to $|\eta| = 4.9$
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{./figures/atlas/calorimeter.jpg}
-  \caption{ATLAS calorimeter\cite{calo_fig} also in \cite{atlas_detector}}
-  \label{fig:atlas_indet}
-\end{figure}
+
+\todo[inline]{Topoclustering}
+\todo[inline]{Define what a moment is}
+\todo[inline]{EM and LC scale}
+
+\subsection{Topological Cell Clustering and Local Hadronic Calibration}
 
 
-
-\begin{itemize}
-\item LHC (brief)
-
-\item ATLAS
-  \begin{itemize}
-  \item Overview (Design goals) \\
-    brief: Beam Line, Inner Detector \& Solenoid, Calorimeter, Muon System \&
-    Toroid, Trigger
-
-  \item Nomenclature (Coordinate system, Pseudorapidity, $\Delta R$,
-    $p_\mathrm{T}$)
-
-  \item Inner detector / Tracker (and why they are important for taus)
-    \begin{itemize}
-    \item Pixel, IBL
-    \item SCT
-    \item TRT
-    \item  Transverse Momentum Resolution, Vertex \& Secondary Vertex
-      reconstruction, Impact Parameter Resolution, $\eta$-Coverage
-    \end{itemize}
-
-  \item Calorimeter (and why they are important for taus)
-    \begin{itemize}
-    \item Presampler, LAr (EM1 - EM3), Had (Tile, LAr)
-    \item Cell sizes, $\eta$-Coverage, Thickness $X_0$ / $\lambda$,
-      Energy Resolution vs. $E$
-    \item Topoclusters \& Cluster moments
-    \end{itemize}
-
-  \end{itemize}
-\end{itemize}
 
 %%% Local Variables:
 %%% mode: latex
