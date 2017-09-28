@@ -69,8 +69,8 @@ increasing radial distance, the systems are:
 \begin{description}
 \item[Inner Detector] The inner detector (ID) consists of several layers of
   pixel detectors, silicon microstrip detectors and straw chambers. The ID is
-  submerged in a \SI{2}{\tesla} axial magnetic field, bending the trajectories
-  of charged particles in the transverse plane and allowing transverse momentum
+  embedded in a \SI{2}{\tesla} axial magnetic field, bending the trajectories of
+  charged particles in the transverse plane and allowing transverse momentum
   measurements. Hits of charged tracks in the active layers of the ID are
   reconstructed as space points, which are used to perform tracking and
   vertexing. The straw tubes of the Transition Radiation Tracker (TRT) offer
@@ -97,6 +97,9 @@ increasing radial distance, the systems are:
   to detector information of increasing granularity. The rate after the event
   filter allows moving the events to permanent storage for later analysis.
 \end{description}
+For the reconstruction of hadronic tau decays, the tracking and calorimeter
+systems are of large importance. They are described in more detail in the
+following.
 
 \subsection{Inner Detector}
 \label{sec:atlas_tracking}
@@ -104,12 +107,31 @@ increasing radial distance, the systems are:
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.75\textwidth]{./figures/atlas/inner_detector.jpg}
-  \caption{ATLAS inner detector\cite{indet_fig} also in \cite{atlas_detector}}
+  \caption{ATLAS inner detector\cite{indet_fig} also in \cite{atlas_detector}.
+    Not shown IBL!}
   \label{fig:atlas_indet}
 \end{figure}
 
-\todo[inline]{Name this 'Inner Detector'?}
-\todo[inline]{Introduce abbrev.\ ID}
+Accurate track reconstruction: tracking in high particle densities, meet
+momentum and vertex resolution requirements
+
+Three subparts: pixel, sct, trt
+
+IBL: installed during LS1, reduce distance to the IP (33mm), whats that good
+for? r= 33.25 mm
+
+Pixel includes IBL
+
+Pixel: Three layers in barrel and endcap, intrinsic resolution 10mu in rphi,
+115mu in z, r=50.5mm to 122.5mm
+
+SCT: silicon strip modules, four barrel layers and two endcaps with 9 layers
+each, r=299mm to 514mm
+
+TRT: gas-filled straw tubes, barrel and two endcaps, 130mu intrinsic resolution in rphi,
+r=554mm to 1082mm
+
+
 \todo[inline]{Introduce abbrev.\ IBL}
 \todo[inline]{Define impact parameter: $d_0$ and $z_0$.}
 \todo[inline]{Define perigee}
