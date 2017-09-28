@@ -15,14 +15,14 @@ reached~\cite{lhc_2016_report}, which was further increased for the 2017 period.
 \section{The ATLAS Detector}
 \label{sec:atlas}
 
-The ATLAS detector~\cite{atlas_detector} is a multipurpose particle detector
-experiment at the LHC. An overview of the detector is given in
+The ATLAS detector is a multipurpose particle detector experiment at the
+LHC~\cite{atlas_detector}. An overview of the detector is given in
 Figure~\ref{fig:atlas_detector}. Its cylindrical geometry provides almost
-$4\pi$~coverage of the nominal interaction point with a forward-backward
-symmetry. Specialised detector subsystems are arranged in concentric layers
-around the beam axis, enabling the reconstruction of photons, electrons, muons,
-taus and jets. Moreover, the detector coverage allows to reconstruct missing
-transverse energy from weakly and non-interacting particles.
+$4\pi$~coverage and forward-backward symmetry with respect to the nominal
+interaction point. Specialised detector subsystems are arranged in concentric
+layers around the beam axis, enabling the reconstruction of photons, electrons,
+muons, taus and jets. Moreover, the detector coverage allows to reconstruct
+missing transverse energy from weakly and non-interacting particles.
 
 \begin{figure}[htb]
   \centering
@@ -40,7 +40,7 @@ positions in the detector. The origin of the coordinate system is located at the
 nominal interaction point, with the $z$-axis pointing along the beam axis, the
 $x$-axis towards the centre of the LHC ring and the $y$-axis upwards. The $x$-
 and $y$-axes span the transverse plane. Spherical
-coordinates~$(\rho, \varphi, \theta)$ are commonly used, with the azimuthal
+coordinates~$(r, \varphi, \theta)$ are commonly used, with the azimuthal
 angle~$\varphi$ being measured in the transverse plane and the polar
 angle~$\theta$ with respect to the beam axis.
 
@@ -72,104 +72,132 @@ increasing radial distance, the systems are:
   embedded in a \SI{2}{\tesla} axial magnetic field, bending the trajectories of
   charged particles in the transverse plane and allowing transverse momentum
   measurements. Hits of charged tracks in the active layers of the ID are
-  reconstructed as space points, which are used to perform tracking and
-  vertexing. The straw tubes of the Transition Radiation Tracker (TRT) offer
-  large radius tracking as well as electron identification via high-threshold
+  reconstructed as so called space points, which are used to perform tracking
+  and vertexing. The straw tubes of the Transition Radiation Tracker (TRT) offer
+  tracking at large radii as well as electron identification via high-threshold
   hits originating from transition radiation of electrons crossing the tube
   material.
 
-\item[Calorimeter] The sampling calorimeters used in the ATLAS detector allow to
-  measure the energies of photons, electrons and hadrons. The calorimeter system
-  consists of an electromagnetic calorimeter with high granularity, designed to
-  reconstruct energy depositions of photons and electrons, and the coarser
-  hadronic calorimeter to reconstruct jets of hadrons.
+\item[Calorimeter System] The sampling calorimeters used in the ATLAS detector
+  allow to measure the energies of photons, electrons and hadrons. The
+  calorimeter system consists of an electromagnetic calorimeter with high
+  granularity, designed to reconstruct energy depositions of photons and
+  electrons, and the coarser hadronic calorimeter to reconstruct jets of
+  hadrons.
 
 \item[Muon Spectrometer] Muons passing the calorimeter are measured in
   high-precision tracking chambers in the magnetic field of an air-core toroid.
   The spectrometer allows to identify muons and measure their momentum from the
   curvature of reconstructed tracks in the muon system.
 
-\item[Trigger System] The peak event rate of \SI{40}{\mega\hertz}, mostly
-  consisting of events not of immediate interest for physics research, needs to
-  be reduced in the trigger system to match the limited throughput of the data
-  acquisition systems. The trigger system is divided into three levels: L1, L2
-  and the event filter, which successively reduce the rate while having access
-  to detector information of increasing granularity. The rate after the event
-  filter allows moving the events to permanent storage for later analysis.
+\item[Trigger and Data Acquisition Systems] The peak event rate of
+  \SI{40}{\mega\hertz} in the ATLAS detector, mostly consisting of events not of
+  immediate interest for physics research, needs to be reduced in a trigger
+  system to match the limited throughput of the data acquisition systems, while
+  still being sensitive to rare physics processes. The trigger of the ATLAS
+  detector is divided into three levels: L1, L2 and the event filter. They
+  successively reduce the rate, while having access to detector information of
+  increasing granularity. After the final trigger level, the event filter, the
+  rate is sufficiently small, such that events can be moved to permanent storage
+  for later analysis.
 \end{description}
 For the reconstruction of hadronic tau decays, the tracking and calorimeter
-systems are of large importance. They are described in more detail in the
-following.
+systems are of large importance. In the following they are described in more
+detail.
 
-\subsection{Inner Detector}
+\section{Inner Detector}
 \label{sec:atlas_tracking}
 
-\begin{figure}[ht]
+The inner detector of the ATLAS experiment provides track reconstruction in the
+high particle density environment of proton--proton collisions at the LHC. This
+allows to meet transverse momentum and vertex resolution requirements needed to
+perform physics analyses. An overview of the inner detector is shown in
+Figure~\ref{fig:atlas_indet}.
+
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\textwidth]{./figures/atlas/inner_detector.jpg}
-  \caption{ATLAS inner detector\cite{indet_fig} also in \cite{atlas_detector}.
-    Not shown IBL!}
+  \caption{Overview of the ATLAS inner detector~\cite{indet_fig}. Shown are
+    pixel and, microstrip detector as well as the Transition Radiation Tracker.
+    The innermost pixel layer, the Insertable B-Layer installed during
+    Long~Shutdown~1, is not depicted.}
   \label{fig:atlas_indet}
 \end{figure}
 
-Accurate track reconstruction: tracking in high particle densities, meet
-momentum and vertex resolution requirements
+The inner detector consists of three distinct and complementary parts employing
+different detector technologies. From the interaction point outwards, it
+consists of: pixel detectors, silicon microstrip detectors and a transition
+radiation detector using drift tubes.
 
-Three subparts: pixel, sct, trt
+The pixel detectors consist of the Insertable B-Layer (IBL), installed during
+Long~Shutdown~1 at a reduced distance from the interaction point
+of~$r = \SI{33.25}{\milli\metre}$~\cite{ibl_tdr}, and three additional layers
+spanning radial distances from \SI{50.5}{\milli\metre} to
+\SI{122.5}{\milli\metre}~\cite{atlas_detector} in the barrel of the ATLAS
+detector. Additionally, three disks of pixel detectors cover the forward and
+backward regions in two endcaps. The sensors of the IBL provide an intrinsic
+resolution of approximately \SI{10}{\micro\metre} in the azimuthal ($r\varphi$)
+direction and \SI{65}{\micro\metre} in $z$-direction~\cite{ibl_measurement}. The
+other layers have resolutions of \SI{10}{\micro\metre} in $r\varphi$ and
+\SI{115}{\micro\metre} in $z$-direction~\cite{atlas_detector}. The high
+resolution of the pixel detectors and their proximity to the interaction point
+are crucial for track impact parameter measurements (cf.\
+Figure~\ref{fig:impact_params}) and for primary as well as secondary vertex
+reconstruction.
 
-IBL: installed during LS1, reduce distance to the IP (33mm), whats that good
-for? r= 33.25 mm
+\begin{figure}[htb]
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/atlas/impact_params_z0.pdf}
+    \subcaption{Definition of the longitudinal impact parameter, $z_0$.}
+    \label{fig:longitudinal_impact_param}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/atlas/impact_params_d0.pdf}
+    \subcaption{Definition of the transverse impact parameter, $d_0$. The sign
+      of $d_0$ depends on the angular momentum of the track w.r.t.\ the
+      reference.}
+    \label{fig:transverse_impact_param}
+  \end{subfigure}
+  \caption{Definitions of the impact parameters at the perigee with respect to a
+    reference point (here at the origin).}
+  \label{fig:impact_params}
+\end{figure}
 
-Pixel includes IBL
+The Semiconductor Tracker (SCT) is a silicon microstrip detector with four
+barrel layers covering the intermediate radial range from
+$r = \SI{299}{\milli\metre}$ to \SI{514}{mm}~\cite{atlas_detector}. In the
+endcaps the SCT consists of nine disks perpendicular to the beam axis. The
+intrinsic resolution of the SCT sensors is \SI{17}{\micro\metre} in $r\varphi$
+and in axial (radial) direction \SI{580}{\micro\metre} for barrel
+(disks)~\cite{atlas_detector}. The tracking detectors based on semiconductor
+technology provide a pseudorapidity coverage of approximately~$|\eta| < 2.5$.
 
-Pixel: Three layers in barrel and endcap, intrinsic resolution 10mu in rphi,
-115mu in z, r=50.5mm to 122.5mm
+Track measurement at large radial ranges of $r = \SI{554}{\milli\metre}$ to
+\SI{1082}{\milli\metre} are provided by the TRT consisting of drift tubes with a
+diameter of \SI{4}{\milli\metre} aligned with the beam axis. As a result, they
+only provide azimuthal measurements with an intrinsic resolution of
+\SI{130}{\micro\metre}~\cite{atlas_detector}. With a large number of 73 (160)
+straw planes in the barrel (endcap) it provides nearly continuous tracking and
+electron identification over a pseudorapidity range
+of~$|\eta| < 2.0$~\cite{atlas_detector}.
 
-SCT: silicon strip modules, four barrel layers and two endcaps with 9 layers
-each, r=299mm to 514mm
+Charged-particle tracks are reconstructed from space points using sophisticated
+pattern-recognition and tracking algorithms. After reconstruction, several
+representations can be used to define tracks. In the ATLAS detector, tracks are
+often represented at the perigee with respect to a reference point, which is
+commonly the primary vertex or the beamspot. In this representation tracks are
+unambiguously defined by the transverse and longitudinal impact parameters,
+$d_0$ and $z_0$ (cf.\ Figure~\ref{fig:impact_params}), the azimuthal and polar
+angles of the track momentum at the perigee, $\varphi$ and $\theta$, as well as
+the ratio of charge and momentum of the track, $q / p$.
 
-TRT: gas-filled straw tubes, barrel and two endcaps, 130mu intrinsic resolution in rphi,
-r=554mm to 1082mm
 
-
-\todo[inline]{Introduce abbrev.\ IBL}
-\todo[inline]{Define impact parameter: $d_0$ and $z_0$.}
-\todo[inline]{Define perigee}
 % See \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/InDetTrackingDC14#Impact_parameters_z0_d0_definiti}
 
-Coverage to $|\eta| < 2.5$
 
-\todo[inline]{Find primary sources on this stuff!}
-\begin{itemize}
-\item Track \& vertex reconstruction
-\item Charged particles provide hits in ID
-\item High spacial resolution to reconstruct tracks in dense environments
-  (number of tracks per event -- 200? -- check this)
-\item Solenoid field with \SI{2}{\tesla}
-\item Secondary vertex reconstruction (B-layer -- this is important, Pixel, SCT)
-\item TRT -- 'continuous' tracking (what is this?) and distinction between
-  electrons and hadrons using transition-radiation
-\item ID acceptance $|\eta| < \num{2.5}$
-\item Split into barrel and two endcap regions
-\item Pixel: Three barrel layers, three endcap layers each (and 1 layer IBL).
-  Pixel detector in 'Pixel Support Tube' to allow exchange of elements in case
-  of radiation damage. Inner Radius \SI{4.2}{\centi\metre} and outer radius
-  \SI{25}{\centi\metre}.
-\item The layer after the IBL is called B-layer!
-\item IBL \cite{ibl_tdr}: Improve B-tagging when modules in the remaining pixel layers fail;
-  Tracking inefficiencies at high pileup affects B-layer needs redundancy;
-  Better impact parameter reconstruction improves vertexing and b-tagging
-\item Pixel layers segmented in $r\varphi$ and $z$. Single pixel
-  \SI{50}{\micro\metre} in $r\varphi$ and \SI{400}{\micro\metre} in $z$
-\item Silicon strip detectors (four layers) in support structure with radius of
-  about \SI{55}{\centi\metre}
-\item SCT strip detectors \SI{15}{\micro\metre} $r\varphi$ and
-  \SI{70}{\micro\metre} $z$ resolution
-\item TRT: Barrel region $|\eta| < \num{0.5}$, on average a track causes 36
-  hits; Resolution decreases with pile-up
-\end{itemize}
-
-\subsection{Calorimeter System}
+\section{Calorimeter System}
 \label{sec:atlas_calo}
 
 \todo[inline]{Topoclustering}
