@@ -262,10 +262,10 @@ reconstruct three-dimensional energy depositions in the calorimeter system,
 while suppressing noise from calorimeter cells not topologically connected to
 cells with significant signal strength. The TopoCluster
 algorithm~\cite{atlas_topoclustering} used in the ATLAS experiment operates on
-individual cells of the calorimeter calibrated at EM scale, therefore not
-accounting for the different calorimeter response to hadronic showers depositing
-the same energy as an electron or photon. The cluster formation is seeded by the
-cell of largest signal significance~\cite{atlas_topoclustering}
+individual cells of the calorimeter calibrated at electromagnetic energy scale,
+therefore not accounting for the different calorimeter response to hadronic
+showers. The cluster formation is seeded by the cell of largest signal
+significance~\cite{atlas_topoclustering}
 \begin{align*}
   \varsigma_\text{cell}^\text{EM} = \frac{E_\text{cell}^\text{EM}}{\sigma_\text{noise,cell}^\text{EM}} \eqcomma
 \end{align*}
@@ -298,30 +298,26 @@ $\rho_\text{cell} = E_\text{cell} / V_\text{cell}$ is the energy density in a
 given calorimeter cell.
 
 \subsection{Local Hadronic Calibration}
+\label{sec:local_hadronic_calib}
 
-The local hadronic calibration (LC), described in~\cite{}
+The calorimeters of the ATLAS detector are non-compensating, that is the
+calorimeter response is different for electromagnetic and hadronic showers
+originating from particles of the same energy. The local hadronic calibration
+(LC), described in Ref.~\cite{atlas_topoclustering}, provides a calibration for
+clusters reconstructed with the TopoCluster algorithm without prior assumption
+of the particle that created it. The LC scale accounts for the non-compensating
+nature of the calorimeters, out-of-cluster energy and dead
+material~\cite{atlas_topoclustering}.
 
-Accurate cluster energies independent of the physics object that created it.
-Important for objects with significant hadronic signal content
-
-Topocluster moments provides information on the object that created the cluster
-
-Topocluster->EMprobability->calibrate EM--HAD->out of cluster corrections->dead
-material corrections
-
-Cluster-by-cluster moment dependent calibration (non-compensating nature)
-
-Energy loss due to TopoCluster noise suppression (lost cells)
-
-Energy loss due to dead material
-
-Probability of being a EM cluster from cluster moments
-
-Separate weights for EM and HAD calibrations according to probability w-cal =
-pem * w-em + (1-pem) w-hadcal
-
-EM scale already has out of cluster and dead material corrections
-
+The calibration procedure starts with clusters at the electromagnetic energy
+scale. Cluster moments determined by the TopoCluster algorithm allow to
+discriminate between electromagnetic and hadronic showers. Depending on a
+likelihood~$\mathcal{P}_\text{clus}^\text{EM}$, characterising the probability
+for a cluster to originate from an electromagnetic shower, a calibration factor
+for hadronic showers is applied to the cluster to correct the non-compensating
+nature of the calorimeter response. Additional calibrations factors are applied
+to account for signal loss due to cells being omitted from the cluster due to
+the noise suppression of the TopoCluster algorithm and dead material.
 
 %%% Local Variables:
 %%% mode: latex
