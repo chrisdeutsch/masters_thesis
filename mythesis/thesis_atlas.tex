@@ -3,15 +3,15 @@
 \label{chap:atlas}
 
 The ATLAS experiment is located at the LHC at CERN, a symmetric proton--proton
-and heavy ion collider, supplying collision events to four major experiments:
-ATLAS, CMS, ALICE and LHCb. In proton--proton operation, bunches of protons are
-crossed at the interaction points located inside of the experiments with a peak
-bunch crossing rate of~\SI{40}{\mega\hertz}~\cite{lhc}. With a proton beam
-energy of \SI{6.5}{\TeV} during Run~2 of the LHC, the proton--collisions take
-place at a center-of-mass energy of \SI{13}{\TeV}. During the 2016 data taking
-period, a peak instantaneous luminosity
-of~\SI{1.4e34}{\per\square\centi\metre\per\second} was
-reached~\cite{lhc_2016_report}, which was further increased for the 2017 period.
+and heavy ion collider, supplying collision events to four major experiments. In
+proton--proton operation, bunches of protons are crossed at the interaction
+points located inside of the experiments with a peak bunch crossing rate
+of~\SI{40}{\mega\hertz}~\cite{lhc}. With a proton beam energy of \SI{6.5}{\TeV}
+during Run~2 of the LHC, the proton--collisions take place at a center-of-mass
+energy of \SI{13}{\TeV}. During the 2016 data taking period, a peak
+instantaneous luminosity of~\SI{1.4e34}{\per\square\centi\metre\per\second} was
+reached~\cite{lhc_2016_report}, which was further increased during the 2017 data
+taking period.
 
 \section{Overview of the ATLAS Detector}
 \label{sec:atlas}
@@ -119,9 +119,8 @@ Figure~\ref{fig:atlas_indet}.
   \centering
   \includegraphics[width=0.75\textwidth]{./figures/atlas/inner_detector.jpg}
   \caption{Overview of the ATLAS inner detector~\cite{indet_fig}. Shown are
-    pixel and, microstrip detector as well as the Transition Radiation Tracker.
-    The innermost pixel layer, the Insertable B-Layer installed during
-    Long~Shutdown~1, is not depicted.}
+    pixel and microstrip detector as well as the Transition Radiation Tracker.
+    The innermost pixel layer, the Insertable B-Layer, is not depicted.}
   \label{fig:atlas_indet}
 \end{figure}
 
@@ -169,7 +168,7 @@ barrel layers covering the intermediate radial range from
 $r = \SI{299}{\milli\metre}$ to \SI{514}{mm}~\cite{atlas_detector}. In the
 endcaps the SCT consists of nine disks perpendicular to the beam axis. The
 intrinsic resolution of the SCT sensors is \SI{17}{\micro\metre} in $r\varphi$
-and in axial (radial) direction \SI{580}{\micro\metre} for barrel
+and \SI{580}{\micro\metre} in axial (radial) direction for barrel
 (disks)~\cite{atlas_detector}. The semiconductor tracking detectors provide a
 pseudorapidity coverage of approximately~$|\eta| < 2.5$.
 
@@ -189,32 +188,34 @@ often represented at the perigee with respect to a reference point, which is
 commonly the primary vertex or the beamspot. In this representation tracks are
 unambiguously defined by the transverse and longitudinal impact parameters,
 $d_0$ and $z_0$ (cf.\ Figure~\ref{fig:impact_params}), the azimuthal and polar
-angles of the track momentum at the perigee, $\varphi$ and $\theta$, as well as
-the ratio of charge and momentum of the track, $q / p$.
+angles of the track momentum vector at the perigee, $\varphi$ and $\theta$, as
+well as the ratio of charge and momentum of the track, $q / p$.
 
 % See \url{https://twiki.cern.ch/twiki/bin/view/AtlasProtected/InDetTrackingDC14#Impact_parameters_z0_d0_definiti}
 
 \section{The Calorimeter System}
 \label{sec:atlas_calo}
 
-The ATLAS calorimeter system uses sampling calorimeters to measure the energy
-deposition of charged and neutral particles in the calorimeter material. The
-system provides a pseudorapidity coverage
-of~$|\eta| < 4.9$~\cite{atlas_detector}. It is divided into two parts, the
-electromagnetic (EM) and the hadronic calorimeter, which are futher subdivided
-into samplings of varying thickness and granularity. The EM calorimeter has a
-thickness of 22 to 24 radiation lengths\footnote{A radiation length~$X_0$ is the
-  mean distance a high-energy electron passes through matter, until it loses all
-  but~$e^{-1}$ of its initial energy due to bremsstrahlung.}, depending
-on~$|\eta|$~\cite{atlas_detector}, thus generally containing electromagnetic
-showers originating from electrons and photons. The combined thickness of EM and
-hadronic calorimeter is approximately ten interaction lengths\footnote{The
-  interaction length~$\lambda$ is the mean distance a high-energy hadron passes
-  through matter, until it performs an inelastic collision with a
-  nucleon.}~\cite{atlas_detector}. As a result, the thickness of the
-calorimeters allows to contain the energy deposits of most electrons, photons
-and hadrons, thereby allowing to reconstruct the missing transverse energy. An
-overview of the calorimeter system is shown in Figure~\ref{fig:atlas_calo}.
+The ATLAS calorimeter system employs sampling calorimeters to measure the energy
+depositions of charged and neutral particles in the calorimeter material. It
+provides a pseudorapidity coverage
+of~\mbox{$|\eta| < 4.9$}~\cite{atlas_detector}. The calorimeter is divided into
+two parts, the electromagnetic (EM) and the hadronic calorimeter, which are
+further subdivided into samplings of varying thickness and granularity, thus
+allowing the measurement of longitudinal and transverse shower shapes. The EM
+calorimeter has a thickness of 22 to 24 radiation lengths\footnote{The radiation
+  length~$X_0$ is the mean distance a high-energy electron passes through
+  matter, until it loses all but~$e^{-1}$ of its initial energy due to
+  bremsstrahlung.} depending on the detector region~\cite{atlas_detector}.
+Typically, the EM calorimeter fully contains electromagnetic showers originating
+from electrons and photons. The combined thickness of EM and hadronic
+calorimeter is approximately ten interaction lengths\footnote{The interaction
+  length~$\lambda$ is the mean distance a high-energy hadron passes through
+  matter, until it performs an inelastic collision with a
+  nucleon.}~\cite{atlas_detector}. Therefore, the calorimeters fully contain the
+showers of most hadrons, minimising punch-through into the muon spectrometer and
+allowing to reconstruct the missing transverse energy. An overview of the
+calorimeter system is shown in Figure~\ref{fig:atlas_calo}.
 
 \begin{figure}[htb]
   \centering
@@ -223,32 +224,103 @@ overview of the calorimeter system is shown in Figure~\ref{fig:atlas_calo}.
   \label{fig:atlas_calo}
 \end{figure}
 
-The EM calorimeter is a sampling calorimeter consisting of lead absorbers and
-using liquid argon (LAr) as the active material.
+The EM calorimeter is a sampling calorimeter consisting of lead absorbers,
+liquid argon (LAr) as the active material with an electrode geometry providing
+full azimuthal symmetry. It is divided into a barrel part and two endcaps,
+covering~$|\eta| < 1.475$ and $1.375 < |\eta| < 3.2$,
+respectively~\cite{atlas_detector}. With the exception of the transition region
+between barrel and endcap, $1.35 < |\eta| < 1.5$, and the forward/backward
+region, $|\eta| > 2.5$, the LAr EM calorimeter consists of three longitudinal
+samplings~\cite{atlas_detector}. The first sampling of the EM calorimeter (EM1),
+also called the strip layer, is finely segmented in $\eta$-direction with a
+granularity of~$\Delta\eta \times \Delta\varphi = 0.025/8 \times 0.1$ in the
+barrel region (excl.\ transition region) and gradually decreasing granularity in
+the endcaps. The second and third layer (EM2/EM3) provide a granularity
+of~$0.025 \times 0.025$ and~$0.050 \times 0.025$, respectively (excl.\
+transition region). An additional active LAr layer precedes the EM calorimeter
+in the region~$|\eta| < 1.8$ to correct for energy losses upstream of the
+calorimeter system~\cite{atlas_detector}.
 
-divided into barrel $|\eta| < 1.475$ and two endcaps
-$1.375 < |\eta| < 3.2$~\cite{atlas_detector}
+For hadron calorimetry the ATLAS experiment uses two different calorimeter types
+in the barrel and endcap regions. In the barrel, a sampling calorimeter based on
+steel absorbers and plastic scintillating tiles, the so called tile calorimeter,
+is used. It is separated into a barrel part, $|\eta| < 1.0$, and two extended
+barrels, $0.8 < |\eta| < 1.7$ (cf.\ Figure~\ref{fig:atlas_calo}). Similar to the
+LAr EM calorimeter, it the tile calorimeter is segmented into three longitudinal
+samplings. The lateral segmentation of these layers is~$0.1 \times 0.1$ in the
+first two layers and~$0.2 \times 0.1$ in the last layer~\cite{atlas_detector}.
+The Hadronic Endcap Calorimeter (HEC), located behind the LAr EM endcaps, uses
+copper absorbers and LAr as the active material. The HEC provides a
+pseudorapidity coverage of $1.5 < |\eta| < 3.2$, partially overlapping the tile
+extended barrel, with two longitudinal samplings. The granularity in the region
+of high-precision physics measurements, $|\eta| < 2.5$, is $0.1 \times 0.1$.
 
-\todo[inline]{Introduce nomenclature: strip layer, EM1, EM2, EM3, HAD}
+\subsection{Topological Cell Clustering}
 
+In the ATLAS experiment a topological cell clustering algorithm is used to
+reconstruct three-dimensional energy depositions in the calorimeter system,
+while suppressing noise from calorimeter cells not topologically connected to
+cells with significant signal strength. The TopoCluster
+algorithm~\cite{atlas_topoclustering} used in the ATLAS experiment operates on
+individual cells of the calorimeter calibrated at EM scale, therefore not
+accounting for the different calorimeter response to hadronic showers depositing
+the same energy as an electron or photon. The cluster formation is seeded by the
+cell of largest signal significance~\cite{atlas_topoclustering}
+\begin{align*}
+  \varsigma_\text{cell}^\text{EM} = \frac{E_\text{cell}^\text{EM}}{\sigma_\text{noise,cell}^\text{EM}} \eqcomma
+\end{align*}
+where~$E_\text{cell}^\text{EM}$ is the cell signal
+and~$\sigma_\text{noise,cell}^\text{EM}$ the estimated noise of the cell, if it
+passes a seed threshold of~$|\varsigma_\text{cell}^\text{EM}| > 4$. The cluster
+is grown by including neighbouring cells in the same and adjacent layers of the
+calorimeter that pass a cell significance threshold
+of~$|\varsigma_\text{cell}^\text{EM}| > 2$. If a neighbouring cell is a seed
+cell or a cell associated to another cluster passing
+the~$|\varsigma_\text{cell}^\text{EM}| > 2$ threshold, both clusters are merged.
+The cluster is iteratively grown until the last cell passing
+the~$|\varsigma_\text{cell}^\text{EM}| > 2$ has been included. Afterwards, all
+adjacent cells are included into the cluster independent of their signal
+significance. If a cluster has multiple local maxima, it is split in all three
+spatial dimensions to more accurately reflect the substructure of the cluster.
+After cluster splitting, cells at the interface of two clusters can be shared
+between them according to an assigned weight~$w_\text{cell}$ to each cluster.
 
+The geometrical shape and distribution of cell signals in a TopoCluster is
+characterised by so called cluster moments. The $n$-th moment of a cell
+variable~$v_\text{cell}$ is given by \cite{atlas_topoclustering}
+\begin{align*}
+  \langle v_\text{cell}^n \rangle = \frac{\sum_{i \mid E_{\text{cell,}i}^\text{EM} > 0} w_{\text{cell,}i} \, E_{\text{cell,}i}^\text{EM} \, v_{\text{cell,}i}^n}{\sum_{i \mid E_{\text{cell,}i}^\text{EM} > 0} w_{\text{cell,}i} \, E_{\text{cell,}i}^\text{EM}} \eqdot
+\end{align*}
+An example of a cluster moment is the first moment of the Cartesian coordinates
+of a cell centre, defining the barycentre of a cluster. An example for a signal
+moment is the signal density given by $\langle \rho_\text{cell} \rangle$, where
+$\rho_\text{cell} = E_\text{cell} / V_\text{cell}$ is the energy density in a
+given calorimeter cell.
 
-Coverage:
+\subsection{Local Hadronic Calibration}
+\todo[inline]{LC scale}
 
-EM LAr covers $|\eta|< 3.2$
+Accurate cluster energies independent of the physics object that created it.
+Important for objects with significant hadronic signal content
 
-Scintillator-tile in~$|\eta| < 1.7$
+Topocluster moments provides information on the object that created the cluster
 
-End-caps hadronic $|\eta| > 1.5$ also LAr coverage to $|\eta| = 4.9$
+Topocluster->EMprobability->calibrate EM--HAD->out of cluster corrections->dead
+material corrections
 
+Cluster-by-cluster moment dependent calibration (non-compensating nature)
 
-\todo[inline]{Topoclustering}
-\todo[inline]{Define what a moment is}
-\todo[inline]{EM and LC scale}
+Energy loss due to TopoCluster noise suppression (lost cells)
 
-\subsection{Topological Cell Clustering and Local Hadronic Calibration}
+Energy loss due to dead material
 
-\cite{atlas_topoclustering}
+Probability of being a EM cluster from cluster moments
+
+Separate weights for EM and HAD calibrations according to probability w-cal =
+pem * w-em + (1-pem) w-hadcal
+
+EM scale already has out of cluster and dead material corrections
+
 
 %%% Local Variables:
 %%% mode: latex
