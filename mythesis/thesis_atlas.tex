@@ -16,8 +16,8 @@ taking period.
 \section{Overview of the ATLAS Detector}
 \label{sec:atlas}
 
-The ATLAS detector is a multipurpose particle detector experiment at the
-LHC~\cite{atlas_detector}. An overview of the detector is given in
+The ATLAS detector, described in Ref.\ \cite{atlas_detector}, is a multipurpose
+particle detector experiment. An overview of the detector is given in
 Figure~\ref{fig:atlas_detector}. Its cylindrical geometry provides almost
 $4\pi$~coverage and forward-backward symmetry with respect to the nominal
 interaction point. Specialised detector subsystems are arranged in concentric
@@ -66,18 +66,18 @@ where $\Delta \eta$ and $\Delta \varphi$ are the differences in pseudorapidity
 and azimuthal angle, respectively.
 
 In the following a brief description of the detector subsystems is given. In
-increasing radial distance, the systems are:
+increasing radial distance from the beam axis, the systems are:
 \begin{description}
 \item[Inner Detector] The inner detector (ID) consists of several layers of
   pixel detectors, silicon microstrip detectors and straw chambers. The ID is
   embedded in a \SI{2}{\tesla} axial magnetic field, bending the trajectories of
-  charged particles in the transverse plane and allowing transverse momentum
+  charged particles in the transverse plane, thus allowing transverse momentum
   measurements. Hits of charged tracks in the active layers of the ID are
   reconstructed as so called space points, which are used to perform tracking
   and vertexing. The straw tubes of the Transition Radiation Tracker (TRT) offer
   tracking at large radii as well as electron identification via high-threshold
-  hits originating from transition radiation of electrons crossing the tube
-  material.
+  hits originating from transition radiation of electrons crossing the polymer
+  material between the straws.
 
 \item[Calorimeter System] The sampling calorimeters used in the ATLAS detector
   allow to measure the energies of photons, electrons and hadrons. The
@@ -110,10 +110,10 @@ detail.
 \label{sec:atlas_tracking}
 
 The inner detector of the ATLAS experiment provides track reconstruction in the
-high particle density environment of proton--proton collisions at the LHC. This
-allows to meet transverse momentum and vertex resolution requirements needed to
-perform physics analyses. An overview of the inner detector is shown in
-Figure~\ref{fig:atlas_indet}.
+high particle density environment of proton--proton collisions at the LHC. The
+tracking system meets the transverse momentum and vertex resolution requirements
+needed to perform physics analyses. An overview of the inner detector is shown
+in Figure~\ref{fig:atlas_indet}.
 
 \begin{figure}[htb]
   \centering
@@ -139,7 +139,7 @@ detector. Additionally, three disks of pixel detectors cover the forward and
 backward regions in two endcaps. The sensors of the IBL provide an intrinsic
 resolution of approximately \SI{10}{\micro\metre} in the azimuthal ($r\varphi$)
 direction and \SI{65}{\micro\metre} in $z$-direction~\cite{ibl_measurement}. The
-other layers have resolutions of \SI{10}{\micro\metre} in $r\varphi$ and
+other pixel layers have resolutions of \SI{10}{\micro\metre} in $r\varphi$ and
 \SI{115}{\micro\metre} in $z$-direction~\cite{atlas_detector}. The high
 resolution of the pixel detectors and their proximity to the interaction point
 are crucial for track impact parameter measurements (cf.\
@@ -167,19 +167,20 @@ reconstruction.
 The Semiconductor Tracker (SCT) is a silicon microstrip detector with four
 barrel layers covering the intermediate radial range from
 $r = \SI{299}{\milli\metre}$ to \SI{514}{mm}~\cite{atlas_detector}. In the
-endcaps the SCT consists of nine disks perpendicular to the beam axis. The
+endcaps, the SCT consists of nine disks perpendicular to the beam axis. The
 intrinsic resolution of the SCT sensors is \SI{17}{\micro\metre} in $r\varphi$
-and \SI{580}{\micro\metre} in axial (radial) direction for barrel
+and \SI{580}{\micro\metre} in axial (radial) direction for the barrel
 (disks)~\cite{atlas_detector}. The semiconductor tracking detectors provide a
 pseudorapidity coverage of approximately~$|\eta| < 2.5$.
 
 Track measurement at large radial ranges of $r = \SI{554}{\milli\metre}$ to
 \SI{1082}{\milli\metre} are provided by the TRT consisting of drift tubes with a
-diameter of \SI{4}{\milli\metre} aligned with the beam axis. As a result, they
-only provide azimuthal measurements with an intrinsic resolution of
+diameter of \SI{4}{\milli\metre} aligned with the beam
+axis~\cite{atlas_detector}. As a result, they only provide azimuthal
+measurements with an intrinsic resolution of
 \SI{130}{\micro\metre}~\cite{atlas_detector}. With a large number of 73 (160)
-straw planes in the barrel (endcap) it provides nearly continuous tracking and
-electron identification over a pseudorapidity range
+straw planes in the barrel (endcap) it provides continuous tracking and electron
+identification over a pseudorapidity range
 of~$|\eta| < 2.0$~\cite{atlas_detector}.
 
 Charged-particle tracks are reconstructed from space points using sophisticated
