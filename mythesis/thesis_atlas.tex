@@ -318,21 +318,13 @@ material~\cite{atlas_topoclustering}.
 The calibration procedure begins with clusters at the electromagnetic energy
 scale. Cluster moments determined by the TopoCluster algorithm allow to
 discriminate between clusters created by electromagnetic and hadronic energy
-deposits. Depending on a likelihood~$\mathcal{P}_\text{clus}^\text{EM}$,
-characterising the probability of a cluster to originate from an electromagnetic
-shower, a hadronic calibration is applied to the cells of a cluster. This
-accounts for the non-compensation of the calorimeter on a cluster-by-cluster
-basis. Additional calibration factors are applied to account for signal loss due
-to clustering. Due to the inherent noise suppression of the TopoCluster
-algorithm, cells with small signal contributions can be lost during clustering.
-
-
-factor for hadronic showers is applied to the cluster to correct the
-non-compensation.
-
-Additional calibrations factors are applied to account for signal loss due to
-cells being omitted from the cluster due to the noise suppression of the
-TopoCluster algorithm and dead material.
+deposits. Depending on a likelihood~$\mathcal{P}_\text{clus}^\text{EM}$, which
+characterises the probability of a cluster to originate from an electromagnetic
+shower, a hadronic calibration is applied to cells of the cluster. This accounts
+for the non-compensation of the calorimeter on a cluster-by-cluster basis.
+Additional calibration factors are applied to account for signal loss due to the
+clustering, which is caused by the inherent noise suppression of the TopoCluster
+algorithm, and energy deposited in dead material.
 
 %%% Local Variables:
 %%% mode: latex
