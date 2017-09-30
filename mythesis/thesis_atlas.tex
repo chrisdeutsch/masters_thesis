@@ -268,7 +268,7 @@ reconstruct three-dimensional energy depositions in the calorimeter system,
 while suppressing noise from calorimeter cells not topologically connected to
 cells with significant signal strength. The TopoCluster
 algorithm~\cite{atlas_topoclustering} used in the ATLAS experiment operates on
-individual cells of the calorimeter calibrated at electromagnetic energy scale,
+cells of the calorimeter calibrated at the electromagnetic energy scale,
 therefore not accounting for the different calorimeter response to hadronic
 showers. The cluster formation is seeded by the cell of largest signal
 significance~\cite{atlas_topoclustering}
@@ -278,30 +278,30 @@ significance~\cite{atlas_topoclustering}
 where~$E_\text{cell}^\text{EM}$ is the cell signal
 and~$\sigma_\text{noise,cell}^\text{EM}$ the estimated noise of the cell, if it
 passes a seed threshold of~$|\varsigma_\text{cell}^\text{EM}| > 4$. The cluster
-is grown by including neighbouring cells in the same and adjacent layers of the
-calorimeter that pass a cell significance threshold
+is expanded by including neighbouring cells in the same and adjacent layers of
+the calorimeter that pass a cell significance threshold
 of~$|\varsigma_\text{cell}^\text{EM}| > 2$. If a neighbouring cell is a seed
 cell or a cell associated to another cluster passing
 the~$|\varsigma_\text{cell}^\text{EM}| > 2$ threshold, both clusters are merged.
-The cluster is iteratively grown until the last cell passing
-the~$|\varsigma_\text{cell}^\text{EM}| > 2$ has been included. Afterwards, all
-adjacent cells are included into the cluster independent of their signal
-significance. If a cluster has multiple local maxima, it is split in all three
-spatial dimensions to more accurately reflect the substructure of the cluster.
-After cluster splitting, cells at the interface of two clusters can be shared
-between them according to an assigned weight~$w_\text{cell}$ to each cluster.
+The process is repeated until the last cell passing the threshold has been
+included. Afterwards, all adjacent cells are included into the cluster
+independent of their signal significance to account for signals close to the
+noise level~\cite{atlas_topoclustering}. If a cluster has multiple local maxima,
+it is split in all three spatial dimensions to more accurately reflect the
+substructure of the cluster. After cluster splitting, cells at the interface of
+two clusters can be shared between them according to an assigned weight to each
+cluster.
 
 The geometrical shape and distribution of cell signals in a TopoCluster is
 characterised by so called cluster moments. The $n$-th moment of a cell
 variable~$v_\text{cell}$ is given by \cite{atlas_topoclustering}
 \begin{align*}
-  \langle v_\text{cell}^n \rangle = \frac{\sum_{i \mid E_{\text{cell,}i}^\text{EM} > 0} w_{\text{cell,}i} \, E_{\text{cell,}i}^\text{EM} \, v_{\text{cell,}i}^n}{\sum_{i \mid E_{\text{cell,}i}^\text{EM} > 0} w_{\text{cell,}i} \, E_{\text{cell,}i}^\text{EM}} \eqdot
+  \langle v_\text{cell}^n \rangle = \frac{\sum_{i \mid E_{\text{cell,}i}^\text{EM} > 0} w_{\text{cell,}i} \, E_{\text{cell,}i}^\text{EM} \, v_{\text{cell,}i}^n}{\sum_{i \mid E_{\text{cell,}i}^\text{EM} > 0} w_{\text{cell,}i} \, E_{\text{cell,}i}^\text{EM}} \eqcomma
 \end{align*}
-An example of a cluster moment is the first moment of the Cartesian coordinates
-of a cell centre, defining the barycentre of a cluster. An example for a signal
-moment is the signal density given by $\langle \rho_\text{cell} \rangle$, where
-$\rho_\text{cell} = E_\text{cell} / V_\text{cell}$ is the energy density in a
-given calorimeter cell.
+where $w_{\text{cell,}i}$ is the weight of the cell in the cluster and
+out-of-time signals, $E_\text{cell}^\text{EM} < 0$, are not considered. An
+example is the first moment of the Cartesian coordinates of a cell centre,
+defining the barycentre of a cluster.
 
 \subsection{Local Hadronic Calibration}
 \label{sec:local_hadronic_calib}
