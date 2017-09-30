@@ -198,26 +198,25 @@ well as the ratio of charge and momentum of the track, $q / p$.
 \section{The Calorimeter System}
 \label{sec:atlas_calo}
 
-The ATLAS calorimeter system employs sampling calorimeters to measure the energy
-depositions of charged and neutral particles in the calorimeter material. It
-provides a pseudorapidity coverage
-of~\mbox{$|\eta| < 4.9$}~\cite{atlas_detector}. The calorimeter is divided into
-two parts, the electromagnetic (EM) and the hadronic calorimeter, which are
-further subdivided into samplings of varying thickness and granularity, thus
-allowing the measurement of longitudinal and transverse shower shapes. The EM
-calorimeter has a thickness of 22 to 24 radiation lengths\footnote{The radiation
-  length~$X_0$ is the mean distance a high-energy electron passes through
-  matter, until it loses all but~$e^{-1}$ of its initial energy due to
-  bremsstrahlung.} depending on the detector region~\cite{atlas_detector}.
-Typically, the EM calorimeter fully contains electromagnetic showers originating
-from electrons and photons. The combined thickness of EM and hadronic
-calorimeter is approximately ten interaction lengths\footnote{The interaction
-  length~$\lambda$ is the mean distance a high-energy hadron passes through
-  matter, until it performs an inelastic collision with a
-  nucleon.}~\cite{atlas_detector}. Therefore, the calorimeters fully contain the
-showers of most hadrons, minimising punch-through into the muon spectrometer and
-allowing to reconstruct the missing transverse energy. An overview of the
-calorimeter system is shown in Figure~\ref{fig:atlas_calo}.
+The ATLAS calorimeter system, shown in Figure~\ref{fig:atlas_calo}, employs
+sampling calorimeters to measure the energy depositions of charged and neutral
+particles in the calorimeter material. With separate calorimeters for the
+barrel, endcap and forward region, it
+covers~\mbox{$|\eta| < 4.9$}~\cite{atlas_detector}. The calorimeter is divided
+into two parts, the electromagnetic (EM) and the hadronic calorimeter, which are
+further subdivided into longitudinal samplings of varying thickness and
+granularity, thus allowing the measurement of longitudinal and transverse shower
+shapes. The EM calorimeter has a thickness of more than 22 to 24 radiation
+lengths\footnote{The radiation length~$X_0$ is the mean distance a high-energy
+  electron passes through matter, until it loses all but~$e^{-1}$ of its initial
+  energy due to bremsstrahlung.} depending on the detector
+region~\cite{atlas_detector}, which is sufficient to contain most
+electromagnetic showers from electrons and photons. The combined thickness of EM
+and hadronic calorimeter is approximately ten interaction lengths\footnote{The
+  interaction length~$\lambda$ is the mean distance a high-energy hadron passes
+  through matter, until it performs an inelastic collision with a
+  nucleon.}~\cite{atlas_detector}, reducing punch-through of hadrons into the
+muon spectrometer and allowing to reconstruct the missing transverse energy.
 
 \begin{figure}[htb]
   \centering
@@ -227,36 +226,40 @@ calorimeter system is shown in Figure~\ref{fig:atlas_calo}.
   \label{fig:atlas_calo}
 \end{figure}
 
-The EM calorimeter is a sampling calorimeter consisting of lead absorbers,
-liquid argon (LAr) as the active material with an electrode geometry providing
-full azimuthal symmetry. It is divided into a barrel part and two endcaps,
-covering~$|\eta| < 1.475$ and $1.375 < |\eta| < 3.2$,
+The EM calorimeter uses liquid-argon (LAr) as the active material and lead
+absorber plates. It is divided into a barrel (EMB) and two endcaps (EMEC),
+covering the regions~$|\eta| < 1.475$ and $1.375 < |\eta| < 3.2$,
 respectively~\cite{atlas_detector}. With the exception of the transition region
-between barrel and endcap, $1.35 < |\eta| < 1.5$, and the forward/backward
-region, $|\eta| > 2.5$, the LAr EM calorimeter consists of three longitudinal
-samplings~\cite{atlas_detector}. The first sampling of the EM calorimeter (EM1),
-also called the strip layer, is finely segmented in $\eta$-direction with a
-granularity of~$\Delta\eta \times \Delta\varphi = 0.025/8 \times 0.1$ in the
-barrel region (excl.\ transition region) and gradually decreasing granularity in
-the endcaps. The second and third layer (EM2/EM3) provide a granularity
-of~$0.025 \times 0.025$ and~$0.050 \times 0.025$, respectively (excl.\
-transition region). An additional active LAr layer precedes the EM calorimeter
-in the region~$|\eta| < 1.8$ to correct for energy losses upstream of the
-calorimeter system~\cite{atlas_detector}.
+between barrel and endcap, $1.35 < |\eta| < 1.5$, and the forward region,
+$|\eta| > 2.5$, the LAr EM calorimeter consists of three longitudinal
+samplings~\cite{atlas_detector}. The following description focuses on the
+region~$|\eta| < 2.5$ used for high-precision measurements, while also excluding
+the transition region. The innermost sampling of the EM calorimeter (EM1), also
+called the strip layer, is finely segmented in $\eta$-direction with a cell
+segmentation of~$\Delta\eta \times \Delta\varphi = 0.025/8 \times 0.1$ with
+decreasing $\eta$-granularity in the EMEC~\cite{atlas_detector}. The second and
+third layer (EM2 and EM3) have a granularity of~$0.025 \times 0.025$
+and~$0.050 \times 0.025$ in~$\Delta\eta \times \Delta\varphi$,
+respectively~\cite{atlas_detector}. The thickness of the three layers
+at~$\eta = 0$ is approximately~$4.5 X_0$, $17 X_0$ and $1.5 X_0$ for EM1, EM2
+and EM3, respectively~\cite{atlas_detector}. As a result, high-energy electrons
+and photons deposit a most of their energy in EM2. An active LAr layer precedes
+the EM calorimeter in the region $|\eta| < 1.8$ to correct for energy losses
+upstream of the calorimeter system~\cite{atlas_detector}.
 
 For hadron calorimetry the ATLAS experiment uses two different calorimeter types
 in the barrel and endcap regions. In the barrel, a sampling calorimeter based on
 steel absorbers and plastic scintillating tiles, the so called tile calorimeter,
 is used. It is separated into a barrel part, $|\eta| < 1.0$, and two extended
 barrels, $0.8 < |\eta| < 1.7$ (cf.\ Figure~\ref{fig:atlas_calo}). Similar to the
-LAr EM calorimeter, it the tile calorimeter is segmented into three longitudinal
+LAr EM calorimeter, the tile calorimeter is segmented into three longitudinal
 samplings. The lateral segmentation of these layers is~$0.1 \times 0.1$ in the
 first two layers and~$0.2 \times 0.1$ in the last layer~\cite{atlas_detector}.
-The Hadronic Endcap Calorimeter (HEC), located behind the LAr EM endcaps, uses
-copper absorbers and LAr as the active material. The HEC provides a
-pseudorapidity coverage of $1.5 < |\eta| < 3.2$, partially overlapping the tile
-extended barrel, with two longitudinal samplings. The granularity in the region
-of high-precision physics measurements, $|\eta| < 2.5$, is $0.1 \times 0.1$.
+The hadronic endcap calorimeter (HEC), located behind the EMEC, uses LAr as the
+active material and copper absorbers. The HEC provides a pseudorapidity coverage
+of $1.5 < |\eta| < 3.2$, partially overlapping the tile extended barrel, with
+four longitudinal samplings. The granularity in the region~$|\eta| < 2.5$ is
+$0.1 \times 0.1$~\cite{atlas_detector}.
 
 \subsection{Topological Cell Clustering}
 
