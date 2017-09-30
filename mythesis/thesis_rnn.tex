@@ -75,8 +75,9 @@ small improvement at high efficiencies.
     \includegraphics{./figures/rnn/mlp/mlp_bdt_ratio_3p.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Ratio of background rejection of the MLP and the optimised BDT as a
-    function of signal efficiency. The band indicates the $1\sigma$-interval.}
+  \caption[Ratio of background rejection for MLP and optimised BDT]{Ratio of
+    background rejection of the MLP and the optimised BDT as a function of
+    signal efficiency. The band indicates the $1\sigma$-interval.}
   \label{fig:roc_mlp_bdt_comparison}
 \end{figure}
 
@@ -136,8 +137,8 @@ In practice the maximum sequence length is limited by truncation.
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=0.9]{./figures/rnn/track_rnn_schematic.pdf}
-  \caption{Schematic description of a recurrent neural network using individual
-    tracks for tau identification.}
+  \caption[Schematic of a RNN using tracks for tau identification]{Schematic of
+    a recurrent neural network using tracks for tau identification.}
   \label{fig:track_rnn_schematic}
 \end{figure}
 
@@ -254,8 +255,10 @@ in~$p_\text{T}^\text{track}$.
       number of tracks used in the model.}
     \label{fig:ntracks_loss}
   \end{subfigure}
-  \caption{Number of tracks associated to a \tauhadvis candidate and their
-    impact on the discriminative power of the Track--RNN.}
+  \caption[Number of tracks associated to \tauhadvis candidates and their impact
+  on the discriminative power of tau identification]{Number of tracks associated
+    to a \tauhadvis candidate and their impact on the discriminative power of
+    the Track--RNN.}
   \label{fig:rnn_ntracks}
 \end{figure}
 
@@ -283,7 +286,8 @@ identification.
     \subcaption{Ratio of rejection of the Track--RNN and the optimised BDT. The
       band indicates the $1\sigma$-interval.}
   \end{subfigure}
-  \caption{Classification performance of the Track--RNN compared to the
+  \caption[Comparison of the classification performance of Track--RNN and
+  optimised BDT]{Classification performance of the Track--RNN compared to the
     optimised BDT for tau identification.}
   \label{fig:track_rnn_roc_ratios}
 \end{figure}
@@ -310,8 +314,9 @@ $p_\text{HT}$ being a candidate for removal.
 \begin{table}[htb]
   \centering
   {\small\input{./tables/track_rnn_var_importance.tex}}
-  \caption{Variable importance of the 1-prong Track--RNN estimated by the
-    increase in validation loss when removing groups of input variables.}
+  \caption[Variable importance of the 1-prong Track--RNN]{Variable importance of
+    the 1-prong Track--RNN estimated by the increase in validation loss when
+    removing groups of input variables.}
   \label{tab:var_importance_track_rnn}
 \end{table}
 
@@ -357,7 +362,8 @@ angular distances~$\Delta \eta$ and~$\Delta \varphi$ included in the model.
       vertex~$|z_0 \sin\theta|$.}
     \label{fig:track_rnn_corr_z0}
   \end{subfigure}
-  \caption{Linear correlation coefficient between input variables and signal
+  \caption[Correlation of input variables and signal probability in the
+  Track--RNN]{Linear correlation coefficient between input variables and signal
     probability~$p_\text{RNN}$ estimated by the model. The coefficient is
     determined on the testing sample combining signal and background candidates
     with equal total weight.}
@@ -447,8 +453,10 @@ passed to the model is truncated after six clusters.
     \subcaption{Validation loss as a function of the number of clusters used in
       the model.}
   \end{subfigure}
-  \caption{Number of clusters associated to a \tauhadvis candidate and their
-    impact on the discriminative power of the Cluster--RNN.}
+  \caption[Number of clusters associated to \tauhadvis candidates and their
+  impact on the discriminative power of tau identification]{Number of clusters
+    associated to a \tauhadvis candidate and their impact on the discriminative
+    power of the Cluster--RNN.}
   \label{fig:rnn_nclusters}
 \end{figure}
 
@@ -476,7 +484,8 @@ the BDT performance.
     \includegraphics{./figures/rnn/cluster/ratios.pdf}
     \subcaption{Ratio of rejection of the Cluster--RNN and the optimised BDT.}
   \end{subfigure}
-  \caption{Classification performance of the Cluster--RNN compared to the
+  \caption[Comparison of the classification performance of Cluster--RNN and
+  optimised BDT]{Classification performance of the Cluster--RNN compared to the
     optimised BDT for tau identification.}
   \label{fig:cluster_rnn_roc_ratios}
 \end{figure}
@@ -580,8 +589,9 @@ efficiency of approximately~\SI{90}{\percent}.
       fulfilling~$p_\text{T, vis}^\text{true} > \SI{25}{\GeV}$.}
     \label{fig:ditau_trigger_eff}
   \end{subfigure}
-  \caption{Performance of the TopoCluster-based ditau identification for use in
-    a ditau trigger at the HL-LHC.}
+  \caption[Performance of the TopoCluster-based ditau identification for use in
+  a ditau trigger at the HL-LHC]{Performance of the TopoCluster-based ditau
+    identification for use in a ditau trigger at the HL-LHC.}
   \label{fig:rnn_ditau_trigger}
 \end{figure}
 
@@ -619,10 +629,12 @@ respective section.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/rnn/combined_architecture.pdf}
-  \caption{Architecture of the combined model operating on high-level
-    identification variables and sequences of tracks and clusters. The
-    activation function is denoted after each layer (cf.\ Chapter~\ref{sec:ml}).
-    Layers operating on sequential inputs are highlighted in blue.}
+  \caption[Network architecture of the model combining high-level identification
+  variables, tracks and clusters]{Architecture of the combined model operating
+    on high-level identification variables and sequences of tracks and clusters.
+    The activation function is denoted after each layer (cf.\
+    Chapter~\ref{sec:ml}). Layers operating on sequential inputs are highlighted
+    in blue.}
   \label{fig:schematic_combined}
 \end{figure}
 
@@ -680,9 +692,10 @@ working points show similar improvements (cf.\ Appendix~\ref{app:rnn_wp}).
     \includegraphics{./figures/rnn/combined/rnn_tight_3p.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Background rejection at the tight working point as a function of the
-    \tauhadvis $p_\text{T}$ at tau energy scale for the BDT- and RNN-based
-    identification.}
+  \caption[Background rejection of the tight working point in bins of
+  \tauhadvis~\pt for the RNN-based identification]{Background rejection
+    at the tight working point in bins of the \tauhadvis $p_\text{T}$ at tau
+    energy scale for the BDT- and RNN-based identification.}
   \label{fig:combined_working_points}
 \end{figure}
 
@@ -733,9 +746,11 @@ increased even further.
     \includegraphics{./figures/rnn/combined/rnn_loosened_tight_3p.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Comparison of the background rejection of the RNN-based
-    identification at a working point (WP) with increased signal efficiency with
-    the nominal tight working point of the BDT.}
+  \caption[Background rejection at a working point with increased signal
+  efficiency for the RNN-based identification]{Comparison of the background
+    rejection of the RNN-based identification at a working point (WP) with
+    increased signal efficiency with the nominal tight working point of the
+    BDT.}
   \label{fig:loosened_wp}
 \end{figure}
 

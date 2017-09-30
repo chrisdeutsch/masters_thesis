@@ -129,10 +129,10 @@ probabilities\footnote{Formally the posterior
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/decay_mode_classification/baseline_architecture.pdf}
-  \caption{Architecture of the baseline model operating on sequences of charged
-    and neutral PFOs. The activation function is denoted after each layer (cf.\
-    Chapter~\ref{sec:ml}). Layers operating on sequential inputs are highlighted
-    in blue.}
+  \caption[Network architecture for decay mode classification]{Architecture of
+    the baseline model operating on sequences of charged and neutral PFOs. The
+    activation function is denoted after each layer (cf.\ Chapter~\ref{sec:ml}).
+    Layers operating on sequential inputs are highlighted in blue.}
   \label{fig:pfo_rnn_baseline_arch}
 \end{figure}
 
@@ -159,7 +159,8 @@ after applying this preselection is summarised in Table~\ref{tab:mode_reco_eff}.
 \begin{table}[htb]
   \centering
   {\small\input{./tables/decay_mode_reco.tex}}
-  \caption{True decay mode fractions, $f_\text{reco}$, in the sample of
+  \caption[Tau decay branching fractions and mode fractions of reconstructed
+  \tauhadvis]{True decay mode fractions, $f_\text{reco}$, in the sample of
     reconstructed \tauhadvis after preselection and the expected mode fraction
     in the sample, $f_\text{BR}$, for a fully efficient reconstruction according
     to the branching ratio $\mathcal{B}$~\cite{pdg}. The statistical uncertainty
@@ -268,9 +269,10 @@ to prove the necessity of this cut.
 \begin{table}[htb]
   \centering
   {\small\input{./tables/neutral_pfo_ptcut.tex}}
-  \caption{Diagonal efficiency evaluated on the validation sample as a function
-    of the transverse momentum threshold for neutral PFOs. The network is
-    retrained for each threshold.}
+  \caption[Diagonal efficiency after applying \pt thresholds on neutral
+  PFOs]{Diagonal efficiency evaluated on the validation sample as a function of
+    the transverse momentum threshold for neutral PFOs. The network is retrained
+    for each threshold.}
   \label{tab:neut_ptcut}
 \end{table}
 
@@ -299,10 +301,11 @@ migrations of true $h^\pm \, {\geq} 2 \pi^0$ to the $h^\pm \pi^0$ decay mode.
     \vspace*{-1.6em}
     \label{fig:1p1n_proba}
   \end{subfigure}
-  \caption{Mode probabilities for the $h^\pm$ (left) and $h^\pm \pi^0$ (right)
-    modes estimated by the RNN for a given true decay mode. Modes with three
-    charged hadrons have small $h^\pm$ and $h^\pm \pi^0$ probabilities and are
-    omitted for clarity.}
+  \caption[Mode probability estimates of the RNN-based decay mode
+  classification]{Mode probabilities for the $h^\pm$ (left) and $h^\pm \pi^0$
+    (right) modes estimated by the RNN for a given true decay mode. Modes with
+    three charged hadrons have small $h^\pm$ and $h^\pm \pi^0$ probabilities and
+    are omitted for clarity.}
   \label{fig:mode_proba_ptcut}
 \end{figure}
 
@@ -334,10 +337,11 @@ investigations.
     \subcaption{RNN with neutral PFO $p_{\text{T}}$-cut of
       \SI{1.5}{\GeV}}
   \end{subfigure}
-  \caption{Migration matrices showing the migration probabilities of the true
-    decay modes to the reconstructed modes in \si{\percent}. Evaluation on the
-    independent testing sample. Statistical fluctuations due to limited sample
-    size can be neglected.}
+  \caption[Migration matrices of the ATLAS default algorithm and the RNN-based
+  decay mode classification]{Migration matrices showing the migration
+    probabilities of the true decay modes to the reconstructed modes in
+    \si{\percent}. Evaluation on the independent testing sample. Statistical
+    fluctuations due to limited sample size can be neglected.}
   \label{fig:migmat_comparison_baseline_15cut}
 \end{figure}
 
@@ -371,10 +375,11 @@ after extending the model with additional information.
     \subcaption{RNN with neutral PFO $p_{\text{T}}$-cut of
       \SI{1.5}{\giga\electronvolt}}
   \end{subfigure}
-  \caption{Purity matrices showing the fractional composition of the
-    reconstructed decay modes in \si{\percent}. Evaluation on the independent
-    testing sample. Statistical fluctuations due to limited sample size can be
-    neglected.}
+  \caption[Purity matrices of the ATLAS default algorithm and the RNN-based
+  decay mode classification]{Purity matrices showing the fractional composition
+    of the reconstructed decay modes in \si{\percent}. Evaluation on the
+    independent testing sample. Statistical fluctuations due to limited sample
+    size can be neglected.}
   \label{fig:puritymat_comparison_baseline_15cut}
 \end{figure}
 
@@ -481,7 +486,8 @@ include variables also used for $\pi^0$-identification.
     \bottomrule
   \end{tabular}
   }
-  \caption{Variables derived from properties of neutral PFO clusters.}
+  \caption[Variables derived from properties of neutral PFO clusters]{Variables
+    derived from properties of neutral PFO clusters.}
   \label{tab:cluster_variables}
 \end{table}
 
@@ -518,7 +524,8 @@ transverse momentum ordering.
 \begin{table}[htb]
   \centering
   {\small\input{./tables/pfo_add_info.tex}}
-  \caption{Decay mode classification performance after extending the RNN. The
+  \caption[Decay mode classification performance after extending the
+  model]{Decay mode classification performance after extending the RNN. The
     metrics are evaluated on the validation sample. The validation loss is given
     by the categorical cross-entropy.}
   \label{tab:pfo_add_experiments}
@@ -601,7 +608,8 @@ information.
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat.pdf}
     \subcaption{Purity matrix}
   \end{subfigure}
-  \caption{Migration and purity matrix of the extended model including
+  \caption[Migration and purity matrix of the extended model for decay mode
+  classification]{Migration and purity matrix of the extended model including
     conversion, shot and additional cluster information. Evaluated on the
     testing sample with negligible statistical errors.}
   \label{fig:decay_mode_combined}
@@ -628,9 +636,11 @@ leading to an increase in purity in all five decay modes.
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/purity_profile.pdf}
   \end{subfigure}
-  \caption{Efficiency and purity profiles of the decay mode classification using
-    the extended model. Evaluated on the testing sample. Statistical errors are
-    not visible as they are of the order of the marker size.}
+  \caption[Efficiency and purity profiles of the extended model for decay mode
+  classification]{Efficiency and purity profiles of the decay mode
+    classification using the extended model. Evaluated on the testing sample.
+    Statistical errors are not visible as they are of the order of the marker
+    size.}
   \label{fig:mode_efficiency_purity}
 \end{figure}
 
@@ -663,9 +673,10 @@ information. \todo{Explain what happens at large transverse momenta}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/purity_profile_extended.pdf}
   \end{subfigure}
-  \caption{Efficiency and purity profile of the decay mode classification using
-    the extended model trained on the full transverse momentum range of the
-    sample. Evaluated on the testing sample.}
+  \caption[Efficiency and purity profiles of the extended model for decay mode
+  classification (extended momentum range)]{Efficiency and purity profile of the decay mode
+    classification using the extended model trained on the full transverse
+    momentum range of the sample. Evaluated on the testing sample.}
   \label{fig:mode_efficiency_purity_highpt}
 \end{figure}
 

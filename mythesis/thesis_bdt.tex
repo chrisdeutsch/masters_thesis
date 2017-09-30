@@ -173,17 +173,19 @@ and 3-prong BDTs.
     \subcaption{Mass of the track system for 3-prong candidates.}
     \label{fig:masstrksys}
   \end{subfigure}
-  \caption{Distributions of important variables for tau identification in
-    \tauhadvis candidates from simulated \mbox{$\gamma^* \to \tauhad\tauhad$}
-    (signal) and dijet (background) events.}
+  \caption[Distributions of variables used for tau identification]{Distributions
+    of important variables for tau identification in \tauhadvis candidates from
+    simulated \mbox{$\gamma^* \to \tauhad\tauhad$} (signal) and dijet
+    (background) events.}
   \label{fig:bdt_discriminants}
 \end{figure}
 
 \begin{table}[htb]
   \centering
   {\def\arraystretch{1.35}\small\input{./tables/baseline_variables.tex}}
-  \caption{Variables used for tau identification of \tauhadvis candidates with
-    one or three reconstructed \emph{charged} tracks~\cite{atlas:taurec:run2}.}
+  \caption[Variables used for tau identification]{Variables used for tau
+    identification of \tauhadvis candidates with one or three reconstructed
+    \emph{charged} tracks~\cite{atlas:taurec:run2}.}
   \label{tab:baseline_variables}
 \end{table}
 
@@ -270,7 +272,9 @@ reconstructed transverse momentum.
     \subcaption{Transverse momentum distribution of \tauhadvis at tau energy
       scale after preselection.}
   \end{subfigure}
-  \caption{Properties of the simulated signal and background samples.}
+  \caption[Pile-up profile and \pt-spectrum of simulated signal and background
+  samples]{Pile-up profile and \pt-spectrum of the simulated signal and
+    background samples.}
   \label{fig:pt_mu}
 \end{figure}
 
@@ -365,7 +369,8 @@ be used for further optimisation steps.
       Adapted from Ref.~\cite{esl}.}
     \label{fig:boosting_loss}
   \end{subfigure}
-  \caption{Optimisation of the boosting algorithm used for tau identification.}
+  \caption[Optimisation of the boosting algorithm]{Optimisation of the boosting
+    algorithm used for tau identification.}
 \end{figure}
 
 \subsection{Grid Search in Hyperparameter Space}
@@ -436,7 +441,8 @@ background rejection are discussed in the following.
     \label{fig:gridscan_minnodesize_maxdepth}
   \end{subfigure}
   \vspace*{-0.3em}
-  \caption{Background rejection of the 1-prong BDT at \SI{60}{\percent} signal
+  \caption[Background rejection as a function of BDT hyperparameters
+  (1-prong)]{Background rejection of the 1-prong BDT at \SI{60}{\percent} signal
     efficiency as a function of BDT hyperparameters. Bagged boosting with a
     sample fraction~$f_\text{bag} = \SI{50}{\percent}$ is used. The rejection is
     calculated using the testing sample.}
@@ -484,12 +490,13 @@ sample size (cf.\ Table~\ref{tab:sample_size}).
 \begin{table}[htb]
   \centering
   {\small\input{./tables/bdt_config.tex}}
-  \caption{BDT configurations after systematic optimisation. BDT~A denotes the
-    BDT with the largest rejection on the testing sample, while BDT~B also
-    requires a KS test $p$-value of at least \SI{5}{\percent} for compatibility
-    of the BDT score distributions on training and testing sample. The rejection
-    is given at \SI{60}{\percent} (\SI{45}{\percent}) signal efficiency for the
-    1-prong (3-prong) identification.}
+  \caption[Optimised BDT configurations]{BDT configurations after systematic
+    optimisation. BDT~A denotes the BDT with the largest rejection on the
+    testing sample, while BDT~B also requires a KS test $p$-value of at least
+    \SI{5}{\percent} for compatibility of the BDT score distributions on
+    training and testing sample. The rejection is given at \SI{60}{\percent}
+    (\SI{45}{\percent}) signal efficiency for the 1-prong (3-prong)
+    identification.}
   \label{tab:bdt_perfs}
 \end{table}
 
@@ -506,7 +513,8 @@ sample size (cf.\ Table~\ref{tab:sample_size}).
     \subcaption{BDT B}
     \label{fig:bdt_score_1p_ks5}
   \end{subfigure}
-  \caption{Distributions of the 1-prong tau identification BDT score for the
+  \caption[Distribution of the tau identification BDT score
+  (1-prong)]{Distributions of the 1-prong tau identification BDT score for the
     training and testing sample for signal and background candidates.}
   \label{fig:bdt_overfitting_scores}
 \end{figure}
@@ -551,9 +559,9 @@ efficiencies results in similar configurations.
     \subcaption{3-prong}
     \label{fig:bdt_3p_roc}
   \end{subfigure}
-  \caption{ROC-Curves for BDT A, BDT B and a comparison with the reference
-    configuration. The ratio of the rejection with respect to the reference is
-    depicted in the lower panel.}
+  \caption[ROC-Curves of the optimised BDTs]{ROC-Curves for BDT A, BDT B and a
+    comparison with the reference configuration. The ratio of the rejection with
+    respect to the reference is depicted in the lower panel.}
   \label{fig:bdt_rocs}
 \end{figure}
 
@@ -604,7 +612,8 @@ Figure~\ref{fig:pt_mu}).
     \includegraphics{./figures/bdt_perf/working_points/grid_3p0327_wp.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Decision thresholds for the tight working point using \mbox{BDT B}.}
+  \caption[Decision thresholds of the tight working point for the optimised
+  BDT]{Decision thresholds for the tight working point using \mbox{BDT B}.}
   \label{fig:working_point_cutmap}
 \end{figure}
 
@@ -710,7 +719,8 @@ especially for the loose and medium working points.
 \begin{table}[htb]
   \centering
   {\small\input{./tables/bdt_new_variables.tex}}
-  \caption{Relative gain in background rejection after including additional
+  \caption[Relative gain in background rejection after including additional
+  variables]{Relative gain in background rejection after including additional
     variables.}
   \label{tab:bdt_new_variables}
 \end{table}
@@ -751,9 +761,10 @@ leading to less stable rankings.
     \subcaption{3-prong BDT at the medium working point with \SI{60}{\percent}
       signal efficiency.}
   \end{subfigure}
-  \caption{Variable importance in the 1- and 3-prong BDT. The average rejection
-    loss at the specified working point is evaluated on the weighted background
-    sample and is calculated with respect to the full variable set. }
+  \caption[Variable importance ranking for the 1- and 3-prong BDT]{Variable
+    importance in the 1- and 3-prong BDT. The average rejection loss at the
+    specified working point is evaluated on the weighted background sample and
+    is calculated with respect to the full variable set. }
   \label{fig:variable_importance}
 \end{figure}
 
@@ -807,8 +818,9 @@ that are correlated with variables that were removed (e.g.\
     \subcaption{3-prong BDT at the medium working point with
       \SI{60}{\percent}~signal efficiency).}
   \end{subfigure}
-  \caption{Variable importance in the 1- and 3-prong BDTs after removing weak
-    variables. The average rejection loss at the specified working point is
+  \caption[Variable importance ranking for the 1- and 3-prong BDT after removing
+  weak variables]{Variable importance in the 1- and 3-prong BDTs after removing
+    weak variables. The average rejection loss at the specified working point is
     evaluated on the weighted background sample and is calculated with respect
     to the full variable set.}
   \label{fig:variable_importance_final}
@@ -856,8 +868,9 @@ completeness.
     \includegraphics{./figures/bdt_perf/post_optimisation/rejection_tight_3p.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Background rejection of the tight working point as a function of
-    \tauhadvis~$p_\text{T}$ at tau energy scale.}
+  \caption[Background rejection of the tight working point in bins of
+  \tauhadvis~\pt for the BDT-based identification]{Background rejection of the
+    tight working point in bins of \tauhadvis~$p_\text{T}$ at tau energy scale.}
   \label{fig:rejection_comparison}
 \end{figure}
 
@@ -888,7 +901,9 @@ points is also summarised in Appendix~\ref{app:bdt_working_point_rejection}.
     \includegraphics{./figures/bdt_perf/post_optimisation/3p_highpt/rejection_tight_ratio_highpt.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption{Background rejection of the tight working point as a function of
+  \caption[Background rejection of the tight working point in bins of
+  \tauhadvis~\pt for the BDT-based identification (extended momentum
+  range)]{Background rejection of the tight working point in bins of
     \tauhadvis~\pt at tau energy scale over an extended momentum range.}
   \label{fig:rejection_highpt}
 \end{figure}

@@ -55,8 +55,9 @@ hereafter called signal and background.
       and $x_2$ into subregions~$R_i$.}
     \label{fig:decision_tree_partition}
   \end{subfigure}
-  \caption{Structure of a decision tree with depth~$d_\text{tree} = 2$ and two
-    input variables $x_1$, $x_2$. Adapted from Ref.~\cite{esl}.}
+  \caption[Structure of a decision tree]{Structure of a decision tree with
+    depth~$d_\text{tree} = 2$ and two input variables $x_1$, $x_2$. Adapted from
+    Ref.~\cite{esl}.}
   \label{fig:decision_tree}
 \end{figure}
 
@@ -171,18 +172,20 @@ are connected by one or more intermediate hidden layers.
   \begin{minipage}[t]{0.55\textwidth}
     \centering
     \includegraphics{./figures/theory/mlp.pdf}
-    \captionof{figure}{Multi-layer perceptron with input layer~$\mathbf{x}$,
-      hidden layer~$\mathbf{h}$ and output layer~$\mathbf{y}$. Activations are
-      given after applying an element-wise activation function~$\bm{\varphi}$.
-      Block matrix notation is used to indicate how biases~$\mathbf{b}$ can be
-      absorbed into a single weight matrix.}
+    \captionof{figure}[Multi-layer perceptron]{Multi-layer perceptron with
+      input layer~$\mathbf{x}$, hidden layer~$\mathbf{h}$ and output
+      layer~$\mathbf{y}$. Activations are given after applying an element-wise
+      activation function~$\bm{\varphi}$. Block matrix notation is used to
+      indicate how biases~$\mathbf{b}$ can be absorbed into a single weight
+      matrix.}
     \label{fig:multi_layer_perceptron}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.4\textwidth}
     \centering
     \includegraphics{./figures/theory/activation_functions.pdf}
-    \captionof{figure}{Commonly used activation functions: logistic function (red),
-      hyperbolic tangent (blue) and rectified linear unit (green).}
+    \captionof{figure}[Commonly used activation functions]{Commonly used activation
+      functions: logistic function (red), hyperbolic tangent (blue) and
+      rectified linear unit (green).}
     \label{fig:activation_functions}
   \end{minipage}
 \end{figure}
@@ -303,10 +306,11 @@ the following description as they can be absorbed into the weight matrices.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/elman_rnn.pdf}
-  \caption{\textsc{Elman} network in compact form with a recurrent connection
-    and after unfolding the network in time. The black square indicates a delay
-    of one time step. Applications of nonlinear activation functions are
-    omitted. Adapted from Ref.~\cite{lecun_bengio_hinton_DL}.}
+  \caption[\textsc{Elman} network]{\textsc{Elman} network in compact form with
+    a recurrent connection and after unfolding the network in time. The black
+    square indicates a delay of one time step. Applications of nonlinear
+    activation functions are omitted. Adapted from
+    Ref.~\cite{lecun_bengio_hinton_DL}.}
   \label{fig:schematic_elman_rnn}
   %\footnote{Nomenclature originates from RNNs being used to predict quantities as a function of time.}
 \end{figure}
@@ -373,12 +377,12 @@ time~$t$ is shown.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
-  \caption{LSTM-cell unfolded in time at a fixed time step~$t$. Nodes
-    with~$\times$ ($+$) multiply (add) their inputs element-wise, while ones
-    containing a sigmoid shape apply a nonlinear activation function. The
-    dependency of the gate vectors $\mathbf{i}_t$, $\mathbf{o}_t$ and
-    $\mathbf{f}_t$ on input~$\mathbf{x}_t$ and output~$\mathbf{y}_{t-1}$ is
-    omitted.}
+  \caption[LSTM-cell unfolded in time]{LSTM-cell unfolded in time at a fixed
+    time step~$t$. Nodes with~$\times$ ($+$) multiply (add) their inputs
+    element-wise, while ones containing a sigmoid shape apply a nonlinear
+    activation function. The dependency of the gate vectors $\mathbf{i}_t$,
+    $\mathbf{o}_t$ and $\mathbf{f}_t$ on input~$\mathbf{x}_t$ and
+    output~$\mathbf{y}_{t-1}$ is omitted.}
   \label{fig:schematic_lstm}
 \end{figure}
 The LSTM represents a differentiable memory cell with three gates called the
