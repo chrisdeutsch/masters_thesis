@@ -1,21 +1,28 @@
-\begin{tabular}[htb]{ll}
+\begin{tabular}{ll}
   \toprule
   Variable & Transformation \\
   \midrule
-  \smash{$f_\text{cent}$} & \smash{$\min(x, 1)$} \\[0.5em]
-  \smash{$f_\text{leadtrack}^{-1}$} & \smash{$\log(\max(0.1, x))$} \\[0.5em]
-  \smash{$R_\text{track}$} & -- \\[0.5em]
-  \smash{$\Delta R_\text{max}$} & -- \\[0.5em]
-  \smash{$| S_\text{leadtrack} |$} & \smash{$\min(x, 30)$} \\[0.5em]
-  \smash{$S_\text{T}^\text{flight}$} & \smash{$\log(\max(0.01, x))$} \\[0.5em]
-  \smash{$f_\text{iso}^\text{track}$} & \smash{$\log\left(x + 10^{-4}\right)$} \\[0.5em]
-  \smash{$f_\text{EM}^\text{track-HAD}$} & \smash{$\max(-4, \min(x, 5))$} \\[0.5em]
-  \smash{$f_\text{track}^\text{EM}$} & \smash{$\log\left(\max\left(10^{-3}, x\right)\right)$} \\[0.5em]
-  \smash{$p_\text{T}^\text{EM+track} / p_\text{T}$} & \smash{$\min(x, 4)$} \\[0.5em]
-  \smash{$m_\text{EM+track}$} & \smash{$\log\left(\max(140, x / \si{\MeV})\right)$} \\[0.5em]
+  \smash{$f_\text{cent}$} & \smash{$\min(x, 1)$} \\
+  \smash{$f_\text{leadtrack}^{-1}$} & \smash{$\log(\max(0.1, x))$} \\
+  \smash{$R_\text{track}$} & -- \\
+  \smash{$\Delta R_\text{max}$} & -- \\
+  \smash{$| S_\text{leadtrack} |$} & \smash{$\min(x, 30)$} \\
+  \smash{$S_\text{T}^\text{flight}$} & \smash{$\log(\max(0.01, x))$} \\
+  \bottomrule
+\end{tabular}\hspace*{2em}
+\begin{tabular}{ll}
+  \toprule
+  Variable & Transformation \\
+  \midrule
+  \smash{$f_\text{iso}^\text{track}$} & \smash{$\log\left(x + 10^{-4}\right)$} \\
+  \smash{$f_\text{EM}^\text{track-HAD}$} & \smash{$\max(-4, \min(x, 5))$} \\
+  \smash{$f_\text{track}^\text{EM}$} & \smash{$\log\left(\max\left(10^{-3}, x\right)\right)$} \\
+  \smash{$p_\text{T}^\text{EM+track} / p_\text{T}$} & \smash{$\min(x, 4)$} \\
+  \smash{$m_\text{EM+track}$} & \smash{$\log\left(\max(140, x / \si{\MeV})\right)$} \\
   \smash{$m_\text{track}$} & \smash{$\log\left(\max(140, x / \si{MeV})\right)$} \\
   \bottomrule
 \end{tabular}
+
 
 %%% Local Variables:
 %%% mode: latex
