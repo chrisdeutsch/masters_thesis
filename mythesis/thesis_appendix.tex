@@ -3,175 +3,138 @@
 \label{sec:app}
 %------------------------------------------------------------------------------
 
-\begin{itemize}
-\item MC Samples (Preprod, MC16A)
-\item BDT ID studies \texttt{bdt\_tauid}
-\item RNN ID studies \texttt{rnn\_tauid}
-\item RNN Decay Mode studies \texttt{rnn\_decay\_mode\_classif}
-\end{itemize}
 
-\todo[inline]{Tables of layers, i.e.\ keras output for model-summary.}
-
-\section{Auxiliary Figures}
-
-\begin{figure}[htpb]
-  \centering
-  \includegraphics{./figures/rnn/ntrk_3p.pdf}
-  \caption{Number of tracks for 3-prong taus}
-  \label{fig:total_tracks_3p}
-\end{figure}
-
-\begin{figure}[htpb]
-  \centering
-  \includegraphics{./figures/rnn/ncls_3p.pdf}
-  \caption{Number of clusters for 3-prong taus}
-  \label{fig:total_clusters_3p}
-\end{figure}
-
-\section{MC Dijet Slices}
-Truth $p_\mathrm{T}$ of jet given by anti-$k_\mathrm{T}$ jet algorithm with distance parameter $R=0.6$:
-\begin{itemize}
-\item[JZ0W] 0 - 20 GeV
-\item[JZ1W] 20 - 60 GeV
-\item[JZ2W] 60 - 160 GeV
-\item[JZ3W] 160 - 400 GeV
-\item[JZ4W] 400 - 800 GeV
-\item[JZ5W] 800 - 1300 GeV
-\item[JZ6W] 1300 - 1800 GeV
-\item[JZ7W] 1800 - 2500 GeV
-\item[JZ8W] 2500 - 3200 GeV
-\end{itemize}
-
-\url{https://svnweb.cern.ch/cern/wsvn/atlasoff/Generators/MC15JobOptions/trunk/share/DSID361xxx/MC15.361021.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1W.py}
-
-
-\url{https://svnweb.cern.ch/cern/wsvn/atlasoff/Generators/MC15JobOptions/trunk/common/Filters/JetFilterAkt6.py}
-
-
-\url{https://svnweb.cern.ch/cern/wsvn/atlasoff/Generators/MC15JobOptions/trunk/common/Filters/JetFilter_JZX_Fragment.py}
-
-\todo[inline]{Why is JZ0W not used}
-
-\section{Samples}
+\section{Event Samples}
 \label{app:samples}
 
-\subsection{Preproduction Taus}
+In the following the event samples used for the studies presented in this thesis
+are summarised.
+
+\subsection{Samples for BDT- and RNN-based Tau Identification}
 \label{app:preprod_taus}
-
-\begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
-  mc16_13TeV.425200.Pythia8EvtGen_A14NNPDF23LO_Gammatautau_MassWeight.merge.AOD.e5468_s2997_r9064_r8996
-\end{lstlisting}
-
-19974000 events
-
-\subsection{MC16A Taus}
-\label{app:mc16a_taus}
-
-\begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
-  mc16_13TeV.425200.Pythia8EvtGen_A14NNPDF23LO_Gammatautau_MassWeight.merge.AOD.e5468_s3126_r9364_r9315
-\end{lstlisting}
-
-29998000 events
-
-\subsection{Preproduction Dijets}
 \label{app:preprod_dijets}
-For the tau identification studies the momentum slices (JZ1W to JZ6W) are
-combined without cross section weighting as the sizes of the generated slices
-are chosen such that high momentum candidates are enhanced. A cross section
-reweighting would significantly reduce the weights of high momentum slices with
-a large number of simulated events compared to the low momentum slices (JZ1W -
-JZ2W) where only a small number of events are simulated.
 
-\begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
-  mc16_13TeV.361021.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1W.merge.AOD.e3569_s2997_r9064_r8996
-  mc16_13TeV.361022.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2W.merge.AOD.e3668_s2997_r9064_r9078
-  mc16_13TeV.361023.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3W.merge.AOD.e3668_s2997_r9064_r8996
-  mc16_13TeV.361024.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ4W.merge.AOD.e3668_s2997_r9064_r9078
-  mc16_13TeV.361025.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ5W.merge.AOD.e3668_s2997_r9064_r8996
-  mc16_13TeV.361026.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ6W.merge.AOD.e3569_s2997_r9064_r9078
-\end{lstlisting}
+\begin{table}[htbp]
+  \centering
+  {\small
+  \begin{tabular}{p{13cm}S[table-format=8.0]}
+    \toprule
+    Sample & {Events} \\
+    \midrule
+    \texttt{mc16\_13TeV.425200.Pythia8EvtGen\_A14NNPDF23LO\_Gammatautau\_MassWeight\newline\hspace*{1em}.merge.AOD.e5468\_s2997\_r9064\_r8996} & 19974000 \\
+    \bottomrule
+  \end{tabular}
+  }
+  \caption{Signal samples ($\gamma^* \to \tauhad\tauhad$) used for BDT- and
+    RNN-based Tau Identification}
+  \label{tab:samples_preprod_taus}
+\end{table}
 
-JZ1W: 2020000 events \\
-JZ2W: 1994000 events \\
-JZ3W: 7801500 events \\
-JZ4W: 7973500 events \\
-JZ5W: 7948500 events \\
-JZ6W: 1981000 events \\
-
-\subsection{Upgrade Samples}
-\label{app:upgrade_samples}
-Gammatautau (extended layout):
-\begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
-  mc15_14TeV.361247.PowhegPythia8EvtGen_AZNLOCTEQ6L1_Ztautau_new.recon.AOD.e4805_s2987_s2999_r8820
-  mc15_14TeV.301040.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_120M180.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301041.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_180M250.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301042.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_250M400.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301043.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_400M600.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301044.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_600M800.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301045.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_800M1000.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301046.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1000M1250.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301047.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1250M1500.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301048.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1500M1750.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301049.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_1750M2000.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301050.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2000M2250.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301051.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2250M2500.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301052.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2500M2750.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301053.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_2750M3000.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301054.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3000M3500.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301055.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_3500M4000.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301056.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4000M4500.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301057.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_4500M5000.recon.AOD.e5323_s2987_s2999_r8820
-  mc15_14TeV.301058.PowhegPythia8EvtGen_AZNLOCTEQ6L1_DYtautau_5000M.recon.AOD.e5323_s2987_s2999_r8820
-\end{lstlisting}
-
-Ztautau: 300000
-120M180: 150000\\
-180M250: 150000\\
-250M400: 150000\\
-400M600: 147300\\
-600M800: 50000\\
-800M1000: 50000\\
-1000M1250: 50000\\
-1250M1500: 50000\\
-1500M1750: 49900\\
-1750M2000: 50000\\
-2000M2250: 49900\\
-2250M2500: 50000\\
-2500M2750: 50000\\
-2750M3000: 50000\\
-3000M3500: 50000\\
-3500M4000: 50000\\
-4000M4500: 50000\\
-4500M5000: 50000\\
-5000M: 49900
-
-Dijets (extended layout):
-\begin{lstlisting}[basicstyle=\small\ttfamily, breaklines=true]
-  mc15_14TeV.147910.Pythia8_AU2CT10_jetjet_JZ0W.recon.AOD.e2403_s2987_s2999_r8820
-  mc15_14TeV.147911.Pythia8_AU2CT10_jetjet_JZ1W.recon.AOD.e2403_s2987_s2999_r8820
-  mc15_14TeV.147912.Pythia8_AU2CT10_jetjet_JZ2W.recon.AOD.e2403_s2987_s2999_r8820
-  mc15_14TeV.147913.Pythia8_AU2CT10_jetjet_JZ3W.recon.AOD.e2403_s2987_s2999_r8820
-  mc15_14TeV.147914.Pythia8_AU2CT10_jetjet_JZ4W.recon.AOD.e2403_s2987_s2999_r8820
-  mc15_14TeV.147915.Pythia8_AU2CT10_jetjet_JZ5W.recon.AOD.e2403_s2987_s2999_r8820
-  mc15_14TeV.147916.Pythia8_AU2CT10_jetjet_JZ6W.recon.AOD.e2403_s2987_s2999_r8820
-  mc15_14TeV.147917.Pythia8_AU2CT10_jetjet_JZ7W.recon.AOD.e2403_s2987_s2999_r8820
-\end{lstlisting}
-
-JZ0W:999500\\
-JZ1W:962300\\
-JZ2W:999500\\
-JZ3W:985400\\
-JZ4W:50000\\
-JZ5W:49650\\
-JZ6W:50000\\
-JZ7W:50000
-
+\begin{table}[htbp]
+  \centering
+  {\small
+  \begin{tabular}{p{13cm}S[table-format=7.0]}
+    \toprule
+    Sample & {Events} \\
+    \midrule
+    \texttt{mc16\_13TeV.361021.Pythia8EvtGen\_A14NNPDF23LO\_jetjet\_JZ1W\newline\hspace*{1em}.merge.AOD.e3569\_s2997\_r9064\_r8996} & 2020000 \\
+    \texttt{mc16\_13TeV.361022.Pythia8EvtGen\_A14NNPDF23LO\_jetjet\_JZ2W\newline\hspace*{1em}.merge.AOD.e3668\_s2997\_r9064\_r9078} & 1994000 \\
+    \texttt{mc16\_13TeV.361023.Pythia8EvtGen\_A14NNPDF23LO\_jetjet\_JZ3W\newline\hspace*{1em}.merge.AOD.e3668\_s2997\_r9064\_r8996} & 7801500 \\
+    \texttt{mc16\_13TeV.361024.Pythia8EvtGen\_A14NNPDF23LO\_jetjet\_JZ4W\newline\hspace*{1em}.merge.AOD.e3668\_s2997\_r9064\_r9078} & 7973500 \\
+    \texttt{mc16\_13TeV.361025.Pythia8EvtGen\_A14NNPDF23LO\_jetjet\_JZ5W\newline\hspace*{1em}.merge.AOD.e3668\_s2997\_r9064\_r8996} & 7948500 \\
+    \texttt{mc16\_13TeV.361026.Pythia8EvtGen\_A14NNPDF23LO\_jetjet\_JZ6W\newline\hspace*{1em}.merge.AOD.e3569\_s2997\_r9064\_r9078} & 1981000 \\
+    \bottomrule
+  \end{tabular}
+  }
+  \caption{Background samples (dijet) used for BDT- and RNN-based Tau
+    Identification}
+  \label{tab:samples_preprod_dijets}
+\end{table}
 
 \clearpage
-\section{Tau-ID Variables}
+\subsection{Samples for RNN-based Ditau Identification at HL-LHC Conditions}
+\label{app:upgrade_samples}
+
+\begin{table}[htbp]
+  \centering
+  {\small
+  \begin{tabular}{p{13cm}S[table-format=6.0]}
+    \toprule
+    Sample & {Events} \\
+    \midrule
+    \texttt{mc15\_14TeV.361247.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_Ztautau\_new\newline\hspace*{1em}.recon.AOD.e4805\_s2987\_s2999\_r8820} & 300000 \\
+    \texttt{mc15\_14TeV.301040.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_120M180\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 150000 \\
+    \texttt{mc15\_14TeV.301041.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_180M250\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 150000 \\
+    \texttt{mc15\_14TeV.301042.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_250M400\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 150000 \\
+    \texttt{mc15\_14TeV.301043.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_400M600\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 147300 \\
+    \texttt{mc15\_14TeV.301044.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_600M800\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301045.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_800M1000\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301046.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_1000M1250\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301047.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_1250M1500\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301048.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_1500M1750\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 49900 \\
+    \texttt{mc15\_14TeV.301049.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_1750M2000\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301050.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_2000M2250\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301051.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_2250M2500\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 49900 \\
+    \texttt{mc15\_14TeV.301052.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_2500M2750\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301053.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_2750M3000\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301054.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_3000M3500\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301055.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_3500M4000\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301056.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_4000M4500\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301057.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_4500M5000\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 50000 \\
+    \texttt{mc15\_14TeV.301058.PowhegPythia8EvtGen\_AZNLOCTEQ6L1\_DYtautau\_5000M\newline\hspace*{1em}.recon.AOD.e5323\_s2987\_s2999\_r8820} & 49900 \\
+    \bottomrule
+  \end{tabular}
+  }
+  \caption{Signal samples ($Z / \gamma^* \to \tau\tau$) for the Phase-II upgrade
+    of the ATLAS detector with the Extended ITk-layout.}
+  \label{tab:samples_upgrade_tau}
+\end{table}
+
+\begin{table}[htbp]
+  \centering
+  {\small
+  \begin{tabular}{p{13cm}S[table-format=6.0]}
+    \toprule
+    Sample & {Events} \\
+    \midrule
+    \texttt{mc15\_14TeV.147910.Pythia8\_AU2CT10\_jetjet\_JZ0W\newline\hspace*{1em}.recon.AOD.e2403\_s2987\_s2999\_r8820} & 999500 \\
+    \texttt{mc15\_14TeV.147911.Pythia8\_AU2CT10\_jetjet\_JZ1W\newline\hspace*{1em}.recon.AOD.e2403\_s2987\_s2999\_r8820} & 962300 \\
+    \texttt{mc15\_14TeV.147912.Pythia8\_AU2CT10\_jetjet\_JZ2W\newline\hspace*{1em}.recon.AOD.e2403\_s2987\_s2999\_r8820} & 999500 \\
+    \bottomrule
+  \end{tabular}
+  }
+  \caption{Background samples (dijet) for the Phase-II upgrade of the ATLAS
+    detector with the Extended ITk-layout.}
+  \label{tab:samples_upgrade_dijet}
+\end{table}
+
+
+\FloatBarrier
+\subsection{Samples for RNN-based Decay Mode Classification}
+\label{app:mc16a_taus}
+
+\begin{table}[htbp]
+  \centering
+  {\small
+  \begin{tabular}{p{13cm}S[table-format=8.0]}
+    \toprule
+    Sample & {Events} \\
+    \midrule
+    \texttt{mc16\_13TeV.425200.Pythia8EvtGen\_A14NNPDF23LO\_Gammatautau\_MassWeight\newline\hspace*{1em}.merge.AOD.e5468\_s3126\_r9364\_r9315} & 29998000 \\
+    \bottomrule
+  \end{tabular}
+  }
+  \caption{Samples used for the RNN-based Decay Mode Classification.}
+  \label{tab:samples_mc16a_taus}
+\end{table}
+
+\clearpage
+\section{Tau Identification using Boosted Decision Trees}
+\subsection{Discriminating Variables}
 \label{app:tauid_vars}
 
-\subsection{1-prong}
+\FloatBarrier
+\subsubsection{1-prong}
 \begin{figure}[!ht]
   \begin{subfigure}{0.5\textwidth}
     \centering
@@ -183,7 +146,7 @@ JZ7W:50000
   \end{subfigure}
   \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics{./figures/baseline_bdt_vars/1p/innerTrkAvgDist.pdf}
+    \includegraphics{./figures/baseline_bdt_vars/1p/innerTrkAvgDist_fixed.pdf}
   \end{subfigure}%
   \begin{subfigure}{0.5\textwidth}
     \centering
@@ -197,7 +160,7 @@ JZ7W:50000
     \centering
     \includegraphics{./figures/baseline_bdt_vars/1p/ChPiEMEOverCaloEME.pdf}
   \end{subfigure}
-  \caption{Variables used in Tau-ID BDT. \mytodo{Rename innerTrkAvgDist x-label}}
+  \caption{Variables used in Tau-ID BDT.}
   \label{fig:bdt_vars_1p_overlays}
 \end{figure}
 
@@ -218,7 +181,7 @@ JZ7W:50000
 \end{figure}
 
 \clearpage
-\subsection{3-prong}
+\subsubsection{3-prong}
 
 \begin{figure}[!ht]
   \begin{subfigure}{0.5\textwidth}
@@ -231,7 +194,7 @@ JZ7W:50000
   \end{subfigure}
   \begin{subfigure}{0.5\textwidth}
     \centering
-    \includegraphics{./figures/baseline_bdt_vars/3p/innerTrkAvgDist.pdf}
+    \includegraphics{./figures/baseline_bdt_vars/3p/innerTrkAvgDist_fixed.pdf}
   \end{subfigure}%
   \begin{subfigure}{0.5\textwidth}
     \centering
@@ -245,7 +208,7 @@ JZ7W:50000
     \centering
     \includegraphics{./figures/baseline_bdt_vars/3p/SumPtTrkFrac.pdf}
   \end{subfigure}%
-  \caption{Variables used in Tau-ID BDT\mytodo{rename innerTrkAvgDist x-label}}
+  \caption{Variables used in Tau-ID BDT.}
   \label{fig:bdt_vars_3p_overlays}
 \end{figure}
 
@@ -272,6 +235,29 @@ JZ7W:50000
   \end{subfigure}
   \caption[]{Variables used in Tau-ID BDT}
 \end{figure}
+
+
+\FloatBarrier
+\section{Tau Identification using Recurrent Neural Networks}
+
+\FloatBarrier
+\section{Decay Mode Classification using Recurrent Neural Networks}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{./figures/rnn/ntrk_3p.pdf}
+  \caption{Number of tracks for 3-prong taus}
+  \label{fig:total_tracks_3p}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{./figures/rnn/ncls_3p.pdf}
+  \caption{Number of clusters for 3-prong taus}
+  \label{fig:total_clusters_3p}
+\end{figure}
+
+\clearpage
 
 \clearpage
 \section{Transformed Variables}

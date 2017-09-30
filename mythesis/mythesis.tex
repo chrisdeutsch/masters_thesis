@@ -37,6 +37,7 @@
 \presetkeys{todonotes}{fancyline}{}
 \usepackage{multirow}
 \usepackage{thesis_defs}
+\usepackage{placeins}
 
 %------------------------------------------------------------------------------
 % Instead of colouring  links, cites, table of contents etc.
@@ -234,7 +235,9 @@
 % }
 
 %------------------------------------------------------------------------------
+
 \appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
 % \part*{Appendix}
 % Add your appendices here - don't forget to also add them to \includeonly above
 \include{thesis_appendix}
