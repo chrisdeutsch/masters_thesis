@@ -238,8 +238,8 @@ calorimeter~\mbox{$1.37 < |\eta| < 1.52$} and having one or three \emph{charged}
 tracks are selected. Additionally, \tauhadvis candidates in the signal samples
 are matched to taus at generator-level and the same selections, i.e.\ transverse
 momentum, pseudorapidity, number of charged hadrons in the decay, are applied at
-truth level \todo{why. potential bias}. The number of tau candidates in the
-samples after preselection is summarised in Table~\ref{tab:sample_size}.
+truth level. The number of tau candidates in the samples after preselection is
+summarised in Table~\ref{tab:sample_size}.
 
 \begin{table}[htb]
   \centering
@@ -570,8 +570,7 @@ efficiencies results in similar configurations.
 For the use of tau identification in analyses, four working points with fixed
 signal efficiencies are defined as shown in Table~\ref{tab:wp_eff}. Due to the
 abundance of 3-track \tauhadvis candidates originating from multijet events, a
-tighter selection is applied in the 3-prong tau identification. \todo{Very
-  loose:analyses with low background or fake factor estimation}
+tighter selection is applied in the 3-prong tau identification.
 
 \begin{table}[htb]
   \centering
@@ -672,7 +671,7 @@ separation at high transverse momenta. This is because the mass of signal
 candidates is bounded by the mass of the tau lepton when neglecting resolution
 effects, while for candidates from quark- or gluon-initiated jets the invariant
 mass tends to increase with increasing transverse momentum of the \tauhadvis
-candidate. \todo{Plots? Actually not true for mEflowApprox}
+candidate.
 
 To take advantage of the varying signal/background separation in different
 $p_\text{T}$-regions, the \tauhadvis transverse momentum is included as an input
@@ -708,7 +707,7 @@ to \SI{4.9 +- 0.2}{\percent} for the 1-prong loose, and \SI{3.6 +-
   0.5}{\percent} for the 3-prong medium working point. The comparison of the
 relative rejection gain after including the unclamped momentum~$p_\text{T}$ and
 the clamped momentum~\smash{$p_\text{T}^\text{clamp}$} show that the majority of
-rejection is retained after clamping. \todo{Most stat is below 200 GeV}
+rejection is retained after clamping.
 
 Also shown in the table is the rejection after including the momentum fraction
 of isolation tracks~$f_\text{iso}^\text{track}$ into the 3-prong BDT, where it
@@ -723,8 +722,6 @@ especially for the loose and medium working points.
     variables.}
   \label{tab:bdt_new_variables}
 \end{table}
-
-\todo[inline]{What else has been tested?}
 
 \subsection{Variable Importance}
 \label{sec:bdt_var_importance}
@@ -846,14 +843,14 @@ shows an improvement in background rejection of \num{10} to \SI{30}{\percent}
 depending on the transverse momentum of the \tauhadvis candidate. The large
 rejection of fake \tauhadvis with transverse momentum close to \SI{20}{\GeV} is
 due to an increased rejection of \tauhadvis candidates originating from
-gluon-initiated jets (cf.\ Appendix~\ref{app:bdt_parton}). \todo{Better
-  explanation} Similarly, the improvements for the 3-prong BDT also range from
-\num{10} to \SI{30}{\percent}. The other working points show similar
-improvements as the tight working point with the exception of the 3-prong loose
-working point exceeding the reference by \SI{30}{\percent} for \tauhadvis \pt
-larger than \SI{80}{\GeV}. The performance of the loose and medium working
-points is summarised in Appendix~\ref{app:bdt_working_point_rejection} for
-completeness.
+gluon-initiated jets (cf.\ Appendix~\ref{app:bdt_parton}), which have a large
+width at low \tauhadvis~\pt. Similarly, the improvements for the 3-prong BDT
+also range from \num{10} to \SI{30}{\percent}. The other working points show
+similar improvements as the tight working point with the exception of the
+3-prong loose working point exceeding the reference by \SI{30}{\percent} for
+\tauhadvis \pt larger than \SI{80}{\GeV}. The performance of the loose and
+medium working points is summarised in
+Appendix~\ref{app:bdt_working_point_rejection} for completeness.
 
 \begin{figure}[htbp]
   \centering
@@ -887,7 +884,6 @@ momenta. However, the loose working point shows relative improvements of
 \num{50} to more than \SI{100}{\percent} above \SI{200}{\GeV}. For completeness
 the rejection over the extended momentum range of the loose and medium working
 points is also summarised in Appendix~\ref{app:bdt_working_point_rejection}.
-\todo{Write something about missing pixel hits from late tau decay}
 
 \begin{figure}[htbp]
   \centering
@@ -919,18 +915,6 @@ working points and the 3-prong loose and medium working points.
 
 % 1-prong: Gluon dominated at low pt -- 20 percent quark to gluon ratio sub 25 GeV
 % 3-prong:
-
-\todo[inline]{Working point efficiencies for pt and mu\\
-  Rejection for full pt range;\\
-  Plot 2nd order effects? (e.g.\ ptRatioEflowApprox vs.\ mEflowApprox 1p
-  or massTrkSys vs.\ EMPOverTrkSysP 3p); \\
-  Understand the rejection vs.\ pt curve. Why does the rejection drop (is it
-  because rejection is enhanced due to pile-up fakes)? Why does rejection
-  increase again for high pt?; \\
-  BDT is optimised for a 'gammatautau'-like spectrum (focused on improving
-  rejection at low pt);\\
-  Show 2D plot of signal \& background e.g. massTrkSys vs. EMPOverTrkSysP to
-  motivate the use of MVA methods / BDTs}
 
 %%% Local Variables:
 %%% mode: latex
