@@ -16,7 +16,7 @@ decays. In the ATLAS experiment an identification algorithm based on
 multivariate methods utilising track and shower shape
 variables~\cite{atlas:taurec:run1, atlas:taurec:run2} is used to discriminate
 hadronic tau decays from \tauhadvis candidates originating from jets. The
-algorithm has been continuously developed since Run 1 of the LHC.
+algorithm has been continuously developed since before Run 1 of the LHC.
 
 This chapter starts with a description of the tau identification procedure
 including definitions of the discriminating variables and the configuration of
@@ -77,21 +77,20 @@ electromagnetic calorimeter is considered to be part of the hadronic calorimeter
 when defining the identification variables. The variables are defined as
 follows~\cite{atlas:taurec:run2}:
 \begin{description}
-\item[Central energy fraction ($f_\text{cent}$):] Fraction of transverse energy
-  at EM scale deposited in calorimeter cells with a barycentre in a cone of
-  radius $\Delta R < 0.1$, and cells in a cone of radius $\Delta R < 0.2$ with
-  respect to the reconstructed tau axis.
+\item[Central energy fraction ($f_\text{cent}$):] Transverse energy at EM scale
+  deposited in calorimeter cells with a barycentre in a cone of radius
+  $\Delta R < 0.1$ divided by the transverse energy of cells in a cone of radius
+  $\Delta R < 0.2$ with respect to the reconstructed tau axis.
   % (i.e.\ the axis after correcting for the position of the primary vertex cf.\
   % section~\ref{sec:reco_vertex_assoc}).
-  For noise suppression the calorimeter cells must be part of a
-  \emph{TopoCluster}.
+  For noise suppression the calorimeter cells must be part of a TopoCluster.
 
 \item[Inverse momentum fraction of the leading track
-  ($f_\text{leadtrack}^{-1}$):] Fraction of transverse energy at EM scale
-  deposited in calorimeter cells (as part of TopoClusters) with a
-  barycentre in a cone of radius~$\Delta R < 0.2$ with respect to the tau axis
-  and the transverse momentum of the highest transverse momentum track
-  classified as \emph{charged} according to the track classification.
+  ($f_\text{leadtrack}^{-1}$):] Transverse energy at EM scale deposited in
+  calorimeter cells (as part of TopoClusters) with a barycentre in a cone of
+  radius~$\Delta R < 0.2$ with respect to the tau axis divided by the transverse
+  momentum of the highest transverse momentum track classified as \emph{charged}
+  according to the track classification.
 
 \item[Track radius ($R_\text{track}$):] Mean $\Delta R$-distance of tracks
   classified as \emph{charged} and the tau axis weighted by the transverse
@@ -542,7 +541,7 @@ model is less than \SI{5}{\percent} for signal efficiencies as low as
 \SI{45}{\percent}. Moreover, the rejection of the conservative \mbox{BDT B}
 improves on the reference by \num{10} to \SI{16}{\percent}. The rejection of the
 3-prong BDT is approximately one order of magnitude larger than for the 1-prong
-case. This can largely be attributed to the availablility of invariant mass and
+case. This can largely be attributed to the availability of invariant mass and
 secondary vertex information. Optimising the BDTs for different signal
 efficiencies results in similar configurations.
 
@@ -782,7 +781,7 @@ due to its high correlation
 with~\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$} with a linear correlation
 coefficient of approximately \SI{70}{\percent} for both signal and background
 \tauhadvis candidates. The variable is removed from the BDT and the variable
-importance is reevaluated to account for correlations. After
+importance is re-evaluated to account for correlations. After
 removing~\smash{$f_\text{EM}^\text{track-HAD}$}, the weakest variable
 is~$R_\text{track}$ with a rejection loss with respect to the model using the
 full variable set of \SI{3.2 +- 0.4}{\percent} when removing it from the BDT.
@@ -792,7 +791,7 @@ deviations from zero.
 Following the same procedure for the 3-prong BDT shows that
 removing~$R_\text{track}$, which is highly correlated
 with~$\Delta R_\text{max}$, is within one standard deviation of zero rejection
-loss and therefore removed from the BDT. Reevaluating the variable importances
+loss and therefore removed from the BDT. Re-evaluating the variable importances
 identifies~\smash{$f_\text{EM}^\text{track-HAD}$} as the weakest variable with a
 rejection loss of \SI{1.2 +- 0.6}{\percent} and is subsequently removed. The
 rejection loss incurred in the next iteration exceeds the three standard
