@@ -3,14 +3,14 @@
 \label{sec:app}
 % ------------------------------------------------------------------------------
 
-This chapter summarises the event samples used to train and evaluate the models
-and auxiliary figures, which are not included in the main part of this thesis.
-In Section~\ref{app:samples} the event samples are summarised.
-Section~\ref{app:tauid} presents auxiliary figures for the studies of
-Chapter~\ref{sec:bdt}. In Section~\ref{app:rnn} additional information on the
-RNN-based tau identification from Chapter~\ref{sec:rnn} is given. Finally, in
-Section~\ref{app:decay_mode} additional material on the RNN-based decay mode
-classification from Chapter~\ref{sec:decaymode} is presented.
+This chapter summarises the event samples and auxiliary figures, which are not
+included in the main part of this thesis. In Section~\ref{app:samples} the event
+samples are summarised. Section~\ref{app:tauid} presents auxiliary figures for
+the BDT-based studies of Chapter~\ref{sec:bdt}. In Section~\ref{app:rnn}
+additional information on the RNN-based tau identification from
+Chapter~\ref{sec:rnn} is given. Finally, in Section~\ref{app:decay_mode}
+additional material on the RNN-based decay mode classification from
+Chapter~\ref{sec:decaymode} is presented.
 
 \section{Event Samples}
 \label{app:samples}
@@ -22,7 +22,9 @@ are summarised.
 \label{app:preprod_taus}
 \label{app:preprod_dijets}
 
-\begin{table}[htbp]
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=table}
   \centering
   {\small
   \begin{tabular}{p{13cm}S[table-format=8.0]}
@@ -33,13 +35,17 @@ are summarised.
     \bottomrule
   \end{tabular}
   }
-  \caption[Signal samples used for BDT- and RNN-based Tau Identification]{Signal
-    samples ($\gamma^* \to \tauhad\tauhad$) used for BDT- and RNN-based Tau
-    Identification}
+  \caption[Signal samples used for the BDT- and RNN-based tau
+  identification]{Signal samples ($\gamma^* \to \tauhad\tauhad$) used for the
+    BDT- and RNN-based tau identification}
   \label{tab:samples_preprod_taus}
-\end{table}
+\end{minipage}
 
-\begin{table}[htbp]
+\vspace*{2em}
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=table}
   \centering
   {\small
   \begin{tabular}{p{13cm}S[table-format=7.0]}
@@ -55,17 +61,19 @@ are summarised.
     \bottomrule
   \end{tabular}
   }
-  \caption[Background samples used for BDT- and RNN-based Tau
-  Identification]{Background samples (dijet) used for BDT- and RNN-based Tau
-    Identification}
+  \caption[Background samples used for the BDT- and RNN-based tau
+  identification]{Background samples (dijet) used for the BDT- and RNN-based tau
+    identification}
   \label{tab:samples_preprod_dijets}
-\end{table}
+\end{minipage}
 
 \clearpage
 \subsection{Samples for RNN-based Ditau Identification at HL-LHC Conditions}
 \label{app:upgrade_samples}
 
-\begin{table}[htbp]
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=table}
   \centering
   {\small
   \begin{tabular}{p{13cm}S[table-format=6.0]}
@@ -97,11 +105,15 @@ are summarised.
   }
   \caption[Signal samples for the Phase-II upgrade of the ATLAS detector]{Signal
     samples ($Z / \gamma^* \to \tau\tau$) for the Phase-II upgrade of the ATLAS
-    detector with the Extended ITk-layout.}
+    detector with the \emph{Extended} ITk-layout.}
   \label{tab:samples_upgrade_tau}
-\end{table}
+\end{minipage}
 
-\begin{table}[htbp]
+\clearpage
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=table}
   \centering
   {\small
   \begin{tabular}{p{13cm}S[table-format=6.0]}
@@ -116,10 +128,11 @@ are summarised.
   }
   \caption[Background samples for the Phase-II upgrade of the ATLAS
   detector]{Background samples (dijet) for the Phase-II upgrade of the ATLAS
-    detector with the Extended ITk-layout.}
+    detector with the the \emph{Extended} ITk-layout.}
   \label{tab:samples_upgrade_dijet}
-\end{table}
+\end{minipage}
 
+\vspace*{2em}
 
 \FloatBarrier
 \subsection{Samples for RNN-based Decay Mode Classification}
@@ -174,8 +187,8 @@ are summarised.
     \centering
     \includegraphics{./figures/baseline_bdt_vars/1p/ChPiEMEOverCaloEME.pdf}
   \end{subfigure}
-  \caption[Distributions of variables used for 1-prong tau
-  identification]{Distributions of variables used for 1-prong tau
+  \caption[Distributions of high-level variables used for 1-prong tau
+  identification]{Distributions of high-level variables used for 1-prong tau
     identification.}
   \label{fig:bdt_vars_1p_overlays}
 \end{figure}
@@ -193,7 +206,8 @@ are summarised.
     \centering
     \includegraphics{./figures/baseline_bdt_vars/1p/mEflowApprox.pdf}
   \end{subfigure}
-  \caption[]{Distributions of variables used for 1-prong tau identification.}
+  \caption[]{Distributions of high-level variables used for 1-prong tau
+    identification.}
 \end{figure}
 
 \clearpage
@@ -224,8 +238,8 @@ are summarised.
     \centering
     \includegraphics{./figures/baseline_bdt_vars/3p/SumPtTrkFrac.pdf}
   \end{subfigure}%
-  \caption[Distributions of variables used for 3-prong tau
-  identification]{Distributions of variables used for 3-prong tau
+  \caption[Distributions of high-level variables used for 3-prong tau
+  identification]{Distributions of high-level variables used for 3-prong tau
     identification.}
   \label{fig:bdt_vars_3p_overlays}
 \end{figure}
@@ -251,7 +265,8 @@ are summarised.
     \centering
     \includegraphics{./figures/baseline_bdt_vars/3p/mEflowApprox.pdf}
   \end{subfigure}
-  \caption[]{Distributions of variables used for 3-prong tau identification.}
+  \caption[]{Distributions of high-level variables used for 3-prong tau
+    identification.}
 \end{figure}
 
 \FloatBarrier
@@ -324,8 +339,9 @@ are summarised.
   \texttt{MaxDepth} & 6 \\
   \texttt{MinNodeSize} & 0.1 \\
 \end{tabular}
-\end{minipage}%
+\end{minipage}
 
+\vspace*{2em}
 
 \subsection{Variable Transformations}
 \label{app:variable_transforms}
@@ -335,7 +351,7 @@ are summarised.
   {\def\arraystretch{1.35}\small
     \input{./tables/var_transformations.tex}
   }
-  \caption[Transformations applied to input the variables of the BDT-based tau
+  \caption[Transformations applied to the input variables of the BDT-based tau
   identification]{Transformations applied to the input variables of the
     BDT-based tau identification.}
 \end{table}
@@ -365,8 +381,8 @@ are summarised.
   \end{subfigure}
   \caption[Background rejection as a function of BDT hyperparameters
   (3-prong)]{Background rejection of the 3-prong BDT at \SI{45}{\percent} signal
-    efficiency as a function of BDT hyperparameters. No bagged boosting is used.
-    The rejection is calculated using the testing sample.}
+    efficiency as a function of BDT hyperparameters. Bagged boosting is not
+    used. The rejection is calculated using the testing sample.}
   \label{fig:hyperparameter_scan_3p}
 \end{minipage}
 
@@ -387,14 +403,14 @@ are summarised.
     \includegraphics{./figures/bdt_perf/scores/grid_3p0327.pdf}
     \subcaption{BDT B}
   \end{subfigure}
-  \caption[Distribution of the tau identification BDT score
+  \caption[Distributions of the tau identification BDT score
   (3-prong)]{Distributions of the 3-prong tau identification BDT score for the
     training and testing sample for signal and background candidates.}
   \label{fig:bdt_ks5_scores}
 \end{minipage}
 
 \FloatBarrier
-\subsection{Comparison of BDT A and BDT B}
+\subsection{Background Rejection of BDT~A and BDT~B}
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -402,14 +418,17 @@ are summarised.
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_1p/rejection_tight.pdf}
-    \subcaption{1-prong (tight)}
+    \subcaption{1-prong}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
-    \subcaption{3-prong (tight)}
+    \subcaption{3-prong}
   \end{subfigure}
-  \caption{Working points (BDT A).}
+  \caption[Background rejection of BDT~A, BDT~B and the reference BDT at the
+  tight working point]{Comparison of the background rejection of BDT~A, BDT~B
+    and the reference BDT at the tight working point in bins of \tauhadvis~\pt.
+    The setup does not use the optimised variable selection.}
 \end{minipage}
 
 \FloatBarrier
@@ -428,8 +447,12 @@ are summarised.
     \includegraphics{./figures/bdt_perf/var_importance/1p_iter2.pdf}
     \subcaption{Iteration 2}
   \end{subfigure}
-  \caption{Variable importance (1-prong). Averaged rejection loss over a
-    gamma-tautau like dijet spectrum. Tight working point.}
+  \caption[Recursive feature elimination for the 1-prong BDT]{Variable
+    importance in the 1-prong BDT. The average rejection loss is evaluated at
+    \SI{60}{\percent} signal efficiency in the weighted background sample and is
+    calculated with respect to the full variable set. The variable contributing
+    the least to the overall background rejection is removed after each
+    iteration.}
   \label{fig:variable_importance_1p_app}
 \end{minipage}
 
@@ -452,14 +475,18 @@ are summarised.
     \includegraphics{./figures/bdt_perf/var_importance/3p_iter3.pdf}
     \subcaption{Iteration 3}
   \end{subfigure}
-
-  \caption{Variable importance (3-prong). Averaged rejection loss over a
-    gamma-tautau like dijet spectrum. Tight working point.}
+  \caption[Recursive feature elimination for the 3-prong BDT]{Variable
+    importance in the 3-prong BDT. The average rejection loss is evaluated at
+    \SI{60}{\percent} signal efficiency in the weighted background sample and is
+    calculated with respect to the full variable set. The variable contributing
+    the least to the overall background rejection is removed after each
+    iteration.}
   \label{fig:variable_importance_3p_app}
 \end{minipage}
 
 \FloatBarrier
-\subsection{Tau Identification Performance Depending on the Initiating Parton}
+\subsection{Performance of Tau Identification Depending on the Initiating
+  Parton}
 \label{app:bdt_parton}
 
 \noindent
@@ -476,13 +503,13 @@ are summarised.
     \includegraphics{./figures/bdt_perf/parton/truth_parton_3p.pdf}
     \subcaption{3-prong}
   \end{subfigure}
-  \caption[Background rejection of the BDT depending on the initiating
-  parton]{Background rejection of the optimised BDT for tau identification
-    depending on the parton that initiated the jet.}
+  \caption[Background rejection of the optimised BDT depending on the parton
+  initiating the jet ]{Background rejection of the optimised BDT for tau
+    identification depending on the parton that initiated the jet.}
 \end{minipage}
 
 \clearpage
-\subsection{Medium and Loose Working Points of the Optimised BDT}
+\subsection{Other Working Points for the Optimised BDT}
 \label{app:bdt_working_point_rejection}
 \noindent
 \begin{minipage}{\textwidth}
@@ -535,7 +562,11 @@ are summarised.
     \includegraphics{./figures/bdt_perf/post_optimisation/1p_highpt/rejection_loose_ratio_highpt.pdf}
     \subcaption{loose}
   \end{subfigure}
-  \caption{1-prong high-pt}
+  \caption[Background rejection of the 1-prong medium and loose working points
+  in bins of \tauhadvis~\pt for the BDT-based identification (extended
+  \tauhadvis~\pt range)]{Background rejection of the 1-prong medium and loose
+    working points in bins of \tauhadvis~\pt over an extended transverse
+    momentum range.}
 \end{minipage}
 
 \noindent
@@ -552,7 +583,11 @@ are summarised.
     \includegraphics{./figures/bdt_perf/post_optimisation/3p_highpt/rejection_loose_ratio_highpt.pdf}
     \subcaption{loose}
   \end{subfigure}
-  \caption{3-prong high-pt}
+  \caption[Background rejection of the 3-prong medium and loose working points
+  in bins of \tauhadvis~\pt for the BDT-based identification (extended
+  \tauhadvis~\pt range)]{Background rejection of the 3-prong medium and loose
+    working points in bins of \tauhadvis~\pt over an extended transverse
+    momentum range.}
 \end{minipage}
 
 
@@ -589,14 +624,15 @@ are summarised.
   \captionsetup{type=figure}
   \centering
   \includegraphics{./figures/rnn/track/dR_corr.pdf}
-  \caption{Linear correlation coefficient between the track distance~$\Delta R$
-    to the jet axis and the signal probability~$p_\text{RNN}$ estimated by the
-    model from Section~\ref{sec:rnn_tracks}. The coefficient is determined on
-    the testing sample combining signal and background candidates with equal
-    total weight.}
+  \caption[Correlation of track $\Delta R$ and signal probability in the
+  Track--RNN]{Linear correlation coefficient between the track
+    distance~$\Delta R$ to the jet axis and the signal
+    probability~$p_\text{RNN}$ estimated by the model from
+    Section~\ref{sec:rnn_tracks}. The coefficient is determined on the testing
+    sample combining signal and background candidates with equal total weight.}
 \end{minipage}
 
-\subsection{Combined RNN Working Points}
+\subsection{Other Working Points for the Combined Model}
 \label{app:rnn_wp}
 
 \noindent
@@ -612,9 +648,10 @@ are summarised.
     \includegraphics{./figures/rnn/combined/rnn_loose_1p.pdf}
     \subcaption{medium}
   \end{subfigure}
-  \caption{Background rejection at the medium working point as a function of the
-    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
-    RNN-based identification.}
+  \caption[Background rejection of the 1-prong medium and loose working points
+  in bins of \tauhadvis~\pt for the RNN-based identification]{Background
+    rejection of the 1-prong medium and loose working points in bins of
+    \tauhadvis~\pt for the BDT- and RNN-based identification.}
 \end{minipage}
 
 \vfill
@@ -632,9 +669,10 @@ are summarised.
     \includegraphics{./figures/rnn/combined/rnn_loose_3p.pdf}
     \subcaption{medium}
   \end{subfigure}
-  \caption{Background rejection at the loose working point as a function of the
-    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
-    RNN-based identification.}
+  \caption[Background rejection for the 3-prong medium and loose working points
+  in bins of \tauhadvis~\pt for the RNN-based identification]{Background
+    rejection of the 3-prong medium and loose working points in bins of
+    \tauhadvis~\pt for the BDT- and RNN-based identification.}
 \end{minipage}
 
 \clearpage
@@ -668,7 +706,9 @@ are summarised.
     \includegraphics{./figures/decay_mode_classification/mode_proba_baseline_ptcut_1_5/proba_3pXn.pdf}
   \end{subfigure}%
 
-  \caption{Multi-class probabilities for the Baseline RNN}
+  \caption[Mode probability estimates of the RNN-based decay mode classification
+  with the baseline model]{Mode probability estimates of the baseline model for
+    a given true decay mode.}
   \label{fig:rnn_multiclass_proba_baseline}
 \end{minipage}
 
@@ -700,7 +740,9 @@ are summarised.
     \includegraphics{./figures/decay_mode_classification/combined_proba/proba_3pXn.pdf}
   \end{subfigure}%
 
-  \caption{Multi-class probabilities for the Combined RNN}
+  \caption[Mode probability estimates of the RNN-based decay mode classification
+  with the extended model]{Mode probability estimates of the extended model for
+    a given true decay mode.}
   \label{fig:rnn_multiclass_proba_combined}
 \end{minipage}
 
@@ -779,10 +821,11 @@ classification setups described in Section~\ref{sec:add_info}.
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat_use_ntracks.pdf}
     \subcaption{Extended model with track constraint}
   \end{subfigure}
-  \caption{Migration matrix for the extended model including conversion, shot
-    and additional cluster information. The model is constrained by setting
-    estimated mode probabilities to zero for modes not consistent with the
-    number of reconstructed tracks.}
+  \caption[Migration matrix of the extended model requiring consistency with the
+  number of reconstructed tracks]{Migration matrix for the extended model
+    including conversion, shot and additional cluster information. The model is
+    constrained by setting estimated mode probabilities to zero for modes not
+    consistent with the number of reconstructed tracks.}
 \end{minipage}
 
 \subsection{Classification Performance after Medium Tau Identification}
@@ -798,8 +841,9 @@ classification setups described in Section~\ref{sec:add_info}.
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat_med_id.pdf}
   \end{subfigure}
-  \caption{Migration and purity matrices for the extended model after applying
-    medium tau identification (BDT-based).}
+  \caption[Migration and purity matrices for the extended model after medium tau
+  identification]{Migration and purity matrices for the extended model after
+    applying medium tau identification (BDT-based).}
   \label{fig:decay_mode_combined_med_id}
 \end{minipage}
 
@@ -807,30 +851,35 @@ classification setups described in Section~\ref{sec:add_info}.
 \subsection{Classification Performance at High Transverse Momenta}
 \label{sec:combined_high_pt_migration}
 
-\begin{figure}[htb]
-    \begin{subfigure}{0.48\textwidth}
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/mig_mat_pt_less_100.pdf}
-    \subcaption{Migration matrix. $p_\text{T} < \SI{100}{\giga\electronvolt}$}
+    \subcaption{$p_\text{T} < \SI{100}{\giga\electronvolt}$}
   \end{subfigure}\hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/comp_mat_pt_less_100.pdf}
-    \subcaption{Purity matrix. $p_\text{T} < \SI{100}{\giga\electronvolt}$}
+    \subcaption{$p_\text{T} < \SI{100}{\giga\electronvolt}$}
   \end{subfigure}
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/mig_mat_pt_geq_100.pdf}
-    \subcaption{Migration matrix. $p_\text{T} > \SI{100}{\giga\electronvolt}$}
+    \subcaption{$p_\text{T} > \SI{100}{\giga\electronvolt}$}
   \end{subfigure}\hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/highpt/comp_mat_geq_100.pdf}
-    \subcaption{Purity matrix. $p_\text{T} > \SI{100}{\giga\electronvolt}$}
+    \subcaption{$p_\text{T} > \SI{100}{\giga\electronvolt}$}
   \end{subfigure}
-  \caption{highpt}
+  \caption[Migration and purity matrices of the extended model trained over the
+  full transverse momentum range]{Migration and purity matrices of the extended
+    model trained over the full transverse momentum range. The matrices are
+    shown in different transverse momentum regions.}
   \label{fig:highpt_matrices}
-\end{figure}
+\end{minipage}
 
 %%% Local Variables:
 %%% mode: latex
