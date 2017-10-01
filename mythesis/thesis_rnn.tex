@@ -113,8 +113,8 @@ used for the remainder of Run 2, it was observed that \emph{isolation} tracks
 offer discriminative power against \tauhadvis candidates from quark- and
 gluon-initiated jets. However, migrations between the \emph{isolation} track and
 \emph{fake} track categories lead to the necessity to decouple tau
-identification from the \emph{isolation} and \emph{fake} tracks by introducing
-the \emph{modified isolation} category (cf.\
+identification from \emph{isolation} and \emph{fake} tracks by introducing the
+\emph{modified isolation} category (cf.\
 Section~\ref{sec:reco_track_sel_classif}). This lead to an average rejection
 loss of the order of \SI{20}{\percent} for the 1-prong identification, while the
 3-prong identification was not significantly affected. Therefore, the aim is to
@@ -263,13 +263,14 @@ in~$p_\text{T}^\text{track}$.
   \label{fig:rnn_ntracks}
 \end{figure}
 
-A comparison of the ROC-curves for the BDT- and RNN-based tau identification is
-depicted in Figure~\ref{fig:track_rnn_roc_ratios}. Both the 1- and 3-prong
-Track--RNN show performances similar to the optimised BDTs, despite using only
-tracking information and~$p_\text{T}^\text{jet}$. The 1-prong Track--RNN shows a
-small improvement in rejection of \num{10} to \SI{20}{\percent} over the BDT
-depending on the signal efficiency. In contrast to this the 3-prong RNN cannot
-exceed the performance of the optimised BDT, only capturing \num{80} to
+A comparison of the ROC-curves for the BDT-based identification using track,
+vertex and calorimeter information, and the RNN-based identification using
+tracks is depicted in Figure~\ref{fig:track_rnn_roc_ratios}. Both the 1- and
+3-prong Track--RNN show performances similar to the optimised BDT, despite using
+only tracking information and~$p_\text{T}^\text{jet}$. The 1-prong Track--RNN
+shows a small improvement in rejection of \num{10} to \SI{20}{\percent} over the
+BDT depending on the signal efficiency. In contrast to this the 3-prong RNN
+cannot exceed the performance of the optimised BDT, only capturing \num{80} to
 \SI{90}{\percent} of rejection. These results indicate that the available
 information in tracks is not fully exploited in the current BDT-based
 identification.
