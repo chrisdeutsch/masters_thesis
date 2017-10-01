@@ -183,7 +183,7 @@ are connected by one or more intermediate hidden layers.
   \begin{minipage}[t]{0.4\textwidth}
     \centering
     \includegraphics{./figures/theory/activation_functions.pdf}
-    \captionof{figure}[Commonly used activation functions]{Commonly used activation
+    \captionof{figure}[Activation functions]{Commonly used activation
       functions: logistic function (red), hyperbolic tangent (blue) and
       rectified linear unit (green).}
     \label{fig:activation_functions}
@@ -377,12 +377,12 @@ time~$t$ is shown.
 \begin{figure}[htb]
   \centering
   \includegraphics{./figures/theory/LSTM.pdf}
-  \caption[LSTM-cell unfolded in time]{LSTM-cell unfolded in time at a fixed
-    time step~$t$. Nodes with~$\times$ ($+$) multiply (add) their inputs
-    element-wise, while ones containing a sigmoid shape apply a nonlinear
-    activation function. The dependency of the gate vectors $\mathbf{i}_t$,
-    $\mathbf{o}_t$ and $\mathbf{f}_t$ on input~$\mathbf{x}_t$ and
-    output~$\mathbf{y}_{t-1}$ is omitted.}
+  \caption[LSTM-cell]{LSTM-cell unfolded in time at a fixed time step~$t$. Nodes
+    with~$\times$ ($+$) multiply (add) their inputs element-wise, while ones
+    containing a sigmoid shape apply a nonlinear activation function. The
+    dependency of the gate vectors $\mathbf{i}_t$, $\mathbf{o}_t$ and
+    $\mathbf{f}_t$ on input~$\mathbf{x}_t$ and output~$\mathbf{y}_{t-1}$ is
+    omitted.}
   \label{fig:schematic_lstm}
 \end{figure}
 The LSTM represents a differentiable memory cell with three gates called the
