@@ -24,25 +24,26 @@ The tau lepton is an important part of the physics programme at the LHC. Its
 large mass makes it an effective probe of the fermionic coupling of the Higgs
 boson. Moreover, an enhanced tau lepton production is predicted in several
 theories of physics beyond the Standard Model (BSM). Therefore, the tau lepton
-is essential to constrain the parameter space of BSM models. While leptonic
-decays of the tau lepton into electrons or muons offer a clean signature in the
-detector, the largest fraction of tau decays produces hadrons forming collimated
-jets of particles. Jets originating from quarks and gluons, which are more
-abundant than tau leptons due to the large multijet production cross section at
-the LHC, can fake hadronic tau decays. Therefore, the ATLAS experiment uses a
-dedicated identification algorithm~\cite{atlas:taurec:run1, atlas:taurec:run2}
+is essential to find new physics or to constrain the parameter space of BSM
+models. While leptonic decays of the tau lepton into electrons or muons offer a
+clean signature in the detector, the largest fraction of tau decays produces
+hadrons forming collimated jets of particles. Jets originating from quarks and
+gluons, which are more abundant than tau leptons due to the large jet production
+at the LHC, can mimic hadronic tau decays. Therefore, the ATLAS experiment uses
+a dedicated identification algorithm~\cite{atlas:taurec:run1, atlas:taurec:run2}
 based on multivariate methods utilising track and shower shape variables to
 discriminate hadronically decaying taus from jets. A well-performing
 identification algorithm is crucial to reduce backgrounds for numerous analyses
-involving hadronic tau decays. A future measurement of a potential pseudoscalar
-admixture in the Higgs boson via spin correlations in $h \to \tau\tau$
-decays~\cite{desch_higgs_cp, harnik, Berge2014} requires selecting hadronic
-decay modes of the tau lepton with high purity. In the ATLAS experiment an
-algorithm to reconstruct the substructure of hadronic tau decays is employed,
-which allows to classify the decay mode and improve the mass reconstruction of
-ditau resonances~\cite{atlas:taurec:decaymodes}. The pure selection of the
-hadronic decay channels of the tau needed for this measurement, requires an
-accurate decay mode classification algorithm.
+involving hadronic tau decays. A particularly interesting future prospect is the
+measurement of a potential pseudoscalar admixture in the Higgs boson via spin
+correlations in $h \to \tau\tau$ decays~\cite{desch_higgs_cp, harnik,
+  Berge2014}, which requires selecting hadronic decay modes of the tau lepton
+with high purity. In the ATLAS experiment an algorithm to reconstruct the
+substructure of hadronic tau decays is employed~\cite{atlas:taurec:decaymodes},
+which gives access to individual charged and neutral pions, thus allowing to
+classify the tau decay mode. The pure selection of the hadronic decay channels
+of the tau needed for this measurement, requires an accurate decay mode
+classification algorithm.
 
 This thesis is concerned with the optimisation of the tau identification and
 decay mode classification algorithms used in the ATLAS experiment for Run 2 of
@@ -69,12 +70,6 @@ Chapter~\ref{sec:bdt}, while the novel method based on recurrent neural networks
 is presented in Chapter~\ref{sec:rnn}. Finally, the method is applied to the
 decay mode classification in Chapter~\ref{sec:decaymode}. The thesis is
 concluded in Chapter~\ref{sec:conclusion}.
-
-\todo[inline]{Short captions}
-
-\todo[inline]{Cleanup appendix}
-
-\todo[inline]{In comparative ROC curves: make BDT dashed and RNN same color}
 
 \todo[inline]{Desch interested in pile-up dependence of RNN}
 
