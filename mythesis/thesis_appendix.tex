@@ -1,8 +1,16 @@
 %------------------------------------------------------------------------------
 \chapter{Auxiliary Information}
 \label{sec:app}
-%------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------
 
+This chapter summarises the event samples used to train and evaluate the models
+and auxiliary figures, which are not included in the main part of this thesis.
+In Section~\ref{app:samples} the event samples are summarised.
+Section~\ref{app:tauid} presents auxiliary figures for the studies of
+Chapter~\ref{sec:bdt}. In Section~\ref{app:rnn} additional information on the
+RNN-based tau identification from Chapter~\ref{sec:rnn} is given. Finally, in
+Section~\ref{app:decay_mode} additional material on the RNN-based decay mode
+classification from Chapter~\ref{sec:decaymode} is presented.
 
 \section{Event Samples}
 \label{app:samples}
@@ -135,6 +143,7 @@ are summarised.
 
 \clearpage
 \section{Tau Identification using Boosted Decision Trees}
+\label{app:tauid}
 \subsection{Discriminating Variables}
 \label{app:tauid_vars}
 
@@ -385,6 +394,71 @@ are summarised.
 \end{minipage}
 
 \FloatBarrier
+\subsection{Comparison of BDT A and BDT B}
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_1p/rejection_tight.pdf}
+    \subcaption{1-prong (tight)}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
+    \subcaption{3-prong (tight)}
+  \end{subfigure}
+  \caption{Working points (BDT A).}
+\end{minipage}
+
+\FloatBarrier
+\subsection{Recursive Feature Elimination}
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \centering
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/1p_iter1.pdf}
+    \subcaption{Iteration 1}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.33\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/1p_iter2.pdf}
+    \subcaption{Iteration 2}
+  \end{subfigure}
+  \caption{Variable importance (1-prong). Averaged rejection loss over a
+    gamma-tautau like dijet spectrum. Tight working point.}
+  \label{fig:variable_importance_1p_app}
+\end{minipage}
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \centering
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/3p_iter1.pdf}
+    \subcaption{Iteration 1}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/3p_iter2.pdf}
+    \subcaption{Iteration 2}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.32\textwidth}
+    \centering
+    \includegraphics{./figures/bdt_perf/var_importance/3p_iter3.pdf}
+    \subcaption{Iteration 3}
+  \end{subfigure}
+
+  \caption{Variable importance (3-prong). Averaged rejection loss over a
+    gamma-tautau like dijet spectrum. Tight working point.}
+  \label{fig:variable_importance_3p_app}
+\end{minipage}
+
+\FloatBarrier
 \subsection{Tau Identification Performance Depending on the Initiating Parton}
 \label{app:bdt_parton}
 
@@ -407,7 +481,7 @@ are summarised.
     depending on the parton that initiated the jet.}
 \end{minipage}
 
-\FloatBarrier
+\clearpage
 \subsection{Medium and Loose Working Points of the Optimised BDT}
 \label{app:bdt_working_point_rejection}
 \noindent
@@ -428,7 +502,6 @@ are summarised.
     rejection of the 1-prong medium and loose working points in bins of
     \tauhadvis~\pt.}
 \end{minipage}
-
 
 \noindent
 \begin{minipage}{\textwidth}
@@ -465,13 +538,10 @@ are summarised.
   \caption{1-prong high-pt}
 \end{minipage}
 
-\begin{figure}[htb]
+\noindent
+\begin{minipage}{\textwidth}
   \centering
-  % \begin{subfigure}{0.48\textwidth}
-  %   \centering
-  %   \includegraphics{./figures/bdt_perf/post_optimisation/3p_highpt/rejection_tight_ratio_highpt.pdf}
-  %   \subcaption{tight}
-  % \end{subfigure}\hfill
+  \captionsetup{type=figure}
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/bdt_perf/post_optimisation/3p_highpt/rejection_medium_ratio_highpt.pdf}
@@ -483,70 +553,100 @@ are summarised.
     \subcaption{loose}
   \end{subfigure}
   \caption{3-prong high-pt}
-\end{figure}
+\end{minipage}
 
 
-
-
-
-
-
-
-
-
-
-\FloatBarrier
+\clearpage
 \section{Tau Identification using Recurrent Neural Networks}
+\label{app:rnn}
 
-\FloatBarrier
-\section{Decay Mode Classification using Recurrent Neural Networks}
+\subsection{Number of Tracks and Clusters Associated with 3-prong Tau
+  Candidates}
 
-\begin{figure}[htpb]
-  \centering
-  \includegraphics{./figures/rnn/ntrk_3p.pdf}
-  \caption{Number of tracks for 3-prong taus}
-  \label{fig:total_tracks_3p}
-\end{figure}
-
-\begin{figure}[htpb]
-  \centering
-  \includegraphics{./figures/rnn/ncls_3p.pdf}
-  \caption{Number of clusters for 3-prong taus}
-  \label{fig:total_clusters_3p}
-\end{figure}
-
-\clearpage
-
-\clearpage
-
-\clearpage
-
-
-\clearpage
-\section{BDT Stuff}
-
-\begin{figure}[ht]
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_1p/rejection_tight.pdf}
-    \subcaption{1-prong (tight)}
+    \includegraphics{./figures/rnn/ntrk_3p.pdf}
+    \subcaption{Tracks}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/bdt_perf/rejection/post_gridsearch_3p/rejection_tight.pdf}
-    \subcaption{3-prong (tight)}
+    \includegraphics{./figures/rnn/ncls_3p.pdf}
+    \subcaption{Clusters}
   \end{subfigure}
-  \caption{Working points (BDT A) \mytodo{Larger pt range in appendix}.
-    \mytodo{Ratio is bootstrapped due to highly correlated errors}}
-\end{figure}
+  \caption{Number of tracks and clusters associated with 3-prong \tauhadvis
+    candidates.}
+\end{minipage}
 
+\subsection{Correlation of Estimated Signal Probability and Distance of Tracks
+  to the Jet Axis}
+\label{app:corr_dr}
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \centering
+  \includegraphics{./figures/rnn/track/dR_corr.pdf}
+  \caption{Linear correlation coefficient between the track distance~$\Delta R$
+    to the jet axis and the signal probability~$p_\text{RNN}$ estimated by the
+    model from Section~\ref{sec:rnn_tracks}. The coefficient is determined on
+    the testing sample combining signal and background candidates with equal
+    total weight.}
+\end{minipage}
+
+\subsection{Combined RNN Working Points}
+\label{app:rnn_wp}
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/rnn_medium_1p.pdf}
+    \subcaption{loose}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/rnn_loose_1p.pdf}
+    \subcaption{medium}
+  \end{subfigure}
+  \caption{Background rejection at the medium working point as a function of the
+    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
+    RNN-based identification.}
+\end{minipage}
+
+\vfill
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/rnn_medium_3p.pdf}
+    \subcaption{loose}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/rnn/combined/rnn_loose_3p.pdf}
+    \subcaption{medium}
+  \end{subfigure}
+  \caption{Background rejection at the loose working point as a function of the
+    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
+    RNN-based identification.}
+\end{minipage}
 
 \clearpage
 \section{Decay Mode Classification using Recurrent Neural Networks}
-\subsection{Baseline Probabilities}
+\label{app:decay_mode}
+
+\subsection{Estimated Mode Probabilities: Baseline Model}
 \label{app:baseline_probabilities}
 
-\begin{figure}[!ht]
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/mode_proba_baseline_ptcut_1_5/proba_1p0n.pdf}
@@ -570,13 +670,15 @@ are summarised.
 
   \caption{Multi-class probabilities for the Baseline RNN}
   \label{fig:rnn_multiclass_proba_baseline}
-\end{figure}
+\end{minipage}
 
 \clearpage
-\subsection{Combined Probabilities}
+\subsection{Estimated Mode Probabilities: Extended Model}
 \label{app:combined_probabilities}
 
-\begin{figure}[!ht]
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_proba/proba_1p0n.pdf}
@@ -600,238 +702,109 @@ are summarised.
 
   \caption{Multi-class probabilities for the Combined RNN}
   \label{fig:rnn_multiclass_proba_combined}
-\end{figure}
-
-
-\clearpage
-\section{BDT: Recursive Feature Elimination}
-
-\begin{figure}[htb]
-  \centering
-  \begin{subfigure}[t]{0.33\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/var_importance/1p_iter1.pdf}
-    \subcaption{Iteration 1}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.33\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/var_importance/1p_iter2.pdf}
-    \subcaption{Iteration 2}
-  \end{subfigure}
-  \caption{Variable importance (1-prong). Averaged rejection loss over a
-    gamma-tautau like dijet spectrum. Tight working point.}
-  \label{fig:variable_importance_1p_app}
-\end{figure}
-
-\begin{figure}[htb]
-  \centering
-  \begin{subfigure}[t]{0.32\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/var_importance/3p_iter1.pdf}
-    \subcaption{Iteration 1}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.32\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/var_importance/3p_iter2.pdf}
-    \subcaption{Iteration 2}
-  \end{subfigure}
-  \begin{subfigure}[t]{0.32\textwidth}
-    \centering
-    \includegraphics{./figures/bdt_perf/var_importance/3p_iter3.pdf}
-    \subcaption{Iteration 3}
-  \end{subfigure}
-
-  \caption{Variable importance (3-prong). Averaged rejection loss over a
-    gamma-tautau like dijet spectrum. Tight working point.}
-  \label{fig:variable_importance_3p_app}
-\end{figure}
+\end{minipage}
 
 \clearpage
-
-
-\clearpage
-
-\todo[inline]{Due to the longer decay chain of B-hadrons, the number of
-  particles and angular spread is larger for a b-jet than a light-quark jet.}
-
-\clearpage
-\section{Correlation of RNN-Score and Distance to Jet Axis}
-\label{app:corr_dr}
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics{./figures/rnn/track/dR_corr.pdf}
-  \caption{ABC}
-\end{figure}
-
-\clearpage
-\section{Combined RNN Working Points}
-\label{app:rnn_wp}
-
-\begin{figure}[htb]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/combined/rnn_medium_1p.pdf}
-    \subcaption{1-prong}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/combined/rnn_medium_3p.pdf}
-    \subcaption{3-prong}
-  \end{subfigure}
-  \caption{Background rejection at the medium working point as a function of the
-    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
-    RNN-based identification.}
-\end{figure}
-
-\begin{figure}[htb]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/combined/rnn_loose_1p.pdf}
-    \subcaption{1-prong}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/combined/rnn_loose_3p.pdf}
-    \subcaption{3-prong}
-  \end{subfigure}
-  \caption{Background rejection at the loose working point as a function of the
-    reconstructed tau $p_\text{T}$ at tau energy scale for the BDT- and
-    RNN-based identification.}
-\end{figure}
-
-\clearpage
-\section{Loosened Working Points}
-\label{app:loosened_wp}
-
-\begin{figure}[htb]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/combined/rnn_loosened_tight_1p.pdf}
-    \subcaption{1-prong}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/rnn/combined/rnn_loosened_tight_3p.pdf}
-    \subcaption{3-prong}
-  \end{subfigure}
-  \caption{Loosened Working Points}
-\end{figure}
-
-\clearpage
-\section{Decay Mode Classification Experiments}
+\subsection{Migration and Purity Matrices when Including Additional Information}
 \label{sec:app_decay_mode_exp}
-\begin{figure}[htb]
+
+This section summarises the migration and purity matrices of the different
+classification setups described in Section~\ref{sec:add_info}.
+
+\vfill
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/experiments/mig_mat_conversions.pdf}
-    \subcaption{Migration matrix}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/experiments/comp_mat_conversions.pdf}
-    \subcaption{Composition matrix}
   \end{subfigure}
-  \caption{Conversion tracks}
-\end{figure}
+  \caption{Migration and purity matrices of the baseline model extended with
+    conversion tracks.}
+\end{minipage}
 
-\begin{figure}[htb]
+\vfill
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/experiments/mig_mat_shots.pdf}
-    \subcaption{Migration matrix}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/experiments/comp_mat_shots.pdf}
-    \subcaption{Composition matrix}
   \end{subfigure}
-  \caption{Shots}
-\end{figure}
+  \caption{Migration and purity matrices of the baseline model extended with
+    shots.}
+\end{minipage}
 
-\begin{figure}[htb]
+\vfill
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/experiments/mig_mat_moments.pdf}
-    \subcaption{Migration matrix}
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/experiments/comp_mat_moments.pdf}
-    \subcaption{Composition matrix}
   \end{subfigure}
-  \caption{Add.\ cluster moments}
-\end{figure}
-
-\begin{figure}[htb]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/experiments/mig_mat_hadronic_pfos.pdf}
-    \subcaption{Migration matrix}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/experiments/comp_mat_hadronic_pfos.pdf}
-    \subcaption{Composition matrix}
-  \end{subfigure}
-  \caption{Hadronic PFOs}
-\end{figure}
-
-\begin{figure}[htb]
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/experiments/mig_mat_sub_e_2.pdf}
-    \subcaption{Migration matrix}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/experiments/comp_mat_sub_e_2.pdf}
-    \subcaption{Composition matrix}
-  \end{subfigure}
-  \caption{$p_\text{T}$-fraction}
-\end{figure}
+  \caption{Migration and purity matrices of the baseline model extended with
+    additional neutral PFO cluster properties.}
+\end{minipage}
 
 \clearpage
-\section{Combined After Tau-ID}
-
-\begin{figure}[htbp]
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat_med_id.pdf}
-    \subcaption{Migration matrix}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.48\textwidth}
-    \centering
-    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat_med_id.pdf}
-    \subcaption{ Purity matrix}
-  \end{subfigure}
-  \caption{Combined with medium tau id}
-  \label{fig:decay_mode_combined_med_id}
-\end{figure}
-
-\clearpage
-\section{Track-Constrained Decay Mode Classification}
+\subsection{Requiring Consistency with the Number of Reconstructed Tracks}
 \label{app:mode_classification_track_constraint}
 
-\begin{figure}[htbp]
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat.pdf}
-    \subcaption{Extended model without track constraint.}
+    \subcaption{Extended model without track constraint}
   \end{subfigure}\hfill
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat_use_ntracks.pdf}
-    \subcaption{Extended model with track constraint.}
+    \subcaption{Extended model with track constraint}
   \end{subfigure}
   \caption{Migration matrix for the extended model including conversion, shot
     and additional cluster information. The model is constrained by setting
     estimated mode probabilities to zero for modes not consistent with the
     number of reconstructed tracks.}
-\end{figure}
+\end{minipage}
+
+\subsection{Classification Performance after Medium Tau Identification}
+
+\noindent
+\begin{minipage}{\textwidth}
+  \captionsetup{type=figure}
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/mig_mat_med_id.pdf}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics{./figures/decay_mode_classification/combined_sub_e_moments_shots_conv_ptcut_1_5/comp_mat_med_id.pdf}
+  \end{subfigure}
+  \caption{Migration and purity matrices for the extended model after applying
+    medium tau identification (BDT-based).}
+  \label{fig:decay_mode_combined_med_id}
+\end{minipage}
 
 \clearpage
-\section{High-$p_\text{T}$}
+\subsection{Classification Performance at High Transverse Momenta}
 \label{sec:combined_high_pt_migration}
 
 \begin{figure}[htb]
