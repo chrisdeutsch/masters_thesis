@@ -57,9 +57,9 @@ variables. Classification with BDTs return a score measuring the confidence of
 the binary decision. This allows a trade-off between signal efficiency and
 background rejection by choosing different decision thresholds. In the ATLAS
 experiment these thresholds are derived in bins of the reconstructed visible
-transverse momentum~$p_\text{T}$ of the \tauhadvis at tau energy scale and the
-average number of interactions per bunch crossing~$\mu$ such that the signal
-efficiency is constant in different momentum and pile-up regimes.
+transverse momentum~$p_\text{T}$ of the \tauhadvis and the average number of
+interactions per bunch crossing~$\mu$ such that the signal efficiency is
+constant in different momentum and pile-up regimes.
 
 \subsection{Discriminating Variables}
 \label{sec:bdt_features}
@@ -199,9 +199,9 @@ TMVA~\cite{tmva}. The initial configuration uses decision trees limited to a
 maximum depth~$d_\text{tree} = 8$. The minimum fraction of training events in a
 node considered for further splitting
 is~$f_\text{node}^\text{min} = \SI{0.1}{\percent}$. An ensemble
-of~$N_\text{trees} = 100$ decision trees is trained using the \emph{AdaBoost}
-boosting algorithm with a learning rate~$\beta = 0.2$. Individual decision trees
-return estimated class probabilities instead of the majority class and no
+of~$N_\text{trees} = 100$ decision trees is trained using the AdaBoost boosting
+algorithm with a learning rate~$\beta = 0.2$. Individual decision trees return
+estimated class probabilities instead of the majority class and no
 \emph{pruning} of statistically insignificant nodes is applied. This
 configuration is used as a starting point for further optimisations. The full
 configuration of the TMVA-BDTs used in this thesis are summarised in
@@ -267,7 +267,7 @@ reconstructed transverse momentum.
   \end{subfigure}\hfill
   \begin{subfigure}[t]{0.48\textwidth}
     \centering
-    \includegraphics{./figures/bdt_perf/pt_mu_samples/pt.pdf}
+    \includegraphics{./figures/bdt_perf/pt_mu_samples/pt_fixed.pdf}
     \subcaption{Transverse momentum distribution of \tauhadvis at tau energy
       scale after preselection.}
   \end{subfigure}
@@ -314,11 +314,11 @@ sections are evaluated using the testing sample.
 \subsection{Boosting Algorithm}
 \label{sec:bdt_boosting}
 
-In Chapter~\ref{sec:ml_boosting} the two boosting algorithms \emph{AdaBoost} and
-\emph{Gradient Boosting} are introduced. The performance of both algorithms for
-tau identification is compared by training BDTs and varying a boosting-specific
-parameter called the learning rate. The learning rate for \emph{AdaBoost} is
-typically denoted by~$\beta$, while for gradient boosting it is called the
+In Chapter~\ref{sec:ml_boosting} the two boosting algorithms AdaBoost and
+Gradient Boosting are introduced. The performance of both algorithms for tau
+identification is compared by training BDTs and varying a boosting-specific
+parameter called the learning rate. The learning rate for AdaBoost is typically
+denoted by~$\beta$, while for gradient boosting it is called the
 shrinkage~$\eta$. Reducing the learning rate artificially slows down the
 boosting process by decreasing the influence of additional trees on the
 ensemble. Empirically it has been found that small learning rates often lead to
@@ -327,9 +327,9 @@ improvements in test error~\cite{esl}.
 The 1-prong tau identification BDT with the input variables and configuration as
 summarised in Section~\ref{sec:bdt_tauid} is trained on signal and background
 \tauhadvis candidates. The learning rates for both boosting algorithms are
-varied between 0.05 and 1.00 in steps of 0.05. At each setting the background
+varied between 0.05 and 1.00 in steps of 0.05. For each setting the background
 rejection is calculated at a fixed signal efficiency of~\SI{60}{\percent}. For
-this a single cut on the output score of the BDT is determined such
+this, a single cut on the output score of the BDT is determined such
 that~\SI{60}{\percent} of \tauhadvis candidates in the signal sample pass this
 selection. This is an approximation of the tight working point of the tau
 identification used in the ATLAS experiment. The working points will be formally
@@ -337,19 +337,18 @@ introduced at a later point.
 
 In Figure~\ref{fig:bdt_boosting_alg} the rejection is shown as a function of the
 learning rate for both algorithms. An improvement in rejection of approximately
-\SI{10}{\percent} is observed when using \emph{Gradient Boosting}. The likely
-reason for this improvement is the more robust loss function (binomial
-log-likelihood loss) used in the \emph{Gradient Boosting} implementation of
-TMVA~\cite{tmva}. The loss functions are depicted in
-Figure~\ref{fig:boosting_loss} showing that the \emph{Gradient Boosting}
-implementation puts less emphasis on misclassified events ($y f(x) < 0$)
-compared to the exponential loss of \emph{AdaBoost}. This makes \emph{Gradient
-  Boosting} a more robust choice for problems where signal and background are
+\SI{10}{\percent} is observed when using Gradient Boosting. The likely reason
+for this improvement is the more robust loss function (binomial log-likelihood
+loss) used in the Gradient Boosting implementation of TMVA~\cite{tmva}. The loss
+functions are depicted in Figure~\ref{fig:boosting_loss} showing that the
+Gradient Boosting implementation puts less emphasis on misclassified events
+($y f(x) < 0$) compared to the exponential loss of AdaBoost. This makes Gradient
+Boosting a more robust choice for problems where signal and background are
 inseparable in certain regions of the input variable space. For tau
 identification this can be the case for jets initiated by light quarks, which
 more closely resemble hadronic decays of tau leptons. A similar improvement is
-observed for the 3-prong identification, therefore \emph{Gradient Boosting} will
-be used for further optimisation steps.
+observed for the 3-prong identification, therefore Gradient Boosting will be
+used for further optimisation steps.
 
 \begin{figure}[htb]
   \centering
@@ -369,7 +368,7 @@ be used for further optimisation steps.
     \label{fig:boosting_loss}
   \end{subfigure}
   \caption[Optimisation of the boosting algorithm]{Optimisation of the boosting
-    algorithm used for tau identification.}
+    algorithm used for tau identification with BDTs.}
 \end{figure}
 
 \subsection{Grid Search in Hyperparameter Space}
@@ -377,12 +376,12 @@ be used for further optimisation steps.
 
 Aside from the boosting algorithm, BDTs have other important hyperparameters
 that need to be optimised to obtain the best possible performance. These are the
-number of trees, $N_\text{trees}$, in the ensemble and the learning rate,
-$\eta$. Both parameters are boosting-specific and related as small learning
-rates require a large number of trees to converge and vice versa. Additionally,
-the maximum tree depth, $d_\text{tree}$, and the fraction of events required for
-node splitting, $f_\text{node}^\text{min}$, are important parameters related to
-the decision trees in the ensemble. Both parameters limit the depth of trees and
+number of trees in the ensemble~$N_\text{trees}$ and the learning rate~$\eta$.
+Both parameters are boosting-specific and related as small learning rates
+require a large number of trees to converge and vice versa. Additionally, the
+maximum tree depth~$d_\text{tree}$ and the fraction of events required for node
+splitting~$f_\text{node}^\text{min}$ are important parameters related to the
+decision trees in the ensemble. Both parameters limit the depth of trees and
 therefore the allowed order of variable interactions (e.g.\ $d_\text{tree} = 2$
 allows interactions of up to two variables). The final parameter that is
 investigated is \emph{bagged boosting} where each tree is grown using a random
@@ -569,8 +568,8 @@ efficiencies results in similar configurations.
 
 For the use of tau identification in analyses, four working points with fixed
 signal efficiencies are defined as shown in Table~\ref{tab:wp_eff}. Due to the
-abundance of 3-track \tauhadvis candidates originating from multijet events, a
-tighter selection is applied in the 3-prong tau identification.
+abundance of 3-track \tauhadvis candidates originating from jets, a tighter
+selection is applied in the 3-prong tau identification.
 
 \begin{table}[htb]
   \centering
@@ -664,7 +663,7 @@ Variables that are strongly affected by this are~$R_\text{track}$ and
 $\Delta R_\text{max}$. At large transverse momenta \emph{charged} tracks tend to
 be closer to the tau axis for both signal and background candidates, thus
 reducing the separation in these variables. Similarly, the central energy
-fraction, $f_\text{cent}$, of background candidates increases at high transverse
+fraction~$f_\text{cent}$ of background candidates increases at high transverse
 momentum making them more tau-like. In contrast, the variables based on
 invariant masses, $m_\text{track}$ and~$m_\text{EM+track}$, show a larger
 separation at high transverse momenta. This is because the mass of signal
@@ -798,7 +797,10 @@ The set of variables and their importance after removing weak variables is
 summarised in Figure~\ref{fig:variable_importance_final}. The change in input
 variables alters the importance ranking slightly, especially affecting variables
 that are correlated with variables that were removed (e.g.\
-\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$}).
+\smash{$p_\text{T}^\text{EM+track} / p_\text{T}$}). The variable importance
+rankings show only a weak dependence on the working point used to evaluate the
+rejection, mostly affecting the ranking of variables with less discriminative
+power.
 
 \begin{figure}[htb]
   \centering
@@ -812,7 +814,7 @@ that are correlated with variables that were removed (e.g.\
     \centering
     \includegraphics{./figures/bdt_perf/var_importance/3p_iter3.pdf}
     \subcaption{3-prong BDT at the medium working point with
-      \SI{60}{\percent}~signal efficiency).}
+      \SI{60}{\percent}~signal efficiency.}
   \end{subfigure}
   \caption[Variable importance ranking for the 1- and 3-prong BDT after removing
   weak variables]{Variable importance in the 1- and 3-prong BDTs after removing
@@ -881,9 +883,9 @@ loose and medium working points show smaller improvements at high transverse
 momenta. Due to the large rejection of the 3-prong identification, the tight
 working point shows improvements of small significance at high transverse
 momenta. However, the loose working point shows relative improvements of
-\num{50} to more than \SI{100}{\percent} above \SI{200}{\GeV}. For completeness
-the rejection over the extended momentum range of the loose and medium working
-points is also summarised in Appendix~\ref{app:bdt_working_point_rejection}.
+\num{50} to more than \SI{100}{\percent} above \SI{200}{\GeV}. The rejection
+over the extended momentum range of the loose and medium working points is also
+summarised in Appendix~\ref{app:bdt_working_point_rejection}.
 
 \begin{figure}[htbp]
   \centering
