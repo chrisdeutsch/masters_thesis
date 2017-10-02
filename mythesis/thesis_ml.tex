@@ -212,13 +212,13 @@ underlying task. For binary classification the logistic function
 is applied to a single output neuron~$x$ giving the probability of an event
 being of the positive class (e.g.\ signal). For multi-class classification the
 number of output neurons is chosen to equal the number of classes to be
-distinguished and the softmax function \cite{esl, bishop}
+distinguished and the Softmax function \cite{esl, bishop}
 \begin{align*}
   \varphi_i(\mathbf{x}) = \frac{e^{x_i}}{\sum_j e^{x_j}}
 \end{align*}
 is chosen as the activation function, where~$\varphi_i(\mathbf{x})$ is the
 activation of the $i$-th neuron and $x_i$ its value before activation. The
-softmax function ensures that the sum of all activations in a layer equals to
+Softmax function ensures that the sum of all activations in a layer equals to
 one, such that they can be interpreted as class probabilities. Activation
 functions that are commonly used for the intermediate layers are depicted in
 Figure~\ref{fig:activation_functions}.
@@ -236,7 +236,7 @@ it is defined as \cite{esl, bishop}
   L\left(k, \mathbf{p}(\mathbf{x}) \right) = - \log\left( p_k(\mathbf{x}) \right) \eqcomma
 \end{align*}
 where~$\mathbf{p}(\mathbf{x}) = \mathbf{y}(\mathbf{x})$ is the probabilistic
-interpretation of the model with class probabilities~$p_k$ after softmax
+interpretation of the model with class probabilities~$p_k$ after Softmax
 activation and discriminating variables~$\mathbf{x}$. For binary classification
 it is sufficient to give the predicted probability~$p$ for the positive class
 such that the binary cross-entropy can be written as

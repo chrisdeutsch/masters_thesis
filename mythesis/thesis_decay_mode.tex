@@ -72,19 +72,19 @@ of the charged hadron is estimated by~\cite{atlas:taurec:decaymodes}
 \end{align*}
 where \smash{$E_{h^\pm}^{\text{track}}$} is the energy of the charged PFO
 measured in the tracking system and \smash{$E_{h^\pm}^{\text{HAD}}$} the energy
-it deposited in the hadronic part of the calorimeter \todo{see ben's
-  correction}. \smash{$E_{h^\pm}^{\text{HAD}}$} is calculated by matching
-clustered energy deposits in the HCAL to the closest track of a charged PFO. The
-contribution of the charged hadron in the EM
-calorimeter~\smash{$E_{h^\pm}^{\text{EM}}$} is subtracted from the closest
-neutral PFO cluster if the angular distance between cluster and extrapolated
-track is smaller than~$\Delta R < 0.04$. Neutral PFOs can often be reconstructed
-from an incomplete subtraction of the charged hadron energy deposition in the EM
-calorimeter or by pile-up. For decay mode classification it is necessary to
-identify the neutral pions in the reconstructed neutral PFOs of the tau decay.
-The identification exploits the difference in shower shape of hadronic showers
-from charged hadrons and compact showers from photons of the $\pi^0$-decay using
-multivariate methods~\cite{atlas:taurec:decaymodes}.
+it deposited in the hadronic part of the calorimeter.
+\smash{$E_{h^\pm}^{\text{HAD}}$} is calculated by matching clustered energy
+deposits in the HCAL to the closest track of a charged PFO. The contribution of
+the charged hadron in the EM calorimeter~\smash{$E_{h^\pm}^{\text{EM}}$} is
+subtracted from the closest neutral PFO cluster if the angular distance between
+cluster and extrapolated track is smaller than~$\Delta R < 0.04$. Neutral PFOs
+can often be reconstructed from an incomplete subtraction of the charged hadron
+energy deposition in the EM calorimeter or by pile-up. For decay mode
+classification it is necessary to identify the neutral pions in the
+reconstructed neutral PFOs of the tau decay. The identification exploits the
+difference in shower shape of hadronic showers from charged hadrons and compact
+showers from photons of the $\pi^0$-decay using multivariate
+methods~\cite{atlas:taurec:decaymodes}.
 
 The number of identified neutral pions can be used for a preliminary
 classification of the decay mode. The following sections are concerned with
@@ -220,13 +220,13 @@ variables~\smash{$S_\text{BDT}^{\pi^0}$} and
 remaining kinematic variables, i.e.\ angular direction of the tau axis and
 angular deviation of the PFOs are scaled into the~$[-1, 1]$-interval.
 
-Charged and neutral PFOs are passed in ascending transverse momentum ordering
-\todo{why this ordering} to shared dense layers with 24 units each. A maximum of
-three charged PFOs each corresponding to a \emph{charged} track and up to ten
-neutral PFOs are used. The intermediate representations after the shared dense
-layers are passed to the LSTM layers, each returning a vector of 24 activations.
-The activations of both branches are merged and passed through a network of
-three dense layers with 48, 32 and 5 units, respectively.
+Charged and neutral PFOs are passed in ascending transverse momentum ordering to
+shared dense layers with 24 units each. A maximum of three charged PFOs each
+corresponding to a \emph{charged} track and up to ten neutral PFOs are used. The
+intermediate representations after the shared dense layers are passed to the
+LSTM layers, each returning a vector of 24 activations. The activations of both
+branches are merged and passed through a network of three dense layers with 48,
+32 and 5 units, respectively.
 
 For a given reconstructed tau decay the model returns a probability for each of
 the five decay modes. The decay mode is classified as the mode with the largest
@@ -662,7 +662,7 @@ efficiency at transverse momenta below \SI{100}{\GeV} is \SI{81.4}{\percent} and
 unaffected by the training on the extended momentum range, while at higher
 momenta it amounts to \SI{77.6}{\percent}. The extended momentum range could be
 beneficial to analyses with high-momentum taus that also employ decay mode
-information. \todo{Explain what happens at large transverse momenta}
+information.
 
 \begin{figure}[htb]
   \begin{subfigure}{0.48\textwidth}
