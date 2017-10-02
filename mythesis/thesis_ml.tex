@@ -4,8 +4,8 @@
 
 Machine learning is the study of algorithms that learn structure from data
 (called training data) and can subsequently be used to make predictions on
-unseen data. Examples for such algorithms are Boosted Decision Trees and Neural
-Networks which are able to model nonlinear problems without the need to supply
+unseen data. Examples for such algorithms are boosted decision trees and neural
+networks, which are able to model nonlinear problems without the need to supply
 an explicitly derived rule-set or functional form. They often offer superior
 performance compared to linear models or simple cut-based approaches at the cost
 of interpretability. Machine learning techniques are widely used in particle
@@ -19,10 +19,10 @@ the dependent variable or class is available during training. This domain
 includes regression for modelling a continuous response and classification for
 assigning class labels (e.g.\ signal or background) to an example with
 associated input variables. This chapter gives an overview of the classification
-techniques used in this thesis starting with a brief description of Boosted
-Decision Trees that are used in Chapter~\ref{sec:bdt} for rejection of tau
+techniques used in this thesis starting with a brief description of boosted
+decision trees that are used in Chapter~\ref{sec:bdt} for rejection of tau
 candidates originating from quark- and gluon-initiated jets. A comprehensive
-summary on Recurrent Neural Networks, that are used for tau identification in
+summary on recurrent neural networks, that are used for tau identification in
 Chapter~\ref{sec:rnn} and decay mode classification in
 Chapter~\ref{sec:decaymode}, is given. The chapter is concluded with an overview
 of the software frameworks used in this thesis.
@@ -30,7 +30,7 @@ of the software frameworks used in this thesis.
 \section{Boosted Decision Trees}
 \label{sec:bdt_ml}
 
-Boosted Decision Trees consist of an ensemble of decision trees that is created
+Boosted decision trees consist of an ensemble of decision trees that is created
 by a meta-algorithm called Boosting. In Section~\ref{sec:ml_decision_trees} the
 decision tree algorithm is presented. A brief overview of Boosting algorithms is
 given in Section~\ref{sec:ml_boosting}. The description focuses on binary
@@ -104,7 +104,7 @@ build ensembles of a base learner, aiming to improve the overall predictive
 power compared to a single model. The ensembles can be viewed as an additive
 expansion in a set of basis functions given by the base learner \cite{esl}.
 Boosting is commonly used in conjunction with decision trees giving rise to so
-called Boosted Decision Trees.
+called boosted decision trees.
 
 Adaptive Boosting (AdaBoost) is a boosting algorithm that forms a weighted sum
 of a base classifier, where each classifier is trained on data that is
@@ -264,7 +264,7 @@ examples fixed. Each layer in the computational graph making up the network has
 a well-defined derivative such that by repeatedly applying the chain rule for
 partial derivatives the gradient $\nabla_{\bm{\theta}} \mathcal{L}(\bm{\theta})$
 can be calculated symbolically. This procedure is generally known as error
-backpropagation~\cite{bishop, lecun-backprop}. Knowing the gradient of the loss
+backpropagation~\cite{bishop, lecun-backprop}. Knowing the gradient of the loss,
 an iterative optimisation method called mini-batch stochastic\footnote{The
   gradient of the loss on the full training sample is approximated by the
   gradient on a mini-batch.} gradient descent is employed. Initially the weights
@@ -303,18 +303,6 @@ the following description as they can be absorbed into the weight matrices.
 
 \subsubsection{Simple Recurrent Networks}
 \label{sec:simple_recurrent_networks}
-\begin{figure}[htb]
-  \centering
-  \includegraphics{./figures/theory/elman_rnn.pdf}
-  \caption[\textsc{Elman} network]{\textsc{Elman} network in compact form with
-    a recurrent connection and after unfolding the network in time. The black
-    square indicates a delay of one time step. Applications of nonlinear
-    activation functions are omitted. Adapted from
-    Ref.~\cite{lecun_bengio_hinton_DL}.}
-  \label{fig:schematic_elman_rnn}
-  %\footnote{Nomenclature originates from RNNs being used to predict quantities as a function of time.}
-\end{figure}
-
 Recurrent neural networks are able to map a sequence of input variables to a
 sequence of outputs. Both sequences can contain an arbitrary number of objects.
 An example of a Simple Recurrent Network is the \textsc{Elman}
@@ -343,6 +331,18 @@ in a predefined direction, only the past information can influence the output at
 a specific time step, making the order of the input sequence important. An
 architecture allowing the context (past and future) to influence the output at a
 given time~$t$ are so called bidirectional RNNs.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics{./figures/theory/elman_rnn.pdf}
+  \caption[\textsc{Elman} network]{\textsc{Elman} network in compact form with
+    a recurrent connection and after unfolding the network in time. The black
+    square indicates a delay of one time step. Applications of nonlinear
+    activation functions are omitted. Adapted from
+    Ref.~\cite{lecun_bengio_hinton_DL}.}
+  \label{fig:schematic_elman_rnn}
+  %\footnote{Nomenclature originates from RNNs being used to predict quantities as a function of time.}
+\end{figure}
 
 The evaluation of the gradient for the training process follows the same
 principles used for feedforward neural networks but now also considering that
@@ -444,17 +444,17 @@ offers implementations of commonly used layers (i.e.\ the rules to compute the
 forward pass as well as the symbolic derivatives for backpropagation), loss
 functions and optimisers. Moreover, it takes care of the necessary bookkeeping
 when building neural networks. The \textsc{theano} backend~\cite{theano} is used
-in \textsc{keras} performing fast computation of mathematical expressions for
+in \textsc{keras}, performing fast computation of mathematical expressions for
 training and evaluation of the networks. For the preprocessing of the data, the
 \textsc{numpy} \cite{numpy} and \textsc{scipy} \cite{scipy} packages are used.
-The training of the neural networks uses the \textsc{Adam} optimiser~\cite{adam}
-which is a stochastic gradient descent algorithm with adaptive learning rates
-offering quick convergence with little parameter tuning. The layers used in this
-thesis are (\textsc{keras} naming convention): \texttt{Dense} for
-densely-connected layers; \texttt{LSTM}; \texttt{Merge} for concatenating
-outputs from multiple layers and \texttt{Masking} to skip time steps in
-recurrent networks with a predefined default value. The Dense and LSTM layers
-use biases which were previously omitted.
+The training of the neural networks uses the \textsc{Adam}
+optimiser~\cite{adam}, which is a stochastic gradient descent algorithm with
+adaptive learning rates offering quick convergence with little parameter tuning.
+The layers used in this thesis are (\textsc{keras} naming convention):
+\texttt{Dense} for densely-connected layers; \texttt{LSTM}; \texttt{Merge} for
+concatenating outputs from multiple layers and \texttt{Masking} to skip time
+steps in recurrent networks with a predefined default value. The \texttt{Dense}
+and \texttt{LSTM} layers in this thesis always use biases.
 
 %%% Local Variables:
 %%% mode: latex
