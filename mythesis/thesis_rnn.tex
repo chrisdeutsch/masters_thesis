@@ -94,7 +94,7 @@ The approaches to tau identification used thus far, use high-level variables
 that summarise properties of reconstructed objects in the detector. This has the
 advantage that identification can be more easily understood and investigations
 into systematic errors are simplified. However, discriminative power can be lost
-when transitioning from low- to high-level variables. Therefore an approach is
+when transitioning from low- to high-level variables. Therefore, an approach is
 presented capturing low-level information by employing sequence classification
 techniques. A general description of the method is given and subsequently
 applied to reconstructed tracks and clusters in the calorimeter.
@@ -132,8 +132,8 @@ transverse momentum. Moreover, the elements can also be assigned global
 information about the \tauhadvis candidate like its visible transverse momentum.
 The sequence of tracks is sorted according to a well-defined and physically
 motivated ordering scheme. For the RNN using track information a
-descending~$p_\text{T}^\text{track}$ ordering is used. \todo{Why this ordering?}
-In practice the maximum sequence length is limited by truncation.
+descending~$p_\text{T}^\text{track}$ ordering is used. In practice the maximum
+sequence length is limited by truncation.
 
 \begin{figure}[htb]
   \centering
@@ -233,14 +233,13 @@ In Figure~\ref{fig:ntracks_tau} the number of tracks associated to a given
 \tauhadvis candidate is depicted. The number of associated tracks can be large,
 especially for background candidates. For practical purposes, the sequence of
 tracks is truncated to reduce the memory footprint as well as training and
-evaluation time of the network \todo{modelling?}. As the tracks are sorted using
-a descending $p_\text{T}^\text{track}$-ordering, truncation will only discard
-low momentum tracks. Figure~\ref{fig:ntracks_loss} shows the validation loss for
-different numbers of tracks used in the model. The first six tracks show a
-significant decrease in validation loss, therefore improving the discriminative
-power of the model. Hardly any further improvement is observed after ten tracks.
-Therefore, the model only uses the ten leading tracks
-in~$p_\text{T}^\text{track}$.
+evaluation time of the network. As the tracks are sorted using a descending
+$p_\text{T}^\text{track}$-ordering, truncation will only discard low momentum
+tracks. Figure~\ref{fig:ntracks_loss} shows the validation loss for different
+numbers of tracks used in the model. The first six tracks show a significant
+decrease in validation loss, therefore improving the discriminative power of the
+model. Hardly any further improvement is observed after ten tracks. Therefore,
+the model only uses the ten leading tracks in~$p_\text{T}^\text{track}$.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -269,7 +268,7 @@ tracks is depicted in Figure~\ref{fig:track_rnn_roc_ratios}. Both the 1- and
 3-prong Track--RNN show performances similar to the optimised BDT, despite using
 only tracking information and~$p_\text{T}^\text{jet}$. The 1-prong Track--RNN
 shows a small improvement in rejection of \num{10} to \SI{20}{\percent} over the
-BDT depending on the signal efficiency. In contrast to this the 3-prong RNN
+BDT depending on the signal efficiency. In contrast to this, the 3-prong RNN
 cannot exceed the performance of the optimised BDT, only capturing \num{80} to
 \SI{90}{\percent} of rejection. These results indicate that the available
 information in tracks is not fully exploited in the current BDT-based
@@ -554,8 +553,8 @@ level~\cite{phase_2_scoping} limits the maximum rate of the ditau trigger.
 Achieving this rate requires $p_\text{T}$-thresholds on leading and subleading
 \tauhadvis as well as application of the ditau identification. The thresholds
 should be kept low to ensure high signal acceptance for physics analyses. For
-the purposes of this study a fixed cut on the identification score \todo{plot
-  with cut?} is used to identify ditau events.
+the purposes of this study a fixed cut on the identification score is used to
+identify ditau events.
 
 Due to the large dijet production cross section, it is assumed that the dijet
 events in the simulated sample correspond to a trigger rate equal to the average
@@ -566,12 +565,11 @@ ditau identification. The target rate can be achieved with an offline
 $p_\text{T}$-threshold of \SI{25}{\GeV} on both \tauhadvis candidates. As a
 comparison, the primary ditau triggers used for the 2016 $pp$ data taking period
 used thresholds of \SI{35}{\GeV} and \SI{25}{\GeV}~\cite{tautrigger_run2}.
-Figure~\ref{fig:ditau_trigger_eff} \todo{rather plot subleading?} shows the
-efficiency of the identification using the specified thresholds with respect to
-events containing truth-matched \tauhadvis pairs. The ditau efficiency starts to
-plateau at true visible transverse momenta
-of~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading \tauhadvis with an
-efficiency of approximately~\SI{90}{\percent}.
+Figure~\ref{fig:ditau_trigger_eff} shows the efficiency of the identification
+using the specified thresholds with respect to events containing truth-matched
+\tauhadvis pairs. The ditau efficiency starts to plateau at true visible
+transverse momenta of~$p_\text{T}^\text{true} > \SI{40}{\GeV}$ of the leading
+\tauhadvis with an efficiency of approximately~\SI{90}{\percent}.
 
 \begin{figure}[htb]
   \centering
@@ -649,7 +647,7 @@ approximately \SI{50}{\percent} for 3-prong candidates. The contribution of
 cluster information to the rejection is small, with an improvement of
 approximately \SI{10}{\percent} in background rejection. Omitting the cluster
 branch would allow to simplify the model significantly without incurring a large
-loss in discriminative power. \todo{Write sth.\ about Track+Cluster}
+loss in discriminative power.
 
 \begin{figure}[htb]
   \begin{subfigure}[t]{0.48\textwidth}
@@ -714,7 +712,7 @@ exceeds the BDT-based identification. Analogously, the signal efficiency of the
 \SI{50}{\percent}. A comparison is shown in Figure~\ref{fig:loosened_wp}.
 
 Analyses requiring two \tauhadvis with tight identification in the reconstructed
-final state, e.g.\ measurements in the~\mbox{$H \to \tauhad \tauhad$} channel,
+final state, e.g.\ measurements in the~\mbox{$h \to \tauhad \tauhad$} channel,
 can benefit from introducing working points with increased signal efficiency.
 Assuming the identification scores of the \tauhadvis in the final state are
 uncorrelated, a 1-prong working point with \SI{70}{\percent} signal efficiency
@@ -761,24 +759,6 @@ identification. They show a promising performance over the tau identification
 strategy currently employed in the ATLAS experiment. Thus far the results are
 based on simulated data and still require validation and performance
 measurements using collision data taken with the detector.
-
-\todo[inline]{Whats with Track-RNN + Cluster-RNN? Definitely should have that --
-  see if we can skip on the high-level info.}
-
-\todo[inline]{Have at least an exemplary RNN score in the appendix.}
-
-\todo[inline]{Missing hits for taus decaying after pixel layers. Questionable
-  modelling of impact parameters. Also number of hits is directly used. Should
-  not affect low momentum taus. $p_\text{T} = \SI{200}{\GeV}$ taus -- less than
-  \SI{5}{\percent} decay after the IBL.}
-
-\todo[inline]{Pile-up dependency of RNN vs BDT-ID}
-
-\todo[inline]{Regained lost rejection from modified isolation category.}
-
-\todo[inline]{Some standard plots: Efficiency vs pt vs eta vs mu (same with rejection?)}
-
-\todo[inline]{High pt rejection in appendix}
 
 %%% Local Variables:
 %%% mode: latex
